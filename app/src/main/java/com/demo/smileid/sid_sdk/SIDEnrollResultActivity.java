@@ -2,6 +2,7 @@ package com.demo.smileid.sid_sdk;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -9,15 +10,13 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import androidx.constraintlayout.widget.ConstraintLayout;
 import com.demo.smileid.sid_sdk.geoloc.SIDGeoInfos;
 import com.demo.smileid.sid_sdk.sidNet.IdTypeUtil;
 import com.demo.smileid.sid_sdk.sidNet.InternetStateBroadCastReceiver;
@@ -36,14 +35,12 @@ import com.smileidentity.libsmileid.model.PartnerParams;
 import com.smileidentity.libsmileid.model.SIDMetadata;
 import com.smileidentity.libsmileid.model.SIDNetData;
 import com.smileidentity.libsmileid.model.SIDUserIdInfo;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
-
 import static com.demo.smileid.sid_sdk.SIDStringExtras.SHARED_PREF_JOB_ID;
 import static com.demo.smileid.sid_sdk.SIDStringExtras.SHARED_PREF_USER_ID;
 
@@ -51,51 +48,46 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
         SIDNetworkRequest.OnErrorListener,
         SIDNetworkRequest.OnUpdateListener,
         SIDNetworkRequest.OnEnrolledListener,
-        InternetStateBroadCastReceiver.OnConnectionReceivedListener,
-        View.OnClickListener {
+        InternetStateBroadCastReceiver.OnConnectionReceivedListener {
 
-    SIDNetworkRequest mSINetworkrequest;
-    TextView mResultTv;
-    Switch mAutoUpload;
-    ProgressBar mLoadingProg;
-    private TextView mConfidenceValueTv;
-    private Button mUploadNowBtn, skipIdInfoBtn, setIdInfoBtn;
-    private boolean mHasId = false, mHasNoIdCard;
-    private boolean reenrollUser = false;
-    private boolean mMultipleEnroll, mContinueWithIdInfo;
-    private int enrollType;
-    private SharedPreferences sharedPreferences;
+    SIDNetworkRequest mSINetworkRequest;
+    private TextView mTvResult, mTvConfidenceValue, mTvUploadNow;
+    private Switch mAutoUpload;
+    private ProgressBar mLoadingProg;
+    private boolean mHasId = false, mHasNoIdCard, mReEnrollUser = false, mMultipleEnroll, mContinueWithIdInfo;
+    private int mEnrollType;
+    private SharedPreferences mSharedPreferences;
     private InternetStateBroadCastReceiver mInternetStateBR;
     private SIDConfig mConfig;
-    private CountryCodePicker ccp;
-    private LinearLayout mLayoutNoCard, mMultipleEnrolActions;
-    private Spinner sIdType;
-    private TextInputLayout tiIdNumber, tiFirstName, tiLastName, tiDOB;
-    private String mSelectedCountryName = "", mSelectedIdCard;
-    private String mCurrentTag;
+    private CountryCodePicker mCcpCountry;
+    private ConstraintLayout mClLayoutNoCard, mClMultipleEnrolActions;
+    private Spinner mSIdType;
+    private TextInputLayout mTiIdNumber, mTiFirstName, mTiLastName, mTiDOB;
+    private String mSelectedCountryName = "", mSelectedIdCard, mCurrentTag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sid_activity_enroll_result);
-        mHasId = getIntent().getBooleanExtra(SIDStringExtras.EXTRA_HAS_ID, false);
-        mHasNoIdCard = getIntent().getBooleanExtra(SIDStringExtras.EXTRA_HAS_NO_ID_CARD, false);
-        reenrollUser = getIntent().getBooleanExtra(SIDStringExtras.EXTRA_REENROLL, false);
-        enrollType = getIntent().getIntExtra(SIDStringExtras.EXTRA_ENROLL_TYPE, -1);
-        mMultipleEnroll = getIntent().getBooleanExtra(SIDStringExtras.EXTRA_MULTIPLE_ENROLL, false);
-        mContinueWithIdInfo = getIntent().getBooleanExtra(SIDStringExtras.EXTRA_MULTIPLE_ENROLL_ADD_ID_INFO, false);
-        mCurrentTag = getIntent().getStringExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO);
 
-        mResultTv = findViewById(R.id.result_tv);
-        mLoadingProg = findViewById(R.id.loading_prog);
-        mConfidenceValueTv = findViewById(R.id.confidence_val_tv);
-        mUploadNowBtn = findViewById(R.id.sid_enroll_upload_now_btn);
+        Intent intent = new Intent();
+        mHasId = intent.getBooleanExtra(SIDStringExtras.EXTRA_HAS_ID, false);
+        mHasNoIdCard = intent.getBooleanExtra(SIDStringExtras.EXTRA_HAS_NO_ID_CARD, false);
+        mReEnrollUser = intent.getBooleanExtra(SIDStringExtras.EXTRA_REENROLL, false);
+        mEnrollType = intent.getIntExtra(SIDStringExtras.EXTRA_ENROLL_TYPE, -1);
+        mMultipleEnroll = intent.getBooleanExtra(SIDStringExtras.EXTRA_MULTIPLE_ENROLL, false);
+        mContinueWithIdInfo = intent.getBooleanExtra(SIDStringExtras.EXTRA_MULTIPLE_ENROLL_ADD_ID_INFO, false);
+        mCurrentTag = intent.getStringExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO);
 
-        mAutoUpload = findViewById(R.id.auto_upload_chk);
+        mTvResult = findViewById(R.id.tvResult);
+        mLoadingProg = findViewById(R.id.pbLoading);
+        mTvConfidenceValue = findViewById(R.id.tvConfidenceValue);
+        mAutoUpload = findViewById(R.id.sAutoUpload);
+        mTvUploadNow = findViewById(R.id.tvEnrollUploadNow);
 
         //SIDUserIDInfo testing
-        ccp = findViewById(R.id.dialog_country_code_picker);
-        ccp.setOnCountryChangeListener(new CountryCodePicker.OnCountryChangeListener() {
+        mCcpCountry = findViewById(R.id.ccpCountry);
+        mCcpCountry.setOnCountryChangeListener(new CountryCodePicker.OnCountryChangeListener() {
             @Override
             public void onCountrySelected() {
                 getSelectedCountryName();
@@ -103,42 +95,19 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
             }
         });
 
-        mLayoutNoCard = findViewById(R.id.layout_no_card);
-        mLayoutNoCard.setVisibility((mHasNoIdCard || mContinueWithIdInfo) ? View.VISIBLE : View.GONE);
+        mClLayoutNoCard = findViewById(R.id.clNoCardLayout);
+        mClLayoutNoCard.setVisibility((mHasNoIdCard || mContinueWithIdInfo) ? View.VISIBLE : View.GONE);
 
         if (mContinueWithIdInfo) {
             mAutoUpload.setVisibility(View.GONE);
-            mUploadNowBtn.setVisibility(View.GONE);
+            mTvUploadNow.setVisibility(View.GONE);
         }
 
-        mMultipleEnrolActions = findViewById(R.id.multiple_enrol_actions);
-        mMultipleEnrolActions.setVisibility((mMultipleEnroll) ? View.VISIBLE : View.GONE);
+        mClMultipleEnrolActions = findViewById(R.id.clMultipleEnrollActions);
+        mClMultipleEnrolActions.setVisibility((mMultipleEnroll) ? View.VISIBLE : View.GONE);
 
-        skipIdInfoBtn = findViewById(R.id.sid_skip_id_info);
-        setIdInfoBtn = findViewById(R.id.set_id_info_btn);
-        skipIdInfoBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mUseMultipleEnroll = true;
-                startSelfieCapture(true, false);
-                finish();
-            }
-        });
-        setIdInfoBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isIdInfoValid()) {
-                    mUseMultipleEnroll = true;
-                    saveUserIdInfo();
-                    startSelfieCapture(true, false);
-                    finish();
-                }
-            }
-        });
-
-
-        sIdType = findViewById(R.id.id_type_spin);
-        sIdType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        mSIdType = findViewById(R.id.spIdType);
+        mSIdType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 mSelectedIdCard = parent.getItemAtPosition(position).toString();
@@ -149,32 +118,49 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
 
             }
         });
-        tiIdNumber = findViewById(R.id.ti_id_number);
-        tiFirstName = findViewById(R.id.ti_first_name);
-        tiLastName = findViewById(R.id.ti_last_name);
-        tiDOB = findViewById(R.id.ti_d_o_b);
-        tiDOB.setOnClickListener(this);
-        tiDOB.getEditText().setOnClickListener(this);
+
+        mTiIdNumber = findViewById(R.id.tiIdNumber);
+        mTiFirstName = findViewById(R.id.tiFirstName);
+        mTiLastName = findViewById(R.id.tiLastName);
+        mTiDOB = findViewById(R.id.tiDOB);
 
         getSelectedCountryName();
         populateIdCard();
 
-
         mAutoUpload.setVisibility(mMultipleEnroll && !mContinueWithIdInfo ? View.VISIBLE : View.GONE);
-        sharedPreferences = getSharedPreferences(getPackageName(), Context.MODE_PRIVATE);
+        mSharedPreferences = getSharedPreferences(getPackageName(), Context.MODE_PRIVATE);
         mInternetStateBR = new InternetStateBroadCastReceiver();
         mInternetStateBR.setOnConnectionReceivedListener(this);
-        mUploadNowBtn.setOnClickListener(this);
-        mSINetworkrequest = new SIDNetworkRequest(this);
-        mSINetworkrequest.setOnCompleteListener(this);
-        mSINetworkrequest.set0nErrorListener(this);
-        mSINetworkrequest.setOnUpdateListener(this);
-        mSINetworkrequest.setOnEnrolledListener(this);
-        mSINetworkrequest.initialize();
+
+        mSINetworkRequest = new SIDNetworkRequest(this);
+        mSINetworkRequest.setOnCompleteListener(this);
+        mSINetworkRequest.set0nErrorListener(this);
+        mSINetworkRequest.setOnUpdateListener(this);
+        mSINetworkRequest.setOnEnrolledListener(this);
+        mSINetworkRequest.initialize();
+    }
+
+    public void skipIdInfo(View view) {
+        mUseMultipleEnroll = true;
+        startSelfieCapture(true, false);
+        finish();
+    }
+
+    public void setIdInfo(View view) {
+        if (isIdInfoValid()) {
+            mUseMultipleEnroll = true;
+            saveUserIdInfo();
+            startSelfieCapture(true, false);
+            finish();
+        }
+    }
+
+    public void uploadNow(View view) {
+        upload(mCurrentTag);
     }
 
     private String getSelectedCountryName() {
-        return mSelectedCountryName = ccp.getSelectedCountryName();
+        return mSelectedCountryName = mCcpCountry.getSelectedCountryName();
     }
 
     private void saveUserIdInfo() {
@@ -206,17 +192,15 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
     }
 
     private SIDMetadata setUserIdInfo(SIDMetadata metadata) {
-
         SIDUserIdInfo userIdInfo = metadata.getSidUserIdInfo();
         userIdInfo.setCountry(mSelectedCountryName);
-        userIdInfo.setFirstName(tiFirstName.getEditText().getText().toString());
-        userIdInfo.setLastName(tiLastName.getEditText().getText().toString());
-        userIdInfo.setIdNumber(tiIdNumber.getEditText().getText().toString());
+        userIdInfo.setFirstName(mTiFirstName.getEditText().getText().toString());
+        userIdInfo.setLastName(mTiLastName.getEditText().getText().toString());
+        userIdInfo.setIdNumber(mTiIdNumber.getEditText().getText().toString());
         userIdInfo.setIdType(mSelectedIdCard.replace(" ", "_"));
-        userIdInfo.additionalValue("dob", tiDOB.getEditText().getText().toString());
+        userIdInfo.additionalValue("dob", mTiDOB.getEditText().getText().toString());
         return metadata;
     }
-
 
     private void upload(String tag) {
         SIDMetadata metadata = new SIDMetadata();
@@ -225,32 +209,33 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
             if (!isIdInfoValid()) {
                 return;
             }
+
             setUserIdInfo(metadata);
-            mLayoutNoCard.setVisibility(View.GONE);
-
+            mClLayoutNoCard.setVisibility(View.GONE);
         }
-        SIDConfig sidConfig = createConfig(tag, metadata);
 
+        SIDConfig sidConfig = createConfig(tag, metadata);
 
         if (SIDNetworkingUtils.haveNetworkConnection(this)) {
             mLoadingProg.setVisibility(View.VISIBLE);
+
             if (mMultipleEnroll) {
-                mSINetworkrequest.submitAll(sidConfig);
+                mSINetworkRequest.submitAll(sidConfig);
             } else {
-                mSINetworkrequest.submit(sidConfig);
+                mSINetworkRequest.submit(sidConfig);
             }
         } else {
 
             //No internet connection so you can cache this job and
             // later use submitAll() to submit all offline jobs
 
-            SIDTagManager.getInstance(this).saveConfig(tag, sidConfig.getJobType(), sidConfig.getMode(), sidConfig.getGeoInformation(), sidConfig.getSIDMetadata(), sidConfig.isUseIdCard(), this);
-
+            SIDTagManager.getInstance(this).saveConfig(tag, sidConfig.getJobType(),
+                sidConfig.getMode(), sidConfig.getGeoInformation(), sidConfig.getSIDMetadata(),
+                    sidConfig.isUseIdCard(), this);
 
             Toast.makeText(this, "No internet connection", Toast.LENGTH_SHORT).show();
         }
     }
-
 
     private SIDConfig createConfig(String tag) {
         return createConfig(tag, null);
@@ -258,35 +243,31 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
 
     private SIDConfig createConfig(String tag, SIDMetadata metadata) {
         SIDNetData data = new SIDNetData(this, SIDNetData.Environment.TEST);
-        if (reenrollUser && !TextUtils.isEmpty(getSavedUserId())) {
+
+        if (mReEnrollUser && !TextUtils.isEmpty(getSavedUserId())) {
             //USe the PartnerParams object to set the user id of the user to be reernolled.
             // Should be declared before the configuration is submitted
             setPartnerParamsForReenroll(metadata);
         }
+
         GeoInfos infos = SIDGeoInfos.getInstance().getGeoInformation();
 
-        int jobType = mHasNoIdCard ? 1 : enrollType;
+        int jobType = mHasNoIdCard ? 1 : mEnrollType;
         boolean useIdCard = !mHasNoIdCard && mHasId;
         SIDConfig.Builder builder;
+
         if (metadata != null) {
             builder = new SIDConfig.Builder(this)
-                    .setRetryOnfailurePolicy(getRetryOnFailurePolicy())
-                    .setMode(SIDConfig.Mode.ENROLL)
-                    .setSmileIdNetData(data)
-                    .setGeoInformation(infos)
-                    .setSIDMetadata(metadata)
-                    .setJobType(jobType)
-                    .useIdCard(useIdCard);
-
+                .setRetryOnfailurePolicy(getRetryOnFailurePolicy()).setMode(SIDConfig.Mode.ENROLL)
+                    .setSmileIdNetData(data).setGeoInformation(infos).setSIDMetadata(metadata)
+                        .setJobType(jobType).useIdCard(useIdCard);
         } else {
             builder = new SIDConfig.Builder(this)
-                    .setRetryOnfailurePolicy(getRetryOnFailurePolicy())
-                    .setMode(SIDConfig.Mode.ENROLL)
-                    .setSmileIdNetData(data)
-                    .setGeoInformation(infos)
-                    .setJobType(jobType)
-                    .useIdCard(useIdCard);
+                .setRetryOnfailurePolicy(getRetryOnFailurePolicy()).setMode(SIDConfig.Mode.ENROLL)
+                    .setSmileIdNetData(data).setGeoInformation(infos).setJobType(jobType)
+                        .useIdCard(useIdCard);
         }
+
         mConfig = builder.build(mCurrentTag);
         return mConfig;
     }
@@ -309,18 +290,20 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
         Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
 
         if (mMultipleEnroll) {
-            mResultTv.setTextColor(Color.RED);
-            mResultTv.setText("TAG: " + e.getFailedTag() + "FAILED - remaining tags:" + mConfig.getIdleTags(this).size());
+            mTvResult.setTextColor(Color.RED);
+            mTvResult.setText("TAG: " + e.getFailedTag() + "FAILED - remaining tags:" + mConfig.getIdleTags(this).size());
         }
+
         e.printStackTrace();
     }
 
     @Override
     public void onUpdate(int progress) {
-        if (Color.BLACK != mResultTv.getCurrentTextColor()) {
-            mResultTv.setTextColor(Color.BLACK);
+        if (Color.BLACK != mTvResult.getCurrentTextColor()) {
+            mTvResult.setTextColor(Color.BLACK);
         }
-        mResultTv.setText("progress " + String.valueOf(progress) + " % ");
+
+        mTvResult.setText("progress " + String.valueOf(progress) + " % ");
     }
 
     @Override
@@ -338,13 +321,13 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
     @Override
     protected void onResume() {
         super.onResume();
-        mSINetworkrequest.registerListeners();
+        mSINetworkRequest.registerListeners();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        mSINetworkrequest.unregisterListeners();
+        mSINetworkRequest.unregisterListeners();
     }
 
     private void setPartnerParamsForReenroll(SIDMetadata metadata) {
@@ -398,17 +381,17 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
             stringBuilder.append(getString(R.string.demo_enrolled_confidence_value, response.getConfidenceValue()));
         }
 
-        mResultTv.setTextColor(color);
-        mResultTv.setText(message);
-        mConfidenceValueTv.setVisibility(TextUtils.isEmpty(stringBuilder) ? View.GONE : View.VISIBLE);
-        mConfidenceValueTv.setText(stringBuilder);
-        mUploadNowBtn.setVisibility(View.GONE);
+        mTvResult.setTextColor(color);
+        mTvResult.setText(message);
+        mTvConfidenceValue.setVisibility(TextUtils.isEmpty(stringBuilder) ? View.GONE : View.VISIBLE);
+        mTvConfidenceValue.setText(stringBuilder);
+        mTvUploadNow.setVisibility(View.GONE);
     }
 
     //Emulates partner data source.
     //The user id of the enrollee is to be saved for later use
     private void saveUserId(String userId, String jobId) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.putString(SHARED_PREF_USER_ID, userId);
         editor.putString(SHARED_PREF_JOB_ID, jobId);
         editor.apply();
@@ -416,35 +399,21 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
 
     //Retreive user id to be saved
     private String getSavedUserId() {
-        return sharedPreferences.getString(SHARED_PREF_USER_ID, "");
+        return mSharedPreferences.getString(SHARED_PREF_USER_ID, "");
     }
 
-    private void showDateDialog() {
+    public void showDateDialog(View view) {
         Calendar calendar = Calendar.getInstance();
+
         new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 Calendar selectedDate = Calendar.getInstance();
                 selectedDate.set(year, monthOfYear, dayOfMonth);
-
                 SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
-                tiDOB.getEditText().setText(fmt.format(selectedDate.getTime()));
+                mTiDOB.getEditText().setText(fmt.format(selectedDate.getTime()));
             }
 
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
-
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.sid_enroll_upload_now_btn:
-                upload(mCurrentTag);
-                break;
-            case R.id.ti_d_o_b:
-            case R.id.ti_et_d_o_b:
-                showDateDialog();
-                break;
-        }
     }
 
     @Override
@@ -457,7 +426,7 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
     private void initSpinner(List<String> idTypes) {
         ArrayAdapter dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, idTypes);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sIdType.setAdapter(dataAdapter);
+        mSIdType.setAdapter(dataAdapter);
     }
 
     private void populateIdCard() {

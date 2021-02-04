@@ -10,7 +10,7 @@
 
 
     <com.smileidentity.libsmileid.core.CameraSourcePreview
-        android:id="@+id/previewCamera"
+        android:id="@+id/cspCamera"
         android:layout_width="415dp"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
@@ -20,28 +20,28 @@
         app:progress_width="5dp" />
 
     <TextView
-        android:id="@+id/prompt_tv"
+        android:id="@+id/tvPromptReposition"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:text="@string/default_toast_face_in_oval"
+        android:text="@string/lbl_selfie_reposition"
         android:textColor="@android:color/black"
         android:textSize="20sp"
         android:visibility="visible" />
 
     <Button
-        android:id="@+id/capture_btn"
+        android:id="@+id/tvCapture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/prompt_tv"
+        android:layout_above="@+id/tvPromptReposition"
         android:layout_centerHorizontal="true"
         android:text="CAPTURE"
         android:visibility="gone"
         tools:visibility="visible" />
     <LinearLayout
-        android:id="@+id/multiple_selfie_container_ll"
+        android:id="@+id/llSelfieBtnContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -49,19 +49,19 @@
         tools:visibility="visible">
 
         <Button
-            android:id="@+id/take_another_selfie_btn"
+            android:id="@+id/tvRetakeSelfie"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Take Another Selfie" />
 
         <Button
-            android:id="@+id/continue_with_id_btn"
+            android:id="@+id/tvContinueWithId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Continue With Id" />
 
         <Button
-            android:id="@+id/continue_btn"
+            android:id="@+id/tvContinue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Continue" />s

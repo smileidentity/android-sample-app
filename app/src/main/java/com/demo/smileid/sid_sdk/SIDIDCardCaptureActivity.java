@@ -21,26 +21,24 @@ import com.smileidentity.libsmileid.core.CaptureIDCard;
 public class SIDIDCardCaptureActivity extends AppCompatActivity implements CaptureIDCard.IDCaptureCompleteListener,
         View.OnClickListener {
 
-    private TextView mLabelViewNo;
-    private TextView mLabelViewYes;
-    private TextView mCaptureInfoTv;
+    private TextView mLabelViewNo, mLabelViewYes, mCaptureInfoTv;
     private LinearLayout mViewPreviewIDCard;
     private FrameLayout mCameraFL;
     private SurfaceView mCameraPreview;
     private ImageView mImageViewIDCard;
+    private View mReadPromptTv;
     private CaptureIDCard mCaptureIDCard;
     private Button mBackBtn;
-    private boolean reenrollUser;
-    private int enrollType;
-    private View mReadPromptTv;
-    private boolean doOnce;
+    private boolean mReEnrollUser, mDoOnce;
+    private int mEnrollType;
     private String mCurrentTag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setFullScreen();
-        setContentView(R.layout.sid_activity_idcard_capture);
+        setContentView(R.layout.sid_activity_id_card_capture);
+
         mLabelViewNo = findViewById(R.id.viewNo);
         mLabelViewYes = findViewById(R.id.viewYes);
         mReadPromptTv = findViewById(R.id.read_prompt_tv);
@@ -53,16 +51,20 @@ public class SIDIDCardCaptureActivity extends AppCompatActivity implements Captu
         mBackBtn.setOnClickListener(this);
         mLabelViewNo.setOnClickListener(this);
         mLabelViewYes.setOnClickListener(this);
-        reenrollUser = getIntent().getBooleanExtra(SIDStringExtras.EXTRA_REENROLL, false);
-        enrollType = getIntent().getIntExtra(SIDStringExtras.EXTRA_ENROLL_TYPE, -1);
-        mCurrentTag = getIntent().getStringExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO);
+
+        Intent intent = getIntent();
+        mReEnrollUser = intent.getBooleanExtra(SIDStringExtras.EXTRA_REENROLL, false);
+        mEnrollType = intent.getIntExtra(SIDStringExtras.EXTRA_ENROLL_TYPE, -1);
+        mCurrentTag = intent.getStringExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO);
 
         mCaptureIDCard = new CaptureIDCard(this, mCurrentTag, mCameraPreview);
         mCaptureIDCard.setOnCompleteListener(this);
         mCaptureIDCard.extractProminentFaceFromID(true);
+
         LinearLayout.LayoutParams layoutParamsDrawing = new LinearLayout.
-                LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+            LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);
+
         addContentView(mCaptureIDCard.getDrawingView(), layoutParamsDrawing);
     }
 
@@ -93,13 +95,15 @@ public class SIDIDCardCaptureActivity extends AppCompatActivity implements Captu
             mImageViewIDCard.setImageBitmap(idCardBitmap);
             mReadPromptTv.setVisibility(View.VISIBLE);
         }
-        if (!doOnce) {
+
+        if (!mDoOnce) {
             if (!faceFound) {
                 mCaptureInfoTv.setText("No face found on id card! Please Try again");
                 initCardAnimation();
                 retakePicture();
             }
-            doOnce = true;
+
+            mDoOnce = true;
         }
     }
 
@@ -142,8 +146,8 @@ public class SIDIDCardCaptureActivity extends AppCompatActivity implements Captu
             case R.id.viewYes:
                 Intent intent = new Intent(this, SIDEnrollResultActivity.class);
                 intent.putExtra(SIDStringExtras.EXTRA_HAS_ID, true);
-                intent.putExtra(SIDStringExtras.EXTRA_REENROLL, reenrollUser);
-                intent.putExtra(SIDStringExtras.EXTRA_ENROLL_TYPE, enrollType);
+                intent.putExtra(SIDStringExtras.EXTRA_REENROLL, mReEnrollUser);
+                intent.putExtra(SIDStringExtras.EXTRA_ENROLL_TYPE, mEnrollType);
                 intent.putExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO, mCurrentTag);
                 startActivity(intent);
                 finish();

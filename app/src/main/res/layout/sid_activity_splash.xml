@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorGrey"
+    tools:context="com.demo.smileid.sid_sdk.SIDSplashActivity">
+
+    <ImageView
+        android:id="@+id/ivSelfieLogo"
+        style="@style/SplashSelfieLogo"
+        android:onClick="logoClicked" />
+
+    <TextView
+        style="@style/SplashSelfieLabel"
+        app:layout_constraintBottom_toTopOf="@id/ivSelfieLogo" />
+
+    <TextView
+        android:id="@+id/tvVersion"
+        style="@style/SplashSelfieVersion" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

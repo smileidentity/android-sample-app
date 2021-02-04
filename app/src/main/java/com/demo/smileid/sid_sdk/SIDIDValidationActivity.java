@@ -73,12 +73,12 @@ public class SIDIDValidationActivity extends AppCompatActivity implements View.O
         mIvPhoto = findViewById(R.id.iv_id_photo);
         layout_id_info = findViewById(R.id.layout_id_info);
         result_layout = findViewById(R.id.result_layout);
-        progressBar = findViewById(R.id.loading_prog);
+        progressBar = findViewById(R.id.pbLoading);
         btnRestart = findViewById(R.id.btnRestart);
         btnRestart.setOnClickListener(this);
 
 
-        mSpIdType = findViewById(R.id.id_type_spin);
+        mSpIdType = findViewById(R.id.spIdType);
         mSpIdType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -91,14 +91,14 @@ public class SIDIDValidationActivity extends AppCompatActivity implements View.O
             }
         });
         tiMiddleName = findViewById(R.id.ti_middle_name);
-        tiIdNumber = findViewById(R.id.ti_id_number);
-        tiFirstName = findViewById(R.id.ti_first_name);
-        tiLastName = findViewById(R.id.ti_last_name);
-        tiDOB = findViewById(R.id.ti_d_o_b);
+        tiIdNumber = findViewById(R.id.tiIdNumber);
+        tiFirstName = findViewById(R.id.tiFirstName);
+        tiLastName = findViewById(R.id.tiLastName);
+        tiDOB = findViewById(R.id.tiDOB);
         tiDOB.setOnClickListener(this);
         tiDOB.getEditText().setOnClickListener(this);
 
-        ccp = findViewById(R.id.dialog_country_code_picker);
+        ccp = findViewById(R.id.ccpCountry);
         ccp.setOnCountryChangeListener(new CountryCodePicker.OnCountryChangeListener() {
             @Override
             public void onCountrySelected() {
@@ -110,7 +110,7 @@ public class SIDIDValidationActivity extends AppCompatActivity implements View.O
         getSelectedCountryName();
         populateIdCard();
 
-        mUploadNowBtn = findViewById(R.id.sid_enroll_upload_now_btn);
+        mUploadNowBtn = findViewById(R.id.tvEnrollUploadNow);
         mUploadNowBtn.setOnClickListener(this);
 
         mSINetworkRequest = new SIDNetworkRequest(this);
@@ -192,7 +192,7 @@ public class SIDIDValidationActivity extends AppCompatActivity implements View.O
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.sid_enroll_upload_now_btn:
+            case R.id.tvEnrollUploadNow:
                 if (isIdInfoValid()) {
                     saveUserIdInfo();
                     upload();
@@ -204,8 +204,8 @@ public class SIDIDValidationActivity extends AppCompatActivity implements View.O
                 progressBar.setVisibility(View.GONE);
                 mUploadNowBtn.setVisibility(View.VISIBLE);
                 break;
-            case R.id.ti_d_o_b:
-            case R.id.ti_et_d_o_b:
+            case R.id.tiDOB:
+            case R.id.tietDOB:
                 showDateDialog();
                 break;
         }

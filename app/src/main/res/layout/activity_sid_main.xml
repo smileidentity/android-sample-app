@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorGrey"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="20dp">
+
+        <TextView
+            android:id="@+id/tvEnrollHeading"
+            style="@style/MainHeading"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/lbl_heading_enrollment" />
+
+        <TextView
+            android:id="@+id/tvEnroll"
+            style="@style/BtnAction"
+            android:onClick="enroll"
+            android:drawableLeft="@drawable/ic_enroll"
+            app:layout_constraintTop_toBottomOf="@id/tvEnrollHeading"
+            android:text="@string/lbl_enroll" />
+
+        <TextView
+            android:id="@+id/tvEnrollWithIdNo"
+            style="@style/BtnAction"
+            android:onClick="enrollWithIdNo"
+            android:drawableLeft="@drawable/ic_id_number"
+            app:layout_constraintTop_toBottomOf="@id/tvEnroll"
+            android:text="@string/lbl_enroll_with_id_number" />
+
+        <TextView
+            android:id="@+id/tvEnrollWithIdCard"
+            style="@style/BtnAction"
+            android:onClick="enrollWithIdCard"
+            android:drawableLeft="@drawable/ic_id_card"
+            app:layout_constraintTop_toBottomOf="@id/tvEnrollWithIdNo"
+            android:text="@string/lbl_enroll_with_id_card" />
+
+        <TextView
+            android:id="@+id/tvUpdateHeading"
+            style="@style/MainHeading"
+            app:layout_constraintTop_toBottomOf="@id/tvEnrollWithIdCard"
+            android:text="@string/lbl_heading_update" />
+
+        <TextView
+            android:id="@+id/tvReEnroll"
+            style="@style/BtnAction"
+            android:onClick="reEnroll"
+            android:drawableLeft="@drawable/ic_re_enroll"
+            app:layout_constraintTop_toBottomOf="@id/tvUpdateHeading"
+            android:text="@string/re_enroll_re_register_user" />
+
+        <TextView
+            android:id="@+id/tvReEnrollWithId"
+            style="@style/BtnAction"
+            android:onClick="reEnrollWithId"
+            android:drawableLeft="@drawable/ic_re_enroll_2"
+            app:layout_constraintTop_toBottomOf="@id/tvReEnroll"
+            android:text="@string/re_enroll_re_register_user_with_id" />
+
+        <TextView
+            android:id="@+id/tvUpdateEnrolledImage"
+            style="@style/BtnAction"
+            android:onClick="updateUseImage"
+            android:drawableLeft="@drawable/ic_update_image"
+            app:layout_constraintTop_toBottomOf="@id/tvReEnrollWithId"
+            android:text="@string/update_enrolled_register_image" />
+
+        <TextView
+            android:id="@+id/tvMultipleEnroll"
+            style="@style/BtnAction"
+            android:onClick="multipleEnroll"
+            android:drawableLeft="@drawable/ic_account_box"
+            app:layout_constraintTop_toBottomOf="@id/tvUpdateEnrolledImage"
+            android:text="@string/agent_mode_implementation_example" />
+
+        <TextView
+            android:id="@+id/tvAuthHeading"
+            style="@style/MainHeading"
+            app:layout_constraintTop_toBottomOf="@id/tvMultipleEnroll"
+            android:text="@string/lbl_heading_authenticate" />
+
+        <TextView
+            android:id="@+id/iv_validation"
+            style="@style/BtnAction"
+            android:onClick="validateId"
+            android:drawableLeft="@drawable/ic_id_validation"
+            app:layout_constraintTop_toBottomOf="@id/tvAuthHeading"
+            android:text="@string/id_validation" />
+
+        <TextView
+            android:id="@+id/auth_btn"
+            style="@style/BtnAction"
+            android:onClick="authenticate"
+            android:drawableLeft="@drawable/ic_auth"
+            app:layout_constraintTop_toBottomOf="@id/iv_validation"
+            android:text="@string/auth" />
+
+        <TextView
+            android:id="@+id/use_saved_data_btn"
+            style="@style/BtnAction"
+            android:onClick="authenticateWithSavedData"
+            android:drawableLeft="@drawable/ic_auth_with_saved_data"
+            app:layout_constraintTop_toBottomOf="@id/auth_btn"
+            android:text="@string/auth_using_saved_data" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

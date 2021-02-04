@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical">
-
 
     <LinearLayout
         android:id="@+id/layout_id_info"
@@ -23,7 +23,7 @@
             android:text="Country" />
 
         <com.hbb20.CountryCodePicker
-            android:id="@+id/dialog_country_code_picker"
+            android:id="@+id/ccpCountry"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:ccpDialog_textColor="@android:color/white"
@@ -39,7 +39,7 @@
             android:text="Type of Identification" />
 
         <Spinner
-            android:id="@+id/id_type_spin"
+            android:id="@+id/spIdType"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:ems="10"
@@ -47,7 +47,7 @@
             android:inputType="textPersonName" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/ti_id_number"
+            android:id="@+id/tiIdNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="ID Number">
@@ -58,7 +58,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/ti_first_name"
+            android:id="@+id/tiFirstName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="First Name">
@@ -80,7 +80,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/ti_last_name"
+            android:id="@+id/tiLastName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Last Name">
@@ -92,13 +92,13 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/ti_d_o_b"
+            android:id="@+id/tiDOB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Date Of Birth">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ti_et_d_o_b"
+                android:id="@+id/tietDOB"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true"
@@ -168,7 +168,7 @@
     </RelativeLayout>
 
     <ProgressBar
-        android:id="@+id/loading_prog"
+        android:id="@+id/pbLoading"
         style="?android:attr/progressBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -177,7 +177,7 @@
         tools:visibility="visible" />
 
     <Button
-        android:id="@+id/sid_enroll_upload_now_btn"
+        android:id="@+id/tvEnrollUploadNow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

@@ -5,19 +5,16 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.smileidentity.libsmileid.core.SmartCardView;
 import com.smileidentity.libsmileid.core.captureCallback.IDCardState;
-
 
 public class SIDIDCardActivity extends AppCompatActivity implements SmartCardView.SmartCardViewCallBack {
 
     private SmartCardView mSmartCardView;
-    private boolean reenrollUser;
-    private int enrollType;
     private String mCurrentTag;
+    private int mEnrollType;
+    private boolean mReEnrollUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +23,8 @@ public class SIDIDCardActivity extends AppCompatActivity implements SmartCardVie
         setContentView(R.layout.activity_id_card);
         mSmartCardView = findViewById(R.id.id_capture);
         mSmartCardView.setListener(this);
-        reenrollUser = getIntent().getBooleanExtra(SIDStringExtras.EXTRA_REENROLL, false);
-        enrollType = getIntent().getIntExtra(SIDStringExtras.EXTRA_ENROLL_TYPE, -1);
+        mReEnrollUser = getIntent().getBooleanExtra(SIDStringExtras.EXTRA_REENROLL, false);
+        mEnrollType = getIntent().getIntExtra(SIDStringExtras.EXTRA_ENROLL_TYPE, -1);
         mCurrentTag = getIntent().getStringExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO);
     }
 
@@ -66,8 +63,8 @@ public class SIDIDCardActivity extends AppCompatActivity implements SmartCardVie
     public void onSmartCardViewComplete(Bitmap idCardBitmap, boolean faceFound) {
         Intent intent = new Intent(this, SIDEnrollResultActivity.class);
         intent.putExtra(SIDStringExtras.EXTRA_HAS_ID, true);
-        intent.putExtra(SIDStringExtras.EXTRA_REENROLL, reenrollUser);
-        intent.putExtra(SIDStringExtras.EXTRA_ENROLL_TYPE, enrollType);
+        intent.putExtra(SIDStringExtras.EXTRA_REENROLL, mReEnrollUser);
+        intent.putExtra(SIDStringExtras.EXTRA_ENROLL_TYPE, mEnrollType);
         intent.putExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO, mCurrentTag);
         startActivity(intent);
         finish();

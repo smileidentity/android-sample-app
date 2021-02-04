@@ -1,6 +1,7 @@
 package com.demo.smileid.sid_sdk;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
@@ -28,8 +29,10 @@ import com.smileidentity.libsmileid.model.PartnerParams;
 import com.smileidentity.libsmileid.model.SIDMetadata;
 import com.smileidentity.libsmileid.model.SIDNetData;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.TimeUnit;
 
@@ -37,68 +40,74 @@ import static com.demo.smileid.sid_sdk.SIDStringExtras.EXTRA_TAG_PREFERENCES_AUT
 
 
 public class SIDAuthResultActivity extends AppCompatActivity implements SIDNetworkRequest.OnCompleteListener,
-        SIDNetworkRequest.OnUpdateListener,
-        SIDNetworkRequest.OnErrorListener,
-        SIDNetworkRequest.OnAuthenticatedListener, View.OnClickListener {
+    SIDNetworkRequest.OnUpdateListener, SIDNetworkRequest.OnErrorListener,
+        SIDNetworkRequest.OnAuthenticatedListener {
 
-    SIDNetworkRequest mSINetworkrequest;
-    TextView mResultTv;
-    ProgressBar mLoadingProg;
-    private TextView mConfidenceValueTv;
+    SIDNetworkRequest mSINetworkRequest;
+    ProgressBar mPbLoading;
+    private TextView mTvResult, mTvConfidenceValue;
     private Button mUploadNowBtn;
-    private boolean useOfflineAuth;
-    private boolean mUse258;
-    private int jobType = -1;
     //Provided userid and job id
-    private SharedPreferences sharedPreferences;
+    private SharedPreferences mSharedPreferences;
+    private Queue<String> mTagsQueue = new LinkedList<>();
     private String mCurrentTag;
-    private Queue<String> tagsQueue = new LinkedList<>();
+    private int mJobType = -1;
+    private boolean mUseOfflineAuth, mUse258;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sid_activity_auth_result);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        mUse258 = getIntent().getBooleanExtra(SIDStringExtras.EXTRA_USE_258, false);
-        jobType = getIntent().getIntExtra(SIDStringExtras.EXTRA_ENROLL_TYPE, -1);
-        mCurrentTag = getIntent().getStringExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO);
-        useOfflineAuth = getIntent().getBooleanExtra(SIDStringExtras.EXTRA_TAG_OFFLINE_AUTH, false);
-        sharedPreferences = getSharedPreferences(getPackageName(), Context.MODE_PRIVATE);
-        mResultTv = findViewById(R.id.result_tv);
-        mLoadingProg = findViewById(R.id.loading_prog);
-        mConfidenceValueTv = findViewById(R.id.confidence_val_tv);
-        mUploadNowBtn = findViewById(R.id.sid_auth_upload_now_btn);
-        if (useOfflineAuth) {
+
+        Intent intent = getIntent();
+        mUse258 = intent.getBooleanExtra(SIDStringExtras.EXTRA_USE_258, false);
+        mJobType = intent.getIntExtra(SIDStringExtras.EXTRA_ENROLL_TYPE, -1);
+        mCurrentTag = intent.getStringExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO);
+        mUseOfflineAuth = intent.getBooleanExtra(SIDStringExtras.EXTRA_TAG_OFFLINE_AUTH, false);
+
+        mSharedPreferences = getSharedPreferences(getPackageName(), Context.MODE_PRIVATE);
+        mTvResult = findViewById(R.id.tvResult);
+        mPbLoading = findViewById(R.id.pbLoading);
+        mTvConfidenceValue = findViewById(R.id.tvConfidenceValue);
+        mUploadNowBtn = findViewById(R.id.tvAuthUploadNow);
+
+        if (mUseOfflineAuth) {
             mUploadNowBtn.setText("Auth using saved data");
             getOfflineAuthTags();
         }
-        mUploadNowBtn.setOnClickListener(this);
     }
 
-
     private void createNetworkRequestManager() {
-        mSINetworkrequest = new SIDNetworkRequest(this);
-        mSINetworkrequest.setOnCompleteListener(this);
-        mSINetworkrequest.setOnUpdateListener(this);
-        mSINetworkrequest.setOnAuthenticatedListener(this);
-        mSINetworkrequest.set0nErrorListener(this);
-        mSINetworkrequest.initialize();
+        mSINetworkRequest = new SIDNetworkRequest(this);
+        mSINetworkRequest.setOnCompleteListener(this);
+        mSINetworkRequest.setOnUpdateListener(this);
+        mSINetworkRequest.setOnAuthenticatedListener(this);
+        mSINetworkRequest.set0nErrorListener(this);
+        mSINetworkRequest.initialize();
     }
 
     private void getOfflineAuthTags() {
-        String tags = sharedPreferences.getString(EXTRA_TAG_PREFERENCES_AUTH_TAGS, null);
+        String tags = mSharedPreferences.getString(EXTRA_TAG_PREFERENCES_AUTH_TAGS, null);
+
         if (tags != null) {
-            String[] tagsArray = tags.split(",");
-            for (int i = 0; i < tagsArray.length; i++) {
-                tagsQueue.add(tagsArray[i]);
+            List<String> tagList = Arrays.asList(tags.split(","));
+
+            for (String tag : tagList) {
+                mTagsQueue.add(tag);
             }
         }
     }
 
+    public void uploadNow(View view) {
+        createNetworkRequestManager();
+        upload(createConfig());
+    }
+
     private void upload(SIDConfig config) {
         if (SIDNetworkingUtils.haveNetworkConnection(this)) {
-            mLoadingProg.setVisibility(View.VISIBLE);
-            mSINetworkrequest.submit(config);
+            mPbLoading.setVisibility(View.VISIBLE);
+            mSINetworkRequest.submit(config);
         } else {
             //No internet connection so you can cache this job and
             // later use submitAll() to submit all offline jobs
@@ -110,29 +119,31 @@ public class SIDAuthResultActivity extends AppCompatActivity implements SIDNetwo
 
     @NonNull
     private SIDConfig createConfig(SIDMetadata metadata) {
-        SIDNetData data = new SIDNetData(this,SIDNetData.Environment.TEST);
-        GeoInfos geoInfos = SIDGeoInfos.getInstance().getGeoInformation();
+        final SIDNetData data = new SIDNetData(this, SIDNetData.Environment.TEST);
+        final GeoInfos geoInfos = SIDGeoInfos.getInstance().getGeoInformation();
         //Uncomment to set user Provided partner Parameter
         //setPartnerParams();
-        if ((jobType == 8) && !TextUtils.isEmpty(getSavedUserId())) {
+        if ((mJobType == 8) && !TextUtils.isEmpty(getSavedUserId())) {
             //USe the PartnerParams object to set the user id of the user to be reernolled.
             // Should be declared before the configuration is submitted
             setPartnerParamsForReenroll(metadata);
         }
-        SIDConfig.Builder builder = new SIDConfig.Builder(this);
-        builder.setRetryOnfailurePolicy(getRetryOnFailurePolicy())
+
+        SIDConfig.Builder builder = new SIDConfig.Builder(this) {
+            {
+                setRetryOnfailurePolicy(getRetryOnFailurePolicy())
                 .setSmileIdNetData(data)
                 .setGeoInformation(geoInfos)
-                .setJobType(jobType)
+                .setJobType(mJobType)
                 .setMode(SIDConfig.Mode.AUTHENTICATION);
+            }
+        };
+
         if (mUse258) {//Set the job type to 258 if user selected Auth 258 mode from the main screen
             builder.setJobType(258);
         }
-        if (useOfflineAuth && tagsQueue.size() > 0) {
-            return builder.build(tagsQueue.poll());
-        } else {
-            return builder.build(mCurrentTag);
-        }
+
+        return builder.build((mUseOfflineAuth && mTagsQueue.size() > 0) ? mTagsQueue.poll() : mCurrentTag);
     }
 
     @NonNull
@@ -141,10 +152,12 @@ public class SIDAuthResultActivity extends AppCompatActivity implements SIDNetwo
     }
 
     private RetryOnFailurePolicy getRetryOnFailurePolicy() {
-        RetryOnFailurePolicy options = new RetryOnFailurePolicy();
-        options.setRetryCount(15);
-        options.setRetryTimeout(TimeUnit.SECONDS.toMillis(15));
-        return options;
+        return new RetryOnFailurePolicy() {
+            {
+                setRetryCount(15);
+                setRetryTimeout(TimeUnit.SECONDS.toMillis(15));
+            }
+        };
     }
 
     private void setPartnerParamsForReenroll(SIDMetadata metadata) {
@@ -152,28 +165,29 @@ public class SIDAuthResultActivity extends AppCompatActivity implements SIDNetwo
         params.setUserId(getSavedUserId());
     }
 
-    //Retreive user id to be saved
+    //Retrieve user id to be saved
     private String getSavedUserId() {
-        return sharedPreferences.getString("SHARED_PREF_USER_ID", "");
+        return mSharedPreferences.getString("SHARED_PREF_USER_ID", "");
     }
 
     @Override
     public void onComplete() {
-        mLoadingProg.setVisibility(View.GONE);
+        mPbLoading.setVisibility(View.GONE);
     }
 
     @Override
     public void onError(SIDException e) {
         Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-        mLoadingProg.setVisibility(View.GONE);
+        mPbLoading.setVisibility(View.GONE);
     }
 
     @Override
     public void onUpdate(int progress) {
-        if (Color.BLACK != mResultTv.getCurrentTextColor()) {
-            mResultTv.setTextColor(Color.BLACK);
+        if (Color.BLACK != mTvResult.getCurrentTextColor()) {
+            mTvResult.setTextColor(Color.BLACK);
         }
-        mResultTv.setText("progress " + String.valueOf(progress) + " % ");
+
+        mTvResult.setText("progress " + String.valueOf(progress) + " % ");
     }
 
     @Override
@@ -231,26 +245,31 @@ public class SIDAuthResultActivity extends AppCompatActivity implements SIDNetwo
                 color = Color.RED;
                 message = getString(R.string.demo_auth_failed);
         }
+
         StringBuilder stringBuilder = new StringBuilder();
+
         if (!TextUtils.isEmpty(response.getResultText())) {
             stringBuilder.append("Result Text : ")
-                    .append(response.getResultText())
+                .append(response.getResultText())
                     .append(System.getProperty("line.separator"));
         }
+
         if (response.getConfidenceValue() > 0) {
             stringBuilder.append(getString(R.string.demo_enrolled_confidence_value, response.getConfidenceValue()));
         }
 
-        mResultTv.setTextColor(color);
-        mResultTv.setText(message);
-        mConfidenceValueTv.setVisibility(View.VISIBLE);
-        mConfidenceValueTv.setText(stringBuilder);
+        mTvResult.setTextColor(color);
+        mTvResult.setText(message);
+        mTvConfidenceValue.setVisibility(View.VISIBLE);
+        mTvConfidenceValue.setText(stringBuilder);
         mUploadNowBtn.setVisibility(View.GONE);
-        if (useOfflineAuth) {
+
+        if (mUseOfflineAuth) {
             saveAuthTagsForLater();
-            if (tagsQueue.size() > 0) {
-                mConfidenceValueTv.setVisibility(View.INVISIBLE);
-                mResultTv.setTextColor(Color.BLACK);
+
+            if (mTagsQueue.size() > 0) {
+                mTvConfidenceValue.setVisibility(View.INVISIBLE);
+                mTvResult.setTextColor(Color.BLACK);
                 createNetworkRequestManager();
                 upload(createConfig());
             }
@@ -261,25 +280,18 @@ public class SIDAuthResultActivity extends AppCompatActivity implements SIDNetwo
         SharedPreferences sharedPreferences = getSharedPreferences(getPackageName(), Context.MODE_PRIVATE);
 
         String tags = null;
-        if (tagsQueue.size() > 0) {
+
+        if (mTagsQueue.size() > 0) {
             StringBuilder sb = new StringBuilder();
-            Iterator it = tagsQueue.iterator();
+            Iterator it = mTagsQueue.iterator();
+
             while (it.hasNext()) {
                 sb.append(it.next()).append(",");
             }
+
             tags = sb.toString();
         }
+
         sharedPreferences.edit().putString(EXTRA_TAG_PREFERENCES_AUTH_TAGS, tags).apply();
-
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.sid_auth_upload_now_btn:
-                createNetworkRequestManager();
-                upload(createConfig());
-                break;
-        }
     }
 }

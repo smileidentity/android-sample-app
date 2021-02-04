@@ -1,12 +1,40 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-    <string name="app_name">SID sdk demo</string>
+    <string name="app_name">SID Demo</string>
+
+    <!-- SPLASH SCREEN -->
+    <string name="lbl_smile_identity">Smile Identity</string>
+    <string name="lbl_version_number">lib: %s - app: %s</string>
+    <string name="lbl_play_service_error">Install or update Play Service</string>
+    <string name="msg_use_offline_jobs">Would you like to use existing or add new offline jobs?</string>
+    <string name="lbl_use_offline_jobs">Use existing jobs</string>
+    <string name="lbl_add_offline_jobs">Add to existing Jobs</string>
+    <string name="msg_enrollment_required">You have to enrol (register) first before you can authenticate</string>
+    <string name="btn_cancel">Cancel</string>
+
+    <!-- MAIN SCREEN -->
+    <string name="lbl_heading_enrollment">ENROLLMENT</string>
+    <string name="lbl_heading_update">UPDATE DETAILS</string>
+    <string name="lbl_heading_authenticate">AUTHENTICATION</string>
+
+    <!-- SELFIE SCREEN -->
+    <string name="lbl_selfie_reposition">Put your face inside the oval</string>
+
+    <!-- ENROLL RESULT -->
+    <string name="lbl_enroll_result_country">Country</string>
+    <string name="lbl_enroll_result_id_type">Type of Identification</string>
+    <string name="sp_enroll_result_id_type_hint">Select Id Type</string>
+    <string name="lbl_enroll_result_upload_now">Upload Now</string>
+    <string name="lbl_enroll_result_internet_recovered">Auto Upload On Internet recovered</string>
+
     <string name="title_activity_sidmultiple_enrolls">SIDMultipleEnrolls</string>
     <string name="place_id_in_rectangle">Fit ID Card inside Rectangle</string>
     <string name="tap_screen_to_capture">Tap Inside Screen To Capture</string>
-    <string name="default_toast_face_in_oval">Put your face inside the oval</string>
     <string name="demo_result_text">Result text : %s</string>
 
-    <!--Enroll Register-->
+    <!-- Enrollment -->
+    <string name="lbl_enroll">Register (Enroll)</string>
+    <string name="lbl_enroll_with_id_number">Register (Enroll) with ID number</string>
+    <string name="lbl_enroll_with_id_card">Register (Enroll) with ID Card</string>
     <string name="demo_enrolled_successfully">ENROLLED/REGISTERED SUCCESSFULLY</string>
     <string name="demo_provisionally_enrolled">PROVISIONAL ENROLL/REGISTER</string>
     <string name="demo_enrolled_failed">ENROLLED/REGISTER FAILED</string>
@@ -24,19 +52,16 @@
     <string name="demo_update_image_failed">UPDATE IMAGE FAILED</string>
     <string name="demo_update_image_success">UPDATED IMAGE SUCCESSFULLY</string>
     <string name="demo_update_photo_provisional">PROVISIONAL UPDATED IMAGE</string>
-    <string name="enroll_register_with_id_number">Register (Enroll) with ID number</string>
-    <string name="enroll_register_with_id_card">Register (Enroll) with ID card</string>
-    <string name="enroll_register">Register (Enroll)</string>
     <string name="re_enroll_re_register_user_with_id">Re-register (Re-Enroll) User With ID</string>
-    <string name="re_enroll_re_register_user">Re register(Re-Enroll) User</string>
+    <string name="re_enroll_re_register_user">Re register (Re-Enroll) User</string>
     <string name="enroll_register_257">Register (Enroll) 257</string>
     <string name="enroll_register_260">Register (Enroll) 260</string>
     <string name="update_enrolled_register_image">Update Registered (Enrolled) Image</string>
     <string name="agent_mode_implementation_example">Agent mode Implementation example</string>
-    <string name="auth">Auth</string>
+    <string name="auth">Authentication</string>
     <string name="id_validation">ID Validation</string>
     <string name="auth_258">Auth 258</string>
-    <string name="auth_using_saved_data">Auth using saved data</string>
+    <string name="auth_using_saved_data">Authentication using saved data</string>
     <string name="skip_id_info">Skip Id Info</string>
     <string name="step_set_id_info">Set ID Info</string>
     <string name="job_status">Job Status</string>
