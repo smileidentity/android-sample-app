@@ -205,20 +205,20 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
 
     private void startEnrollMode(final boolean continueWithId) {
         Class clazz = (mHasId && !mHasNoIdCard) ? SIDIDCardActivity.class :
-                SIDEnrollResultActivity.class;
+            SIDEnrollResultActivity.class;
 
         startActivity(
-                new Intent(this, clazz) {
-                    {
-                        putExtra(SIDStringExtras.EXTRA_REENROLL, mReEnrollUser);
-                        putExtra(SIDStringExtras.EXTRA_ENROLL_TYPE, mEnrollType);
-                        putExtra(SIDStringExtras.EXTRA_MULTIPLE_ENROLL, mMultipleEnroll);
-                        putExtra(SIDStringExtras.EXTRA_ENROLL_TAG_LIST, mTagArrayList);
-                        putExtra(SIDStringExtras.EXTRA_HAS_NO_ID_CARD, mHasNoIdCard);
-                        putExtra(SIDStringExtras.EXTRA_MULTIPLE_ENROLL_ADD_ID_INFO, continueWithId);
-                        putExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO, mCurrentTag);
-                    }
+            new Intent(this, clazz) {
+                {
+                    putExtra(SIDStringExtras.EXTRA_REENROLL, mReEnrollUser);
+                    putExtra(SIDStringExtras.EXTRA_ENROLL_TYPE, mEnrollType);
+                    putExtra(SIDStringExtras.EXTRA_MULTIPLE_ENROLL, mMultipleEnroll);
+                    putExtra(SIDStringExtras.EXTRA_ENROLL_TAG_LIST, mTagArrayList);
+                    putExtra(SIDStringExtras.EXTRA_HAS_NO_ID_CARD, mHasNoIdCard);
+                    putExtra(SIDStringExtras.EXTRA_MULTIPLE_ENROLL_ADD_ID_INFO, continueWithId);
+                    putExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO, mCurrentTag);
                 }
+            }
         );
     }
 

@@ -16,12 +16,12 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 
 import com.demo.smileid.sid_sdk.sidNet.InternetStateBroadCastReceiver;
-import com.smileid.smileidui.CaptureType;
-import com.smileid.smileidui.SIDCaptureManager;
+/*import com.smileid.smileidui.CaptureType;
+import com.smileid.smileidui.SIDCaptureManager;*/
 
 import static com.demo.smileid.sid_sdk.SIDStringExtras.EXTRA_TAG_PREFERENCES_AUTH_TAGS;
 import static com.demo.smileid.sid_sdk.SIDStringExtras.SHARED_PREF_USER_ID;
-import static com.smileid.smileidui.IntentHelper.SMILE_REQUEST_RESULT_TAG;
+//import static com.smileid.smileidui.IntentHelper.SMILE_REQUEST_RESULT_TAG;
 
 public class SIDMainActivity extends BaseSIDActivity implements
         InternetStateBroadCastReceiver.OnConnectionReceivedListener {
@@ -44,22 +44,20 @@ public class SIDMainActivity extends BaseSIDActivity implements
     }
 
     public void smileUIIDCardRegister(View view) {
-        if (permissionGranted(PERMISSIONS)) {
+        /*if (permissionGranted(PERMISSIONS)) {
             new SIDCaptureManager.Builder(this, CaptureType.SELFIE_AND_ID_CAPTURE, SMILE_ID_CARD_REQUEST_CODE).build().start();
         } else {
             ActivityCompat.requestPermissions(this, PERMISSIONS, SMILE_ID_UI_SELFIE_PERMISSION_REQUEST);
-        }
-
+        }*/
     }
 
 
     public void smileUIRegister(View view) {
-        if (permissionGranted(PERMISSIONS)) {
+        /*if (permissionGranted(PERMISSIONS)) {
             new SIDCaptureManager.Builder(this, CaptureType.SELFIE, SMILE_SELFIE_REQUEST_CODE).build().start();
         } else {
             ActivityCompat.requestPermissions(this, PERMISSIONS, SMILE_ID_UI_SELFIE_PERMISSION_REQUEST);
-        }
-
+        }*/
     }
 
     public void enroll(View view) {
@@ -215,7 +213,7 @@ public class SIDMainActivity extends BaseSIDActivity implements
 
     }
 
-    @Override
+   /* @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -265,5 +263,5 @@ public class SIDMainActivity extends BaseSIDActivity implements
                 Toast.makeText(this, "Oops you did not allow a required permission", Toast.LENGTH_LONG).show();
             }
         }
-    }
+    }*/
 }

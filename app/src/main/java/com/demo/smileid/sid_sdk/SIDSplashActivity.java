@@ -45,14 +45,6 @@ public class SIDSplashActivity extends AppCompatActivity {
     }
 
     private boolean playServiceAvailable() {
-        /*int resultCode = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this);
-        if (resultCode == ConnectionResult.SERVICE_MISSING ||
-                resultCode == ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED ||
-                resultCode == ConnectionResult.SERVICE_DISABLED) {
-            Dialog dlg = GoogleApiAvailability.getInstance().getErrorDialog(this, resultCode, RC_HANDLE_GMS);
-            dlg.show();
-        }
-        return resultCode == ConnectionResult.SUCCESS;*/
         return true;
     }
 }

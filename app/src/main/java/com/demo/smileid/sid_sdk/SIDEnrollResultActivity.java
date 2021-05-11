@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -340,6 +341,8 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
         mPbLoading.setVisibility(View.GONE);
         int color;
         String message;
+
+        Log.d("RESULT_PRINTING", "RESPONSE: " + response.getResultText());
 
         switch (response.getResultCodeState()) {
             case SIDResponse.SID_RESPONSE_ENROL_REJECTED:
