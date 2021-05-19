@@ -70,9 +70,6 @@ public class SIDIDCardActivity extends AppCompatActivity implements SmartCardVie
 
     @Override
     public void onSmartCardViewComplete(Bitmap idCardBitmap, boolean faceFound) {
-        Log.d("ONSMARTCARD", "HERE...");
-//        mSmartCardView.pauseCapture();
-
         if (mSmartCardView.isFrontCapturing()) {
             new ActionDialog(this, this).showDialog();
             return;

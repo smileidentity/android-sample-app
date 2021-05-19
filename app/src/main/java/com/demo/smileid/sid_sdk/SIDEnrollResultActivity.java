@@ -342,8 +342,6 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
         int color;
         String message;
 
-        Log.d("RESULT_PRINTING", "RESPONSE: " + response.getResultText());
-
         switch (response.getResultCodeState()) {
             case SIDResponse.SID_RESPONSE_ENROL_REJECTED:
             case SIDResponse.SID_RESPONSE_ID_REJECTED:
