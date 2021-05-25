@@ -39,7 +39,6 @@ public class BaseSIDActivity extends AppCompatActivity {
         startSelfieCapture(isEnrollMode, true);
     }
 
-
     protected void startSelfieCapture(boolean isEnrollMode, boolean hasId) {
         startSelfieCapture(isEnrollMode, hasId, false, false);
     }
