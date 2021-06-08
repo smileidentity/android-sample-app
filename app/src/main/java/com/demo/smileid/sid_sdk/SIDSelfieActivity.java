@@ -284,7 +284,11 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
         findViewById(R.id.cspCamera).setVisibility(View.VISIBLE);
         mTvPromptReposition.setVisibility(View.VISIBLE);
         mClSelfieBtnContainer.setVisibility(View.GONE);
-        mSmartSelfieManager.captureSelfie(getTag());
+
+        if (mMultipleEnroll) {
+            mSmartSelfieManager.captureSelfie(getTag());
+        }
+
         mSmartSelfieManager.resume();
     }
 
