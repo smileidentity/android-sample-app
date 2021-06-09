@@ -188,13 +188,13 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
         } else {
             if (!mUseOffLineAuth) {
                 startActivity(
-                        new Intent(this, SIDAuthResultActivity.class) {
-                            {
-                                putExtra(SIDStringExtras.EXTRA_ENROLL_TYPE, mEnrollType);
-                                putExtra(SIDStringExtras.EXTRA_USE_258, mUse258);
-                                putExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO, mCurrentTag);
-                            }
+                    new Intent(this, SIDAuthResultActivity.class) {
+                        {
+                            putExtra(SIDStringExtras.EXTRA_ENROLL_TYPE, mEnrollType);
+                            putExtra(SIDStringExtras.EXTRA_USE_258, mUse258);
+                            putExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO, mCurrentTag);
                         }
+                    }
                 );
             } else {
                 mTagArrayList.add(mCurrentTag);
@@ -220,30 +220,30 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
                 SIDEnrollResultActivity.class;
 
         startActivity(
-                new Intent(this, clazz) {
-                    {
-                        putExtra(SIDStringExtras.EXTRA_REENROLL, mReEnrollUser);
-                        putExtra(SIDStringExtras.EXTRA_ENROLL_TYPE, mEnrollType);
-                        putExtra(SIDStringExtras.EXTRA_MULTIPLE_ENROLL, mMultipleEnroll);
-                        putExtra(SIDStringExtras.EXTRA_ENROLL_TAG_LIST, mTagArrayList);
-                        putExtra(SIDStringExtras.EXTRA_HAS_NO_ID_CARD, mHasNoIdCard);
-                        putExtra(SIDStringExtras.EXTRA_MULTIPLE_ENROLL_ADD_ID_INFO, continueWithId);
-                        putExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO, mCurrentTag);
-                    }
+            new Intent(this, clazz) {
+                {
+                    putExtra(SIDStringExtras.EXTRA_REENROLL, mReEnrollUser);
+                    putExtra(SIDStringExtras.EXTRA_ENROLL_TYPE, mEnrollType);
+                    putExtra(SIDStringExtras.EXTRA_MULTIPLE_ENROLL, mMultipleEnroll);
+                    putExtra(SIDStringExtras.EXTRA_ENROLL_TAG_LIST, mTagArrayList);
+                    putExtra(SIDStringExtras.EXTRA_HAS_NO_ID_CARD, mHasNoIdCard);
+                    putExtra(SIDStringExtras.EXTRA_MULTIPLE_ENROLL_ADD_ID_INFO, continueWithId);
+                    putExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO, mCurrentTag);
                 }
+            }
         );
     }
 
     private void startAuthMode() {
         startActivity(
-                new Intent(this, SIDAuthResultActivity.class) {
-                    {
-                        putExtra(SIDStringExtras.EXTRA_ENROLL_TYPE, mEnrollType);
-                        putExtra(SIDStringExtras.EXTRA_USE_258, mUse258);
-                        putExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO, mCurrentTag);
-                        putExtra(SIDStringExtras.EXTRA_TAG_OFFLINE_AUTH, mUseOffLineAuth);
-                    }
+            new Intent(this, SIDAuthResultActivity.class) {
+                {
+                    putExtra(SIDStringExtras.EXTRA_ENROLL_TYPE, mEnrollType);
+                    putExtra(SIDStringExtras.EXTRA_USE_258, mUse258);
+                    putExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO, mCurrentTag);
+                    putExtra(SIDStringExtras.EXTRA_TAG_OFFLINE_AUTH, mUseOffLineAuth);
                 }
+            }
         );
     }
 
