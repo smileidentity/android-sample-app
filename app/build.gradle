@@ -7,14 +7,14 @@ android {
     testOptions {
         unitTests.includeAndroidResources = true
     }
-    signingConfigs {
-        config {
-            storeFile file(RELEASE_STORE_FILE)
-            storePassword RELEASE_STORE_PASSWORD
-            keyAlias RELEASE_KEY_ALIAS
-            keyPassword RELEASE_KEY_PASSWORD
-        }
-    }
+//    signingConfigs {
+//        config {
+//            storeFile file(RELEASE_STORE_FILE)
+//            storePassword RELEASE_STORE_PASSWORD
+//            keyAlias RELEASE_KEY_ALIAS
+//            keyPassword RELEASE_KEY_PASSWORD
+//        }
+//    }
     compileSdkVersion 30
     ndkVersion '21.3.6528147'
     defaultConfig {
@@ -24,7 +24,7 @@ android {
         versionCode 1
         versionName "3.5.10"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        signingConfig signingConfigs.config
+//        signingConfig signingConfigs.config
         multiDexEnabled true
     }
     buildTypes {
@@ -33,13 +33,13 @@ android {
             debuggable false
             jniDebuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.config
+//            signingConfig signingConfigs.config
         }
         debug {
             minifyEnabled false
             debuggable true
             jniDebuggable true
-            signingConfig signingConfigs.config
+//            signingConfig signingConfigs.config
         }
     }
     productFlavors {
@@ -60,18 +60,24 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.appcompat:appcompat:1.1.0'
-
-//    implementation 'com.smileidentity:smile-id-sdk:7.1.2'// use this if you do not intend to use smile-id-ui
-//    implementation 'com.smileidentity:smile-id-ui:0.0.5-SNAPSHOT'
     implementation project(':ccp')
-    implementation project(':smile-identity-simplified-java')
     implementation platform('com.google.firebase:firebase-bom:25.12.0')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-crashlytics'
     implementation "androidx.multidex:multidex:2.0.1"
 
-    // DEV DEP ENDANCIES
+    //PRODUCTION DEPENDENCIES
+    /*
+  USE THIS if you do not intend to use smile-id-ui
+   */
+//    implementation 'com.smileidentity:smile-id-sdk:7.1.2'
+    /*
+    OR USE THIS
+     */
+//    implementation 'com.smileidentity:smile-id-ui:0.0.5-SNAPSHOT'
 
+    // DEV DEPENDANCIES
     implementation project(':smile_detect_library-release')
     implementation project(':smile-id-ui')
+    implementation project(':smile-identity-simplified-java')
 }
