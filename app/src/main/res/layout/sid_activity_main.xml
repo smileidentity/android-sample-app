@@ -41,7 +41,7 @@
 
         <TextView
             android:id="@+id/tvEnroll"
-            style="@style/BtnAction"
+            style="@style/MainBtnAction"
             android:drawableLeft="@drawable/ic_enroll"
             android:onClick="enroll"
             android:text="@string/lbl_enroll"
@@ -49,7 +49,7 @@
 
         <TextView
             android:id="@+id/tvEnrollWithIdNo"
-            style="@style/BtnAction"
+            style="@style/MainBtnAction"
             android:drawableLeft="@drawable/ic_id_number"
             android:onClick="enrollWithIdNo"
             android:text="@string/lbl_enroll_with_id_number"
@@ -57,7 +57,7 @@
 
         <TextView
             android:id="@+id/tvEnrollWithIdCard"
-            style="@style/BtnAction"
+            style="@style/MainBtnAction"
             android:drawableLeft="@drawable/ic_id_card"
             android:onClick="enrollWithIdCard"
             android:text="@string/lbl_enroll_with_id_card"
@@ -71,7 +71,7 @@
 
         <TextView
             android:id="@+id/tvReEnroll"
-            style="@style/BtnAction"
+            style="@style/MainBtnAction"
             android:drawableLeft="@drawable/ic_re_enroll"
             android:onClick="reEnroll"
             android:text="@string/re_enroll_re_register_user"
@@ -79,7 +79,7 @@
 
         <TextView
             android:id="@+id/tvReEnrollWithId"
-            style="@style/BtnAction"
+            style="@style/MainBtnAction"
             android:drawableLeft="@drawable/ic_re_enroll_2"
             android:onClick="reEnrollWithId"
             android:text="@string/re_enroll_re_register_user_with_id"
@@ -87,7 +87,7 @@
 
         <TextView
             android:id="@+id/tvUpdateEnrolledImage"
-            style="@style/BtnAction"
+            style="@style/MainBtnAction"
             android:drawableLeft="@drawable/ic_update_image"
             android:onClick="updateUseImage"
             android:text="@string/update_enrolled_register_image"
@@ -95,7 +95,7 @@
 
         <TextView
             android:id="@+id/tvMultipleEnroll"
-            style="@style/BtnAction"
+            style="@style/MainBtnAction"
             android:drawableLeft="@drawable/ic_account_box"
             android:onClick="multipleEnroll"
             android:text="@string/agent_mode_implementation_example"
@@ -109,7 +109,7 @@
 
         <TextView
             android:id="@+id/tvIdValidation"
-            style="@style/BtnAction"
+            style="@style/MainBtnAction"
             android:drawableLeft="@drawable/ic_id_validation"
             android:onClick="validateId"
             android:text="@string/id_validation"
@@ -117,7 +117,7 @@
 
         <TextView
             android:id="@+id/tvAuthenticate"
-            style="@style/BtnAction"
+            style="@style/MainBtnAction"
             android:drawableLeft="@drawable/ic_auth"
             android:onClick="authenticate"
             android:text="@string/auth"
@@ -125,7 +125,7 @@
 
         <TextView
             android:id="@+id/tvAuthenticateWithSavedData"
-            style="@style/BtnAction"
+            style="@style/MainBtnAction"
             android:drawableLeft="@drawable/ic_auth_with_saved_data"
             android:onClick="authenticateWithSavedData"
             android:text="@string/auth_using_saved_data"

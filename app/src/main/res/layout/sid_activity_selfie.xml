@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,7 +8,8 @@
     android:background="@color/colorGrey"
     tools:context=".SIDSelfieActivity">
 
-    <com.smileidentity.libsmileid.core.CameraSourcePreview xmlns:camera="http://schemas.android.com/apk/res-auto"
+    <com.smileidentity.libsmileid.core.CameraSourcePreview
+        xmlns:camera="http://schemas.android.com/apk/res-auto"
         android:id="@+id/cspCamera"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -28,7 +30,7 @@
 
     <TextView
         android:id="@+id/tvCapture"
-        style="@style/BtnAction"
+        style="@style/MainBtnAction"
         android:layout_width="wrap_content"
         android:layout_marginBottom="20dp"
         android:drawableLeft="@drawable/ic_capture"
@@ -54,7 +56,7 @@
 
         <TextView
             android:id="@+id/tvRetakeSelfie"
-            style="@style/BtnAction"
+            style="@style/MainBtnAction"
             android:drawableLeft="@drawable/ic_capture"
             android:onClick="takeAnotherSelfie"
             android:text="@string/lbl_selfie_take_another_selfie"
@@ -64,7 +66,7 @@
 
         <TextView
             android:id="@+id/tvContinueWithId"
-            style="@style/BtnAction"
+            style="@style/MainBtnAction"
             android:drawableLeft="@drawable/ic_id_number"
             android:onClick="continueSaveWithId"
             android:text="@string/lbl_selfie_add_user_id_info"
@@ -75,7 +77,7 @@
 
         <TextView
             android:id="@+id/tvSaveAuthLater"
-            style="@style/BtnAction"
+            style="@style/MainBtnAction"
             android:drawableLeft="@drawable/ic_authentication"
             android:onClick="saveAndAuthLater"
             android:text="@string/lbl_selfie_save_and_auth_later"
@@ -86,7 +88,7 @@
 
         <TextView
             android:id="@+id/tvContinue"
-            style="@style/BtnAction"
+            style="@style/MainBtnAction"
             android:drawableLeft="@drawable/ic_upload_now"
             android:onClick="continueProcess"
             android:text="@string/lbl_selfie_continue_to_upload"

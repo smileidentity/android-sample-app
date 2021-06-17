@@ -94,4 +94,8 @@
     <string name="lbl_smile_ui">SMILE UI</string>
     <string name="lbl_smile_ui_enroll_id_card">Smile UI ID Card Register (Enroll)</string>
     <string name="lbl_smile_ui_enroll">Smile UI Register (Enroll)</string>
+
+    <string name="id_card_dialog_txt" translatable="false">Would you like to capture the back of the ID Card as well?</string>
+    <string name="btn_lbl_proceed" translatable="false">Proceed</string>
+    <string name="btn_lbl_skip" translatable="false">Skip</string>
 </resources>
