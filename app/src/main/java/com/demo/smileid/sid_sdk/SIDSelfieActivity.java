@@ -26,6 +26,8 @@ import com.smileidentity.libsmileid.core.captureCallback.OnFaceStateChangeListen
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.demo.smileid.sid_sdk.SIDStringExtras.EXTRA_TAG_PREFERENCES_AUTH_TAGS;
 
@@ -42,6 +44,7 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
     private int mEnrollType;
     private String mCurrentTag;
     private ArrayList<String> mTagArrayList = new ArrayList<>();
+    Map<String, Boolean> selfieTagsSessions = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +75,7 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
         mSmartSelfieManager.setOnFaceStateChangeListener(this);
         setBrightnessToMax(this);
         mSmartSelfieManager.captureSelfie(getTag());
+        selfieTagsSessions.put(mCurrentTag, false);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -84,6 +88,12 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
     @Override
     protected void onResume() {
         super.onResume();
+        if (!selfieTagsSessions.isEmpty() && selfieTagsSessions.containsKey(mCurrentTag) && selfieTagsSessions.get(mCurrentTag)) {
+            mSmartSelfieManager.captureSelfie(getTag());
+            selfieTagsSessions.put(mCurrentTag, false);
+        } else {
+            mTagArrayList.remove(mCurrentTag);
+        }
         mSmartSelfieManager.resume();
     }
 
@@ -171,22 +181,24 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
                 startEnrollMode(false);
             else {
                 mTagArrayList.add(mCurrentTag);
+                selfieTagsSessions.put(mCurrentTag, true);
                 showRetakeSelfieButton();
                 return;
             }
         } else {
             if (!mUseOffLineAuth) {
                 startActivity(
-                        new Intent(this, SIDAuthResultActivity.class) {
-                            {
-                                putExtra(SIDStringExtras.EXTRA_ENROLL_TYPE, mEnrollType);
-                                putExtra(SIDStringExtras.EXTRA_USE_258, mUse258);
-                                putExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO, mCurrentTag);
-                            }
+                    new Intent(this, SIDAuthResultActivity.class) {
+                        {
+                            putExtra(SIDStringExtras.EXTRA_ENROLL_TYPE, mEnrollType);
+                            putExtra(SIDStringExtras.EXTRA_USE_258, mUse258);
+                            putExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO, mCurrentTag);
                         }
+                    }
                 );
             } else {
                 mTagArrayList.add(mCurrentTag);
+                selfieTagsSessions.put(mCurrentTag, true);
                 showRetakeSelfieButton();
                 return;
             }
@@ -208,30 +220,30 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
                 SIDEnrollResultActivity.class;
 
         startActivity(
-                new Intent(this, clazz) {
-                    {
-                        putExtra(SIDStringExtras.EXTRA_REENROLL, mReEnrollUser);
-                        putExtra(SIDStringExtras.EXTRA_ENROLL_TYPE, mEnrollType);
-                        putExtra(SIDStringExtras.EXTRA_MULTIPLE_ENROLL, mMultipleEnroll);
-                        putExtra(SIDStringExtras.EXTRA_ENROLL_TAG_LIST, mTagArrayList);
-                        putExtra(SIDStringExtras.EXTRA_HAS_NO_ID_CARD, mHasNoIdCard);
-                        putExtra(SIDStringExtras.EXTRA_MULTIPLE_ENROLL_ADD_ID_INFO, continueWithId);
-                        putExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO, mCurrentTag);
-                    }
+            new Intent(this, clazz) {
+                {
+                    putExtra(SIDStringExtras.EXTRA_REENROLL, mReEnrollUser);
+                    putExtra(SIDStringExtras.EXTRA_ENROLL_TYPE, mEnrollType);
+                    putExtra(SIDStringExtras.EXTRA_MULTIPLE_ENROLL, mMultipleEnroll);
+                    putExtra(SIDStringExtras.EXTRA_ENROLL_TAG_LIST, mTagArrayList);
+                    putExtra(SIDStringExtras.EXTRA_HAS_NO_ID_CARD, mHasNoIdCard);
+                    putExtra(SIDStringExtras.EXTRA_MULTIPLE_ENROLL_ADD_ID_INFO, continueWithId);
+                    putExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO, mCurrentTag);
                 }
+            }
         );
     }
 
     private void startAuthMode() {
         startActivity(
-                new Intent(this, SIDAuthResultActivity.class) {
-                    {
-                        putExtra(SIDStringExtras.EXTRA_ENROLL_TYPE, mEnrollType);
-                        putExtra(SIDStringExtras.EXTRA_USE_258, mUse258);
-                        putExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO, mCurrentTag);
-                        putExtra(SIDStringExtras.EXTRA_TAG_OFFLINE_AUTH, mUseOffLineAuth);
-                    }
+            new Intent(this, SIDAuthResultActivity.class) {
+                {
+                    putExtra(SIDStringExtras.EXTRA_ENROLL_TYPE, mEnrollType);
+                    putExtra(SIDStringExtras.EXTRA_USE_258, mUse258);
+                    putExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO, mCurrentTag);
+                    putExtra(SIDStringExtras.EXTRA_TAG_OFFLINE_AUTH, mUseOffLineAuth);
                 }
+            }
         );
     }
 
@@ -283,7 +295,12 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
         findViewById(R.id.cspCamera).setVisibility(View.VISIBLE);
         mTvPromptReposition.setVisibility(View.VISIBLE);
         mClSelfieBtnContainer.setVisibility(View.GONE);
-        mSmartSelfieManager.captureSelfie(getTag());
+
+        if (mMultipleEnroll) {
+            mSmartSelfieManager.captureSelfie(getTag());
+            selfieTagsSessions.put(mCurrentTag, false);
+        }
+
         mSmartSelfieManager.resume();
     }
 
