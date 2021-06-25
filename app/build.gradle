@@ -49,6 +49,9 @@ android {
         exclude 'androidx.*'
         exclude 'META-INF/DEPENDENCIES'
     }
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
