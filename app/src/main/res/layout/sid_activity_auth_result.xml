@@ -24,7 +24,8 @@
         style="@style/MainHeading"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:text="Confidence value 100%" />
+        tools:text="Confidence value 100%"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/tvResult"
@@ -32,7 +33,8 @@
         app:layout_constraintBottom_toTopOf="@+id/tvConfidenceValue"
         android:layout_marginBottom="59dp"
         android:gravity="center"
-        android:textSize="25sp" />
+        android:textSize="25sp"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/tvUploadNow"
@@ -44,7 +46,8 @@
         android:layout_marginBottom="16dp"
         android:textStyle="bold"
         android:textSize="18sp"
-        android:text="@string/lbl_enroll_result_upload_now" />
+        android:text="@string/lbl_enroll_result_upload_now"
+        tools:ignore="MissingConstraints" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
