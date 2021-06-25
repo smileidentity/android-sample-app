@@ -52,7 +52,6 @@ public class SIDMainActivity extends BaseSIDActivity implements
 
     }
 
-
     public void smileUIRegister(View view) {
         if (permissionGranted(PERMISSIONS)) {
             new SIDCaptureManager.Builder(this, CaptureType.SELFIE, SMILE_SELFIE_REQUEST_CODE).build().start();

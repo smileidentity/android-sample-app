@@ -270,7 +270,7 @@ fabric.properties
 
 !/gradle/wrapper/gradle-wrapper.jar
 
-smile_config.json
+# smile_config.json
 app/gradle.properties
 /*/gradle.properties
 

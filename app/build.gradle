@@ -70,14 +70,16 @@ dependencies {
     /*
   USE THIS if you do not intend to use smile-id-ui
    */
-//    implementation 'com.smileidentity:smile-id-sdk:7.1.2'
+    implementation 'com.smileidentity:smile-id-sdk:7.3.0'
     /*
     OR USE THIS
      */
-//    implementation 'com.smileidentity:smile-id-ui:0.0.5-SNAPSHOT'
+    implementation 'com.smileidentity:smile-id-ui:0.1.0-SNAPSHOT'
+
+    implementation 'com.smileidentity:netjava:0.0.1'
 
     // DEV DEPENDANCIES
-    implementation project(':smile_detect_library-release')
+    /*implementation project(':smile_detect_library-release')
     implementation project(':smile-id-ui')
-    implementation project(':smile-identity-simplified-java')
+    implementation project(':smile-identity-simplified-java')*/
 }
