@@ -276,7 +276,7 @@ public class SIDSmileIDActivity extends BaseSIDActivity implements View.OnClickL
         retryOnFailurePolicy.setRetryCount(10);
         retryOnFailurePolicy.setRetryTimeout(TimeUnit.SECONDS.toMillis(15));
 
-        SIDNetData data = new SIDNetData(this, SIDNetData.Environment.TEST);
+        SIDNetData data = new SIDNetData(this, SIDNetData.Environment.PROD);
         SIDConfig.Builder builder = new SIDConfig.Builder(this)
                 .setRetryOnfailurePolicy(retryOnFailurePolicy)
                 .setMode(SIDConfig.Mode.ENROLL)
