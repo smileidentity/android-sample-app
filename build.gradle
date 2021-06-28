@@ -32,10 +32,6 @@ allprojects {
             url 'https://oss.sonatype.org/content/repositories/snapshots/'
         }
     }
-    configurations {
-        compile.exclude group: 'com.android.support:support-compat', module: 'classes'
-        compile.exclude group: 'com.android.support:support-media-compat', module: 'classes'
-    }
 }
 
 task clean(type: Delete) {
