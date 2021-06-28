@@ -32,6 +32,12 @@ allprojects {
             url 'https://oss.sonatype.org/content/repositories/snapshots/'
         }
     }
+    configurations.all {
+        resolutionStrategy {
+            force 'androidx.core:core:1.3.1'
+            force 'ndroidx.media:media:1.1.0'
+        }
+    }
 }
 
 task clean(type: Delete) {
