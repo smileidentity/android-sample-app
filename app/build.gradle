@@ -77,7 +77,7 @@ dependencies {
     /*
     OR USE THIS
      */
-    implementation 'com.smileidentity:smile-id-ui:0.1.2'
+//    implementation 'com.smileidentity:smile-id-ui:0.1.2'
 
 //    implementation 'com.smileidentity:netjava:0.0.1'
 
