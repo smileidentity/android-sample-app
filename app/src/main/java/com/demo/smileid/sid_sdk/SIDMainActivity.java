@@ -17,12 +17,12 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 
 import com.demo.smileid.sid_sdk.sidNet.InternetStateBroadCastReceiver;
-//import com.smileid.smileidui.CaptureType;
-//import com.smileid.smileidui.SIDCaptureManager;
+import com.smileid.smileidui.CaptureType;
+import com.smileid.smileidui.SIDCaptureManager;
 
 import static com.demo.smileid.sid_sdk.SIDStringExtras.EXTRA_TAG_PREFERENCES_AUTH_TAGS;
 import static com.demo.smileid.sid_sdk.SIDStringExtras.SHARED_PREF_USER_ID;
-//import static com.smileid.smileidui.IntentHelper.SMILE_REQUEST_RESULT_TAG;
+import static com.smileid.smileidui.IntentHelper.SMILE_REQUEST_RESULT_TAG;
 
 public class SIDMainActivity extends BaseSIDActivity implements
         InternetStateBroadCastReceiver.OnConnectionReceivedListener {
@@ -44,7 +44,7 @@ public class SIDMainActivity extends BaseSIDActivity implements
         mUseOffLineAuth = false;
     }
 
-    /*public void smileUIIDCardRegister(View view) {
+    public void smileUIIDCardRegister(View view) {
         if (permissionGranted(PERMISSIONS)) {
             new SIDCaptureManager.Builder(this, CaptureType.SELFIE_AND_ID_CAPTURE, SMILE_ID_CARD_REQUEST_CODE).build().start();
         } else {
@@ -59,7 +59,7 @@ public class SIDMainActivity extends BaseSIDActivity implements
         } else {
             ActivityCompat.requestPermissions(this, PERMISSIONS, SMILE_ID_UI_SELFIE_PERMISSION_REQUEST);
         }
-    }*/
+    }
 
     public void enroll(View view) {
         resetJob();
@@ -218,7 +218,7 @@ public class SIDMainActivity extends BaseSIDActivity implements
     protected void onActivityResult(int requestCode, int resultCode, @Nullable final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        /*if (requestCode == SMILE_SELFIE_REQUEST_CODE) {
+        if (requestCode == SMILE_SELFIE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 startActivity(
                         new Intent(this, SIDEnrollResultActivity.class) {
@@ -244,13 +244,14 @@ public class SIDMainActivity extends BaseSIDActivity implements
             } else {
                 Toast.makeText(this, "Oops Smile ID UI Selfie and ID Card did not return a success", Toast.LENGTH_LONG).show();
             }
-        }*/
+        }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        /*if (requestCode == SMILE_ID_UI_SELFIE_ID_PERMISSION_REQUEST
+
+        if (requestCode == SMILE_ID_UI_SELFIE_ID_PERMISSION_REQUEST
                 || requestCode == SMILE_ID_UI_SELFIE_PERMISSION_REQUEST) {
             if (grantResults.length > 0) {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -263,6 +264,6 @@ public class SIDMainActivity extends BaseSIDActivity implements
             } else {
                 Toast.makeText(this, "Oops you did not allow a required permission", Toast.LENGTH_LONG).show();
             }
-        }*/
+        }
     }
 }
