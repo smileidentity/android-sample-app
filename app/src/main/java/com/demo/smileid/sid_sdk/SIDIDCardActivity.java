@@ -36,11 +36,7 @@ public class SIDIDCardActivity extends AppCompatActivity implements SmartCardVie
     @Override
     protected void onResume() {
         super.onResume();
-        try {
-            mSmartCardView.startCapture(mCurrentTag);
-        } catch (SIDException e) {
-            e.printStackTrace();
-        }
+        mSmartCardView.startCapture(mCurrentTag);
     }
 
     private void setFullScreen() {
