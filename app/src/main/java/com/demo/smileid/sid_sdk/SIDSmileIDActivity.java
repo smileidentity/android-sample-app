@@ -185,8 +185,6 @@ public class SIDSmileIDActivity extends BaseSIDActivity implements View.OnClickL
                 new SIDCaptureManager.Builder(this, CaptureType.SELFIE, SMILE_SELFIE_REQUEST_CODE).build().start();
                 break;*/
         }
-
-
     }
 
     private void showOfflineAuthDialog() {
@@ -276,7 +274,7 @@ public class SIDSmileIDActivity extends BaseSIDActivity implements View.OnClickL
         retryOnFailurePolicy.setRetryCount(10);
         retryOnFailurePolicy.setRetryTimeout(TimeUnit.SECONDS.toMillis(15));
 
-        SIDNetData data = new SIDNetData(this, SIDNetData.Environment.PROD);
+        SIDNetData data = new SIDNetData(this, SIDNetData.Environment.TEST);
         SIDConfig.Builder builder = new SIDConfig.Builder(this)
                 .setRetryOnfailurePolicy(retryOnFailurePolicy)
                 .setMode(SIDConfig.Mode.ENROLL)
@@ -334,6 +332,7 @@ public class SIDSmileIDActivity extends BaseSIDActivity implements View.OnClickL
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         /*if (requestCode == SMILE_SELFIE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 Intent intent = new Intent(this, SIDEnrollResultActivity.class);

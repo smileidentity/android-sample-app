@@ -17,8 +17,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 
 import com.demo.smileid.sid_sdk.sidNet.InternetStateBroadCastReceiver;
-/*import com.smileid.smileidui.CaptureType;
-import com.smileid.smileidui.SIDCaptureManager;*/
+//import com.smileid.smileidui.CaptureType;
+//import com.smileid.smileidui.SIDCaptureManager;
 
 import static com.demo.smileid.sid_sdk.SIDStringExtras.EXTRA_TAG_PREFERENCES_AUTH_TAGS;
 import static com.demo.smileid.sid_sdk.SIDStringExtras.SHARED_PREF_USER_ID;
