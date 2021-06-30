@@ -7,14 +7,18 @@ android {
     testOptions {
         unitTests.includeAndroidResources = true
     }
-//    signingConfigs {
-//        config {
-//            storeFile file(RELEASE_STORE_FILE)
-//            storePassword RELEASE_STORE_PASSWORD
-//            keyAlias RELEASE_KEY_ALIAS
-//            keyPassword RELEASE_KEY_PASSWORD
-//        }
-//    }
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+    // signingConfigs {
+    //     config {
+    //         storeFile file(RELEASE_STORE_FILE)
+    //         storePassword RELEASE_STORE_PASSWORD
+    //         keyAlias RELEASE_KEY_ALIAS
+    //         keyPassword RELEASE_KEY_PASSWORD
+    //     }
+    // }
     compileSdkVersion 30
     ndkVersion '21.3.6528147'
     defaultConfig {
@@ -33,7 +37,8 @@ android {
             debuggable false
             jniDebuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-//            signingConfig signingConfigs.config
+            // signingConfig signingConfigs.config
+//            multiDexEnabled true
         }
         debug {
             minifyEnabled false
@@ -48,29 +53,42 @@ android {
         exclude 'META-INF/androidx.*'
         exclude 'androidx.*'
         exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/versions/**/*.class'
+
+        pickFirst 'lib/armeabi-v7a/libopencv_coresid.so'
+        pickFirst 'lib/armeabi-v7a/libopencv_imgprocsid.so'
+
+        pickFirst 'lib/arm64-v8a/libopencv_coresid.so'
+        pickFirst 'lib/arm64-v8a/libopencv_imgprocsid.so'
+
+        pickFirst 'lib/x86/libopencv_coresid.so'
+        pickFirst 'lib/x86/libopencv_imgprocsid.so'
+
+        pickFirst 'lib/x86_64/libopencv_coresid.so'
+        pickFirst 'lib/x86_64/libopencv_imgprocsid.so'
+
+        pickFirst 'lib/armeabi-v7a/libsid-vision-lib.so'
+
+        pickFirst 'lib/arm64-v8a/libsid-vision-lib.so'
+
+        pickFirst 'lib/x86/libsid-vision-lib.so'
+
+        pickFirst 'lib/x86_64/libsid-vision-lib.so'
     }
     lintOptions {
         abortOnError false
+    }
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            def flavor = variant.name
+            def versionName = variant.versionName
+            outputFileName = "${applicationName}_${flavor}_${versionName}.apk"
+        }
     }
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    //noinspection GradleCompatible
-    implementation('androidx.core:core:1.5.0') {
-        exclude group: 'android.support.v4.app.INotificationSideChannel'
-        exclude group: 'android.support.v4.os.IResultReceiver'
-        exclude group: 'android.support.v4.os.ResultReceiver'
-        /*exclude group: 'android.support.v4.media.MediaBrowserCompat'
-        exclude group: 'android.support.v4.media.MediaDescriptionCompat'
-        exclude group: 'android.support.v4.media.MediaMetadataCompat'
-        exclude group: 'android.support.v4.media.RatingCompat'
-        exclude group: 'android.support.v4.media.session.IMediaControllerCallback'
-        exclude group: 'android.support.v4.media.session.IMediaSession'
-        exclude group: 'android.support.v4.media.session.MediaControllerCompat'
-        exclude group: 'android.support.v4.media.session.MediaSessionCompat'
-        exclude group: 'android.support.v4.media.session.PlaybackStateCompat'*/
-    }
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'com.google.android.material:material:1.3.0'
     testImplementation 'junit:junit:4.13.2'
@@ -92,7 +110,7 @@ dependencies {
     /*
     OR USE THIS
      */
-    implementation 'com.smileidentity:smile-id-ui:0.1.1-SNAPSHOT'
+//    implementation 'com.smileidentity:smile-id-ui:0.1.1-SNAPSHOT'
 
     implementation 'com.smileidentity:netjava:0.0.1'
 
@@ -101,8 +119,3 @@ dependencies {
 //    implementation project(':smile-id-ui')
 //    implementation project(':smile-identity-simplified-java')
 }
-/*
-configurations {
-    compile.exclude group: 'com.android.support:support-compat', module: 'classes'
-    compile.exclude group: 'com.android.support:support-media-compat', module: 'classes'
-}*/

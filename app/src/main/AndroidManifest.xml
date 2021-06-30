@@ -85,9 +85,9 @@
         <activity android:name=".SIDAuthResultActivity" />
         <activity android:name=".SIDSmileIDActivity" />
         <activity android:name=".SIDIDValidationActivity" />
-        <activity android:name="com.smileid.smileidui.SIDIDCaptureActivity" />
+        <!--<activity android:name="com.smileid.smileidui.SIDIDCaptureActivity" />
         <activity android:name="com.smileid.smileidui.SIDSelfieCaptureActivity" />
-        <activity android:name="com.smileid.smileidui.SIDReviewActivity" />
+        <activity android:name="com.smileid.smileidui.SIDReviewActivity" />-->
         <meta-data
             android:name="android.support.VERSION"
             android:value="26.1.0" />
