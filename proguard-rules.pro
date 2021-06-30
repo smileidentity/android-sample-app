@@ -7,3 +7,8 @@
     public <fields>;
     <methods>;
 }
+-ignorewarnings
+
+-keep class * {
+    public private *;
+}
