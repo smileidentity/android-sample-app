@@ -7,8 +7,6 @@
     public <fields>;
     <methods>;
 }
+-dontwarn
 -ignorewarnings
-
--keep class * {
-    public private *;
-}
+-dontnote

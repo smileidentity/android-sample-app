@@ -33,7 +33,7 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled true
+//            minifyEnabled true
             debuggable false
             jniDebuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -55,7 +55,7 @@ android {
         exclude 'META-INF/DEPENDENCIES'
         exclude 'META-INF/versions/**/*.class'
 
-        pickFirst 'lib/armeabi-v7a/libopencv_coresid.so'
+        /*pickFirst 'lib/armeabi-v7a/libopencv_coresid.so'
         pickFirst 'lib/armeabi-v7a/libopencv_imgprocsid.so'
 
         pickFirst 'lib/arm64-v8a/libopencv_coresid.so'
@@ -73,7 +73,7 @@ android {
 
         pickFirst 'lib/x86/libsid-vision-lib.so'
 
-        pickFirst 'lib/x86_64/libsid-vision-lib.so'
+        pickFirst 'lib/x86_64/libsid-vision-lib.so'*/
     }
     lintOptions {
         abortOnError false
