@@ -19,7 +19,7 @@
 
         <TextView
             android:id="@+id/tv_smile_ui_enroll_id_card"
-            style="@style/BtnAction"
+            style="@style/MainBtnAction"
             android:drawableLeft="@drawable/ic_enroll"
             android:onClick="smileUIIDCardRegister"
             android:text="@string/lbl_smile_ui_enroll_id_card"
@@ -27,7 +27,7 @@
 
         <TextView
             android:id="@+id/tv_smile_ui_enroll"
-            style="@style/BtnAction"
+            style="@style/MainBtnAction"
             android:drawableLeft="@drawable/ic_enroll"
             android:onClick="smileUIRegister"
             android:text="@string/lbl_smile_ui_enroll"
