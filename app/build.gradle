@@ -54,6 +54,26 @@ android {
         exclude 'androidx.*'
         exclude 'META-INF/DEPENDENCIES'
         exclude 'META-INF/versions/**/*.class'
+
+        pickFirst 'lib/armeabi-v7a/libopencv_coresid.so'
+        pickFirst 'lib/armeabi-v7a/libopencv_imgprocsid.so'
+
+        pickFirst 'lib/arm64-v8a/libopencv_coresid.so'
+        pickFirst 'lib/arm64-v8a/libopencv_imgprocsid.so'
+
+        pickFirst 'lib/x86/libopencv_coresid.so'
+        pickFirst 'lib/x86/libopencv_imgprocsid.so'
+
+        pickFirst 'lib/x86_64/libopencv_coresid.so'
+        pickFirst 'lib/x86_64/libopencv_imgprocsid.so'
+
+        pickFirst 'lib/armeabi-v7a/libsid-vision-lib.so'
+
+        pickFirst 'lib/arm64-v8a/libsid-vision-lib.so'
+
+        pickFirst 'lib/x86/libsid-vision-lib.so'
+
+        pickFirst 'lib/x86_64/libsid-vision-lib.so'
     }
     lintOptions {
         abortOnError false
@@ -87,16 +107,16 @@ dependencies {
     /*
   USE THIS if you do not intend to use smile-id-ui
    */
-    implementation 'com.smileidentity:smile-id-sdk:7.2.7-SNAPSHOT'
+//    implementation 'com.smileidentity:smile-id-sdk:7.2.7-SNAPSHOT'
     /*
     OR USE THIS
      */
     implementation 'com.smileidentity:smile-id-ui:0.1.1-SNAPSHOT'
 
-    implementation 'com.smileidentity:netjava:0.0.1'
+//    implementation 'com.smileidentity:netjava:0.0.1'
 
     // DEV DEPENDENCIES
-//    implementation project(':smile_detect_library-release')
+    implementation project(':smile_detect_library-release')
 //    implementation project(':smile-id-ui')
 //    implementation project(':smile-identity-simplified-java')
 }
