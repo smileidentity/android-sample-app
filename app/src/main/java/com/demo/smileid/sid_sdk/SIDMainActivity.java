@@ -10,15 +10,16 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
-
 import com.demo.smileid.sid_sdk.sidNet.InternetStateBroadCastReceiver;
 import com.smileid.smileidui.CaptureType;
 import com.smileid.smileidui.SIDCaptureManager;
+import com.smileidentity.libsmileid.core.consent.ConsentDialog;
+
+import java.util.ArrayList;
 
 import static com.demo.smileid.sid_sdk.SIDStringExtras.EXTRA_TAG_PREFERENCES_AUTH_TAGS;
 import static com.demo.smileid.sid_sdk.SIDStringExtras.SHARED_PREF_USER_ID;
@@ -68,6 +69,7 @@ public class SIDMainActivity extends BaseSIDActivity implements
 
     public void enrollWithIdNo(View view) {
         resetJob();
+        mConsentRequired = true;
         jobType = 1;
         startSelfieCapture(true, true, false, false, true);
     }
@@ -104,9 +106,19 @@ public class SIDMainActivity extends BaseSIDActivity implements
     }
 
     public void validateId(View view) {
+        mConsentRequired = true;
         resetJob();
         jobType = 5;
-        startActivity(new Intent(this, SIDIDValidationActivity.class));
+        requestUserConsent();
+    }
+
+    @Override
+    public void approve() {
+        if (jobType == 5) {
+            startActivity(new Intent(this, SIDIDValidationActivity.class));
+        } else {
+            super.approve();
+        }
     }
 
     public void authenticate(View view) {

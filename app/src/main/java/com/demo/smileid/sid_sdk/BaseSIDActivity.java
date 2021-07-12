@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -23,8 +25,9 @@ import java.util.List;
 public class BaseSIDActivity extends AppCompatActivity implements ConsentDialog.DlgListener {
     protected boolean mUseMultipleEnroll = false, mUseOffLineAuth = false;
     protected int jobType = -1;
-    private static final int PERMISSION_ALL = 1;
+    protected boolean mConsentRequired = false;
     private Intent mCurrentIntent = null;
+    private static final int PERMISSION_ALL = 1;
 
     protected String[] PERMISSIONS = {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -54,7 +57,7 @@ public class BaseSIDActivity extends AppCompatActivity implements ConsentDialog.
         mCurrentIntent.putExtra(SIDStringExtras.EXTRA_MULTIPLE_ENROLL, mUseMultipleEnroll);
         mCurrentIntent.putExtra(SIDStringExtras.EXTRA_HAS_NO_ID_CARD, hasNoIdCard);
         mCurrentIntent.putExtra(SIDStringExtras.EXTRA_TAG_OFFLINE_AUTH, mUseOffLineAuth);
-        requestUserConsent();
+        coreStartSelfieCapture();
     }
 
     protected void startSelfieCapture(boolean isEnrollMode) {
@@ -69,13 +72,23 @@ public class BaseSIDActivity extends AppCompatActivity implements ConsentDialog.
         startSelfieCapture(isEnrollMode, hasId, false, reenroll, false);
     }
 
-    protected void coreStartSelfieCapture(Intent intent) {
+    protected void coreStartSelfieCapture() {
         if (permissionGranted(PERMISSIONS)) {
-            SIDGeoInfos.getInstance().init(this);
-            startActivity(intent);
+            if (mConsentRequired) {
+                requestUserConsent();
+            } else {
+                proceedWithJob();
+            }
         } else {
             ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
         }
+    }
+
+    private void proceedWithJob() {
+        SIDGeoInfos.getInstance().init(this);
+        startActivity(mCurrentIntent);
+        mConsentRequired = false;
+        mCurrentIntent = null;
     }
 
     protected boolean permissionGranted(String... permissions) {
@@ -89,7 +102,8 @@ public class BaseSIDActivity extends AppCompatActivity implements ConsentDialog.
         return true;
     }
 
-    private void requestUserConsent() {
+    protected void requestUserConsent() {
+        Log.d("LINK_CLICKED", "HERE11...");
         //To be replaced by a partner-set values as returned by the backend
         ArrayList<ConsentCategory> categories = new ArrayList<ConsentCategory>() {
             {
@@ -99,13 +113,17 @@ public class BaseSIDActivity extends AppCompatActivity implements ConsentDialog.
             }
         };
 
+        Log.d("LINK_CLICKED", "HERE12...");
+
         //Partner's name shouldn't be hardcoded
         new ConsentDialog.Builder().setPartnerLogo(R.drawable.ic_bvn).setPartnerName("Piggyvest")
-            .setInfoCats(categories).setListener(this).build(this).showDialog();
+            /*.setPrivacyLink("")*/.setInfoCats(categories).setListener(this).build(this)
+                .showDialog();
     }
 
     @Override
     public void decline() {
+        mConsentRequired = false;
         mCurrentIntent = null;
         //A more appropriate message should be provided
         String message = "You need to provide consent in order to proceed";
@@ -114,7 +132,20 @@ public class BaseSIDActivity extends AppCompatActivity implements ConsentDialog.
 
     @Override
     public void approve() {
-        coreStartSelfieCapture(mCurrentIntent);
-        mCurrentIntent = null;
+        proceedWithJob();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == PERMISSION_ALL && (grantResults.length > 0) &&
+                (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+
+            coreStartSelfieCapture();
+        } else {
+            mConsentRequired = false;
+            mCurrentIntent = null;
+        }
     }
 }
