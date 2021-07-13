@@ -1,23 +1,17 @@
 package com.demo.smileid.sid_sdk;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-
 import com.demo.smileid.sid_sdk.geoloc.SIDGeoInfos;
 import com.smileidentity.libsmileid.core.consent.ConsentCategory;
 import com.smileidentity.libsmileid.core.consent.ConsentDialog;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -103,7 +97,6 @@ public class BaseSIDActivity extends AppCompatActivity implements ConsentDialog.
     }
 
     protected void requestUserConsent() {
-        Log.d("LINK_CLICKED", "HERE11...");
         //To be replaced by a partner-set values as returned by the backend
         ArrayList<ConsentCategory> categories = new ArrayList<ConsentCategory>() {
             {
@@ -113,10 +106,8 @@ public class BaseSIDActivity extends AppCompatActivity implements ConsentDialog.
             }
         };
 
-        Log.d("LINK_CLICKED", "HERE12...");
-
         //Partner's name shouldn't be hardcoded
-        new ConsentDialog.Builder().setPartnerLogo(R.drawable.ic_bvn).setPartnerName("Piggyvest")
+        new ConsentDialog.Builder().setPartnerLogo(R.drawable.ic_partner_logo).setPartnerName("Piggyvest")
             /*.setPrivacyLink("")*/.setInfoCats(categories).setListener(this).build(this)
                 .showDialog();
     }
