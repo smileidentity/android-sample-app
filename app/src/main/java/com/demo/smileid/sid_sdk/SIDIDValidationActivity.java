@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.Base64;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -298,6 +299,7 @@ public class SIDIDValidationActivity extends AppCompatActivity implements
 
     @Override
     public void onError(SIDException e) {
+        Log.d("ID_VALIDATION", "EXCEPTION: " + e.getErrorCode() + " : " + e.getMessage());
         if (e != null && !TextUtils.isEmpty(e.getMessage())) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         } else {
