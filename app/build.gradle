@@ -7,14 +7,18 @@ android {
     testOptions {
         unitTests.includeAndroidResources = true
     }
-//    signingConfigs {
-//        config {
-//            storeFile file(RELEASE_STORE_FILE)
-//            storePassword RELEASE_STORE_PASSWORD
-//            keyAlias RELEASE_KEY_ALIAS
-//            keyPassword RELEASE_KEY_PASSWORD
-//        }
-//    }
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+    // signingConfigs {
+    //     config {
+    //         storeFile file(RELEASE_STORE_FILE)
+    //         storePassword RELEASE_STORE_PASSWORD
+    //         keyAlias RELEASE_KEY_ALIAS
+    //         keyPassword RELEASE_KEY_PASSWORD
+    //     }
+    // }
     compileSdkVersion 30
     ndkVersion '21.3.6528147'
     defaultConfig {
@@ -29,11 +33,12 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             debuggable false
             jniDebuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-//            signingConfig signingConfigs.config
+            // signingConfig signingConfigs.config
+//            multiDexEnabled true
         }
         debug {
             minifyEnabled false
@@ -48,7 +53,39 @@ android {
         exclude 'META-INF/androidx.*'
         exclude 'androidx.*'
         exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/versions/**/*.class'
+
+        pickFirst 'lib/armeabi-v7a/libopencv_coresid.so'
+        pickFirst 'lib/armeabi-v7a/libopencv_imgprocsid.so'
+
+        pickFirst 'lib/arm64-v8a/libopencv_coresid.so'
+        pickFirst 'lib/arm64-v8a/libopencv_imgprocsid.so'
+
+        pickFirst 'lib/x86/libopencv_coresid.so'
+        pickFirst 'lib/x86/libopencv_imgprocsid.so'
+
+        pickFirst 'lib/x86_64/libopencv_coresid.so'
+        pickFirst 'lib/x86_64/libopencv_imgprocsid.so'
+
+        pickFirst 'lib/armeabi-v7a/libsid-vision-lib.so'
+
+        pickFirst 'lib/arm64-v8a/libsid-vision-lib.so'
+
+        pickFirst 'lib/x86/libsid-vision-lib.so'
+
+        pickFirst 'lib/x86_64/libsid-vision-lib.so'
     }
+    lintOptions {
+        abortOnError false
+    }
+    /*applicationVariants.all { variant ->
+        variant.outputs.all {
+            def flavor = variant.name
+            def versionName = variant.versionName
+            //Remember to create applicationName variable in your .properties file
+            outputFileName = "${applicationName}_${flavor}_${versionName}.apk"
+        }
+    }*/
 }
 
 dependencies {
@@ -76,8 +113,10 @@ dependencies {
      */
 //    implementation 'com.smileidentity:smile-id-ui:0.0.5-SNAPSHOT'
 
-    // DEV DEPENDANCIES
+    implementation 'com.smileidentity:netjava:0.0.1'
+
+    // DEV DEPENDENCIES
     implementation project(':smile_detect_library-release')
     implementation project(':smile-id-ui')
-    implementation project(':smile-identity-simplified-java')
+//    implementation project(':smile-identity-simplified-java')
 }
