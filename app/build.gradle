@@ -107,11 +107,11 @@ dependencies {
     /*
   USE THIS if you do not intend to use smile-id-ui
    */
-    implementation 'com.smileidentity:smile-id-sdk:7.2.12-SNAPSHOT'
+    implementation 'com.smileidentity:smile-id-sdk:7.2.13-SNAPSHOT'
     /*
     OR USE THIS
      */
-    implementation 'com.smileidentity:smile-id-ui:0.1.5-SNAPSHOT'
+    implementation 'com.smileidentity:smile-id-ui:0.1.6-SNAPSHOT'
 
     implementation 'com.smileidentity:netjava:0.0.1'
 

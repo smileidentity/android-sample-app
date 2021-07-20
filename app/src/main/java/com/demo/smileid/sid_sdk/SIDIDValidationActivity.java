@@ -299,7 +299,6 @@ public class SIDIDValidationActivity extends AppCompatActivity implements
 
     @Override
     public void onError(SIDException e) {
-        Log.d("ID_VALIDATION", "EXCEPTION: " + e.getErrorCode() + " : " + e.getMessage());
         if (e != null && !TextUtils.isEmpty(e.getMessage())) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         } else {

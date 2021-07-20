@@ -110,6 +110,7 @@ public class SIDMainActivity extends BaseSIDActivity implements
     @Override
     public void approve() {
         if (jobType == 5) {
+            mConsentRequired = false;
             startActivity(new Intent(this, SIDIDValidationActivity.class));
         } else {
             super.approve();
