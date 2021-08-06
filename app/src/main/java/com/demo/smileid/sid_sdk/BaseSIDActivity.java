@@ -108,7 +108,7 @@ public class BaseSIDActivity extends AppCompatActivity implements ConsentDialog.
 
         //Partner's name shouldn't be hardcoded
         new ConsentDialog.Builder().setPartnerLogo(R.drawable.ic_partner_logo).setPartnerName("Piggyvest")
-            /*.setPrivacyLink("")*/.setInfoCats(categories).setListener(this).build(this)
+            .setJobTag("").setInfoCats(categories).setListener(this).build(this)
                 .showDialog();
     }
 

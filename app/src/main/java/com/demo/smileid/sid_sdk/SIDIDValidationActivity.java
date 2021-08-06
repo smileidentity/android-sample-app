@@ -49,7 +49,7 @@ import java.util.concurrent.TimeUnit;
 public class SIDIDValidationActivity extends AppCompatActivity implements
         SIDNetworkRequest.OnCompleteListener, SIDNetworkRequest.OnIDValidationListener, SIDNetworkRequest.OnErrorListener {
 
-    private String mSelectedCountryName = "", mSelectedIdCard, mCurrentTag;
+    private String mSelectedCountryName = "", mSelectedIdCard;
     private SIDNetworkRequest mSINetworkRequest;
     private SIDConfig mConfig;
 
@@ -87,8 +87,6 @@ public class SIDIDValidationActivity extends AppCompatActivity implements
         mSINetworkRequest.setOnIDValidationListener(this);
         mSINetworkRequest.set0nErrorListener(this);
         mSINetworkRequest.initialize();
-
-        getTag();
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -194,7 +192,7 @@ public class SIDIDValidationActivity extends AppCompatActivity implements
         }
 
         setUserIdInfo(metadata);
-        SIDConfig sidConfig = createConfig(mCurrentTag, metadata);
+        SIDConfig sidConfig = createConfig(metadata);
 
         if (SIDNetworkingUtils.haveNetworkConnection(this)) {
             findViewById(R.id.clIdInfo).setVisibility(View.GONE);
@@ -206,7 +204,7 @@ public class SIDIDValidationActivity extends AppCompatActivity implements
         }
     }
 
-    private SIDConfig createConfig(String tag, SIDMetadata metadata) {
+    private SIDConfig createConfig(SIDMetadata metadata) {
         SIDNetData data = new SIDNetData(this, SIDNetData.Environment.TEST);
 
         SIDConfig.Builder builder = new SIDConfig.Builder(this)
@@ -312,6 +310,6 @@ public class SIDIDValidationActivity extends AppCompatActivity implements
     }
 
     private String getTag() {
-        return mCurrentTag = String.format(Misc.USER_TAG, DateFormat.format("MM_dd_hh_mm_ss", Calendar.getInstance().getTime()).toString());
+        return String.format(Misc.USER_TAG, DateFormat.format("MM_dd_hh_mm_ss", Calendar.getInstance().getTime()).toString());
     }
 }
