@@ -38,8 +38,8 @@ public class SIDIDCardActivity extends AppCompatActivity implements SmartCardVie
         super.onResume();
         try {
             mSmartCardView.startCapture(mCurrentTag);
-        } catch (SIDException exception) {
-            Log.d("CAPTURING_EXC", exception.toString());
+        } catch (Exception e) {
+
         }
     }
 
@@ -72,8 +72,6 @@ public class SIDIDCardActivity extends AppCompatActivity implements SmartCardVie
     public void onSmartCardViewFrontComplete(Bitmap idCardBitmap, boolean faceFound) {
         new ActionDialog(this, this).showDialog();
         return;
-
-
     }
 
     @Override
