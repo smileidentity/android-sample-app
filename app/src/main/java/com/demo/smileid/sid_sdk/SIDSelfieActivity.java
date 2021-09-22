@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -23,6 +24,7 @@ import com.smileidentity.libsmileid.core.SelfieCaptureConfig;
 import com.smileidentity.libsmileid.core.SmartSelfieManager;
 import com.smileidentity.libsmileid.core.captureCallback.FaceState;
 import com.smileidentity.libsmileid.core.captureCallback.OnFaceStateChangeListener;
+import com.smileidentity.libsmileid.utils.AppData;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -218,6 +220,8 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
     private void startEnrollMode(final boolean continueWithId) {
         Class clazz = (mHasId && !mHasNoIdCard) ? SIDIDCardActivity.class :
                 SIDEnrollResultActivity.class;
+
+        AppData.getInstance(this).saveConsentData(mCurrentTag);
 
         startActivity(
             new Intent(this, clazz) {

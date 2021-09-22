@@ -188,36 +188,43 @@ public class SIDAuthResultActivity extends AppCompatActivity implements SIDNetwo
                 color = Color.RED;
                 message = getString(R.string.demo_auth_failed);
                 break;
+
             case SIDResponse.SID_RESPONSE_UPDATE_PHOTO_REJECTED:
                 //update photo was rejected
                 color = Color.RED;
                 message = getString(R.string.demo_update_image_failed);
                 break;
+
             case SIDResponse.SID_RESPONSE_AUTH_PROVISIONAL_APPROVAL:
                 //auth was provisionally approved
                 message = getString(R.string.demo_provisionally_authed);
                 color = Color.GRAY;
                 break;
+
             case SIDResponse.SID_RESPONSE_UPDATE_PHOTO_PROV_APPROVAL:
                 //update photo was provisionally approved
                 message = getString(R.string.demo_update_photo_provisional);
                 color = Color.GRAY;
                 break;
+
             case SIDResponse.SID_RESPONSE_IMAGE_NOT_USABLE:
                 //auth uploaded images were unsuable
                 color = Color.RED;
                 message = getString(R.string.demo_auth_image_unusable);
                 break;
+
             case SIDResponse.SID_RESPONSE_UPDATE_PHOTO_APPROVED:
                 //update photo approved
                 color = Color.GREEN;
                 message = getString(R.string.demo_update_image_success);
                 break;
+
             case SIDResponse.SID_RESPONSE_AUTH_APPROVED:
                 //auth approved
                 color = Color.GREEN;
                 message = getString(R.string.demo_auth_successfully);
                 break;
+
             default:
                 color = Color.RED;
                 message = getString(R.string.demo_auth_failed);
@@ -226,9 +233,8 @@ public class SIDAuthResultActivity extends AppCompatActivity implements SIDNetwo
         StringBuilder stringBuilder = new StringBuilder();
 
         if (!TextUtils.isEmpty(response.getResultText())) {
-            stringBuilder.append("Result Text : ")
-                    .append(response.getResultText())
-                    .append(System.getProperty("line.separator"));
+            stringBuilder.append("Result Text : ").append(response.getResultText())
+                .append(System.getProperty("line.separator"));
         }
 
         if (response.getConfidenceValue() > 0) {

@@ -37,6 +37,7 @@ import com.smileidentity.libsmileid.model.SIDMetadata;
 import com.smileidentity.libsmileid.model.SIDNetData;
 import com.smileidentity.libsmileid.model.SIDUserIdInfo;
 import com.smileidentity.libsmileid.net.model.idValidation.IDValidationResponse;
+import com.smileidentity.libsmileid.utils.AppData;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -195,6 +196,7 @@ public class SIDIDValidationActivity extends AppCompatActivity implements
         SIDConfig sidConfig = createConfig(metadata);
 
         if (SIDNetworkingUtils.haveNetworkConnection(this)) {
+            AppData.getInstance(this).saveConsentData(sidConfig.getSubmittedTag());
             findViewById(R.id.clIdInfo).setVisibility(View.GONE);
             findViewById(R.id.tvUploadNow).setVisibility(View.GONE);
             findViewById(R.id.pbLoading).setVisibility(View.VISIBLE);
