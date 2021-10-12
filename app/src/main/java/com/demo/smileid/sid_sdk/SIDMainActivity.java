@@ -18,7 +18,6 @@ import com.demo.smileid.sid_sdk.sidNet.InternetStateBroadCastReceiver;
 import com.smileid.smileidui.CaptureType;
 import com.smileid.smileidui.SIDCaptureManager;
 import com.smileidentity.libsmileid.utils.AppData;
-
 import static com.demo.smileid.sid_sdk.SIDStringExtras.EXTRA_TAG_PREFERENCES_AUTH_TAGS;
 import static com.demo.smileid.sid_sdk.SIDStringExtras.SHARED_PREF_USER_ID;
 import static com.smileid.smileidui.IntentHelper.SMILE_REQUEST_RESULT_TAG;
