@@ -260,9 +260,6 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
             setPartnerParamsForReenroll(metadata);
         }
 
-        metadata.getPartnerParams().additionalValue("DEV1", "JAPHET");
-        metadata.getPartnerParams().additionalValue("DEV2", "ARLON");
-
         GeoInfos infos = SIDGeoInfos.getInstance().getGeoInformation();
 
         SIDConfig.Builder builder;
