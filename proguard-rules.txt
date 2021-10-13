@@ -7,3 +7,6 @@
     public <fields>;
     <methods>;
 }
+-dontwarn
+-ignorewarnings
+-dontnote

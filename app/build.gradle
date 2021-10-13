@@ -54,6 +54,7 @@ android {
         exclude 'androidx.*'
         exclude 'META-INF/DEPENDENCIES'
         exclude 'META-INF/versions/**/*.class'
+<<<<<<< HEAD
 
         pickFirst 'lib/armeabi-v7a/libopencv_coresid.so'
         pickFirst 'lib/armeabi-v7a/libopencv_imgprocsid.so'
@@ -77,6 +78,19 @@ android {
     }
     lintOptions {
         abortOnError false
+=======
+    }
+    lintOptions {
+        abortOnError false
+    }
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            def flavor = variant.name
+            def versionName = variant.versionName
+            //Remember to create applicationName variable in your .properties file
+            outputFileName = "${applicationName}_${flavor}_${versionName}.apk"
+        }
+>>>>>>> cc6859005945f96250d42775917965ec1fa02117
     }
     /*applicationVariants.all { variant ->
         variant.outputs.all {
@@ -90,13 +104,13 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'com.google.android.material:material:1.0.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
-    implementation 'com.google.code.gson:gson:2.8.4'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'com.google.android.material:material:1.3.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.3.0'
     implementation project(':ccp')
 //    implementation platform('com.google.firebase:firebase-bom:25.12.0')
 //    implementation 'com.google.firebase:firebase-analytics'
@@ -107,16 +121,21 @@ dependencies {
     /*
   USE THIS if you do not intend to use smile-id-ui
    */
-//    implementation 'com.smileidentity:smile-id-sdk:7.1.2'
+    implementation 'com.smileidentity:smile-id-sdk:7.2.7-SNAPSHOT'
     /*
     OR USE THIS
      */
-//    implementation 'com.smileidentity:smile-id-ui:0.0.5-SNAPSHOT'
+    implementation 'com.smileidentity:smile-id-ui:0.1.1-SNAPSHOT'
 
     implementation 'com.smileidentity:netjava:0.0.1'
 
     // DEV DEPENDENCIES
+<<<<<<< HEAD
     implementation project(':smile_detect_library-release')
     implementation project(':smile-id-ui')
+=======
+//    implementation project(':smile_detect_library-release')
+//    implementation project(':smile-id-ui')
+>>>>>>> cc6859005945f96250d42775917965ec1fa02117
 //    implementation project(':smile-identity-simplified-java')
 }

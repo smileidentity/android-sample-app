@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -49,9 +50,7 @@ public class SIDMainActivity extends BaseSIDActivity implements
         } else {
             ActivityCompat.requestPermissions(this, PERMISSIONS, SMILE_ID_UI_SELFIE_PERMISSION_REQUEST);
         }
-
     }
-
 
     public void smileUIRegister(View view) {
         if (permissionGranted(PERMISSIONS)) {
@@ -59,7 +58,6 @@ public class SIDMainActivity extends BaseSIDActivity implements
         } else {
             ActivityCompat.requestPermissions(this, PERMISSIONS, SMILE_ID_UI_SELFIE_PERMISSION_REQUEST);
         }
-
     }
 
     public void enroll(View view) {
@@ -251,6 +249,7 @@ public class SIDMainActivity extends BaseSIDActivity implements
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
         if (requestCode == SMILE_ID_UI_SELFIE_ID_PERMISSION_REQUEST
                 || requestCode == SMILE_ID_UI_SELFIE_PERMISSION_REQUEST) {
             if (grantResults.length > 0) {
