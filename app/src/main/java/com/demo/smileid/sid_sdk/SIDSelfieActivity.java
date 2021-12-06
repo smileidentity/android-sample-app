@@ -221,8 +221,6 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
         Class clazz = (mHasId && !mHasNoIdCard) ? SIDIDCardActivity.class :
                 SIDEnrollResultActivity.class;
 
-        AppData.getInstance(this).saveConsentData(mCurrentTag);
-
         startActivity(
             new Intent(this, clazz) {
                 {

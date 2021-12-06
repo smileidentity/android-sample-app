@@ -3,6 +3,8 @@ package com.demo.smileid.sid_sdk;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -10,13 +12,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import com.demo.smileid.sid_sdk.geoloc.SIDGeoInfos;
-import com.smileidentity.libsmileid.core.consent.ConsentCategory;
-import com.smileidentity.libsmileid.core.consent.ConsentDialog;
+import com.smileidentity.libsmileid.core.consent.DlgListener;
+import com.smileidentity.libsmileid.core.consent.ConsentDialog.Builder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class BaseSIDActivity extends AppCompatActivity implements ConsentDialog.DlgListener {
+public class BaseSIDActivity extends AppCompatActivity implements DlgListener {
     protected boolean mUseMultipleEnroll = false, mUseOffLineAuth = false;
     protected int jobType = -1;
     protected boolean mConsentRequired = false;
@@ -98,22 +100,19 @@ public class BaseSIDActivity extends AppCompatActivity implements ConsentDialog.
 
     protected void requestUserConsent() {
         //To be replaced by a partner-set values as returned by the backend
-        ArrayList<ConsentCategory> categories = new ArrayList<ConsentCategory>() {
-            {
-                add(new ConsentCategory(R.drawable.ic_personal_details, getString(R.string.user_consent_cat_lbl_1), getString(R.string.user_consent_tooltip_lbl_1), getString(R.string.user_consent_cat_tooltip_1)));
-                add(new ConsentCategory(R.drawable.ic_contact_info, getString(R.string.user_consent_cat_lbl_2), getString(R.string.user_consent_tooltip_lbl_2), getString(R.string.user_consent_cat_tooltip_2)));
-                add(new ConsentCategory(R.drawable.ic_doc_info, getString(R.string.user_consent_cat_lbl_3), getString(R.string.user_consent_tooltip_lbl_3), getString(R.string.user_consent_cat_tooltip_3)));
-            }
-        };
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_partner_logo);
 
         //Partner's name shouldn't be hardcoded
-        new ConsentDialog.Builder().setPartnerLogo(R.drawable.ic_partner_logo).setPartnerName("Piggyvest")
-            .setInfoCats(categories).setListener(this).build(this)
-                .showDialog();
+        try {
+            new Builder("USER_TAG", bitmap, "Piggyvest", "www.google.com")
+                .setListener(this).build(this).showDialog();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public void decline() {
+    public void decline(String tag) {
         mConsentRequired = false;
         mCurrentIntent = null;
         //A more appropriate message should be provided
@@ -122,7 +121,7 @@ public class BaseSIDActivity extends AppCompatActivity implements ConsentDialog.
     }
 
     @Override
-    public void approve() {
+    public void approve(String tag) {
         proceedWithJob();
     }
 

@@ -196,7 +196,6 @@ public class SIDIDValidationActivity extends AppCompatActivity implements
         SIDConfig sidConfig = createConfig(metadata);
 
         if (SIDNetworkingUtils.haveNetworkConnection(this)) {
-            AppData.getInstance(this).saveConsentData(sidConfig.getSubmittedTag());
             findViewById(R.id.clIdInfo).setVisibility(View.GONE);
             findViewById(R.id.tvUploadNow).setVisibility(View.GONE);
             findViewById(R.id.pbLoading).setVisibility(View.VISIBLE);
