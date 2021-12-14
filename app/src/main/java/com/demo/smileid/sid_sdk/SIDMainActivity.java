@@ -145,12 +145,19 @@ public class SIDMainActivity extends BaseSIDActivity implements
         }
     }
 
-    private void showOfflineAuthDialog() {
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
-        builder1.setMessage("Would you like to use existing or add new offline jobs?");
-        builder1.setCancelable(false);
+    public void verifyDoc(View view) {
+        mConsentRequired = true;
+        resetJob();
+        jobType = 6;
+        startSelfieCapture(true);
+    }
 
-        builder1.setPositiveButton(
+    private void showOfflineAuthDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Would you like to use existing or add new offline jobs?");
+        builder.setCancelable(false);
+
+        builder.setPositiveButton(
                 "Use existing jobs",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -161,7 +168,7 @@ public class SIDMainActivity extends BaseSIDActivity implements
                     }
                 });
 
-        builder1.setNegativeButton(
+        builder.setNegativeButton(
                 "Add to existing Jobs",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -170,16 +177,16 @@ public class SIDMainActivity extends BaseSIDActivity implements
                     }
                 });
 
-        AlertDialog alert11 = builder1.create();
-        alert11.show();
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     private void enrolFirstDialog() {
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
-        builder1.setMessage("You have to enrol (register) first before you can authenticate");
-        builder1.setCancelable(false);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("You have to enrol (register) first before you can authenticate");
+        builder.setCancelable(false);
 
-        builder1.setPositiveButton(
+        builder.setPositiveButton(
                 "Register (Enroll)",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -187,7 +194,7 @@ public class SIDMainActivity extends BaseSIDActivity implements
                     }
                 });
 
-        builder1.setNegativeButton(
+        builder.setNegativeButton(
                 "Cancel",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -195,8 +202,8 @@ public class SIDMainActivity extends BaseSIDActivity implements
                     }
                 });
 
-        AlertDialog alert11 = builder1.create();
-        alert11.show();
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     private boolean hasOfflineTags() {

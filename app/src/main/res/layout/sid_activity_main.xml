@@ -124,12 +124,26 @@
             app:layout_constraintTop_toBottomOf="@id/tvIdValidation" />
 
         <TextView
-            android:id="@+id/tvAuthenticateWithSavedData"
+            android:id="@+id/tvAuthWithSavedData"
             style="@style/MainBtnAction"
             android:drawableLeft="@drawable/ic_auth_with_saved_data"
             android:onClick="authenticateWithSavedData"
             android:text="@string/auth_using_saved_data"
             app:layout_constraintTop_toBottomOf="@id/tvAuthenticate" />
+
+        <TextView
+            android:id="@+id/tvOthers"
+            style="@style/MainHeading"
+            android:text="@string/lbl_heading_other"
+            app:layout_constraintTop_toBottomOf="@id/tvAuthWithSavedData" />
+
+        <TextView
+            android:id="@+id/tvDocVerHeading"
+            style="@style/MainBtnAction"
+            android:drawableLeft="@drawable/ic_doc_verification"
+            android:onClick="verifyDoc"
+            android:text="@string/id_doc_verification"
+            app:layout_constraintTop_toBottomOf="@id/tvOthers" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
