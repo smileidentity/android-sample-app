@@ -100,11 +100,11 @@ public class BaseSIDActivity extends AppCompatActivity implements DlgListener {
 
     protected void requestUserConsent() {
         //To be replaced by a partner-set values as returned by the backend
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_partner_logo);
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_purse);
 
         //Partner's name shouldn't be hardcoded
         try {
-            new Builder("USER_TAG", bitmap, "Piggyvest", "www.google.com")
+            new Builder("USER_TAG", bitmap, "AM Loans Inc.", "www.google.com")
                 .setListener(this).build(this).showDialog();
         } catch (Exception e) {
             e.printStackTrace();
