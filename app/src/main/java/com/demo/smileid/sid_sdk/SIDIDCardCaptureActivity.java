@@ -152,7 +152,6 @@ public class SIDIDCardCaptureActivity extends AppCompatActivity implements Captu
                 onBackPressed();
                 break;
         }
-
     }
 
     private void retakePicture() {
@@ -169,6 +168,4 @@ public class SIDIDCardCaptureActivity extends AppCompatActivity implements Captu
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                         | View.SYSTEM_UI_FLAG_FULLSCREEN);
     }
-
-
 }
