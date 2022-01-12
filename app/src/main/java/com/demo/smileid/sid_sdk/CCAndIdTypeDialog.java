@@ -44,7 +44,7 @@ public class CCAndIdTypeDialog {
         mDialog.findViewById(R.id.tvSubmit).setOnClickListener(v -> {
              if (mListener == null) return;
              mDialog.cancel();
-             mListener.submit(mSelectedCountryCode, mSelectedIdType);
+             mListener.submit(mSelectedCountryName, mSelectedIdType);
         });
 
         mDialog.findViewById(R.id.ivBtnCancel).setOnClickListener(v -> {
