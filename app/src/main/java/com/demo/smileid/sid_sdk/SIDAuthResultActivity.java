@@ -7,6 +7,7 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -36,7 +37,7 @@ import static com.demo.smileid.sid_sdk.SIDStringExtras.EXTRA_TAG_PREFERENCES_AUT
 
 public class SIDAuthResultActivity extends AppCompatActivity implements SIDNetworkRequest.OnCompleteListener,
         SIDNetworkRequest.OnUpdateListener, SIDNetworkRequest.OnErrorListener,
-        SIDNetworkRequest.OnAuthenticatedListener {
+        SIDNetworkRequest.OnAuthenticatedListener, SIDNetworkRequest.OnDocVerificationListener {
 
     private SIDNetworkRequest mSINetworkRequest;
     private TextView mTvResult, mTvConfidenceValue;
@@ -83,6 +84,7 @@ public class SIDAuthResultActivity extends AppCompatActivity implements SIDNetwo
         mSINetworkRequest.setOnUpdateListener(this);
         mSINetworkRequest.setOnAuthenticatedListener(this);
         mSINetworkRequest.set0nErrorListener(this);
+        mSINetworkRequest.setOnDocVerificationListener(this);
         mSINetworkRequest.initialize();
     }
 
@@ -257,6 +259,12 @@ public class SIDAuthResultActivity extends AppCompatActivity implements SIDNetwo
                 upload(createConfig());
             }
         }
+    }
+
+    @Override
+    public void onDocVerified(SIDResponse result) {
+        Toast.makeText(this, result.getResultText(), Toast.LENGTH_LONG).show();
+        findViewById(R.id.pbLoading).setVisibility(View.GONE);
     }
 
     private void saveAuthTagsForLater() {
