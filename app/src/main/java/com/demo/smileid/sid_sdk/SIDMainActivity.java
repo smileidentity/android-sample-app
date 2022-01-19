@@ -158,6 +158,10 @@ public class SIDMainActivity extends BaseSIDActivity implements
         startSelfieCapture(true);
     }
 
+    public void getImagePaths(View view) {
+        new ImagePathsDialog(this, null).showDialog();
+    }
+
     private void showOfflineAuthDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Would you like to use existing or add new offline jobs?");

@@ -145,6 +145,14 @@
             android:text="@string/id_doc_verification"
             app:layout_constraintTop_toBottomOf="@id/tvOthers" />
 
+        <TextView
+            android:id="@+id/tvPathAccess"
+            style="@style/MainBtnAction"
+            android:drawableLeft="@drawable/ic_image_search"
+            android:onClick="getImagePaths"
+            android:text="@string/id_file_paths"
+            app:layout_constraintTop_toBottomOf="@id/tvDocVerHeading" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>
