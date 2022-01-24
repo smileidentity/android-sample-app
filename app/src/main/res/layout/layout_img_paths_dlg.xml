@@ -15,10 +15,12 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_height="wrap_content"
+        app:layout_constrainedHeight="true"
         android:minHeight="200dp"
         android:paddingLeft="0dp"
         android:paddingRight="0dp"
         android:paddingTop="0dp"
+        android:paddingBottom="24dp"
         android:background="@drawable/bckgr">
         
         <ImageView
@@ -55,7 +57,7 @@
             app:layout_constraintTop_toBottomOf="@id/rvJobs"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp"
+            android:layout_marginBottom="0dp"
             android:text="CLEAR ALL"
             android:textStyle="bold" />
 
@@ -91,18 +93,18 @@
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nsvPictures"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             android:layout_marginTop="4dp"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
             android:background="@color/white"
+            app:layout_constrainedHeight="true"
             app:layout_constraintTop_toBottomOf="@id/tvTitle"
-            app:layout_constraintBottom_toBottomOf="@id/tvClearTags"
             android:visibility="gone">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center">
 
                 <TextView
@@ -130,20 +132,7 @@
                     android:layout_marginTop="6dp"
                     app:layout_constrainedHeight="true"
                     android:adjustViewBounds="true"
-                    android:nestedScrollingEnabled="true" />
-
-                <!--<TextView
-                    android:id="@+id/tvSeparator"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    app:layout_constraintTop_toBottomOf="@id/rvIDCards"
-                    android:layout_marginTop="3dp"
-                    android:gravity="center"
-                    android:text="·"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/colorPrimaryDark" />-->
+                    android:nestedScrollingEnabled="false" />
 
                 <TextView
                     android:id="@+id/tvSelfies"
@@ -168,7 +157,12 @@
                     android:layout_marginTop="6dp"
                     app:layout_constrainedHeight="true"
                     android:adjustViewBounds="true"
-                    android:nestedScrollingEnabled="true" />
+                    android:nestedScrollingEnabled="false" />
+                
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    app:layout_constraintTop_toBottomOf="@id/rvSelfies" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

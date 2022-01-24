@@ -9,6 +9,7 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +37,7 @@ public class ImagePathsDialog {
     private RecyclerView mRvJobs;
     private RecyclerView mRvIDCards;
     private RecyclerView mRvSelfies;
-    private SIFileManager mSiFileManager = new SIFileManager();
+//    private SIFileManager mSiFileManager = new SIFileManager();
     private TagList mTagList;
 
     public interface DlgListener {
@@ -91,7 +92,7 @@ public class ImagePathsDialog {
     public void showDialog() {
         mDialog.show();
 
-        Set<String> tags = mSiFileManager.getIdleTags(mDialog.getContext()); //AppData.getInstance(mDialog.getContext()).getTags();
+        Set<String> tags = new SIFileManager().getIdleTags(mDialog.getContext()); //AppData.getInstance(mDialog.getContext()).getTags();
 
         mDialog.findViewById(R.id.rvJobs).setVisibility((!tags.isEmpty()) ? View.VISIBLE :
             View.GONE);
@@ -115,11 +116,20 @@ public class ImagePathsDialog {
     }
 
     public void clearTags() {
-        mSiFileManager.clearIdleTags(mDialog.getContext());
+        new SIFileManager().clearIdleTags(mDialog.getContext());
         mTagList.deleteAll();
-        mDialog.findViewById(R.id.rvJobs).setVisibility(View.GONE);
-        mDialog.findViewById(R.id.tvEmptyList).setVisibility(View.VISIBLE);
-        mDialog.findViewById(R.id.tvClearTags).setVisibility(View.GONE);
+        checkListSize();
+    }
+
+    private void checkListSize() {
+        mDialog.findViewById(R.id.rvJobs).setVisibility(mTagList.getTags().isEmpty() ? View.GONE :
+            View.VISIBLE);
+
+        mDialog.findViewById(R.id.tvEmptyList).setVisibility(mTagList.getTags().isEmpty() ?
+            View.VISIBLE : View.GONE);
+
+        mDialog.findViewById(R.id.tvClearTags).setVisibility(mTagList.getTags().isEmpty() ?
+            View.GONE : View.VISIBLE);
     }
 
     private void showTagDetails(String tag, List<File> idCards, List<File> selfies) {
@@ -162,6 +172,10 @@ public class ImagePathsDialog {
             mTags.addAll(tags);
         }
 
+        public List<String> getTags() {
+            return mTags;
+        }
+
         @NonNull
         @Override
         public TagViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
@@ -183,6 +197,7 @@ public class ImagePathsDialog {
             int position = mTags.indexOf(tag);
             mTags.remove(tag);
             notifyItemRemoved(position);
+            checkListSize();
         }
 
         public void deleteAll() {
@@ -197,10 +212,10 @@ public class ImagePathsDialog {
             super(view);
         }
 
-        public void populate(final String tag) {
-            final List<File> idCards = mSiFileManager.getIdCards(tag, itemView.getContext());
+        public void populate(String tag) {
+            List<File> idCards = new SIFileManager().getIdCards(tag, itemView.getContext());
             int idCardCount = idCards.size();
-            final List<File> selfies = mSiFileManager.getSelfies(tag, itemView.getContext());
+            List<File> selfies = new SIFileManager().getSelfies(tag, itemView.getContext());
             int selfieCount = selfies.size();
             ((TextView) itemView.findViewById(R.id.tvTag)).setText(tag);
 
@@ -245,7 +260,7 @@ public class ImagePathsDialog {
             });
 
             itemView.findViewById(R.id.ivDelete).setOnClickListener(v -> {
-                mSiFileManager.clearData(tag, itemView.getContext());
+                new SIFileManager().clearData(tag, itemView.getContext());
                 ((TagList) getBindingAdapter()).deleteItem(tag);
             });
         }
