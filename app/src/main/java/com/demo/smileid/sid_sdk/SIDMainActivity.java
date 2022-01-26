@@ -74,7 +74,6 @@ public class SIDMainActivity extends BaseSIDActivity implements
 
     public void enrollWithIdCard(View view) {
         resetJob();
-        mConsentRequired = true;
         jobType = 1;
         startSelfieCapture(true);
     }
@@ -116,9 +115,6 @@ public class SIDMainActivity extends BaseSIDActivity implements
         if (jobType == 5) {
             mConsentRequired = false;
             startActivity(new Intent(this, SIDIDValidationActivity.class));
-        } else if (jobType == (-1)) {
-            mConsentRequired = false;
-            new SIDCaptureManager.Builder(this, CaptureType.SELFIE_AND_ID_CAPTURE, SMILE_ID_CARD_REQUEST_CODE).build().start();
         } else {
             super.approve(tag);
         }
