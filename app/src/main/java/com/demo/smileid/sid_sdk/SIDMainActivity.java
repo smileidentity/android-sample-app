@@ -42,9 +42,10 @@ public class SIDMainActivity extends BaseSIDActivity implements
 
     public void smileUIIDCardRegister(View view) {
         if (permissionGranted(PERMISSIONS)) {
-            resetJob();
+            /*resetJob();
             mConsentRequired = true;
-            requestUserConsent();
+            requestUserConsent();*/
+            new SIDCaptureManager.Builder(this, CaptureType.SELFIE_AND_ID_CAPTURE, SMILE_ID_CARD_REQUEST_CODE).build().start();
         } else {
             ActivityCompat.requestPermissions(this, PERMISSIONS, SMILE_ID_UI_SELFIE_PERMISSION_REQUEST);
         }

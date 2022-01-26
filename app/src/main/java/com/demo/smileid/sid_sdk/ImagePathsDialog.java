@@ -63,10 +63,12 @@ public class ImagePathsDialog {
         mRvIDCards = mDialog.findViewById(R.id.rvIDCards);
         mRvIDCards.setLayoutManager(new GridLayoutManager(mDialog.getContext(), 2));
         mRvIDCards.setHasFixedSize(false);
+        mRvIDCards.setNestedScrollingEnabled(false);
 
         mRvSelfies = mDialog.findViewById(R.id.rvSelfies);
         mRvSelfies.setLayoutManager(new GridLayoutManager(mDialog.getContext(), 2));
         mRvSelfies.setHasFixedSize(false);
+        mRvSelfies.setNestedScrollingEnabled(false);
 
         /*mDialog.findViewById(R.id.tvSubmit).setOnClickListener(v -> {
              if (mListener == null) return;

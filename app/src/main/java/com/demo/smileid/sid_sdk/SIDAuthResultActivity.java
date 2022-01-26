@@ -115,7 +115,7 @@ public class SIDAuthResultActivity extends AppCompatActivity implements SIDNetwo
 
     @NonNull
     private SIDConfig createConfig(SIDMetadata metadata) {
-        SIDNetData data = new SIDNetData(this, SIDNetData.Environment.TEST);
+        SIDNetData data = new SIDNetData(this, SIDNetData.Environment.PROD);
         GeoInfos geoInfos = SIDGeoInfos.getInstance().getGeoInformation();
         //Uncomment to set user Provided partner Parameter
         //setPartnerParams();
