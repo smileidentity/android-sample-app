@@ -79,6 +79,7 @@
     <string name="step_set_id_info">Set ID Info</string>
     <string name="job_status">Job Status</string>
     <string name="id_doc_verification">Document Verification</string>
+    <string name="id_file_paths">Captured Images</string>
 
     <string name="faceDetectedMessage">Custom  face detected message</string>
     <string name="flashMissingErrorMessage">Custom no flash message</string>
