@@ -41,7 +41,7 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
     private SmartSelfieManager mSmartSelfieManager;
 
     private boolean mIsEnrollMode, mHasId, mUse258, mHasNoIdCard, mReEnrollUser,
-            mMultipleEnroll = false, mUseOffLineAuth = false;
+        mMultipleEnroll = false, mUseOffLineAuth = false;
 
     private int mEnrollType;
     private String mCurrentTag;

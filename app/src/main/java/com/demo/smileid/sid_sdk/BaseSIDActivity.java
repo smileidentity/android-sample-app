@@ -121,7 +121,7 @@ public class BaseSIDActivity extends AppCompatActivity implements DlgListener {
     }
 
     @Override
-    public void approve(String tag) {
+    public void consentProvided(String tag) {
         proceedWithJob();
     }
 

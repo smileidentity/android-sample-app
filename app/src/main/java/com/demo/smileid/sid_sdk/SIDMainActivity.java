@@ -7,18 +7,33 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
+
+import com.demo.smileid.sid_sdk.geoloc.SIDGeoInfos;
 import com.demo.smileid.sid_sdk.sidNet.InternetStateBroadCastReceiver;
+import com.demo.smileid.sid_sdk.sidNet.Misc;
 import com.smileid.smileidui.CaptureType;
 import com.smileid.smileidui.SIDCaptureManager;
 import static com.demo.smileid.sid_sdk.SIDStringExtras.EXTRA_TAG_PREFERENCES_AUTH_TAGS;
 import static com.demo.smileid.sid_sdk.SIDStringExtras.SHARED_PREF_USER_ID;
 import static com.smileid.smileidui.IntentHelper.SMILE_REQUEST_RESULT_TAG;
+import static com.demo.smileid.sid_sdk.DocVerifyOptionDialog.DOC_VER_OPTION;
+import static com.demo.smileid.sid_sdk.DocVerifyOptionDialog.DOC_VER_TYPE;
+import static com.demo.smileid.sid_sdk.DocVerifyOptionDialog.DOC_VER_OPTION.ENROLLED_USER;
+import static com.demo.smileid.sid_sdk.DocVerifyOptionDialog.DOC_VER_OPTION.NON_ENROLLED_USER;
+import static com.demo.smileid.sid_sdk.DocVerifyOptionDialog.DOC_VER_TYPE.ID_CARD_ONLY;
+import static com.demo.smileid.sid_sdk.DocVerifyOptionDialog.DOC_VER_TYPE.SELFIE_PLUS_ID_CARD;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
 
 public class SIDMainActivity extends BaseSIDActivity implements
         InternetStateBroadCastReceiver.OnConnectionReceivedListener {
@@ -111,12 +126,38 @@ public class SIDMainActivity extends BaseSIDActivity implements
     }
 
     @Override
-    public void approve(String tag) {
-        if (jobType == 5) {
+    public void consentProvided(String tag) {
+        /*if (jobType == 6) {
+            mConsentRequired = false;
+            new DocVerifyOptionDialog(this, new DocVerifyOption()).showDialog();
+        } else */if (jobType == 5) {
             mConsentRequired = false;
             startActivity(new Intent(this, SIDIDValidationActivity.class));
         } else {
-            super.approve(tag);
+            super.consentProvided(tag);
+        }
+    }
+
+    private class DocVerifyOption implements DocVerifyOptionDialog.DlgListener {
+
+        @Override
+        public void verificationSelected(DOC_VER_TYPE type, DOC_VER_OPTION option) {
+            if (type == SELFIE_PLUS_ID_CARD) {
+                startSelfieCapture(true);
+            } else {
+                String tag = getTag();
+                ArrayList<String> tags = new ArrayList<>(Arrays.asList(tag));
+                SIDGeoInfos.getInstance().init(SIDMainActivity.this);
+                Intent mCurrentIntent = new Intent(SIDMainActivity.this, SIDIDCardActivity.class);
+                mCurrentIntent.putExtra(SIDStringExtras.EXTRA_REENROLL, false);
+                mCurrentIntent.putExtra(SIDStringExtras.EXTRA_ENROLL_TYPE, jobType);
+                mCurrentIntent.putExtra(SIDStringExtras.EXTRA_MULTIPLE_ENROLL, mUseMultipleEnroll);
+                mCurrentIntent.putExtra(SIDStringExtras.EXTRA_ENROLL_TAG_LIST, tags);
+                mCurrentIntent.putExtra(SIDStringExtras.EXTRA_HAS_NO_ID_CARD, false);
+                mCurrentIntent.putExtra(SIDStringExtras.EXTRA_MULTIPLE_ENROLL_ADD_ID_INFO, false);
+                mCurrentIntent.putExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO, tag);
+                startActivity(mCurrentIntent);
+            }
         }
     }
 
@@ -149,6 +190,11 @@ public class SIDMainActivity extends BaseSIDActivity implements
     }
 
     public void verifyDoc(View view) {
+        /*mConsentRequired = true;
+        resetJob();
+        jobType = 6;
+        requestUserConsent();*/
+
         mConsentRequired = true;
         resetJob();
         jobType = 6;
@@ -292,5 +338,9 @@ public class SIDMainActivity extends BaseSIDActivity implements
     protected void onResume() {
         super.onResume();
 //        AppData.getInstance(this).resetTempConsent();
+    }
+
+    private String getTag() {
+        return String.format(Misc.USER_TAG, DateFormat.format("MM_dd_hh_mm_ss", Calendar.getInstance().getTime()).toString());
     }
 }
