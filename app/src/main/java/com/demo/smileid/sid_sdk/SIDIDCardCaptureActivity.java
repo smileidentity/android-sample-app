@@ -3,6 +3,7 @@ package com.demo.smileid.sid_sdk;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.animation.Animation;
@@ -60,9 +61,11 @@ public class SIDIDCardCaptureActivity extends AppCompatActivity implements Captu
         mCaptureIDCard = new CaptureIDCard(this, mCurrentTag, mCameraPreview);
         mCaptureIDCard.setOnCompleteListener(this);
         mCaptureIDCard.extractProminentFaceFromID(true);
+
         LinearLayout.LayoutParams layoutParamsDrawing = new LinearLayout.
                 LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);
+
         addContentView(mCaptureIDCard.getDrawingView(), layoutParamsDrawing);
     }
 
@@ -125,7 +128,6 @@ public class SIDIDCardCaptureActivity extends AppCompatActivity implements Captu
         mCaptureIDCard.pause();
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -139,6 +141,7 @@ public class SIDIDCardCaptureActivity extends AppCompatActivity implements Captu
             case R.id.viewNo:
                 retakePicture();
                 break;
+
             case R.id.viewYes:
                 Intent intent = new Intent(this, SIDEnrollResultActivity.class);
                 intent.putExtra(SIDStringExtras.EXTRA_HAS_ID, true);
@@ -148,11 +151,11 @@ public class SIDIDCardCaptureActivity extends AppCompatActivity implements Captu
                 startActivity(intent);
                 finish();
                 break;
+
             case R.id.back_btn:
                 onBackPressed();
                 break;
         }
-
     }
 
     private void retakePicture() {
@@ -169,6 +172,4 @@ public class SIDIDCardCaptureActivity extends AppCompatActivity implements Captu
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                         | View.SYSTEM_UI_FLAG_FULLSCREEN);
     }
-
-
 }

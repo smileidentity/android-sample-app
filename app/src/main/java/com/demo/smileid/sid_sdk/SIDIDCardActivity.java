@@ -3,18 +3,14 @@ package com.demo.smileid.sid_sdk;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.smileidentity.libsmileid.core.SmartCardView;
 import com.smileidentity.libsmileid.core.captureCallback.IDCardState;
-import com.smileidentity.libsmileid.exception.SIDException;
 
 public class SIDIDCardActivity extends AppCompatActivity implements SmartCardView.SmartCardViewCallBack,
-    ActionDialog.DlgListener{
+    ActionDialog.DlgListener {
 
     private SmartCardView mSmartCardView;
     private boolean reenrollUser;
@@ -36,7 +32,11 @@ public class SIDIDCardActivity extends AppCompatActivity implements SmartCardVie
     @Override
     protected void onResume() {
         super.onResume();
-        mSmartCardView.startCapture(mCurrentTag);
+        try {
+            mSmartCardView.startCapture(mCurrentTag);
+        } catch (Exception e) {
+
+        }
     }
 
     private void setFullScreen() {

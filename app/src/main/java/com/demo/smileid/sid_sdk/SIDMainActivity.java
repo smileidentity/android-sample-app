@@ -7,22 +7,33 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 
+import com.demo.smileid.sid_sdk.geoloc.SIDGeoInfos;
 import com.demo.smileid.sid_sdk.sidNet.InternetStateBroadCastReceiver;
+import com.demo.smileid.sid_sdk.sidNet.Misc;
 import com.smileid.smileidui.CaptureType;
 import com.smileid.smileidui.SIDCaptureManager;
-
 import static com.demo.smileid.sid_sdk.SIDStringExtras.EXTRA_TAG_PREFERENCES_AUTH_TAGS;
 import static com.demo.smileid.sid_sdk.SIDStringExtras.SHARED_PREF_USER_ID;
 import static com.smileid.smileidui.IntentHelper.SMILE_REQUEST_RESULT_TAG;
+import static com.demo.smileid.sid_sdk.DocVerifyOptionDialog.DOC_VER_OPTION;
+import static com.demo.smileid.sid_sdk.DocVerifyOptionDialog.DOC_VER_TYPE;
+import static com.demo.smileid.sid_sdk.DocVerifyOptionDialog.DOC_VER_OPTION.ENROLLED_USER;
+import static com.demo.smileid.sid_sdk.DocVerifyOptionDialog.DOC_VER_OPTION.NON_ENROLLED_USER;
+import static com.demo.smileid.sid_sdk.DocVerifyOptionDialog.DOC_VER_TYPE.ID_CARD_ONLY;
+import static com.demo.smileid.sid_sdk.DocVerifyOptionDialog.DOC_VER_TYPE.SELFIE_PLUS_ID_CARD;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
 
 public class SIDMainActivity extends BaseSIDActivity implements
         InternetStateBroadCastReceiver.OnConnectionReceivedListener {
@@ -46,7 +57,9 @@ public class SIDMainActivity extends BaseSIDActivity implements
 
     public void smileUIIDCardRegister(View view) {
         if (permissionGranted(PERMISSIONS)) {
-            new SIDCaptureManager.Builder(this, CaptureType.SELFIE_AND_ID_CAPTURE, SMILE_ID_CARD_REQUEST_CODE).build().start();
+            resetJob();
+            mConsentRequired = true;
+            requestUserConsent();
         } else {
             ActivityCompat.requestPermissions(this, PERMISSIONS, SMILE_ID_UI_SELFIE_PERMISSION_REQUEST);
         }
@@ -68,12 +81,14 @@ public class SIDMainActivity extends BaseSIDActivity implements
 
     public void enrollWithIdNo(View view) {
         resetJob();
+        mConsentRequired = true;
         jobType = 1;
         startSelfieCapture(true, true, false, false, true);
     }
 
     public void enrollWithIdCard(View view) {
         resetJob();
+        mConsentRequired = true;
         jobType = 1;
         startSelfieCapture(true);
     }
@@ -104,9 +119,49 @@ public class SIDMainActivity extends BaseSIDActivity implements
     }
 
     public void validateId(View view) {
+        mConsentRequired = true;
         resetJob();
         jobType = 5;
-        startActivity(new Intent(this, SIDIDValidationActivity.class));
+        requestUserConsent();
+    }
+
+    @Override
+    public void consentProvided(String tag) {
+        /*if (jobType == 6) {
+            mConsentRequired = false;
+            new DocVerifyOptionDialog(this, new DocVerifyOption()).showDialog();
+        } else */if (jobType == 5) {
+            mConsentRequired = false;
+            startActivity(new Intent(this, SIDIDValidationActivity.class));
+        } else if (jobType == (-1)) {
+            mConsentRequired = false;
+            new SIDCaptureManager.Builder(this, CaptureType.SELFIE_AND_ID_CAPTURE, SMILE_ID_CARD_REQUEST_CODE).build().start();
+        } else {
+            super.consentProvided(tag);
+        }
+    }
+
+    private class DocVerifyOption implements DocVerifyOptionDialog.DlgListener {
+
+        @Override
+        public void verificationSelected(DOC_VER_TYPE type, DOC_VER_OPTION option) {
+            if (type == SELFIE_PLUS_ID_CARD) {
+                startSelfieCapture(true);
+            } else {
+                String tag = getTag();
+                ArrayList<String> tags = new ArrayList<>(Arrays.asList(tag));
+                SIDGeoInfos.getInstance().init(SIDMainActivity.this);
+                Intent mCurrentIntent = new Intent(SIDMainActivity.this, SIDIDCardActivity.class);
+                mCurrentIntent.putExtra(SIDStringExtras.EXTRA_REENROLL, false);
+                mCurrentIntent.putExtra(SIDStringExtras.EXTRA_ENROLL_TYPE, jobType);
+                mCurrentIntent.putExtra(SIDStringExtras.EXTRA_MULTIPLE_ENROLL, mUseMultipleEnroll);
+                mCurrentIntent.putExtra(SIDStringExtras.EXTRA_ENROLL_TAG_LIST, tags);
+                mCurrentIntent.putExtra(SIDStringExtras.EXTRA_HAS_NO_ID_CARD, false);
+                mCurrentIntent.putExtra(SIDStringExtras.EXTRA_MULTIPLE_ENROLL_ADD_ID_INFO, false);
+                mCurrentIntent.putExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO, tag);
+                startActivity(mCurrentIntent);
+            }
+        }
     }
 
     public void authenticate(View view) {
@@ -137,12 +192,24 @@ public class SIDMainActivity extends BaseSIDActivity implements
         }
     }
 
-    private void showOfflineAuthDialog() {
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
-        builder1.setMessage("Would you like to use existing or add new offline jobs?");
-        builder1.setCancelable(false);
+    public void verifyDoc(View view) {
+        /*mConsentRequired = true;
+        resetJob();
+        jobType = 6;
+        requestUserConsent();*/
 
-        builder1.setPositiveButton(
+        mConsentRequired = true;
+        resetJob();
+        jobType = 6;
+        startSelfieCapture(true);
+    }
+
+    private void showOfflineAuthDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Would you like to use existing or add new offline jobs?");
+        builder.setCancelable(false);
+
+        builder.setPositiveButton(
                 "Use existing jobs",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -153,7 +220,7 @@ public class SIDMainActivity extends BaseSIDActivity implements
                     }
                 });
 
-        builder1.setNegativeButton(
+        builder.setNegativeButton(
                 "Add to existing Jobs",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -162,16 +229,16 @@ public class SIDMainActivity extends BaseSIDActivity implements
                     }
                 });
 
-        AlertDialog alert11 = builder1.create();
-        alert11.show();
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     private void enrolFirstDialog() {
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
-        builder1.setMessage("You have to enrol (register) first before you can authenticate");
-        builder1.setCancelable(false);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("You have to enrol (register) first before you can authenticate");
+        builder.setCancelable(false);
 
-        builder1.setPositiveButton(
+        builder.setPositiveButton(
                 "Register (Enroll)",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -179,7 +246,7 @@ public class SIDMainActivity extends BaseSIDActivity implements
                     }
                 });
 
-        builder1.setNegativeButton(
+        builder.setNegativeButton(
                 "Cancel",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -187,8 +254,8 @@ public class SIDMainActivity extends BaseSIDActivity implements
                     }
                 });
 
-        AlertDialog alert11 = builder1.create();
-        alert11.show();
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     private boolean hasOfflineTags() {
@@ -264,5 +331,15 @@ public class SIDMainActivity extends BaseSIDActivity implements
                 Toast.makeText(this, "Oops you did not allow a required permission", Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        AppData.getInstance(this).resetTempConsent();
+    }
+
+    private String getTag() {
+        return String.format(Misc.USER_TAG, DateFormat.format("MM_dd_hh_mm_ss", Calendar.getInstance().getTime()).toString());
     }
 }
