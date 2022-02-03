@@ -3,7 +3,7 @@
     <style name="AppTheme" parent="Theme.AppCompat">
         <item name="colorPrimary">@color/colorPrimaryDark</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorPrimaryDark</item>
         <item name="colorControlNormal">@color/darkerGray</item>
         <item name="popupTheme">@style/PopupStyle</item>
         <item name="android:popupBackground">@color/white_color</item>

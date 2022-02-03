@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -38,6 +39,7 @@ import com.smileidentity.libsmileid.model.PartnerParams;
 import com.smileidentity.libsmileid.model.SIDMetadata;
 import com.smileidentity.libsmileid.model.SIDNetData;
 import com.smileidentity.libsmileid.model.SIDUserIdInfo;
+import com.smileidentity.libsmileid.utils.AppData;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -146,7 +148,11 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
     }
 
     public void uploadNow(View view) {
-        upload(mCurrentTag);
+        if (mEnrollType == 6) {
+            setCountryAndIDType();
+        } else {
+            upload(mCurrentTag);
+        }
     }
 
     public void showDateDialog(View view) {
@@ -215,10 +221,28 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
         return metadata;
     }
 
+    private void setCountryAndIDType() {
+        CCAndIdTypeDialog.DlgListener listener = new CCAndIdTypeDialog.DlgListener() {
+            @Override
+            public void submit(String countryCode, String idType) {
+                mSelectedCountryName = countryCode;
+                mSelectedIdCard = idType;
+                upload(mCurrentTag);
+            }
+
+            @Override
+            public void cancel() {
+                Toast.makeText(SIDEnrollResultActivity.this, "To verify this document, kindly select a country and an ID type", Toast.LENGTH_LONG).show();
+            }
+        };
+
+        new CCAndIdTypeDialog(this, listener).showDialog();
+    }
+
     private void upload(String tag) {
         SIDMetadata metadata = new SIDMetadata();
 
-        if (mHasNoIdCard) {
+        if ((mHasNoIdCard) || (mEnrollType == 6)) {
             if (!isIdInfoValid()) {
                 return;
             }
@@ -252,7 +276,7 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
     }
 
     private SIDConfig createConfig(String tag, SIDMetadata metadata) {
-        SIDNetData data = new SIDNetData(this, SIDNetData.Environment.TEST);
+        SIDNetData data = new SIDNetData(this, SIDNetData.Environment.PROD);
 
         if (mReEnrollUser && !TextUtils.isEmpty(getSavedUserId())) {
             //USe the PartnerParams object to set the user id of the user to be reernolled.
@@ -274,7 +298,6 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
         mConfig = builder.build(mCurrentTag);
         return mConfig;
     }
-
 
     @Override
     public void onComplete() {

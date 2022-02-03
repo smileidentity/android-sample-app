@@ -1,10 +1,4 @@
-<<<<<<< HEAD
-include ':app', ':ccp', ':smile-id-ui', ':smile_detect_library-release'/*, ':smile-identity-simplified-java'*/
+include ':app', ':ccp', ':smile-id-ui', ':smile_detect_library-release', ':smile-identity-simplified-java'
 project(':smile_detect_library-release').projectDir = new File('../android_lib')
 project(':smile-id-ui').projectDir = new File('../smildidui')
-=======
-include ':app', ':ccp'/*, ':smile-id-ui', ':smile_detect_library-release', ':smile-identity-simplified-java'*/
-//project(':smile_detect_library-release').projectDir = new File('../android_lib')
-//project(':smile-id-ui').projectDir = new File('../smildidui')
->>>>>>> cc6859005945f96250d42775917965ec1fa02117
-//project(':smile-identity-simplified-java').projectDir = new File('../smile_id_simplified_java_lib/SmileIDSimplifiedJava')
+project(':smile-identity-simplified-java').projectDir = new File('../smile_id_simplified_java_lib/SmileIDSimplifiedJava')
