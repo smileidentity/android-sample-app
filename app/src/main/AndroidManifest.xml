@@ -72,6 +72,10 @@
             android:name="com.google.android.awareness.API_KEY"
             android:value="@string/google_awareness_api_key" />
 
+        <meta-data
+            android:name="ContentVersion"
+            android:value="TEST" />
+
         <activity
             android:name=".SIDIDCardCaptureActivity"
             android:screenOrientation="landscape"

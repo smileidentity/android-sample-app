@@ -5,10 +5,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -21,19 +21,21 @@ import com.demo.smileid.sid_sdk.sidNet.InternetStateBroadCastReceiver;
 import com.demo.smileid.sid_sdk.sidNet.Misc;
 import com.smileid.smileidui.CaptureType;
 import com.smileid.smileidui.SIDCaptureManager;
+import com.smileid.smileidui.SIDSelfieCaptureConfig;
+
 import static com.demo.smileid.sid_sdk.SIDStringExtras.EXTRA_TAG_PREFERENCES_AUTH_TAGS;
 import static com.demo.smileid.sid_sdk.SIDStringExtras.SHARED_PREF_USER_ID;
 import static com.smileid.smileidui.IntentHelper.SMILE_REQUEST_RESULT_TAG;
 import static com.demo.smileid.sid_sdk.DocVerifyOptionDialog.DOC_VER_OPTION;
 import static com.demo.smileid.sid_sdk.DocVerifyOptionDialog.DOC_VER_TYPE;
-import static com.demo.smileid.sid_sdk.DocVerifyOptionDialog.DOC_VER_OPTION.ENROLLED_USER;
-import static com.demo.smileid.sid_sdk.DocVerifyOptionDialog.DOC_VER_OPTION.NON_ENROLLED_USER;
-import static com.demo.smileid.sid_sdk.DocVerifyOptionDialog.DOC_VER_TYPE.ID_CARD_ONLY;
 import static com.demo.smileid.sid_sdk.DocVerifyOptionDialog.DOC_VER_TYPE.SELFIE_PLUS_ID_CARD;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashMap;
 
 public class SIDMainActivity extends BaseSIDActivity implements
         InternetStateBroadCastReceiver.OnConnectionReceivedListener {
@@ -60,7 +62,30 @@ public class SIDMainActivity extends BaseSIDActivity implements
             /*resetJob();
             mConsentRequired = true;
             requestUserConsent();*/
-            new SIDCaptureManager.Builder(this, CaptureType.SELFIE_AND_ID_CAPTURE, SMILE_ID_CARD_REQUEST_CODE).build().start();
+            SIDCaptureManager.Builder sidCaptureManager = new SIDCaptureManager.Builder(this,
+                CaptureType.SELFIE_AND_ID_CAPTURE, SMILE_ID_CARD_REQUEST_CODE);
+
+            SIDSelfieCaptureConfig.Builder config = new SIDSelfieCaptureConfig.Builder();
+            config.setOverlayColor("#FF0000");
+            config.setOverlayAlpha(200);
+            config.setOverlayThickness(10);
+            config.setOverlayDotted(true);
+
+            HashMap<String, Object> styleMap = new HashMap<String, Object>() {
+                {
+                    put("text_size", 24);
+                    put("text_color", Color.RED);
+                    put("font_style", 0);
+                    put("font_family", "Arial");
+                }
+            };
+
+            config.setPromptStyle(new JSONObject(styleMap).toString());
+            config.setReviewPromptStyle(new JSONObject(styleMap).toString());
+            config.setReviewTipStyle(new JSONObject(styleMap).toString());
+
+            sidCaptureManager.setSidSelfieConfig(config.build());
+            sidCaptureManager.build().start();
         } else {
             ActivityCompat.requestPermissions(this, PERMISSIONS, SMILE_ID_UI_SELFIE_PERMISSION_REQUEST);
         }
@@ -68,7 +93,63 @@ public class SIDMainActivity extends BaseSIDActivity implements
 
     public void smileUIRegister(View view) {
         if (permissionGranted(PERMISSIONS)) {
-            new SIDCaptureManager.Builder(this, CaptureType.SELFIE, SMILE_SELFIE_REQUEST_CODE).build().start();
+            SIDCaptureManager.Builder sidCaptureManager = new SIDCaptureManager.Builder(this,
+                CaptureType.SELFIE, SMILE_SELFIE_REQUEST_CODE);
+
+            SIDSelfieCaptureConfig.Builder config = new SIDSelfieCaptureConfig.Builder();
+            config.setCaptureTitle("CAPTURING...");
+            config.setReviewTitle("REVIEW...");
+            /*config.setOverlayColor("#FF0000");
+            config.setOverlayAlpha(50);
+            config.setOverlayThickness(10);
+            config.setOverlayWidth(260);
+            config.setOverlayHeight(350);*/
+            config.setOverlayDotted(false);
+//            config.setPromptDefault("Here we go...");
+            config.setCapturingProgressColor("#0000FF");
+            config.setCapturedProgressColor("#00FF00");
+            config.setCaptureFullScreen(false);
+
+            HashMap<String, Object> styleMap = new HashMap<String, Object>() {
+                {
+                    put("text_size", 12);
+                    put("text_color", "#0000FF");
+                    put("font_style", "bold");
+                }
+            };
+
+            config.setTitleStyle(new JSONObject(styleMap).toString());
+
+            config.setReviewConfirmButtonStyle(new JSONObject(styleMap).toString());
+            config.setReviewConfirmButtonColor("#FF0000");
+
+            styleMap = new HashMap<String, Object>() {
+                {
+                    put("text_size", 12);
+                    put("text_color", "#00FF00");
+                    put("font_style", "normal");
+                    put("width", 240);
+                    put("height", 48);
+                }
+            };
+
+            config.setReviewConfirmButtonStyle(new JSONObject(styleMap).toString());
+
+            styleMap = new HashMap<String, Object>() {
+                {
+                    put("text_size", 12);
+                    put("text_color", "#FF0000");
+                    put("font_style", "normal");
+                    put("width", 360);
+                    put("height", 72);
+                }
+            };
+
+            config.setReviewRetakeButtonStyle(new JSONObject(styleMap).toString());
+            config.setReviewRetakeButtonColor("#00FF00");
+
+            sidCaptureManager.setSidSelfieConfig(config.build());
+            sidCaptureManager.build().start();
         } else {
             ActivityCompat.requestPermissions(this, PERMISSIONS, SMILE_ID_UI_SELFIE_PERMISSION_REQUEST);
         }

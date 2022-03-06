@@ -195,4 +195,16 @@
         <item name="android:layout_marginBottom">16dp</item>
     </style>
 
+    <style name="promptStyle" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/app_green</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="tipStyle" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/colorBlue</item>
+        <item name="android:textSize">8sp</item>
+    </style>
+
 </resources>
