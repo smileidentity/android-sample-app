@@ -99,16 +99,16 @@ public class SIDMainActivity extends BaseSIDActivity implements
             SIDSelfieCaptureConfig.Builder config = new SIDSelfieCaptureConfig.Builder();
             config.setCaptureTitle("CAPTURING...");
             config.setReviewTitle("REVIEW...");
-            /*config.setOverlayColor("#FF0000");
+            config.setOverlayColor("#000000");
             config.setOverlayAlpha(50);
             config.setOverlayThickness(10);
             config.setOverlayWidth(260);
-            config.setOverlayHeight(350);*/
+            config.setOverlayHeight(350);
             config.setOverlayDotted(false);
 //            config.setPromptDefault("Here we go...");
             config.setCapturingProgressColor("#0000FF");
             config.setCapturedProgressColor("#00FF00");
-            config.setCaptureFullScreen(false);
+            config.setCaptureFullScreen(true);
 
             HashMap<String, Object> styleMap = new HashMap<String, Object>() {
                 {
@@ -121,7 +121,7 @@ public class SIDMainActivity extends BaseSIDActivity implements
             config.setTitleStyle(new JSONObject(styleMap).toString());
 
             config.setReviewConfirmButtonStyle(new JSONObject(styleMap).toString());
-            config.setReviewConfirmButtonColor("#FF0000");
+            config.setReviewConfirmButtonColor("#FFFF00");
 
             styleMap = new HashMap<String, Object>() {
                 {
@@ -138,15 +138,15 @@ public class SIDMainActivity extends BaseSIDActivity implements
             styleMap = new HashMap<String, Object>() {
                 {
                     put("text_size", 12);
-                    put("text_color", "#FF0000");
+                    put("text_color", "#0000FF");
                     put("font_style", "normal");
-                    put("width", 360);
+                    put("width", 160);
                     put("height", 72);
                 }
             };
 
             config.setReviewRetakeButtonStyle(new JSONObject(styleMap).toString());
-            config.setReviewRetakeButtonColor("#00FF00");
+            config.setReviewRetakeButtonColor("#FF0000");
 
             sidCaptureManager.setSidSelfieConfig(config.build());
             sidCaptureManager.build().start();

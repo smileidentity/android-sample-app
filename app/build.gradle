@@ -118,7 +118,7 @@ dependencies {
     /*
   USE THIS if you do not intend to use smile-id-ui
    */
-//    implementation 'com.smileidentity:smile-id-sdk:7.3.6(4)-SNAPSHOT'
+//    implementation 'com.smileidentity:smile-id-sdk:7.3.6(5)-SNAPSHOT'
     /*
     OR USE THIS
      */
