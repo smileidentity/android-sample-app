@@ -124,10 +124,10 @@ dependencies {
      */
 //    implementation 'com.smileidentity:smile-id-ui:0.2.0(12)-SNAPSHOT'
 
-//    implementation 'com.smileidentity:netjava:0.0.5'
+    implementation 'com.smileidentity:netjava:0.0.5'
 
     // DEV DEPENDENCIES
     implementation project(':smile_detect_library-release')
     implementation project(':smile-id-ui')
-    implementation project(':smile-identity-simplified-java')
+//    implementation project(':smile-identity-simplified-java')
 }
