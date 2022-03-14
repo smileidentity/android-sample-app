@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent="0.7"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="12dp"
+        android:paddingRight="0dp"
+        android:paddingBottom="12dp"
+        android:paddingTop="0dp"
+        android:background="@drawable/bckgr">
+        
+        <ImageView
+            android:id="@+id/ivBtnCancel"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_cancel"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_margin="6dp" />
+        
+        <TextView
+            android:id="@+id/tvTitle"
+            style="@style/MainHeading"
+            app:layout_constraintTop_toTopOf="@id/ivBtnCancel"
+            app:layout_constraintBottom_toBottomOf="@id/ivBtnCancel"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:gravity="left"
+            android:layout_margin="0dp"
+            android:maxLines="2"
+            app:layout_constraintRight_toLeftOf="@id/ivBtnCancel"
+            android:text="DOCUMENT VERIFICATION"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tvTypes"
+            style="@style/MainHeading"
+            android:gravity="left"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle"
+            android:layout_marginTop="12dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:textSize="16sp"
+            android:text="What do you want to capture?" />
+
+        <RadioGroup
+            android:id="@+id/rgTypes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:checkedButton="@id/rbIdCardOnly"
+            app:layout_constraintTop_toBottomOf="@id/tvTypes">
+
+            <RadioButton
+                android:id="@+id/rbIdCardOnly"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/darkerGray"
+                android:text="ID Card only"
+                android:checked="true" />
+
+            <RadioButton
+                android:id="@+id/rbSelfieAndIdCard"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/darkerGray"
+                android:text="Selfie and ID Card"
+                android:checked="false" />
+
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/tvOptions"
+            style="@style/MainHeading"
+            android:gravity="left"
+            app:layout_constraintTop_toBottomOf="@id/rgTypes"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:textSize="16sp"
+            android:text="Enrolled or new user" />
+
+        <RadioGroup
+            android:id="@+id/rgOptions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:visibility="gone"
+            android:checkedButton="@id/rbEnrolled"
+            app:layout_constraintTop_toBottomOf="@id/tvOptions">
+
+            <RadioButton
+                android:id="@+id/rbEnrolled"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/darkerGray"
+                android:text="Enrolled User"
+                android:checked="true" />
+
+            <RadioButton
+                android:id="@+id/rbNonEnrolled"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/darkerGray"
+                android:text="Non-enrolled User"
+                android:checked="false" />
+
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/tvSubmit"
+            style="@style/DlgBtnAction"
+            android:minHeight="40dp"
+            app:layout_constraintWidth_percent="0.6"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rgOptions"
+            android:layout_marginTop="12dp"
+            android:onClick="verifyDoc"
+            android:text="PROCEED"
+            android:textStyle="bold" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

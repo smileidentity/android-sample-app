@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -27,7 +28,6 @@ import com.demo.smileid.sid_sdk.sidNet.SIDNetworkingUtils;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.hbb20.CountryCodePicker;
-import com.smileidentity.libsmileid.core.RetryOnFailurePolicy;
 import com.smileidentity.libsmileid.core.SIDConfig;
 import com.smileidentity.libsmileid.core.SIDNetworkRequest;
 import com.smileidentity.libsmileid.core.SIDResponse;
@@ -39,13 +39,13 @@ import com.smileidentity.libsmileid.model.PartnerParams;
 import com.smileidentity.libsmileid.model.SIDMetadata;
 import com.smileidentity.libsmileid.model.SIDNetData;
 import com.smileidentity.libsmileid.model.SIDUserIdInfo;
+import com.smileidentity.libsmileid.utils.AppData;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
 import static com.demo.smileid.sid_sdk.SIDStringExtras.SHARED_PREF_JOB_ID;
 import static com.demo.smileid.sid_sdk.SIDStringExtras.SHARED_PREF_USER_ID;
@@ -62,7 +62,7 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
     private CountryCodePicker mCcpCountryPicker;
     private Spinner mSIdType;
     private boolean mHasId = false, mReEnrollUser = false, mHasNoIdCard, mMultipleEnroll,
-        mContinueWithIdInfo;
+            mContinueWithIdInfo;
     private int mEnrollType;
     private String mSelectedCountryName = "", mSelectedIdCard, mCurrentTag;
     private SIDNetworkRequest mSIDNetworkRequest;
@@ -101,7 +101,7 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
         });
 
         findViewById(R.id.clNoCardLayout).setVisibility((mHasNoIdCard || mContinueWithIdInfo) ?
-            View.VISIBLE : View.GONE);
+                View.VISIBLE : View.GONE);
 
         if (mContinueWithIdInfo) {
             mSAutoUpload.setVisibility(View.GONE);
@@ -109,7 +109,7 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
         }
 
         findViewById(R.id.clMultipleEnrollActions).setVisibility((mMultipleEnroll) ? View.VISIBLE :
-            View.GONE);
+                View.GONE);
 
         mSIdType = findViewById(R.id.spIdType);
         mSIdType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -148,7 +148,11 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
     }
 
     public void uploadNow(View view) {
-        upload(mCurrentTag);
+        if (mEnrollType == 6) {
+            setCountryAndIDType();
+        } else {
+            upload(mCurrentTag);
+        }
     }
 
     public void showDateDialog(View view) {
@@ -160,12 +164,12 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
                 selectedDate.set(year, monthOfYear, dayOfMonth);
 
                 ((TextInputLayout) findViewById(R.id.tiDOB)).getEditText().setText(
-                    new SimpleDateFormat("yyyy-MM-dd", Locale.US).format(
-                        selectedDate.getTime()));
+                        new SimpleDateFormat("yyyy-MM-dd", Locale.US).format(
+                                selectedDate.getTime()));
             }
 
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(
-            Calendar.DAY_OF_MONTH)).show();
+                Calendar.DAY_OF_MONTH)).show();
     }
 
     public void skipIdInfo(View view) {
@@ -191,7 +195,7 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
         SIDTagManager sidTagManager = SIDTagManager.getInstance(this);
         SIDMetadata metadata = new SIDMetadata();
         setUserIdInfo(metadata);
-        sidTagManager.saveConfig(mCurrentTag, mContinueWithIdInfo ? 1 : 4, SIDConfig.Mode.ENROLL, null, metadata, false, this);
+        sidTagManager.saveConfig(mCurrentTag, mContinueWithIdInfo ? 1 : 4, SIDConfig.Mode.ENROLL, null, metadata, this);
     }
 
     private boolean isIdInfoValid() {
@@ -217,10 +221,28 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
         return metadata;
     }
 
+    private void setCountryAndIDType() {
+        CCAndIdTypeDialog.DlgListener listener = new CCAndIdTypeDialog.DlgListener() {
+            @Override
+            public void submit(String countryCode, String idType) {
+                mSelectedCountryName = countryCode;
+                mSelectedIdCard = idType;
+                upload(mCurrentTag);
+            }
+
+            @Override
+            public void cancel() {
+                Toast.makeText(SIDEnrollResultActivity.this, "To verify this document, kindly select a country and an ID type", Toast.LENGTH_LONG).show();
+            }
+        };
+
+        new CCAndIdTypeDialog(this, listener).showDialog();
+    }
+
     private void upload(String tag) {
         SIDMetadata metadata = new SIDMetadata();
 
-        if (mHasNoIdCard) {
+        if ((mHasNoIdCard) || (mEnrollType == 6)) {
             if (!isIdInfoValid()) {
                 return;
             }
@@ -244,7 +266,7 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
             //No internet connection so you can cache this job and
             // later use submitAll() to submit all offline jobs
 
-            SIDTagManager.getInstance(this).saveConfig(tag, sidConfig.getJobType(), sidConfig.getMode(), sidConfig.getGeoInformation(), sidConfig.getSIDMetadata(), sidConfig.isUseIdCard(), this);
+            SIDTagManager.getInstance(this).saveConfig(tag, sidConfig.getJobType(), sidConfig.getMode(), sidConfig.getGeoInformation(), sidConfig.getSIDMetadata(), this);
             Toast.makeText(this, "No internet connection", Toast.LENGTH_SHORT).show();
         }
     }
@@ -254,7 +276,7 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
     }
 
     private SIDConfig createConfig(String tag, SIDMetadata metadata) {
-        SIDNetData data = new SIDNetData(this, SIDNetData.Environment.TEST);
+        SIDNetData data = new SIDNetData(this, SIDNetData.Environment.PROD);
 
         if (mReEnrollUser && !TextUtils.isEmpty(getSavedUserId())) {
             //USe the PartnerParams object to set the user id of the user to be reernolled.
@@ -264,41 +286,17 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
 
         GeoInfos infos = SIDGeoInfos.getInstance().getGeoInformation();
 
-        int jobType = mHasNoIdCard ? 1 : mEnrollType;
-        boolean useIdCard = !mHasNoIdCard && mHasId;
         SIDConfig.Builder builder;
 
-        if (metadata != null) {
-            builder = new SIDConfig.Builder(this)
-                    .setRetryOnfailurePolicy(getRetryOnFailurePolicy())
-                    .setMode(SIDConfig.Mode.ENROLL)
-                    .setSmileIdNetData(data)
-                    .setGeoInformation(infos)
-                    .setSIDMetadata(metadata)
-                    .setJobType(jobType)
-                    .useIdCard(useIdCard);
-
-        } else {
-            builder = new SIDConfig.Builder(this)
-                    .setRetryOnfailurePolicy(getRetryOnFailurePolicy())
-                    .setMode(SIDConfig.Mode.ENROLL)
-                    .setSmileIdNetData(data)
-                    .setGeoInformation(infos)
-                    .setJobType(jobType)
-                    .useIdCard(useIdCard);
-        }
+        builder = new SIDConfig.Builder(this)
+                .setMode(SIDConfig.Mode.ENROLL)
+                .setSmileIdNetData(data)
+                .setGeoInformation(infos)
+                .setSIDMetadata(metadata != null ? metadata : new SIDMetadata())
+                .setJobType(mEnrollType);
 
         mConfig = builder.build(mCurrentTag);
         return mConfig;
-    }
-
-    private RetryOnFailurePolicy getRetryOnFailurePolicy() {
-        return new RetryOnFailurePolicy() {
-            {
-                setRetryCount(10);
-                setRetryTimeout(TimeUnit.SECONDS.toMillis(15));
-            }
-        };
     }
 
     @Override
@@ -399,7 +397,7 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
 
         if (!TextUtils.isEmpty(response.getResultText())) {
             stringBuilder.append("Result Text : ").append(response.getResultText())
-                .append(System.getProperty("line.separator"));
+                    .append(System.getProperty("line.separator"));
         }
 
         if (response.getConfidenceValue() > 0) {

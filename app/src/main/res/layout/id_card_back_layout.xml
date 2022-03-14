@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:background="@drawable/dlg_bckgrd"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tvMsg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/id_card_dialog_txt"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center_horizontal" />
+
+    <View
+        android:id="@+id/vDivider"
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:background="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/tvMsg"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
+        android:id="@+id/tvSkip"
+        style="@style/DlgBtnAction"
+        app:layout_constraintTop_toBottomOf="@id/tvMsg"
+        app:layout_constraintRight_toLeftOf="@id/vDivider"
+        android:layout_marginRight="12dp"
+        android:text="@string/btn_lbl_skip" />
+
+    <TextView
+        android:id="@+id/tvProceed"
+        style="@style/DlgBtnAction"
+        app:layout_constraintTop_toBottomOf="@id/tvMsg"
+        app:layout_constraintLeft_toRightOf="@id/vDivider"
+        android:layout_marginLeft="12dp"
+        android:text="@string/btn_lbl_proceed" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

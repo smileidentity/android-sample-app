@@ -7,16 +7,18 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.demo.smileid.sid_sdk.geoloc.SIDGeoInfos;
 import com.demo.smileid.sid_sdk.sidNet.SIDNetworkingUtils;
-import com.smileidentity.libsmileid.core.RetryOnFailurePolicy;
 import com.smileidentity.libsmileid.core.SIDConfig;
 import com.smileidentity.libsmileid.core.SIDNetworkRequest;
 import com.smileidentity.libsmileid.core.SIDResponse;
@@ -26,10 +28,11 @@ import com.smileidentity.libsmileid.model.GeoInfos;
 import com.smileidentity.libsmileid.model.PartnerParams;
 import com.smileidentity.libsmileid.model.SIDMetadata;
 import com.smileidentity.libsmileid.model.SIDNetData;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.concurrent.TimeUnit;
+
 import static com.demo.smileid.sid_sdk.SIDStringExtras.EXTRA_TAG_PREFERENCES_AUTH_TAGS;
 
 public class SIDAuthResultActivity extends AppCompatActivity implements SIDNetworkRequest.OnCompleteListener,
@@ -103,7 +106,7 @@ public class SIDAuthResultActivity extends AppCompatActivity implements SIDNetwo
         } else {
             //No internet connection so you can cache this job and
             // later use submitAll() to submit all offline jobs
-            SIDTagManager.getInstance(this).saveConfig(config.getSubmittedTag(), config.getJobType(), config.getMode(), config.getGeoInformation(), config.getSIDMetadata(), config.isUseIdCard(), this);
+            SIDTagManager.getInstance(this).saveConfig(config.getSubmittedTag(), config.getJobType(), config.getMode(), config.getGeoInformation(), config.getSIDMetadata(), this);
 
             Toast.makeText(this, "No internet connection", Toast.LENGTH_SHORT).show();
         }
@@ -111,21 +114,21 @@ public class SIDAuthResultActivity extends AppCompatActivity implements SIDNetwo
 
     @NonNull
     private SIDConfig createConfig(SIDMetadata metadata) {
-        SIDNetData data = new SIDNetData(this,SIDNetData.Environment.TEST);
+        SIDNetData data = new SIDNetData(this, SIDNetData.Environment.PROD);
         GeoInfos geoInfos = SIDGeoInfos.getInstance().getGeoInformation();
         //Uncomment to set user Provided partner Parameter
         //setPartnerParams();
-        if ((mJobType == 8) && !TextUtils.isEmpty(getSavedUserId())) {
+        if (!TextUtils.isEmpty(getSavedUserId())) {
             //USe the PartnerParams object to set the user id of the user to be reernolled.
             // Should be declared before the configuration is submitted
             setPartnerParamsForReEnroll(metadata);
         }
 
         SIDConfig.Builder builder = new SIDConfig.Builder(this);
-        builder.setRetryOnfailurePolicy(getRetryOnFailurePolicy())
-                .setSmileIdNetData(data)
+        builder.setSmileIdNetData(data)
                 .setGeoInformation(geoInfos)
                 .setJobType(mJobType)
+                .setSIDMetadata(metadata)
                 .setMode(SIDConfig.Mode.AUTHENTICATION);
 
         if (mUse258) {//Set the job type to 258 if user selected Auth 258 mode from the main screen
@@ -142,15 +145,6 @@ public class SIDAuthResultActivity extends AppCompatActivity implements SIDNetwo
     @NonNull
     private SIDConfig createConfig() {
         return createConfig(new SIDMetadata());
-    }
-
-    private RetryOnFailurePolicy getRetryOnFailurePolicy() {
-        return new RetryOnFailurePolicy() {
-            {
-                setRetryCount(15);
-                setRetryTimeout(TimeUnit.SECONDS.toMillis(15));
-            }
-        };
     }
 
     private void setPartnerParamsForReEnroll(SIDMetadata metadata) {
@@ -195,36 +189,43 @@ public class SIDAuthResultActivity extends AppCompatActivity implements SIDNetwo
                 color = Color.RED;
                 message = getString(R.string.demo_auth_failed);
                 break;
+
             case SIDResponse.SID_RESPONSE_UPDATE_PHOTO_REJECTED:
                 //update photo was rejected
                 color = Color.RED;
                 message = getString(R.string.demo_update_image_failed);
                 break;
+
             case SIDResponse.SID_RESPONSE_AUTH_PROVISIONAL_APPROVAL:
                 //auth was provisionally approved
                 message = getString(R.string.demo_provisionally_authed);
                 color = Color.GRAY;
                 break;
+
             case SIDResponse.SID_RESPONSE_UPDATE_PHOTO_PROV_APPROVAL:
                 //update photo was provisionally approved
                 message = getString(R.string.demo_update_photo_provisional);
                 color = Color.GRAY;
                 break;
+
             case SIDResponse.SID_RESPONSE_IMAGE_NOT_USABLE:
                 //auth uploaded images were unsuable
                 color = Color.RED;
                 message = getString(R.string.demo_auth_image_unusable);
                 break;
+
             case SIDResponse.SID_RESPONSE_UPDATE_PHOTO_APPROVED:
                 //update photo approved
                 color = Color.GREEN;
                 message = getString(R.string.demo_update_image_success);
                 break;
+
             case SIDResponse.SID_RESPONSE_AUTH_APPROVED:
                 //auth approved
                 color = Color.GREEN;
                 message = getString(R.string.demo_auth_successfully);
                 break;
+
             default:
                 color = Color.RED;
                 message = getString(R.string.demo_auth_failed);
@@ -233,9 +234,8 @@ public class SIDAuthResultActivity extends AppCompatActivity implements SIDNetwo
         StringBuilder stringBuilder = new StringBuilder();
 
         if (!TextUtils.isEmpty(response.getResultText())) {
-            stringBuilder.append("Result Text : ")
-                .append(response.getResultText())
-                    .append(System.getProperty("line.separator"));
+            stringBuilder.append("Result Text : ").append(response.getResultText())
+                .append(System.getProperty("line.separator"));
         }
 
         if (response.getConfidenceValue() > 0) {
@@ -259,6 +259,12 @@ public class SIDAuthResultActivity extends AppCompatActivity implements SIDNetwo
             }
         }
     }
+
+    /*@Override
+    public void onDocVerified(SIDResponse result) {
+        Toast.makeText(this, result.getResultText(), Toast.LENGTH_LONG).show();
+        findViewById(R.id.pbLoading).setVisibility(View.GONE);
+    }*/
 
     private void saveAuthTagsForLater() {
         SharedPreferences sharedPreferences = getSharedPreferences(getPackageName(), Context.MODE_PRIVATE);

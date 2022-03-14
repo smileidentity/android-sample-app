@@ -5,14 +5,12 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.smileidentity.libsmileid.core.SmartCardView;
 import com.smileidentity.libsmileid.core.captureCallback.IDCardState;
 
-
-public class SIDIDCardActivity extends AppCompatActivity implements SmartCardView.SmartCardViewCallBack {
+public class SIDIDCardActivity extends AppCompatActivity implements SmartCardView.SmartCardViewCallBack,
+    ActionDialog.DlgListener {
 
     private SmartCardView mSmartCardView;
     private boolean reenrollUser;
@@ -34,7 +32,11 @@ public class SIDIDCardActivity extends AppCompatActivity implements SmartCardVie
     @Override
     protected void onResume() {
         super.onResume();
-        mSmartCardView.startCapture(mCurrentTag);
+        try {
+            mSmartCardView.startCapture(mCurrentTag);
+        } catch (Exception e) {
+
+        }
     }
 
     private void setFullScreen() {
@@ -63,14 +65,14 @@ public class SIDIDCardActivity extends AppCompatActivity implements SmartCardVie
     }
 
     @Override
-    public void onSmartCardViewComplete(Bitmap idCardBitmap, boolean faceFound) {
-        Intent intent = new Intent(this, SIDEnrollResultActivity.class);
-        intent.putExtra(SIDStringExtras.EXTRA_HAS_ID, true);
-        intent.putExtra(SIDStringExtras.EXTRA_REENROLL, reenrollUser);
-        intent.putExtra(SIDStringExtras.EXTRA_ENROLL_TYPE, enrollType);
-        intent.putExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO, mCurrentTag);
-        startActivity(intent);
-        finish();
+    public void onSmartCardViewFrontComplete(Bitmap idCardBitmap, boolean faceFound) {
+        new ActionDialog(this, this).showDialog();
+        return;
+    }
+
+    @Override
+    public void onSmartCardViewBackComplete(Bitmap idCardBitmap) {
+        skip();
     }
 
     @Override
@@ -81,5 +83,26 @@ public class SIDIDCardActivity extends AppCompatActivity implements SmartCardVie
     @Override
     public void onIDCardStateChange(IDCardState idCardState) {
 
+    }
+
+    @Override
+    public void skip() {
+        proceedWithResult();
+    }
+
+    private void proceedWithResult() {
+        Intent intent = new Intent(this, SIDEnrollResultActivity.class);
+        intent.putExtra(SIDStringExtras.EXTRA_HAS_ID, true);
+        intent.putExtra(SIDStringExtras.EXTRA_REENROLL, reenrollUser);
+        intent.putExtra(SIDStringExtras.EXTRA_ENROLL_TYPE, enrollType);
+        intent.putExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO, mCurrentTag);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void capture() {
+        mSmartCardView.setIDBackCapture();
+        onResume();
     }
 }

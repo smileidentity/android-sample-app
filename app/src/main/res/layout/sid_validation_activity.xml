@@ -134,7 +134,7 @@
 
         <TextView
             android:id="@+id/btnRestart"
-            style="@style/BtnAction"
+            style="@style/MainBtnAction"
             android:onClick="restartCapture"
             app:layout_constraintWidth_percent="0.4"
             app:layout_constraintTop_toBottomOf="@+id/iv_id_photo"
@@ -156,7 +156,7 @@
 
     <TextView
         android:id="@+id/tvUploadNow"
-        style="@style/BtnAction"
+        style="@style/MainBtnAction"
         android:onClick="uploadNow"
         android:drawableLeft="@drawable/ic_upload_now"
         app:layout_constraintBottom_toBottomOf="parent"

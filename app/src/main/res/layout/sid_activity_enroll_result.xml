@@ -120,7 +120,7 @@
 
                 <TextView
                     android:id="@+id/tvSkipIdInfo"
-                    style="@style/BtnAction"
+                    style="@style/MainBtnAction"
                     android:onClick="skipIdInfo"
                     android:textStyle="bold"
                     android:textSize="18sp"
@@ -131,7 +131,7 @@
 
                 <TextView
                     android:id="@+id/tvSetIdInfo"
-                    style="@style/BtnAction"
+                    style="@style/MainBtnAction"
                     android:onClick="setIdInfo"
                     android:textStyle="bold"
                     android:textSize="18sp"
@@ -160,7 +160,7 @@
 
         <TextView
             android:id="@+id/tvEnrollUploadNow"
-            style="@style/BtnAction"
+            style="@style/MainBtnAction"
             android:drawableLeft="@drawable/ic_upload_now"
             android:onClick="uploadNow"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.Base64;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -18,7 +19,9 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.demo.smileid.sid_sdk.sidNet.IdTypeUtil;
 import com.demo.smileid.sid_sdk.sidNet.Misc;
 import com.demo.smileid.sid_sdk.sidNet.SIDNetworkingUtils;
@@ -34,6 +37,8 @@ import com.smileidentity.libsmileid.model.SIDMetadata;
 import com.smileidentity.libsmileid.model.SIDNetData;
 import com.smileidentity.libsmileid.model.SIDUserIdInfo;
 import com.smileidentity.libsmileid.net.model.idValidation.IDValidationResponse;
+import com.smileidentity.libsmileid.utils.AppData;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -43,9 +48,9 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class SIDIDValidationActivity extends AppCompatActivity implements
-    SIDNetworkRequest.OnCompleteListener, SIDNetworkRequest.OnIDValidationListener, SIDNetworkRequest.OnErrorListener {
+        SIDNetworkRequest.OnCompleteListener, SIDNetworkRequest.OnIDValidationListener, SIDNetworkRequest.OnErrorListener {
 
-    private String mSelectedCountryName = "", mSelectedIdCard, mCurrentTag;
+    private String mSelectedCountryName = "", mSelectedIdCard;
     private SIDNetworkRequest mSINetworkRequest;
     private SIDConfig mConfig;
 
@@ -83,8 +88,6 @@ public class SIDIDValidationActivity extends AppCompatActivity implements
         mSINetworkRequest.setOnIDValidationListener(this);
         mSINetworkRequest.set0nErrorListener(this);
         mSINetworkRequest.initialize();
-
-        getTag();
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -174,12 +177,12 @@ public class SIDIDValidationActivity extends AppCompatActivity implements
                 selectedDate.set(year, monthOfYear, dayOfMonth);
 
                 ((TextInputLayout) findViewById(R.id.tiDOB)).getEditText().setText(
-                    new SimpleDateFormat("yyyy-MM-dd", Locale.US).format(
-                        selectedDate.getTime()));
+                        new SimpleDateFormat("yyyy-MM-dd", Locale.US).format(
+                                selectedDate.getTime()));
             }
 
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(
-            Calendar.DAY_OF_MONTH)).show();
+                Calendar.DAY_OF_MONTH)).show();
     }
 
     private void upload() {
@@ -190,7 +193,7 @@ public class SIDIDValidationActivity extends AppCompatActivity implements
         }
 
         setUserIdInfo(metadata);
-        SIDConfig sidConfig = createConfig(mCurrentTag, metadata);
+        SIDConfig sidConfig = createConfig(metadata);
 
         if (SIDNetworkingUtils.haveNetworkConnection(this)) {
             findViewById(R.id.clIdInfo).setVisibility(View.GONE);
@@ -202,8 +205,8 @@ public class SIDIDValidationActivity extends AppCompatActivity implements
         }
     }
 
-    private SIDConfig createConfig(String tag, SIDMetadata metadata) {
-        SIDNetData data = new SIDNetData(this,SIDNetData.Environment.TEST);
+    private SIDConfig createConfig(SIDMetadata metadata) {
+        SIDNetData data = new SIDNetData(this, SIDNetData.Environment.PROD);
 
         SIDConfig.Builder builder = new SIDConfig.Builder(this)
                 .setRetryOnfailurePolicy(getRetryOnFailurePolicy())
@@ -211,8 +214,7 @@ public class SIDIDValidationActivity extends AppCompatActivity implements
                 .setSmileIdNetData(data)
                 .setGeoInformation(null)
                 .setSIDMetadata(metadata)
-                .setJobType(5)
-                .useIdCard(false);
+                .setJobType(5);
         mConfig = builder.build(getTag());
         return mConfig;
     }
@@ -309,6 +311,6 @@ public class SIDIDValidationActivity extends AppCompatActivity implements
     }
 
     private String getTag() {
-        return mCurrentTag = String.format(Misc.USER_TAG, DateFormat.format("MM_dd_hh_mm_ss", Calendar.getInstance().getTime()).toString());
+        return String.format(Misc.USER_TAG, DateFormat.format("MM_dd_hh_mm_ss", Calendar.getInstance().getTime()).toString());
     }
 }

@@ -17,6 +17,7 @@
     <string name="lbl_heading_enrollment">ENROLLMENT</string>
     <string name="lbl_heading_update">UPDATE DETAILS</string>
     <string name="lbl_heading_authenticate">AUTHENTICATION</string>
+    <string name="lbl_heading_other">OTHER</string>
 
     <!-- SELFIE SCREEN -->
     <string name="lbl_selfie_heading">Selfie Capture</string>
@@ -77,6 +78,8 @@
     <string name="skip_id_info">Skip Id Info</string>
     <string name="step_set_id_info">Set ID Info</string>
     <string name="job_status">Job Status</string>
+    <string name="id_doc_verification">Document Verification</string>
+    <string name="id_file_paths">Captured Images</string>
 
     <string name="faceDetectedMessage">Custom  face detected message</string>
     <string name="flashMissingErrorMessage">Custom no flash message</string>
@@ -91,7 +94,11 @@
     <string name="enroll_register">Register (Enroll)</string>
     <string name="enroll_register_with_id_card">Register (Enroll) with id card</string>
     <string name="enroll_register_with_id_number">Register (Enroll) with ID number</string>
-    <string name="lbl_smile_ui">Smile UI</string>
+    <string name="lbl_smile_ui">SMILE UI</string>
     <string name="lbl_smile_ui_enroll_id_card">Smile UI ID Card Register (Enroll)</string>
     <string name="lbl_smile_ui_enroll">Smile UI Register (Enroll)</string>
+
+    <string name="id_card_dialog_txt" translatable="false">Would you like to capture the back of the ID Card as well?</string>
+    <string name="btn_lbl_proceed" translatable="false">Proceed</string>
+    <string name="btn_lbl_skip" translatable="false">Skip</string>
 </resources>

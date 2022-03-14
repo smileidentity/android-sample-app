@@ -3,7 +3,7 @@
     <style name="AppTheme" parent="Theme.AppCompat">
         <item name="colorPrimary">@color/colorPrimaryDark</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorPrimaryDark</item>
         <item name="colorControlNormal">@color/darkerGray</item>
         <item name="popupTheme">@style/PopupStyle</item>
         <item name="android:popupBackground">@color/white_color</item>
@@ -22,10 +22,11 @@
 
     <style name="SpinnerItemStyle">
         <item name="android:textColor">@color/darkerGray</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:padding">4dp</item>
     </style>
 
-    <style name="SpinnerDropDownItemStyle">
-        <item name="android:textSize">12sp</item>
+    <style name="SpinnerDropDownItemStyle" parent="Widget.AppCompat.Light.DropDownItem.Spinner">
         <item name="android:textColor">@color/darkerGray</item>
     </style>
 
@@ -79,7 +80,7 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="SelfieCapture" parent="BtnAction">
+    <style name="SelfieCapture" parent="MainBtnAction">
 
     </style>
 
@@ -117,7 +118,7 @@
         <item name="android:shadowColor">@color/darkerGray</item>
         <item name="android:trackTint">@color/darkerGray</item>
         <item name="android:switchPadding">8dp</item>
-        <item name="android:visibility">visible</item>
+        <item name="android:visibility">gone</item>
     </style>
 
     <style name="EnrollResultCountryPicker">
@@ -136,7 +137,6 @@
     <style name="EnrollResultIdTypeSpinner">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">45dp</item>
-        <item name="android:visibility">gone</item>
         <item name="android:layout_marginTop">8dp</item>
         <item name="android:ems">10</item>
         <item name="android:textColor">@color/darkerGray</item>
@@ -169,20 +169,42 @@
         <item name="android:visibility">visible</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:minHeight">60dp</item>
-        <item name="android:layout_marginTop">12dp</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:drawableTint">@color/white_color</item>
         <item name="android:drawablePadding">4dp</item>
         <item name="android:padding">12dp</item>
-        <item name="android:textSize">14sp</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/white_color</item>
         <item name="android:background">@drawable/btn_bckgrd</item>
+    </style>
+
+    <style name="MainBtnAction" parent="BtnAction">
+        <item name="android:minHeight">60dp</item>
+        <item name="android:layout_marginTop">12dp</item>
+        <item name="android:textSize">14sp</item>
         <item name="layout_constraintWidth_percent">0.75</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
+    </style>
+
+    <style name="DlgBtnAction" parent="BtnAction">
+        <item name="android:minHeight">40dp</item>
+        <item name="layout_constraintWidth_percent">0.4</item>
+        <item name="android:layout_marginTop">24dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+    </style>
+
+    <style name="promptStyle" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/app_green</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="tipStyle" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/colorBlue</item>
+        <item name="android:textSize">8sp</item>
     </style>
 
 </resources>

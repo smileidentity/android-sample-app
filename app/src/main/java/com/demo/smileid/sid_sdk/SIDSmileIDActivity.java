@@ -32,6 +32,7 @@ import static com.demo.smileid.sid_sdk.SIDStringExtras.EXTRA_TAG_PREFERENCES_AUT
 import static com.demo.smileid.sid_sdk.SIDStringExtras.SHARED_PREF_JOB_ID;
 import static com.demo.smileid.sid_sdk.SIDStringExtras.SHARED_PREF_USER_ID;
 import static com.smileid.smileidui.IntentHelper.SMILE_REQUEST_RESULT_TAG;
+//import static com.smileid.smileidui.IntentHelper.SMILE_REQUEST_RESULT_TAG;
 
 public class SIDSmileIDActivity extends BaseSIDActivity implements View.OnClickListener,
         SIDNetworkRequest.OnCompleteListener,
@@ -184,8 +185,6 @@ public class SIDSmileIDActivity extends BaseSIDActivity implements View.OnClickL
                 new SIDCaptureManager.Builder(this, CaptureType.SELFIE, SMILE_SELFIE_REQUEST_CODE).build().start();
                 break;
         }
-
-
     }
 
     private void showOfflineAuthDialog() {
@@ -275,7 +274,7 @@ public class SIDSmileIDActivity extends BaseSIDActivity implements View.OnClickL
         retryOnFailurePolicy.setRetryCount(10);
         retryOnFailurePolicy.setRetryTimeout(TimeUnit.SECONDS.toMillis(15));
 
-        SIDNetData data = new SIDNetData(this, SIDNetData.Environment.TEST);
+        SIDNetData data = new SIDNetData(this, SIDNetData.Environment.PROD);
         SIDConfig.Builder builder = new SIDConfig.Builder(this)
                 .setRetryOnfailurePolicy(retryOnFailurePolicy)
                 .setMode(SIDConfig.Mode.ENROLL)
@@ -283,8 +282,7 @@ public class SIDSmileIDActivity extends BaseSIDActivity implements View.OnClickL
                 .setGeoInformation(null)
                 .setSIDMetadata(metadata)
                 .setIsJobStatusQuery(true)
-                .setJobType(1)
-                .useIdCard(false);
+                .setJobType(1);
         SIDConfig mConfig = builder.build();
 
         SIDNetworkRequest sidNetworkRequest = new SIDNetworkRequest(this);
@@ -334,6 +332,7 @@ public class SIDSmileIDActivity extends BaseSIDActivity implements View.OnClickL
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (requestCode == SMILE_SELFIE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 Intent intent = new Intent(this, SIDEnrollResultActivity.class);
