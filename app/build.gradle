@@ -19,7 +19,7 @@ android {
     //         keyPassword RELEASE_KEY_PASSWORD
     //     }
     // }
-    compileSdkVersion 30
+    compileSdkVersion 32
     ndkVersion '21.3.6528147'
     defaultConfig {
         applicationId "com.demo.smileid.sid_sdk_3_0"

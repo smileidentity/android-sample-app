@@ -33,6 +33,7 @@ import com.smileidentity.libsmileid.core.SIDConfig;
 import com.smileidentity.libsmileid.core.SIDNetworkRequest;
 import com.smileidentity.libsmileid.core.idcard.IdCard;
 import com.smileidentity.libsmileid.exception.SIDException;
+import com.smileidentity.libsmileid.model.PartnerParams;
 import com.smileidentity.libsmileid.model.SIDMetadata;
 import com.smileidentity.libsmileid.model.SIDNetData;
 import com.smileidentity.libsmileid.model.SIDUserIdInfo;
@@ -124,6 +125,7 @@ public class SIDIDValidationActivity extends AppCompatActivity implements
     private void saveUserIdInfo() {
         //SIDTagManager sidTagManager = SIDTagManager.getInstance(this);
         SIDMetadata metadata = new SIDMetadata();
+
         setUserIdInfo(metadata);
         //sidTagManager.saveConfig(mCurrentTag, 5, SIDConfig.Mode.ENROLL, null, metadata, false);
     }
@@ -215,7 +217,7 @@ public class SIDIDValidationActivity extends AppCompatActivity implements
                 .setGeoInformation(null)
                 .setSIDMetadata(metadata)
                 .setJobType(5);
-        mConfig = builder.build(getTag());
+         mConfig = builder.build(getTag());
         return mConfig;
     }
 
