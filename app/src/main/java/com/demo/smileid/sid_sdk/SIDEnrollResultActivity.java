@@ -292,6 +292,7 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
                 .setMode(SIDConfig.Mode.ENROLL)
                 .setSmileIdNetData(data)
                 .setGeoInformation(infos)
+                .useEnrolledImage(true)
                 .setSIDMetadata(metadata != null ? metadata : new SIDMetadata())
                 .setJobType(mEnrollType);
 
