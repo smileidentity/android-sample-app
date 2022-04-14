@@ -20,7 +20,7 @@ android {
         }
     }
     compileSdkVersion 32
-    ndkVersion '21.3.6528147'
+    ndkVersion '21.4.7075529'
     defaultConfig {
         applicationId "com.demo.smileid.sid_sdk_3_0"
         minSdkVersion 16
@@ -122,11 +122,11 @@ dependencies {
     /*
     OR USE THIS
      */
-    implementation 'com.smileidentity:smile-id-ui:0.2.0'
-    implementation 'com.smileidentity:netjava:0.0.5'
+//    implementation 'com.smileidentity:smile-id-ui:0.2.0'
+//    implementation 'com.smileidentity:netjava:0.0.5'
 
     // DEV DEPENDENCIES
-//    implementation project(':android_lib')
-//    implementation project(':smile_id_android_ui')
-//    implementation project(':smile_id_simplified_java_lib')
+    implementation project(':android_lib')
+    implementation project(':smile_id_android_ui')
+    implementation project(':smile_id_simplified_java_lib')
 }
