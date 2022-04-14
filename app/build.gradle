@@ -15,7 +15,7 @@ android {
         config {
             keyAlias 'alias'
             keyPassword 'Smile1dKey5tore'
-            storeFile file('../android_lib/keystore/smileId_keystore.keystore')
+            storeFile file('../../android_lib/keystore/smileId_keystore.keystore')
             storePassword 'Smile1dKey5tore'
         }
     }
