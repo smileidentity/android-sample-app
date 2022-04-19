@@ -15,23 +15,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
-
 import com.demo.smileid.sid_sdk.geoloc.SIDGeoInfos;
 import com.demo.smileid.sid_sdk.sidNet.InternetStateBroadCastReceiver;
 import com.demo.smileid.sid_sdk.sidNet.Misc;
 import com.smileid.smileidui.CaptureType;
 import com.smileid.smileidui.SIDCaptureManager;
 import com.smileid.smileidui.SIDSelfieCaptureConfig;
-
 import static com.demo.smileid.sid_sdk.SIDStringExtras.EXTRA_TAG_PREFERENCES_AUTH_TAGS;
 import static com.demo.smileid.sid_sdk.SIDStringExtras.SHARED_PREF_USER_ID;
 import static com.smileid.smileidui.IntentHelper.SMILE_REQUEST_RESULT_TAG;
 import static com.demo.smileid.sid_sdk.DocVerifyOptionDialog.DOC_VER_OPTION;
 import static com.demo.smileid.sid_sdk.DocVerifyOptionDialog.DOC_VER_TYPE;
 import static com.demo.smileid.sid_sdk.DocVerifyOptionDialog.DOC_VER_TYPE.SELFIE_PLUS_ID_CARD;
-
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -104,8 +100,8 @@ public class SIDMainActivity extends BaseSIDActivity implements
             config.setOverlayThickness(10);
             config.setOverlayWidth(260);
             config.setOverlayHeight(350);
-            config.setOverlayDotted(false);
-//            config.setPromptDefault("Here we go...");
+            config.setOverlayDotted(true);
+            config.setPromptDefault("Here we go...");
             config.setCapturingProgressColor("#0000FF");
             config.setCapturedProgressColor("#00FF00");
             config.setCaptureFullScreen(true);
@@ -121,12 +117,12 @@ public class SIDMainActivity extends BaseSIDActivity implements
             config.setTitleStyle(new JSONObject(styleMap).toString());
 
             config.setReviewConfirmButtonStyle(new JSONObject(styleMap).toString());
-            config.setReviewConfirmButtonColor("#FFFF00");
+            config.setReviewConfirmButtonColor("#00FFFF,#FF0000,#788096");
 
             styleMap = new HashMap<String, Object>() {
                 {
                     put("text_size", 12);
-                    put("text_color", "#00FF00");
+                    put("text_color", "#00FF00,#FFFFFF,#0000FF");
                     put("font_style", "normal");
                     put("width", 240);
                     put("height", 48);
@@ -137,16 +133,17 @@ public class SIDMainActivity extends BaseSIDActivity implements
 
             styleMap = new HashMap<String, Object>() {
                 {
-                    put("text_size", 12);
-                    put("text_color", "#0000FF");
+                    put("text_size", 18);
+                    put("text_color", "#FF0000,#FFFFFF,#0000FF");
                     put("font_style", "normal");
-                    put("width", 160);
-                    put("height", 72);
+                    put("width", 360);
+                    put("height", 120);
                 }
             };
 
             config.setReviewRetakeButtonStyle(new JSONObject(styleMap).toString());
-            config.setReviewRetakeButtonColor("#FF0000");
+            config.setReviewRetakeButtonColor("#00FFFF,#FF0000,#788096");
+            config.setReviewRetakeButton("ANOTHER ONE");
 
             sidCaptureManager.setSidSelfieConfig(config.build());
             sidCaptureManager.build().start();
