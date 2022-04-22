@@ -92,7 +92,7 @@ public class SIDMainActivity extends BaseSIDActivity implements
             SIDCaptureManager.Builder sidCaptureManager = new SIDCaptureManager.Builder(this,
                 CaptureType.SELFIE, SMILE_SELFIE_REQUEST_CODE);
 
-            SIDSelfieCaptureConfig.Builder config = new SIDSelfieCaptureConfig.Builder();
+            /*SIDSelfieCaptureConfig.Builder config = new SIDSelfieCaptureConfig.Builder();
             config.setCaptureTitle("CAPTURING...");
             config.setReviewTitle("REVIEW...");
             config.setOverlayColor("#000000");
@@ -145,7 +145,7 @@ public class SIDMainActivity extends BaseSIDActivity implements
             config.setReviewRetakeButtonColor("#00FFFF,#FF0000,#788096");
             config.setReviewRetakeButton("ANOTHER ONE");
 
-            sidCaptureManager.setSidSelfieConfig(config.build());
+            sidCaptureManager.setSidSelfieConfig(config.build());*/
             sidCaptureManager.build().start();
         } else {
             ActivityCompat.requestPermissions(this, PERMISSIONS, SMILE_ID_UI_SELFIE_PERMISSION_REQUEST);
