@@ -94,7 +94,7 @@ public class ImagePathsDialog {
     public void showDialog() {
         mDialog.show();
 
-        Set<String> tags = new SIFileManager().getIdleTags(mDialog.getContext(), false); //AppData.getInstance(mDialog.getContext()).getTags();
+        Set<String> tags = new SIFileManager().getIdleTags(mDialog.getContext(),true); //AppData.getInstance(mDialog.getContext()).getTags();
 
         mDialog.findViewById(R.id.rvJobs).setVisibility((!tags.isEmpty()) ? View.VISIBLE :
             View.GONE);

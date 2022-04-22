@@ -60,27 +60,27 @@ public class SIDMainActivity extends BaseSIDActivity implements
             requestUserConsent();*/
             SIDCaptureManager.Builder sidCaptureManager = new SIDCaptureManager.Builder(this,
                 CaptureType.SELFIE_AND_ID_CAPTURE, SMILE_ID_CARD_REQUEST_CODE);
+//
+//            SIDSelfieCaptureConfig.Builder config = new SIDSelfieCaptureConfig.Builder();
+//            config.setOverlayColor("#FF0000");
+//            config.setOverlayAlpha(200);
+//            config.setOverlayThickness(10);
+//            config.setOverlayDotted(true);
+//
+//            HashMap<String, Object> styleMap = new HashMap<String, Object>() {
+//                {
+//                    put("text_size", 24);
+//                    put("text_color", Color.RED);
+//                    put("font_style", 0);
+//                    put("font_family", "Arial");
+//                }
+//            };
+//
+//            config.setPromptStyle(new JSONObject(styleMap).toString());
+//            config.setReviewPromptStyle(new JSONObject(styleMap).toString());
+//            config.setReviewTipStyle(new JSONObject(styleMap).toString());
 
-            SIDSelfieCaptureConfig.Builder config = new SIDSelfieCaptureConfig.Builder();
-            config.setOverlayColor("#FF0000");
-            config.setOverlayAlpha(200);
-            config.setOverlayThickness(10);
-            config.setOverlayDotted(true);
-
-            HashMap<String, Object> styleMap = new HashMap<String, Object>() {
-                {
-                    put("text_size", 24);
-                    put("text_color", Color.RED);
-                    put("font_style", 0);
-                    put("font_family", "Arial");
-                }
-            };
-
-            config.setPromptStyle(new JSONObject(styleMap).toString());
-            config.setReviewPromptStyle(new JSONObject(styleMap).toString());
-            config.setReviewTipStyle(new JSONObject(styleMap).toString());
-
-            sidCaptureManager.setSidSelfieConfig(config.build());
+//            sidCaptureManager.setSidSelfieConfig(config.build());
             sidCaptureManager.build().start();
         } else {
             ActivityCompat.requestPermissions(this, PERMISSIONS, SMILE_ID_UI_SELFIE_PERMISSION_REQUEST);
