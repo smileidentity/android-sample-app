@@ -25,6 +25,12 @@ public class CCAndIdTypeDialog {
     private DlgListener mListener;
     private String mSelectedCountryName = "", mSelectedCountryCode = "", mSelectedIdType;
 
+    private static final String SUPPORTED_COUNTRIES = "DZ,AO,BJ,BW,BF,BI,CM,CV,TD,KM,CG,CI,CD,DJ," +
+        "EG,GQ,ER,ET,GA,GM,GH,GN,GW,KE,LS,LR,LY,MG,MW,ML,MU,MA,MZ,NA,NE,NG,RW,ST,SN,SC,SL,SO,ZA," +
+            "SS,SD,TG,TN,UG,TZ,ZM,ZW,AL,AD,AT,BY,BE,BA,BG,HR,CZ,DK,EE,FI,FR,DE,GR,VA,HU,IS,IE," +
+                "IT,XK,LV,LI,LT,LU,MT,MC,ME,NL,NO,PL,PT,MD,RO,SM,RS,SK,SI,ES,SE,CH,MK,UA,GB,BS," +
+                    "BM,CA,JM,US";
+
     public interface DlgListener {
         void submit(String countryCode, String idType);
         void cancel();
@@ -55,6 +61,7 @@ public class CCAndIdTypeDialog {
         mListener = listener;
 
         mCcpCountryPicker = mDialog.findViewById(R.id.ccpCountry);
+        mCcpCountryPicker.setCustomMasterCountries(SUPPORTED_COUNTRIES);
         mCcpCountryPicker.setOnCountryChangeListener(() -> {
             getSelectedCountryName();
             populateIdCard();
