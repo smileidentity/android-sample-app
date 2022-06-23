@@ -219,7 +219,7 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
 
     private void startEnrollMode(final boolean continueWithId) {
         Class clazz = (mHasId && !mHasNoIdCard) ? SIDIDCardActivity.class :
-                SIDEnrollResultActivity.class;
+            SIDEnrollResultActivity.class;
 
         startActivity(
             new Intent(this, clazz) {

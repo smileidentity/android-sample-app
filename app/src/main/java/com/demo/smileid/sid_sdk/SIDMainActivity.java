@@ -201,6 +201,17 @@ public class SIDMainActivity extends BaseSIDActivity implements
         startSelfieCapture(true);
     }
 
+    public void testIDCapture(View view) {
+        startActivity(
+                new Intent(this, SIDIDCardActivity.class) {
+                    {
+                        putExtra(SIDStringExtras.EXTRA_REENROLL, true);
+                        putExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO, "MKSNGSGNBSG");
+                    }
+                }
+        );
+    }
+
     public void getImagePaths(View view) {
         new ImagePathsDialog(this, null).showDialog();
     }
