@@ -118,11 +118,11 @@ dependencies {
     /*
   USE THIS if you do not intend to use smile-id-ui
    */
-//    implementation 'com.smileidentity:smile-id-sdk:7.3.10(1)-SNAPSHOT'
+//    implementation 'com.smileidentity:smile-id-sdk:7.3.10(3)-SNAPSHOT'
     /*
     OR USE THIS
      */
-//    implementation 'com.smileidentity:smile-id-ui:0.2.2(1)-SNAPSHOT'
+//    implementation 'com.smileidentity:smile-id-ui:0.2.2(1)    -SNAPSHOT'
 
 //    implementation 'com.smileidentity:netjava:1.0.11(1)-SNAPSHOT'
 
