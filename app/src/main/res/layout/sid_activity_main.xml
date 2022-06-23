@@ -33,6 +33,14 @@
             android:text="@string/lbl_smile_ui_enroll"
             app:layout_constraintTop_toBottomOf="@id/tv_smile_ui" />
 
+        <TextView
+            android:id="@+id/tv_test"
+            style="@style/MainBtnAction"
+            android:drawableLeft="@drawable/ic_id_card"
+            android:onClick="testIDCapture"
+            android:text="Test ID Card"
+            app:layout_constraintTop_toBottomOf="@id/tv_smile_ui_enroll" />
+
 <!--        <TextView-->
 <!--            android:id="@+id/tvEnrollHeading"-->
 <!--            style="@style/MainHeading"-->
@@ -105,7 +113,7 @@
             android:id="@+id/tvAuthHeading"
             style="@style/MainHeading"
             android:text="@string/lbl_heading_authenticate"
-            app:layout_constraintTop_toBottomOf="@id/tv_smile_ui_enroll" />
+            app:layout_constraintTop_toBottomOf="@id/tv_test" />
 
         <TextView
             android:id="@+id/tvIdValidation"
