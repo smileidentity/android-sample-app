@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent"
+    tools:context=".SIDHomeActivity">
+    
+    <TextView
+        android:id="@+id/tvHeading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="22.74dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginLeft="20dp"
+        android:text="Welcome to Demo App"
+        android:textSize="16sp"
+        android:textColor="#100F0F"
+        android:textFontWeight="600"
+        android:letterSpacing="0.01"
+        android:gravity="center_vertical" />
+    
+    <TextView
+        android:id="@+id/tvEnv"
+        android:layout_width="88dp"
+        android:layout_height="25dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="22.74dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/env_drop_down_bckgrd"
+        android:text="@string/sandbox"
+        android:textSize="10sp"
+        android:paddingLeft="7dp"
+        android:paddingStart="7dp"
+        android:paddingRight="9.8dp"
+        android:paddingEnd="9.8dp"
+        android:textColor="#0A1E2D"
+        android:textFontWeight="400"
+        android:letterSpacing="0.01"
+        android:gravity="center_vertical"
+        android:drawableRight="@drawable/ic_env_arrow" />
+    
+    <View
+        android:id="@+id/vSeparator"
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="120.19dp"
+        app:layout_constraintTop_toBottomOf="@id/tvHeading"
+        android:layout_marginTop="49dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginLeft="19dp"
+        app:layout_constraintEnd_toEndOf="@id/vSeparator"
+        android:layout_marginRight="6.79dp"
+        android:background="@drawable/rechteck_25">
+
+        <TextView
+            android:layout_width="100.89dp"
+            android:layout_height="34dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="15dp"
+            android:text="See How Smile Identity Works"
+            android:textSize="14sp"
+            android:textColor="#FFFFFF"
+            android:textFontWeight="600"
+            android:lineSpacingExtra="0sp"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:layout_width="64dp"
+            android:layout_height="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="16.6dp"
+            android:gravity="center"
+            android:text="Watch"
+            android:textColor="#092A55"
+            android:textSize="12sp"
+            android:textFontWeight="500"
+            android:lineHeight="17dp"
+            android:lineSpacingExtra="2sp"
+            android:background="@drawable/watch_btn" />
+        
+        <ImageView
+            android:layout_width="79dp"
+            android:layout_height="79dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="48dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/ic_illustration_secure_account" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clResources"
+        android:layout_width="0dp"
+        android:layout_height="120.19dp"
+        app:layout_constraintTop_toBottomOf="@id/tvHeading"
+        android:layout_marginTop="49dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginRight="19dp"
+        app:layout_constraintStart_toEndOf="@id/vSeparator"
+        android:layout_marginLeft="6.79dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rechteck_25_2"
+            android:alpha="0.5" />
+
+        <TextView
+            android:layout_width="100.89dp"
+            android:layout_height="34dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="15dp"
+            android:text="Explore Resources"
+            android:textSize="14sp"
+            android:textColor="#100F0F"
+            android:textFontWeight="600"
+            android:lineSpacingExtra="0sp"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:layout_width="64dp"
+            android:layout_height="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="16.6dp"
+            android:gravity="center"
+            android:text="View"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            android:textFontWeight="500"
+            android:lineHeight="17dp"
+            android:lineSpacingExtra="2sp"
+            android:background="@drawable/view_btn" />
+
+        <ImageView
+            android:layout_width="79dp"
+            android:layout_height="79dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="48dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/ic_illustration_secure_account_2"
+            android:alpha="0.5" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tvHeading2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/clResources"
+        android:layout_marginTop="40.81dp"
+        app:layout_constraintStart_toStartOf="@id/tvHeading"
+        android:layout_marginLeft="20dp"
+        android:text="Test Out Our Products"
+        android:textSize="16sp"
+        android:textColor="#040C22"
+        android:textFontWeight="600"
+        android:letterSpacing="0.01"
+        android:gravity="center_vertical" />
+
+    <TextView
+        android:id="@+id/tvSubHeading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvHeading2"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toStartOf="@id/tvHeading"
+        android:layout_marginLeft="20dp"
+        android:text="Explore key KYC product actions"
+        android:textSize="12sp"
+        android:textColor="#A2A5A6"
+        android:textFontWeight="400"
+        android:letterSpacing="-0.01"
+        android:gravity="center_vertical" />
+
+    <com.demo.smileid.sid_sdk.CustomProductBtn
+        android:id="@+id/cpbEnhancedKYC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvSubHeading"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:label="@string/enhanced_kyc"
+        app:icon="@drawable/ic_enhanced_kyc"  />
+
+    <com.demo.smileid.sid_sdk.CustomProductBtn
+        android:id="@+id/cpbBasicKYC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvSubHeading"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toStartOf="@id/cpbEnhancedKYC"
+        android:layout_marginRight="10dp"
+        app:label="@string/basic_kyc"
+        app:icon="@drawable/ic_basic_kyc" />
+
+    <com.demo.smileid.sid_sdk.CustomProductBtn
+        android:id="@+id/cpbBiometricKYC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvSubHeading"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toEndOf="@id/cpbEnhancedKYC"
+        android:layout_marginLeft="10dp"
+        app:label="@string/biometric_kyc"
+        app:icon="@drawable/ic_biometric_kyc"  />
+
+    <com.demo.smileid.sid_sdk.CustomProductBtn
+        android:id="@+id/cpbDocV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/cpbBasicKYC"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="@id/cpbBasicKYC"
+        app:layout_constraintEnd_toEndOf="@id/cpbBasicKYC"
+        app:label="@string/doc_v"
+        app:icon="@drawable/ic_doc_v"  />
+
+    <com.demo.smileid.sid_sdk.CustomProductBtn
+        android:id="@+id/cpbSmartSelfie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/cpbEnhancedKYC"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="@id/cpbEnhancedKYC"
+        app:layout_constraintEnd_toEndOf="@id/cpbEnhancedKYC"
+        app:label="@string/smart_selfie_auth"
+        app:icon="@drawable/ic_smart_selfie"  />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
