@@ -6,42 +6,81 @@
     android:layout_gravity="center_horizontal"
     android:background="@drawable/dlg_bckgrd"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="16dp">
+    android:paddingBottom="27.71dp">
+
+    <ImageView
+        android:id="@+id/ivImage"
+        android:layout_width="88.89dp"
+        android:layout_height="64dp"
+        android:src="@drawable/ic_passport"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="39dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/tvHeading"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/ivImage"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="52dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="63dp"
+        android:text="@string/id_card_dialog_txt"
+        android:textSize="16sp"
+        android:textColor="#191D31"
+        android:textFontWeight="600"
+        android:lineSpacingExtra="2sp"
+        android:gravity="center" />
 
     <TextView
         android:id="@+id/tvMsg"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/id_card_dialog_txt"
-        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/tvHeading"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="37dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="48dp"
+        android:text="@string/id_card_dialog_txt_2"
         android:textSize="16sp"
-        app:layout_constraintTop_toTopOf="parent"
-        android:gravity="center_horizontal" />
-
-    <View
-        android:id="@+id/vDivider"
-        android:layout_width="1dp"
-        android:layout_height="1dp"
-        android:background="@color/white"
-        app:layout_constraintTop_toBottomOf="@id/tvMsg"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-
-    <TextView
-        android:id="@+id/tvSkip"
-        style="@style/DlgBtnAction"
-        app:layout_constraintTop_toBottomOf="@id/tvMsg"
-        app:layout_constraintRight_toLeftOf="@id/vDivider"
-        android:layout_marginRight="12dp"
-        android:text="@string/btn_lbl_skip" />
+        android:textColor="#828282"
+        android:textFontWeight="400"
+        android:lineSpacingExtra="4sp"
+        android:gravity="center" />
 
     <TextView
         android:id="@+id/tvProceed"
-        style="@style/DlgBtnAction"
+        android:layout_width="299.71dp"
+        android:layout_height="49.65dp"
+        android:background="@drawable/btn_bckgrd"
         app:layout_constraintTop_toBottomOf="@id/tvMsg"
-        app:layout_constraintLeft_toRightOf="@id/vDivider"
-        android:layout_marginLeft="12dp"
+        android:layout_marginTop="31dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textFontWeight="600"
+        android:gravity="center"
         android:text="@string/btn_lbl_proceed" />
+
+    <TextView
+        android:id="@+id/tvSkip"
+        android:layout_width="299.71dp"
+        android:layout_height="49.65dp"
+        android:background="@drawable/btn_bckgrd_2"
+        app:layout_constraintTop_toBottomOf="@id/tvProceed"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="24.14dp"
+        android:layout_marginRight="23.15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="#121212"
+        android:textSize="16sp"
+        android:textFontWeight="600"
+        android:gravity="center"
+        android:text="@string/btn_lbl_skip" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

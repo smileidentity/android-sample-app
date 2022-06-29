@@ -98,7 +98,30 @@
     <string name="lbl_smile_ui_enroll_id_card">Smile UI ID Card Register (Enroll)</string>
     <string name="lbl_smile_ui_enroll">Smile UI Register (Enroll)</string>
 
-    <string name="id_card_dialog_txt" translatable="false">Would you like to capture the back of the ID Card as well?</string>
+    <string name="id_card_dialog_txt" translatable="false">Capture Back of the ID Card</string>
+    <string name="id_card_dialog_txt_2" translatable="false">Would you like to capture the back of the ID Card as well?</string>
     <string name="btn_lbl_proceed" translatable="false">Proceed</string>
     <string name="btn_lbl_skip" translatable="false">Skip</string>
+
+    <string name="sandbox" translatable="false">🟢 Sandbox</string>
+
+    <string name="tab_lbl_home">Home</string>
+    <string name="tab_lbl_resources">Resources</string>
+    <string name="tab_lbl_settings">Settings</string>
+
+    <string name="lbl_version_number_2">Version %s Android</string>
+    <string name="basic_kyc" translatable="false">Basic KYC</string>
+    <string name="enhanced_kyc" translatable="false">Enhanced KYC</string>
+    <string name="biometric_kyc" translatable="false">Biometric KYC</string>
+    <string name="doc_v" translatable="false">Document Verification</string>
+    <string name="smart_selfie_auth" translatable="false">SmartSelfie\u00E2\u0084\u00A2\nAuthentication</string>
+
+    <string name="res_link_docs_txt">Explore our documentation</string>
+    <string name="res_link_docs_sub_txt">Read everything related to our solution stack</string>
+    <string name="res_link_policy_txt">Privacy Policy</string>
+    <string name="res_link_policy_sub_txt">Learn more about our solution stack</string>
+    <string name="res_link_faqs_txt">View FAQs</string>
+    <string name="res_link_faqs_sub_txt">Explore frequently asked questions</string>
+    <string name="res_link_id_types_txt">Support ID types and documents</string>
+    <string name="res_link_id_types_sub_txt">See our coverage range across the continent</string>
 </resources>
