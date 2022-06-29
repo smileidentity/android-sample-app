@@ -16,7 +16,7 @@ public class SIDSplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.sid_activity_splash);
 
@@ -35,7 +35,7 @@ public class SIDSplashActivity extends AppCompatActivity {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(SIDSplashActivity.this, SIDMainActivity.class));
+                startActivity(new Intent(SIDSplashActivity.this, SIDHomeActivity.class));
             }
         };
 
