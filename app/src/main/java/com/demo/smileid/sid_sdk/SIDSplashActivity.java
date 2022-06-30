@@ -3,6 +3,7 @@ package com.demo.smileid.sid_sdk;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,27 +20,10 @@ public class SIDSplashActivity extends AppCompatActivity {
             WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.sid_activity_splash);
-
-        ((TextView) findViewById(R.id.tvVersion)).setText(String.format(getString(
-                R.string.lbl_version_number), Version.name(), BuildConfig.VERSION_NAME));
-
-        moveToHomeScreen();
     }
 
-    private void moveToHomeScreen() {
-        if (!playServiceAvailable()) {
-            Toast.makeText(this, R.string.lbl_play_service_error, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                startActivity(new Intent(SIDSplashActivity.this, SIDHomeActivity.class));
-            }
-        };
-
-        new Handler().postDelayed(runnable, 3000);
+    public void moveToHomeScreen(View view) {
+        startActivity(new Intent(SIDSplashActivity.this, SIDHomeActivity.class));
     }
 
     private boolean playServiceAvailable() {

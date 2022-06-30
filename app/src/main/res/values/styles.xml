@@ -46,19 +46,6 @@
         <item name="layout_constraintTop_toTopOf">parent</item>
     </style>
 
-    <style name="SplashSelfieLabel">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">8dp</item>
-        <item name="android:gravity">center_horizontal</item>
-        <item name="android:text">@string/lbl_smile_identity</item>
-        <item name="android:textSize">24sp</item>
-        <item name="android:textStyle">bold|italic</item>
-        <item name="android:textColor">@color/darkerGray</item>
-        <item name="layout_constraintEnd_toEndOf">parent</item>
-        <item name="layout_constraintStart_toStartOf">parent</item>
-    </style>
-
     <style name="SplashSelfieVersion">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -205,29 +192,6 @@
     <style name="tipStyle" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/colorBlue</item>
         <item name="android:textSize">8sp</item>
-    </style>
-
-    <style name="TabLayout" parent="Base.Widget.Design.TabLayout">
-        <item name="tabTextColor">@color/darkerGray</item>
-        <item name="tabSelectedTextColor">#17A3DC</item>
-        <item name="tabIndicatorColor">@color/transparent</item>
-        <item name="tabGravity">fill</item>
-        <item name="tabMaxWidth">0dp</item>
-        <item name="tabMode">fixed</item>
-        <item name="tabTextAppearance">@style/TabTextAppearance</item>
-        <item name="android:background">@color/white</item>
-        <item name="android:elevation">4dp</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:weightSum">3</item>
-    </style>
-
-    <style name="TabTextAppearance" parent="TextAppearance.Design.Tab">
-        <item name="android:singleLine">true</item>
-        <item name="android:padding">0dp</item>
-        <item name="android:layout_margin">0dp</item>
-        <item name="android:textAllCaps">false</item>
-        <item name="textAllCaps">false</item>
     </style>
 
 </resources>

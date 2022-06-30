@@ -1,0 +1,7 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
+    <string name="home_screen_tab_lbl_home">Home</string>
+    <string name="home_screen_tab_lbl_resources">Resources</string>
+    <string name="home_screen_tab_lbl_settings">Settings</string>
+
+</resources>
