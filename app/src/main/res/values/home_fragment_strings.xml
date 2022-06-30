@@ -1,0 +1,11 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
+    <string name="home_fragment_heading_txt">Welcome to Demo App</string>
+    <string name="home_fragment_env_txt">Sandbox</string>
+    <string name="home_fragment_how_it_works_txt">See How Smile Identity Works</string>
+    <string name="home_fragment_watch_btn">Watch</string>
+    <string name="home_fragment_res_txt">Explore Resources</string>
+    <string name="home_fragment_heading_2_txt">Test Out Our Products</string>
+    <string name="home_fragment_sub_heading_txt">Explore key KYC product actions</string>
+
+</resources>

@@ -46,31 +46,43 @@ if target sdk is 30 and above this is not necessary for smile but migrations for
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <activity
+            android:name=".GetStartedActivity"
+            android:exported="false" />
+
         <activity
             android:name=".AboutDemoActivity"
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".SIDHomeActivity"
             android:label="@string/lbl_main_heading"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".SIDSplashActivity"
             android:exported="true"
             android:theme="@style/AppTheme.NoActionBar">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+
         <activity
             android:name=".SIDMainActivity"
             android:label="@string/lbl_main_heading" />
+
         <activity
             android:name=".SIDSelfieActivity"
             android:label="@string/lbl_selfie_heading" />
+
         <activity
             android:name=".SIDIDCardActivity"
             android:screenOrientation="portrait" />
@@ -78,6 +90,7 @@ if target sdk is 30 and above this is not necessary for smile but migrations for
         <meta-data
             android:name="com.google.android.awareness.API_KEY"
             android:value="@string/google_awareness_api_key" />
+
         <meta-data
             android:name="ContentVersion"
             android:value="TEST" />
@@ -86,10 +99,12 @@ if target sdk is 30 and above this is not necessary for smile but migrations for
             android:name=".SIDIDCardCaptureActivity"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+
         <activity
             android:name=".SIDEnrollResultActivity"
             android:label="@string/lbl_enroll_result_heading"
             android:screenOrientation="portrait" />
+
         <activity android:name=".SIDAuthResultActivity" />
         <activity android:name=".SIDSmileIDActivity" />
         <activity android:name=".SIDIDValidationActivity" />
@@ -100,9 +115,11 @@ if target sdk is 30 and above this is not necessary for smile but migrations for
         <meta-data
             android:name="android.support.VERSION"
             android:value="26.1.0" />
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
         <meta-data
             android:name="com.google.android.gms.vision.DEPENDENCIES"
             android:value="face" />
@@ -115,15 +132,21 @@ if target sdk is 30 and above this is not necessary for smile but migrations for
         <meta-data
             android:name="android.arch.lifecycle.VERSION"
             android:value="27.0.0-SNAPSHOT" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
         <receiver
             android:name=".sidNet.InternetStateBroadCastReceiver"
             android:enabled="true"
             android:exported="true">
+
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
+
         </receiver>
+
     </application>
 
 </manifest>

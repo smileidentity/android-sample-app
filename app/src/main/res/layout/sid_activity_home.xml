@@ -10,54 +10,35 @@
 
     <TextView
         android:id="@+id/tvVersion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="48.74dp"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginLeft="20dp"
-        android:textSize="10sp"
-        android:textColor="#979797"
-        android:textFontWeight="400"
-        android:letterSpacing="0.01"
-        android:gravity="center_vertical" />
+        style="@style/home_screen_version_txt"
+        tools:ignore="MissingConstraints" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tlMenu"
-        style="@style/TabLayout"
-        android:layout_height="80dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        style="@style/home_screen_tab_layout"
         tools:ignore="MissingConstraints">
 
         <com.google.android.material.tabs.TabItem
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="@string/tab_lbl_home"
+            style="@style/home_screen_tab_layout"
+            android:text="@string/home_screen_tab_lbl_home"
             android:icon="@drawable/tab_home_image" />
 
         <com.google.android.material.tabs.TabItem
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="@string/tab_lbl_resources"
+            style="@style/home_screen_tab_layout"
+            android:text="@string/home_screen_tab_lbl_resources"
             android:icon="@drawable/tab_resources_image" />
 
         <com.google.android.material.tabs.TabItem
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="@string/tab_lbl_settings"
+            style="@style/home_screen_tab_layout"
+            android:text="@string/home_screen_tab_lbl_settings"
             android:icon="@drawable/tab_settings_image" />
 
     </com.google.android.material.tabs.TabLayout>
     
     <com.demo.smileid.sid_sdk.StaticPager
         android:id="@+id/spScreens"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/transparent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/tlMenu" />
+        style="@style/home_screen_pager"
+        app:layout_constraintBottom_toBottomOf="@id/tlMenu"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
