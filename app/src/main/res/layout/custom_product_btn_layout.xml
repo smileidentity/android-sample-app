@@ -27,9 +27,11 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:text="Basic KYC"
+        android:fontFamily="@font/inter"
         android:textSize="10sp"
         android:textColor="#100F0F"
         android:textFontWeight="500"
+        android:lineHeight="12.1dp"
         android:gravity="center" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,16 +2,6 @@
 
     <string name="app_name">Smile ID Demo</string>
 
-    <!-- SPLASH SCREEN -->
-    <string name="lbl_smile_identity">Smile Identity</string>
-    <string name="lbl_version_number">lib: %s - app: %s</string>
-    <string name="lbl_play_service_error">Install or update Play Service</string>
-    <string name="msg_use_offline_jobs">Would you like to use existing or add new offline jobs?</string>
-    <string name="lbl_use_offline_jobs">Use existing jobs</string>
-    <string name="lbl_add_offline_jobs">Add to existing Jobs</string>
-    <string name="msg_enrollment_required">You have to enrol (register) first before you can authenticate</string>
-    <string name="btn_cancel">Cancel</string>
-
     <!-- MAIN SCREEN -->
     <string name="lbl_main_heading">Home Menu</string>
     <string name="lbl_heading_enrollment">ENROLLMENT</string>
@@ -103,25 +93,10 @@
     <string name="btn_lbl_proceed" translatable="false">Proceed</string>
     <string name="btn_lbl_skip" translatable="false">Skip</string>
 
-    <string name="sandbox" translatable="false">🟢 Sandbox</string>
-
-    <string name="tab_lbl_home">Home</string>
-    <string name="tab_lbl_resources">Resources</string>
-    <string name="tab_lbl_settings">Settings</string>
-
     <string name="lbl_version_number_2">Version %s Android</string>
     <string name="basic_kyc" translatable="false">Basic KYC</string>
     <string name="enhanced_kyc" translatable="false">Enhanced KYC</string>
     <string name="biometric_kyc" translatable="false">Biometric KYC</string>
     <string name="doc_v" translatable="false">Document Verification</string>
     <string name="smart_selfie_auth" translatable="false">SmartSelfie\u00E2\u0084\u00A2\nAuthentication</string>
-
-    <string name="res_link_docs_txt">Explore our documentation</string>
-    <string name="res_link_docs_sub_txt">Read everything related to our solution stack</string>
-    <string name="res_link_policy_txt">Privacy Policy</string>
-    <string name="res_link_policy_sub_txt">Learn more about our solution stack</string>
-    <string name="res_link_faqs_txt">View FAQs</string>
-    <string name="res_link_faqs_sub_txt">Explore frequently asked questions</string>
-    <string name="res_link_id_types_txt">Support ID types and documents</string>
-    <string name="res_link_id_types_sub_txt">See our coverage range across the continent</string>
 </resources>

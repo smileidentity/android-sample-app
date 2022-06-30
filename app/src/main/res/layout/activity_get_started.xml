@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E5E5E5"
+    tools:context=".GetStartedActivity">
+
+    <ImageView
+        android:id="@+id/ivBackArrow"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="42.74dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginLeft="14dp"
+        android:src="@drawable/ic_left_arrow" />
+
+    <ImageView
+        android:id="@+id/ivImage"
+        android:layout_width="98.86dp"
+        android:layout_height="86dp"
+        app:layout_constraintTop_toBottomOf="@id/ivBackArrow"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_get_started_image" />
+
+    <TextView
+        android:id="@+id/tvTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="24sp"
+        android:text="Get Verified"
+        android:textColor="#100F0F"
+        android:textSize="20sp"
+        android:textFontWeight="700"
+        android:lineSpacingExtra="-2sp"
+        android:lineHeight="21.87sp"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/ivImage"
+        android:layout_marginTop="31.94dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/tvSubTxt"
+        android:layout_width="0dp"
+        android:layout_height="37.61dp"
+        android:text="To get started, have your government issued ID handy and you will be verified in a moment"
+        android:textColor="#4F4F4F"
+        android:textSize="11.57sp"
+        android:textFontWeight="400"
+        android:lineHeight="13.56sp"
+        android:gravity="center_horizontal"
+        app:layout_constraintTop_toBottomOf="@id/tvTxt"
+        android:layout_marginTop="15.61dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginLeft="49.89dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginRight="45.86dp" />
+    
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clTips"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/get_started_tip_bckgrd"
+        app:layout_constraintTop_toBottomOf="@id/tvSubTxt"
+        android:layout_marginTop="32.93dp"
+        android:paddingTop="31.14dp"
+        android:paddingBottom="34.42dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginLeft="20dp"
+        android:paddingLeft="19dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginRight="16.28dp"
+        android:paddingRight="19dp">
+
+        <TextView
+            android:id="@+id/ivTopLock"
+            android:layout_width="match_parent"
+            android:layout_height="19.67dp"
+            android:textSize="11sp"
+            android:textColor="#100F0F"
+            android:textFontWeight="400"
+            android:lineHeight="16.39sp"
+            android:drawableStart="@drawable/ic_get_started_lock"
+            android:drawablePadding="11.47dp"
+            android:text="Smile Identity uses sample data for its demo"
+            android:gravity="left|center_vertical" />
+
+        <TextView
+            android:id="@+id/ivTopInternet"
+            android:layout_width="match_parent"
+            android:layout_height="19.67dp"
+            android:textSize="11sp"
+            android:textColor="#100F0F"
+            android:textFontWeight="400"
+            android:lineHeight="16.39sp"
+            app:layout_constraintTop_toBottomOf="@id/ivTopLock"
+            android:layout_marginTop="29.5dp"
+            android:drawableStart="@drawable/ic_get_started_internet"
+            android:drawablePadding="11.47dp"
+            android:text="A stable internet connection is needed for the demo"
+            android:gravity="left|center_vertical" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="19.67dp"
+            android:textSize="11sp"
+            android:textColor="#100F0F"
+            android:textFontWeight="400"
+            android:lineHeight="16.39sp"
+            app:layout_constraintTop_toBottomOf="@id/ivTopInternet"
+            android:layout_marginTop="29.5dp"
+            android:drawableStart="@drawable/ic_get_started_security"
+            android:drawablePadding="11.47dp"
+            android:text="By clicking 'get started', you agree to share a selfie with Smile Identity who will store the image"
+            android:gravity="left|center_vertical" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tvStartBtn"
+        android:layout_width="0dp"
+        android:layout_height="54dp"
+        app:layout_constraintTop_toBottomOf="@id/clTips"
+        android:layout_marginTop="47.26dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginLeft="20.96dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginRight="21dp"
+        android:onClick="moveToHomeScreen"
+        android:gravity="center"
+        android:text="Get Started"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textFontWeight="500"
+        android:lineHeight="21.22dp"
+        android:lineSpacingExtra="2sp"
+        android:background="@drawable/get_started_start_btn" />
+
+    <TextView
+        android:layout_width="84.41dp"
+        android:layout_height="18.85dp"
+        android:text="Things to note"
+        android:textColor="#092548"
+        android:textSize="10sp"
+        android:lineHeight="14.95sp"
+        android:textFontWeight="500"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/tvSubTxt"
+        android:layout_marginTop="25.12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/get_started_tip_txt_bckgrd" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

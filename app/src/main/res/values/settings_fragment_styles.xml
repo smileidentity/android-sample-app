@@ -1,0 +1,38 @@
+<resources>
+
+    <style name="settings_fragment_heading_txt" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="android:layout_marginTop">22.74dp</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:text">@string/settings_fragment_heading_txt</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#100F0F</item>
+        <item name="android:textFontWeight">600</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="android:lineHeight">19.36dp</item>
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="settings_fragment_about_link_txt" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">54dp</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_marginRight">20dp</item>
+        <item name="android:text">@string/settings_fragment_about_txt</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#040C22</item>
+        <item name="android:textFontWeight">400</item>
+        <item name="android:lineSpacingExtra">3sp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:drawableLeft">@drawable/ic_exclamation_mark</item>
+        <item name="android:drawablePadding">16dp</item>
+        <item name="android:drawableRight">@drawable/ic_right_arrow</item>
+    </style>
+
+</resources>
