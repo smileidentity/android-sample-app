@@ -33,6 +33,7 @@
             tools:ignore="MissingConstraints" />
 
         <TextView
+            android:id="@+id/tvWatchBtn"
             style="@style/home_fragment_watch_btn"
             tools:ignore="MissingConstraints" />
         
@@ -85,7 +86,7 @@
         app:layout_constraintTop_toBottomOf="@id/tvSubHeading"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:label="@string/enhanced_kyc"
+        app:label="@string/home_fragment_cpb_enhanced_kyc"
         app:icon="@drawable/ic_enhanced_kyc"  />
 
     <com.demo.smileid.sid_sdk.CustomProductBtn
@@ -94,7 +95,7 @@
         app:layout_constraintTop_toBottomOf="@id/tvSubHeading"
         app:layout_constraintEnd_toStartOf="@id/cpbEnhancedKYC"
         android:layout_marginRight="10dp"
-        app:label="@string/basic_kyc"
+        app:label="@string/home_fragment_cpb_basic_kyc"
         app:icon="@drawable/ic_basic_kyc" />
 
     <com.demo.smileid.sid_sdk.CustomProductBtn
@@ -103,7 +104,7 @@
         app:layout_constraintTop_toBottomOf="@id/tvSubHeading"
         app:layout_constraintStart_toEndOf="@id/cpbEnhancedKYC"
         android:layout_marginLeft="10dp"
-        app:label="@string/biometric_kyc"
+        app:label="@string/home_fragment_cpb_biometric_kyc"
         app:icon="@drawable/ic_biometric_kyc"  />
 
     <com.demo.smileid.sid_sdk.CustomProductBtn
@@ -113,7 +114,7 @@
         android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="@id/cpbBasicKYC"
         app:layout_constraintEnd_toEndOf="@id/cpbBasicKYC"
-        app:label="@string/doc_v"
+        app:label="@string/home_fragment_cpb_doc_v"
         app:icon="@drawable/ic_doc_v"  />
 
     <com.demo.smileid.sid_sdk.CustomProductBtn
@@ -123,7 +124,7 @@
         android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="@id/cpbEnhancedKYC"
         app:layout_constraintEnd_toEndOf="@id/cpbEnhancedKYC"
-        app:label="@string/smart_selfie_auth"
+        app:label="@string/home_fragment_cpb_smart_selfie_auth"
         app:icon="@drawable/ic_smart_selfie"  />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

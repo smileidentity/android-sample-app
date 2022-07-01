@@ -7,5 +7,10 @@
     <string name="home_fragment_res_txt">Explore Resources</string>
     <string name="home_fragment_heading_2_txt">Test Out Our Products</string>
     <string name="home_fragment_sub_heading_txt">Explore key KYC product actions</string>
+    <string name="home_fragment_cpb_basic_kyc" translatable="false">Basic KYC</string>
+    <string name="home_fragment_cpb_enhanced_kyc" translatable="false">Enhanced KYC</string>
+    <string name="home_fragment_cpb_biometric_kyc" translatable="false">Biometric KYC</string>
+    <string name="home_fragment_cpb_doc_v" translatable="false">Document Verification</string>
+    <string name="home_fragment_cpb_smart_selfie_auth" translatable="false">SmartSelfie\u00E2\u0084\u00A2\nAuthentication</string>
 
 </resources>

@@ -52,5 +52,6 @@ public abstract class BaseFragment extends Fragment {
         void doSmartSelfieAuth();
         void openUrl(String url);
         void move2Tab(int position);
+        void move2Screen(Class classObject);
     }
 }

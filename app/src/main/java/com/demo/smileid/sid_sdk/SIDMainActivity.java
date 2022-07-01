@@ -75,22 +75,22 @@ public class SIDMainActivity extends BaseSIDActivity implements
     }
 
     public void enroll(View view) {
-        resetJob();
+        /*resetJob();
         jobType = 4;
-        startSelfieCapture(true, false);
+        startSelfieCapture(true, false);*/
     }
 
     public void enrollWithIdNo(View view) {
-        resetJob();
+        /*resetJob();
         mConsentRequired = true;
         jobType = 1;
-        startSelfieCapture(true, true, false, false, true);
+        startSelfieCapture(true, true, false, false, true);*/
     }
 
     public void enrollWithIdCard(View view) {
-        resetJob();
+        /*resetJob();
         jobType = 1;
-        startSelfieCapture(true);
+        startSelfieCapture(true);*/
     }
 
     public void reEnroll(View view) {
@@ -112,17 +112,17 @@ public class SIDMainActivity extends BaseSIDActivity implements
     }
 
     public void multipleEnroll(View view) {
-        resetJob();
+        /*resetJob();
         mUseMultipleEnroll = true;
         jobType = 4;
-        startSelfieCapture(true, false);
+        startSelfieCapture(true, false);*/
     }
 
     public void validateId(View view) {
-        mConsentRequired = true;
+        /*mConsentRequired = true;
         resetJob();
         jobType = 5;
-        requestUserConsent();
+        requestUserConsent();*/
     }
 
     @Override
@@ -130,12 +130,14 @@ public class SIDMainActivity extends BaseSIDActivity implements
         /*if (jobType == 6) {
             mConsentRequired = false;
             new DocVerifyOptionDialog(this, new DocVerifyOption()).showDialog();
-        } else */if (jobType == 5) {
+        } else */
+
+        /*if (jobType == 5) {
             mConsentRequired = false;
             startActivity(new Intent(this, SIDIDValidationActivity.class));
         } else {
             super.consentProvided(tag);
-        }
+        }*/
     }
 
     private class DocVerifyOption implements DocVerifyOptionDialog.DlgListener {
@@ -162,7 +164,7 @@ public class SIDMainActivity extends BaseSIDActivity implements
     }
 
     public void authenticate(View view) {
-        resetJob();
+        /*resetJob();
         jobType = 2;
 
         if (!hasSavedUser()) {
@@ -170,11 +172,11 @@ public class SIDMainActivity extends BaseSIDActivity implements
             return;
         }
 
-        startSelfieCapture(false);
+        startSelfieCapture(false);*/
     }
 
     public void authenticateWithSavedData(View view) {
-        resetJob();
+        /*resetJob();
 
         if (!hasSavedUser()) {
             enrolFirstDialog();
@@ -186,7 +188,7 @@ public class SIDMainActivity extends BaseSIDActivity implements
         } else {
             mUseOffLineAuth = true;
             startSelfieCapture(false);
-        }
+        }*/
     }
 
     public void verifyDoc(View view) {
@@ -195,21 +197,21 @@ public class SIDMainActivity extends BaseSIDActivity implements
         jobType = 6;
         requestUserConsent();*/
 
-        mConsentRequired = true;
+        /*mConsentRequired = true;
         resetJob();
         jobType = 6;
-        startSelfieCapture(true);
+        startSelfieCapture(true);*/
     }
 
     public void testIDCapture(View view) {
-        startActivity(
+        /*startActivity(
                 new Intent(this, SIDIDCardActivity.class) {
                     {
                         putExtra(SIDStringExtras.EXTRA_REENROLL, true);
                         putExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO, "MKSNGSGNBSG");
                     }
                 }
-        );
+        );*/
     }
 
     public void getImagePaths(View view) {
@@ -217,7 +219,7 @@ public class SIDMainActivity extends BaseSIDActivity implements
     }
 
     private void showOfflineAuthDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        /*AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Would you like to use existing or add new offline jobs?");
         builder.setCancelable(false);
 
@@ -242,7 +244,7 @@ public class SIDMainActivity extends BaseSIDActivity implements
                 });
 
         AlertDialog alert = builder.create();
-        alert.show();
+        alert.show();*/
     }
 
     private void enrolFirstDialog() {
@@ -296,7 +298,7 @@ public class SIDMainActivity extends BaseSIDActivity implements
     protected void onActivityResult(int requestCode, int resultCode, @Nullable final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == SMILE_SELFIE_REQUEST_CODE) {
+        /*if (requestCode == SMILE_SELFIE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 startActivity(
                         new Intent(this, SIDEnrollResultActivity.class) {
@@ -322,14 +324,14 @@ public class SIDMainActivity extends BaseSIDActivity implements
             } else {
                 Toast.makeText(this, "Oops Smile ID UI Selfie and ID Card did not return a success", Toast.LENGTH_LONG).show();
             }
-        }
+        }*/
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if (requestCode == SMILE_ID_UI_SELFIE_ID_PERMISSION_REQUEST
+        /*if (requestCode == SMILE_ID_UI_SELFIE_ID_PERMISSION_REQUEST
                 || requestCode == SMILE_ID_UI_SELFIE_PERMISSION_REQUEST) {
             if (grantResults.length > 0) {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -342,7 +344,7 @@ public class SIDMainActivity extends BaseSIDActivity implements
             } else {
                 Toast.makeText(this, "Oops you did not allow a required permission", Toast.LENGTH_LONG).show();
             }
-        }
+        }*/
     }
 
     @Override
