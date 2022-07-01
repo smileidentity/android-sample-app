@@ -92,11 +92,4 @@
     <string name="id_card_dialog_txt_2" translatable="false">Would you like to capture the back of the ID Card as well?</string>
     <string name="btn_lbl_proceed" translatable="false">Proceed</string>
     <string name="btn_lbl_skip" translatable="false">Skip</string>
-
-    <string name="lbl_version_number_2">Version %s Android</string>
-    <string name="basic_kyc" translatable="false">Basic KYC</string>
-    <string name="enhanced_kyc" translatable="false">Enhanced KYC</string>
-    <string name="biometric_kyc" translatable="false">Biometric KYC</string>
-    <string name="doc_v" translatable="false">Document Verification</string>
-    <string name="smart_selfie_auth" translatable="false">SmartSelfie\u00E2\u0084\u00A2\nAuthentication</string>
 </resources>

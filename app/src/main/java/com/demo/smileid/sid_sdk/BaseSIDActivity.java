@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import com.demo.smileid.sid_sdk.geoloc.SIDGeoInfos;
 import com.smileidentity.libsmileid.core.consent.DlgListener;
-import com.smileidentity.libsmileid.core.consent.ConsentDialog.Builder;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,7 +21,6 @@ import java.util.List;
 public class BaseSIDActivity extends AppCompatActivity implements DlgListener {
     protected boolean mUseMultipleEnroll = false, mUseOffLineAuth = false;
     protected int jobType = -1;
-    protected boolean mConsentRequired = false;
     private Intent mCurrentIntent = null;
     private static final int PERMISSION_ALL = 1;
 
@@ -29,7 +28,8 @@ public class BaseSIDActivity extends AppCompatActivity implements DlgListener {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.CAMERA,
-            Manifest.permission.ACCESS_FINE_LOCATION};
+            Manifest.permission.ACCESS_FINE_LOCATION
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +44,7 @@ public class BaseSIDActivity extends AppCompatActivity implements DlgListener {
     }
 
     protected void startSelfieCapture(boolean isEnrollMode, boolean hasId, boolean use258, boolean reenroll, boolean hasNoIdCard) {
-        mCurrentIntent = new Intent(this, SIDSelfieActivity.class);
+        mCurrentIntent = buildIntent();
         mCurrentIntent.putExtra(SIDStringExtras.EXTRA_ENROLL_MODE, isEnrollMode);
         mCurrentIntent.putExtra(SIDStringExtras.EXTRA_HAS_ID, hasId);
         mCurrentIntent.putExtra(SIDStringExtras.EXTRA_USE_258, use258);
@@ -54,6 +54,10 @@ public class BaseSIDActivity extends AppCompatActivity implements DlgListener {
         mCurrentIntent.putExtra(SIDStringExtras.EXTRA_HAS_NO_ID_CARD, hasNoIdCard);
         mCurrentIntent.putExtra(SIDStringExtras.EXTRA_TAG_OFFLINE_AUTH, mUseOffLineAuth);
         coreStartSelfieCapture();
+    }
+
+    protected Intent buildIntent() {
+        return new Intent(this, SIDSelfieActivity.class);
     }
 
     protected void startSelfieCapture(boolean isEnrollMode) {
@@ -70,11 +74,12 @@ public class BaseSIDActivity extends AppCompatActivity implements DlgListener {
 
     protected void coreStartSelfieCapture() {
         if (permissionGranted(PERMISSIONS)) {
-            if (mConsentRequired) {
+            /*if (mConsentRequired) {
                 requestUserConsent();
             } else {
-                proceedWithJob();
-            }
+
+            }*/
+            proceedWithJob();
         } else {
             ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
         }
@@ -83,7 +88,6 @@ public class BaseSIDActivity extends AppCompatActivity implements DlgListener {
     private void proceedWithJob() {
         SIDGeoInfos.getInstance().init(this);
         startActivity(mCurrentIntent);
-        mConsentRequired = false;
         mCurrentIntent = null;
     }
 
@@ -98,22 +102,9 @@ public class BaseSIDActivity extends AppCompatActivity implements DlgListener {
         return true;
     }
 
-    protected void requestUserConsent() {
-        //To be replaced by a partner-set values as returned by the backend
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_purse);
-
-        //Partner's name shouldn't be hardcoded
-        try {
-            new Builder("USER_TAG", bitmap, "AM Loans Inc.", "www.google.com")
-                .setListener(this).build(this).showDialog();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     @Override
     public void decline(String tag) {
-        mConsentRequired = false;
+//        mConsentRequired = false;
         mCurrentIntent = null;
         //A more appropriate message should be provided
         String message = "You need to provide consent in order to proceed";
@@ -134,7 +125,6 @@ public class BaseSIDActivity extends AppCompatActivity implements DlgListener {
 
             coreStartSelfieCapture();
         } else {
-            mConsentRequired = false;
             mCurrentIntent = null;
         }
     }

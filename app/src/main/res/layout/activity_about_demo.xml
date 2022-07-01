@@ -27,7 +27,7 @@
         tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/tvTxt"
+        android:id="@+id/tvBigTxt"
         style="@style/about_demo_screen_big_txt"
         app:layout_constraintTop_toBottomOf="@id/ivLogo"
         tools:ignore="MissingConstraints" />
@@ -35,7 +35,7 @@
     <TextView
         android:id="@+id/tvVersion"
         style="@style/about_demo_screen_version_txt"
-        app:layout_constraintTop_toBottomOf="@id/tvTxt"
+        app:layout_constraintTop_toBottomOf="@id/tvBigTxt"
         tools:ignore="MissingConstraints" />
 
     <TextView

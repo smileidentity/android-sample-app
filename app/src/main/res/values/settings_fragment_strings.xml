@@ -2,5 +2,6 @@
 
     <string name="settings_fragment_heading_txt">Settings</string>
     <string name="settings_fragment_about_txt">About</string>
+    <string name="settings_fragment_lbl_version_nbr">Version %s</string>
 
 </resources>

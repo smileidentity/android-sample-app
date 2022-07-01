@@ -4,6 +4,6 @@
     <string name="splash_screen_welcome_txt">Welcome to Smile ID \nDemo App</string>
     <string name="splash_screen_explore_txt">Explore our products and see how Smile ID \ncreates a seamless user experience</string>
     <string name="splash_screen_get_started">Get Started</string>
-    <string name="splash_screen_about_txt"><![CDATA[<u>About Demo App</u>.]]></string>
+    <string name="splash_screen_about_txt">About Demo App</string>
 
 </resources>
