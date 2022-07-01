@@ -2,9 +2,9 @@ package com.demo.smileid.sid_sdk;
 
 import static com.demo.smileid.sid_sdk.SIDStringExtras.EXTRA_TAG_PREFERENCES_AUTH_TAGS;
 import static com.demo.smileid.sid_sdk.SIDStringExtras.SHARED_PREF_USER_ID;
+import static com.smileid.smileidui.IntentHelper.SMILE_REQUEST_RESULT_TAG;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -15,6 +15,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 
 public class SIDHomeActivity extends BaseSIDActivity implements BaseFragment.TabActionListener {
 
+    private boolean mConsentRequired = false;
     private StaticPager mStaticPager = null;
 
     @Override
@@ -36,10 +38,10 @@ public class SIDHomeActivity extends BaseSIDActivity implements BaseFragment.Tab
         setContentView(R.layout.sid_activity_home);
 
         ((TextView) findViewById(R.id.tvVersion)).setText(String.format(getString(
-            R.string.lbl_version_number_2), BuildConfig.VERSION_NAME));
+            R.string.home_screen_lbl_version_nbr), BuildConfig.VERSION_NAME));
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tlMenu);
-        mStaticPager = (StaticPager) findViewById(R.id.spScreens);
+        TabLayout tabLayout = findViewById(R.id.tlMenu);
+        mStaticPager = findViewById(R.id.spScreens);
         mStaticPager.setAdapter(new ScreensPagerAdapter(getSupportFragmentManager()));
         mStaticPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mStaticPager));
@@ -130,6 +132,19 @@ public class SIDHomeActivity extends BaseSIDActivity implements BaseFragment.Tab
     @Override
     public void move2Tab(int position) {
         mStaticPager.setCurrentItem(position, true);
+    }
+
+    @Override
+    public void move2Screen(Class classObject) {
+        startActivity(new Intent(this, classObject));
+    }
+
+    protected Intent buildIntent() {
+        return new Intent(this, GetStartedActivity.class) {
+            {
+                putExtra(GetStartedActivity.REQUIRE_CONSENT, mConsentRequired);
+            }
+        };
     }
 
     class ScreensPagerAdapter extends FragmentPagerAdapter {

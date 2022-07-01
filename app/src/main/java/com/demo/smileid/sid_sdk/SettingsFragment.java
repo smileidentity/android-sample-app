@@ -1,8 +1,5 @@
 package com.demo.smileid.sid_sdk;
 
-import android.app.Activity;
-import android.content.Intent;
-
 public class SettingsFragment extends BaseFragment {
 
     @Override
@@ -12,6 +9,6 @@ public class SettingsFragment extends BaseFragment {
 
     @Override
     void setupViews() {
-        getView().findViewById(R.id.tvAboutLink).setOnClickListener(v -> ((Activity) getContext()).startActivity(new Intent(getActivity(), AboutDemoActivity.class)));
+        getView().findViewById(R.id.tvAboutLink).setOnClickListener(v -> mActionListener.move2Screen(AboutDemoActivity.class));
     }
 }
