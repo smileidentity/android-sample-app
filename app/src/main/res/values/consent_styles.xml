@@ -1,10 +1,10 @@
 <resources>
 
     <style name="consent_screen_back_img">
-        <item name="android:layout_width">24dp</item>
-        <item name="android:layout_height">24dp</item>
+        <item name="android:layout_width">16dp</item>
+        <item name="android:layout_height">16dp</item>
         <item name="layout_constraintTop_toTopOf">parent</item>
-        <item name="android:layout_marginTop">42.74dp</item>
+        <item name="android:layout_marginTop">19dp</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="android:layout_marginLeft">14dp</item>
         <item name="android:src">@drawable/ic_left_arrow</item>
@@ -28,7 +28,7 @@
     <style name="consent_screen_big_txt" parent="TextAppearance.AppCompat">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">54dp</item>
+        <item name="android:layout_marginTop">44dp</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="android:text">@string/consent_screen_partner_big_txt</item>
@@ -61,17 +61,21 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@drawable/ic_consent_policy_bckgrd</item>
-        <item name="android:layout_marginTop">35.5dp</item>
+        <item name="android:layout_marginTop">25dp</item>
         <item name="layout_constraintLeft_toLeftOf">parent</item>
         <item name="android:layout_marginLeft">16dp</item>
         <item name="layout_constraintRight_toRightOf">parent</item>
         <item name="android:layout_marginRight">16dp</item>
-        <item name="android:padding">8dp</item>
+        <item name="android:paddingTop">14.68dp</item>
+        <item name="android:paddingBottom">11dp</item>
+        <item name="android:paddingLeft">21dp</item>
+        <item name="android:paddingRight">22dp</item>
     </style>
 
     <style name="consent_screen_policy_txt" parent="TextAppearance.AppCompat">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
         <item name="layout_constraintLeft_toLeftOf">parent</item>
         <item name="layout_constraintRight_toRightOf">parent</item>
         <item name="android:textSize">12sp</item>
@@ -137,6 +141,96 @@
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="android:src">@drawable/ic_smile_logo_bar</item>
+    </style>
+
+    <style name="consent_screen_consent_cat_img">
+        <item name="android:layout_width">18.65dp</item>
+        <item name="android:layout_height">18.65dp</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+    </style>
+
+    <style name="consent_screen_consent_cat_tool_tip_img">
+        <item name="android:layout_width">20dp</item>
+        <item name="android:layout_height">20dp</item>
+        <item name="android:layout_marginRight">4dp</item>
+        <item name="layout_constraintDimensionRatio">1:1</item>
+        <item name="android:src">@drawable/ic_info_btn</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+    </style>
+
+    <style name="consent_screen_consent_cat_name_txt">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="android:layout_marginLeft">6dp</item>
+        <item name="android:gravity">center_vertical|left</item>
+        <item name="android:layout_gravity">center_vertical|left</item>
+        <item name="android:lineHeight">19.45dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#100F0F</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:fontWeight">400</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="consent_screen_consent_tooltip_block">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="android:layout_margin">24dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">14dp</item>
+        <item name="android:elevation">8dp</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="consent_screen_consent_tooltip_shield_img">
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="layout_constraintLeft_toLeftOf">parent</item>
+        <item name="android:layout_marginLeft">12dp</item>
+        <item name="android:src">@drawable/ic_security_icon</item>
+    </style>
+
+    <style name="consent_screen_consent_tooltip_close_btn">
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="layout_constraintRight_toRightOf">parent</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:src">@drawable/ic_cancel</item>
+    </style>
+
+    <style name="consent_screen_consent_tooltip_heading_txt" parent="consent_screen_consent_cat_name_txt">
+        <item name="android:textSize">18dp</item>
+        <item name="android:textColor">#FF111827</item>
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginRight">18dp</item>
+        <item name="android:paddingRight">0dp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:fontWeight">500</item>
+    </style>
+
+    <style name="ConsentTooltipContentStyle" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">12dp</item>
+        <item name="layout_constraintRight_toRightOf">parent</item>
+        <item name="android:layout_marginRight">36dp</item>
+        <item name="android:textColor">@color/consent_dlg_lighter_gray</item>
+        <item name="android:textSize">16dp</item>>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingRight">0dp</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:lineHeight">22dp</item>
+        <item name="android:fontWeight">400</item>
     </style>
 
 </resources>

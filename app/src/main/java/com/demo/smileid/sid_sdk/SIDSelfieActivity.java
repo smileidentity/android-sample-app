@@ -7,9 +7,6 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.format.DateFormat;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -19,12 +16,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.demo.smileid.sid_sdk.sidNet.Misc;
+import com.smileid.smileidui.Utils;
 import com.smileidentity.libsmileid.core.CameraSourcePreview;
 import com.smileidentity.libsmileid.core.SelfieCaptureConfig;
 import com.smileidentity.libsmileid.core.SmartSelfieManager;
 import com.smileidentity.libsmileid.core.captureCallback.FaceState;
 import com.smileidentity.libsmileid.core.captureCallback.OnFaceStateChangeListener;
-import com.smileidentity.libsmileid.utils.AppData;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -39,6 +36,7 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
     private ConstraintLayout mClSelfieBtnContainer;
     private TextView mTvPromptReposition;
     private SmartSelfieManager mSmartSelfieManager;
+    private CameraSourcePreview mCameraSourcePreview;
 
     private boolean mIsEnrollMode, mHasId, mUse258, mHasNoIdCard, mReEnrollUser,
         mMultipleEnroll = false, mUseOffLineAuth = false;
@@ -54,6 +52,9 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
 
         setContentView(R.layout.sid_activity_selfie);
 
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         Intent intent = getIntent();
         mIsEnrollMode = intent.getBooleanExtra(SIDStringExtras.EXTRA_ENROLL_MODE, true);
         mReEnrollUser = intent.getBooleanExtra(SIDStringExtras.EXTRA_REENROLL, false);
@@ -67,24 +68,37 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
         mTvPromptReposition = findViewById(R.id.tvPromptReposition);
         mClSelfieBtnContainer = findViewById(R.id.clSelfieBtnContainer);
 
-        if (mUseOffLineAuth) {
+        initSmartSelfieCamera(false);
+
+        /*if (mUseOffLineAuth) {
             findViewById(R.id.tvContinueWithId).setVisibility(View.GONE);
             findViewById(R.id.tvSaveAuthLater).setVisibility(View.VISIBLE);
-        }
+        }*/
+    }
 
+    private void initSmartSelfieCamera(boolean resumeCapture) {
         mSmartSelfieManager = new SmartSelfieManager(getCaptureConfig());
         mSmartSelfieManager.setOnCompleteListener(this);
         mSmartSelfieManager.setOnFaceStateChangeListener(this);
         setBrightnessToMax(this);
         mSmartSelfieManager.captureSelfie(getTag());
         selfieTagsSessions.put(mCurrentTag, false);
+
+        if (resumeCapture) {
+            mSmartSelfieManager.resume();
+        }
     }
 
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_menu, menu);
-        menu.findItem(R.id.capture).setVisible(true);
-        return true;
+    private void initView() {
+        mCameraSourcePreview = findViewById(com.smileid.smileidui.R.id.cspPreview);
+        mCameraSourcePreview.setOverlayHeight(Utils.dpToPx(this, sidSelfieCaptureConfig.getOverlayHeight()));
+        mCameraSourcePreview.setOverlayWidth(Utils.dpToPx(this, sidSelfieCaptureConfig.getOverlayWidth()));
+        mCameraSourcePreview.setCapturedProgressStateColor(sidSelfieCaptureConfig.getCapturedProgressColor());
+        mCameraSourcePreview.setCapturingProgressStateColor(sidSelfieCaptureConfig.getCapturingProgressColor());
+        mCameraSourcePreview.setProgressWidth(Utils.dpToPx(this, sidSelfieCaptureConfig.getOverlayThickness()));
+        mCameraSourcePreview.setOverlayColor(sidSelfieCaptureConfig.getOverlayColor());
+        mCameraSourcePreview.setOverlayAlpha(sidSelfieCaptureConfig.getOverlayAlpha());
+        mCameraSourcePreview.setOverlayDotted(sidSelfieCaptureConfig.isOverlayDotted());
     }
 
     @Override

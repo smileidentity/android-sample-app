@@ -13,12 +13,10 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
-import com.smileidentity.libsmileid.core.consent.ConsentCatAdapter;
-import com.smileidentity.libsmileid.core.consent.ConsentCategory;
+
 import java.util.ArrayList;
 
 public class ConsentActivity extends AppCompatActivity {
@@ -43,7 +41,7 @@ public class ConsentActivity extends AppCompatActivity {
         public void updateDrawState(TextPaint ds) {
             super.updateDrawState(ds);
             ds.setUnderlineText(true);
-            ds.setColor(getResources().getColor(com.smileidentity.libsmileid.R.color.consent_dlg_navy_blue));
+            ds.setColor(Color.parseColor("#004071"));
         }
     };
 
@@ -112,9 +110,9 @@ public class ConsentActivity extends AppCompatActivity {
     private void populateCats() {
         mInfoCats = new ArrayList<ConsentCategory>() {
             {
-                add(new ConsentCategory(com.smileidentity.libsmileid.R.drawable.ic_personal_details, getString(com.smileidentity.libsmileid.R.string.user_consent_cat_lbl_1), getString(com.smileidentity.libsmileid.R.string.user_consent_tooltip_lbl_1), getString(com.smileidentity.libsmileid.R.string.user_consent_cat_tooltip_1)));
-                add(new ConsentCategory(com.smileidentity.libsmileid.R.drawable.ic_contact_info, getString(com.smileidentity.libsmileid.R.string.user_consent_cat_lbl_2), getString(com.smileidentity.libsmileid.R.string.user_consent_tooltip_lbl_2), getString(com.smileidentity.libsmileid.R.string.user_consent_cat_tooltip_2)));
-                add(new ConsentCategory(com.smileidentity.libsmileid.R.drawable.ic_doc_info, getString(com.smileidentity.libsmileid.R.string.user_consent_cat_lbl_3), getString(com.smileidentity.libsmileid.R.string.user_consent_tooltip_lbl_3), getString(com.smileidentity.libsmileid.R.string.user_consent_cat_tooltip_3)));
+                add(new ConsentCategory(R.drawable.ic_personal_details, getString(com.smileidentity.libsmileid.R.string.user_consent_cat_lbl_1), getString(com.smileidentity.libsmileid.R.string.user_consent_tooltip_lbl_1), getString(com.smileidentity.libsmileid.R.string.user_consent_cat_tooltip_1)));
+                add(new ConsentCategory(R.drawable.ic_contact_info, getString(com.smileidentity.libsmileid.R.string.user_consent_cat_lbl_2), getString(com.smileidentity.libsmileid.R.string.user_consent_tooltip_lbl_2), getString(com.smileidentity.libsmileid.R.string.user_consent_cat_tooltip_2)));
+                add(new ConsentCategory(R.drawable.ic_doc_info, getString(com.smileidentity.libsmileid.R.string.user_consent_cat_lbl_3), getString(com.smileidentity.libsmileid.R.string.user_consent_tooltip_lbl_3), getString(com.smileidentity.libsmileid.R.string.user_consent_cat_tooltip_3)));
             }
         };
 

@@ -28,6 +28,7 @@ import com.smileidentity.libsmileid.model.GeoInfos;
 import com.smileidentity.libsmileid.model.PartnerParams;
 import com.smileidentity.libsmileid.model.SIDMetadata;
 import com.smileidentity.libsmileid.model.SIDNetData;
+import com.smileidentity.libsmileid.utils.AppData;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -114,7 +115,7 @@ public class SIDAuthResultActivity extends AppCompatActivity implements SIDNetwo
 
     @NonNull
     private SIDConfig createConfig(SIDMetadata metadata) {
-        SIDNetData data = new SIDNetData(this, SIDNetData.Environment.TEST);
+        SIDNetData data = new SIDNetData(this, AppData.getInstance(this).getSDKEnvir());
         GeoInfos geoInfos = SIDGeoInfos.getInstance().getGeoInformation();
         //Uncomment to set user Provided partner Parameter
         //setPartnerParams();
@@ -124,12 +125,15 @@ public class SIDAuthResultActivity extends AppCompatActivity implements SIDNetwo
             setPartnerParamsForReEnroll(metadata);
         }
 
-        SIDConfig.Builder builder = new SIDConfig.Builder(this);
-        builder.setSmileIdNetData(data)
-                .setGeoInformation(geoInfos)
-                .setJobType(mJobType)
-                .setSIDMetadata(metadata)
-                .setMode(SIDConfig.Mode.AUTHENTICATION);
+        SIDConfig.Builder builder = new SIDConfig.Builder(this) {
+            {
+                setSmileIdNetData(data);
+                setGeoInformation(geoInfos);
+                setJobType(mJobType);
+                setSIDMetadata(metadata);
+                setMode(SIDConfig.Mode.AUTHENTICATION);
+            }
+        };
 
         if (mUse258) {//Set the job type to 258 if user selected Auth 258 mode from the main screen
             builder.setJobType(258);
