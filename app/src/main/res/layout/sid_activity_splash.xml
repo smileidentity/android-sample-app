@@ -11,7 +11,18 @@
     <TextView
         android:id="@+id/tvLang"
         style="@style/splash_screen_lang_txt"
+        android:elevation="2dp"
+        android:onClick="chooseLanguage"
         tools:ignore="MissingConstraints" />
+
+    <Spinner
+        android:id="@+id/spLang"
+        style="@style/splash_screen_lang_spinner"
+        android:visibility="visible"
+        app:layout_constraintTop_toTopOf="@id/tvLang"
+        app:layout_constraintBottom_toBottomOf="@id/tvLang"
+        app:layout_constraintStart_toStartOf="@id/tvLang"
+        app:layout_constraintEnd_toEndOf="@id/tvLang" />
 
     <View
         android:id="@+id/vPhoneMockup"
@@ -40,13 +51,14 @@
         android:id="@+id/tvStartBtn"
         style="@style/splash_screen_get_started_btn"
         app:layout_constraintTop_toBottomOf="@id/tvExplore"
-        android:onClick="moveToHomeScreen"
+        android:onClick="move2HomeScreen"
         tools:ignore="MissingConstraints" />
 
     <TextView
+        android:id="@+id/tvAboutDemo"
         style="@style/splash_screen_about_demo_txt"
-        android:text="@string/splash_screen_about_txt"
         app:layout_constraintTop_toBottomOf="@id/tvStartBtn"
+        android:onClick="move2AboutScreen"
         tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

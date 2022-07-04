@@ -5,5 +5,6 @@
     <string name="consent_screen_partner_small_txt">This will allow partner 18371 to: </string>
     <string name="consent_screen_allow_btn">Allow</string>
     <string name="consent_screen_cancel_btn">Cancel</string>
+    <string name="consent_screen_consent_declined_error">You need to provide consent in order to proceed</string>
 
 </resources>

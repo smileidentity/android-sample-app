@@ -18,6 +18,7 @@ if target sdk is 30 and above this is not necessary for smile but migrations for
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
+
     <uses-feature
         android:name="android.hardware.camera.front"
         android:required="false" />
@@ -28,11 +29,13 @@ if target sdk is 30 and above this is not necessary for smile but migrations for
     <uses-permission
         android:name="android.permission.READ_PHONE_STATE"
         android:maxSdkVersion="29" />
+
     <uses-permission android:name="android.permission.READ_PHONE_NUMBERS" />
 
     <uses-feature
         android:name="android.hardware.camera.autofocus"
         android:required="true" />
+
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true" />
@@ -94,10 +97,6 @@ if target sdk is 30 and above this is not necessary for smile but migrations for
         <meta-data
             android:name="com.google.android.awareness.API_KEY"
             android:value="@string/google_awareness_api_key" />
-
-        <meta-data
-            android:name="ContentVersion"
-            android:value="TEST" />
 
         <activity
             android:name=".SIDIDCardCaptureActivity"

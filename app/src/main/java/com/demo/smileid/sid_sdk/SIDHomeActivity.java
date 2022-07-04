@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -50,6 +51,7 @@ public class SIDHomeActivity extends BaseSIDActivity implements BaseFragment.Tab
 
     private void resetJob() {
         jobType = -1;
+        mConsentRequired = false;
         mUseMultipleEnroll = false;
         mUseOffLineAuth = false;
     }
@@ -78,8 +80,8 @@ public class SIDHomeActivity extends BaseSIDActivity implements BaseFragment.Tab
 
     @Override
     public void performDocV() {
-        mConsentRequired = true;
         resetJob();
+        mConsentRequired = true;
         jobType = 6;
         startSelfieCapture(true);
     }
@@ -140,11 +142,21 @@ public class SIDHomeActivity extends BaseSIDActivity implements BaseFragment.Tab
     }
 
     protected Intent buildIntent() {
+        Log.d("REQUIRE_CONSENT", "2: " + mConsentRequired);
         return new Intent(this, GetStartedActivity.class) {
             {
                 putExtra(GetStartedActivity.REQUIRE_CONSENT, mConsentRequired);
             }
         };
+    }
+
+    public void onBackPressed() {
+        if (mStaticPager.getCurrentItem() != 0) {
+            mStaticPager.setCurrentItem(0);
+            return;
+        }
+
+        super.onBackPressed();
     }
 
     class ScreensPagerAdapter extends FragmentPagerAdapter {
@@ -187,10 +199,6 @@ public class SIDHomeActivity extends BaseSIDActivity implements BaseFragment.Tab
         @Override
         @NonNull
         public void destroyItem(ViewGroup container, int position, Object object) {
-        }
-
-        private Fragment getChildFragment(int position)  {
-            return (BaseFragment) mFragments.get(position);
         }
 
         @Override

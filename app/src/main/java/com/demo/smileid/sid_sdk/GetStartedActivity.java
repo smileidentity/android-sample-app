@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -38,6 +40,7 @@ public class GetStartedActivity extends AppCompatActivity {
     }
 
     public void getStarted(View view) {
+        Log.d("REQUIRE_CONSENT", "" + mParams.getBoolean(REQUIRE_CONSENT));
         if ((mParams != null) && (mParams.getBoolean(REQUIRE_CONSENT))) {
             mParams.remove(REQUIRE_CONSENT);
             requestUserConsent();
@@ -63,6 +66,9 @@ public class GetStartedActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK) {
             moveForward();
         } else {
+            Toast.makeText(this, getString(R.string.consent_screen_consent_declined_error),
+                Toast.LENGTH_LONG).show();
+
             finish();
         }
     }
