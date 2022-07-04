@@ -25,6 +25,7 @@ import com.smileidentity.libsmileid.exception.SIDException;
 import com.smileidentity.libsmileid.model.PartnerParams;
 import com.smileidentity.libsmileid.model.SIDMetadata;
 import com.smileidentity.libsmileid.model.SIDNetData;
+import com.smileidentity.libsmileid.utils.AppData;
 
 import java.util.concurrent.TimeUnit;
 
@@ -274,19 +275,21 @@ public class SIDSmileIDActivity extends BaseSIDActivity implements View.OnClickL
         retryOnFailurePolicy.setRetryCount(10);
         retryOnFailurePolicy.setRetryTimeout(TimeUnit.SECONDS.toMillis(15));
 
-        SIDNetData data = new SIDNetData(this, SIDNetData.Environment.TEST);
-        SIDConfig.Builder builder = new SIDConfig.Builder(this)
-                .setRetryOnfailurePolicy(retryOnFailurePolicy)
-                .setMode(SIDConfig.Mode.ENROLL)
-                .setSmileIdNetData(data)
-                .setGeoInformation(null)
-                .setSIDMetadata(metadata)
-                .setIsJobStatusQuery(true)
-                .setJobType(1);
-        SIDConfig mConfig = builder.build();
+        SIDNetData data = new SIDNetData(this, AppData.getInstance(this).getSDKEnvir());
+
+        SIDConfig mConfig = new SIDConfig.Builder(this) {
+            {
+                setRetryOnfailurePolicy(retryOnFailurePolicy);
+                setMode(SIDConfig.Mode.ENROLL);
+                setSmileIdNetData(data);
+                setGeoInformation(null);
+                setSIDMetadata(metadata);
+                setIsJobStatusQuery(true);
+                setJobType(1);
+            }
+        }.build();
 
         SIDNetworkRequest sidNetworkRequest = new SIDNetworkRequest(this);
-
 
         if (SIDNetworkingUtils.haveNetworkConnection(this)) {
             sidNetworkRequest.submit(mConfig);

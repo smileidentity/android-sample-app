@@ -12,13 +12,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import com.demo.smileid.sid_sdk.geoloc.SIDGeoInfos;
-import com.smileidentity.libsmileid.core.consent.DlgListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class BaseSIDActivity extends AppCompatActivity implements DlgListener {
+public class BaseSIDActivity extends AppCompatActivity {
     protected boolean mUseMultipleEnroll = false, mUseOffLineAuth = false;
     protected int jobType = -1;
     private Intent mCurrentIntent = null;
@@ -100,20 +99,6 @@ public class BaseSIDActivity extends AppCompatActivity implements DlgListener {
             }
         }
         return true;
-    }
-
-    @Override
-    public void decline(String tag) {
-//        mConsentRequired = false;
-        mCurrentIntent = null;
-        //A more appropriate message should be provided
-        String message = "You need to provide consent in order to proceed";
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void consentProvided(String tag) {
-        proceedWithJob();
     }
 
     @Override

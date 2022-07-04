@@ -208,16 +208,19 @@ public class SIDIDValidationActivity extends AppCompatActivity implements
     }
 
     private SIDConfig createConfig(SIDMetadata metadata) {
-        SIDNetData data = new SIDNetData(this, SIDNetData.Environment.TEST);
+        SIDNetData data = new SIDNetData(this, AppData.getInstance(this).getSDKEnvir());
 
-        SIDConfig.Builder builder = new SIDConfig.Builder(this)
-                .setRetryOnfailurePolicy(getRetryOnFailurePolicy())
-                .setMode(SIDConfig.Mode.ENROLL)
-                .setSmileIdNetData(data)
-                .setGeoInformation(null)
-                .setSIDMetadata(metadata)
-                .setJobType(5);
-         mConfig = builder.build(getTag());
+        mConfig = new SIDConfig.Builder(this) {
+            {
+                setRetryOnfailurePolicy(getRetryOnFailurePolicy());
+                setMode(SIDConfig.Mode.ENROLL);
+                setSmileIdNetData(data);
+                setGeoInformation(null);
+                setSIDMetadata(metadata);
+                setJobType(5);
+            }
+        }.build(getTag());
+
         return mConfig;
     }
 

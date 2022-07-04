@@ -125,7 +125,7 @@ public class SIDMainActivity extends BaseSIDActivity implements
         requestUserConsent();*/
     }
 
-    @Override
+//    @Override
     public void consentProvided(String tag) {
         /*if (jobType == 6) {
             mConsentRequired = false;

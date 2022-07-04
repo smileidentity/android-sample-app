@@ -17,6 +17,15 @@
         android:id="@+id/tvEnv"
         style="@style/home_fragment_env_txt"
         tools:ignore="MissingConstraints" />
+
+    <Spinner
+        android:id="@+id/spEnv"
+        style="@style/splash_screen_lang_spinner"
+        android:visibility="invisible"
+        app:layout_constraintTop_toTopOf="@id/tvEnv"
+        app:layout_constraintBottom_toBottomOf="@id/tvEnv"
+        app:layout_constraintStart_toStartOf="@id/tvEnv"
+        app:layout_constraintEnd_toEndOf="@id/tvEnv" />
     
     <View
         android:id="@+id/vSeparator"

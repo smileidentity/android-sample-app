@@ -5,8 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E5E5E5"
-    tools:context=".ConsentActivity">
+    tools:context=".ConsentActivity"
+    android:background="#E5E5E5">
 
     <ImageView
         android:id="@+id/ivBackArrow"
@@ -19,84 +19,68 @@
         app:layout_constraintTop_toBottomOf="@id/ivBackArrow"
         tools:ignore="MissingConstraints" />
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+    <TextView
+        android:id="@+id/tvBigTxt"
+        style="@style/consent_screen_big_txt"
         app:layout_constraintTop_toBottomOf="@id/tvPartnerName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginTop="0dp">
+        tools:ignore="MissingConstraints" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/tvSmallTxt"
+        style="@style/consent_screen_small_txt"
+        app:layout_constraintTop_toBottomOf="@id/tvBigTxt"
+        tools:ignore="MissingConstraints" />
 
-            <TextView
-                android:id="@+id/tvBigTxt"
-                style="@style/consent_screen_big_txt"
-                app:layout_constraintTop_toBottomOf="@id/tvPartnerName"
-                tools:ignore="MissingConstraints" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/clInfoCat"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_marginTop="37.09dp"
+        android:layout_marginLeft="26dp"
+        android:layout_marginRight="24.67dp"
+        android:nestedScrollingEnabled="false"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSmallTxt" />
 
-            <TextView
-                android:id="@+id/tvSmallTxt"
-                style="@style/consent_screen_small_txt"
-                app:layout_constraintTop_toBottomOf="@id/tvBigTxt"
-                tools:ignore="MissingConstraints" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clPolicy"
+        style="@style/consent_screen_policy_block"
+        app:layout_constraintTop_toBottomOf="@id/clInfoCat"
+        tools:ignore="MissingConstraints">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/clInfoCat"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:layout_marginTop="37.09dp"
-                android:layout_marginLeft="26dp"
-                android:layout_marginRight="24.67dp"
-                android:nestedScrollingEnabled="false"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvSmallTxt" />
+        <TextView
+            android:id="@+id/tvPolicy"
+            style="@style/consent_screen_policy_txt" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clPolicy"
-                style="@style/consent_screen_policy_block"
-                app:layout_constraintTop_toBottomOf="@id/clInfoCat"
-                tools:ignore="MissingConstraints">
+        <TextView
+            android:id="@+id/tvPolicy2"
+            style="@style/consent_screen_policy_txt_2"
+            app:layout_constraintTop_toBottomOf="@id/tvPolicy" />
 
-                <TextView
-                    android:id="@+id/tvPolicy"
-                    style="@style/consent_screen_policy_txt"
-                    app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <TextView
-                    android:id="@+id/tvPolicy2"
-                    style="@style/consent_screen_policy_txt_2"
-                    app:layout_constraintTop_toBottomOf="@id/tvPolicy" />
+    <TextView
+        android:id="@+id/tvAllowBtn"
+        style="@style/consent_screen_allow_btn"
+        app:layout_constraintLeft_toLeftOf="@id/clPolicy"
+        app:layout_constraintRight_toRightOf="@id/clPolicy"
+        app:layout_constraintTop_toBottomOf="@id/clPolicy"
+        android:onClick="allow" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/tvCancelBtn"
+        style="@style/consent_screen_cancel_btn"
+        app:layout_constraintLeft_toLeftOf="@id/clPolicy"
+        app:layout_constraintRight_toRightOf="@id/clPolicy"
+        app:layout_constraintTop_toBottomOf="@id/tvAllowBtn"
+        android:onClick="cancel" />
 
-            <TextView
-                android:id="@+id/tvAllowBtn"
-                style="@style/consent_screen_allow_btn"
-                app:layout_constraintLeft_toLeftOf="@id/clPolicy"
-                app:layout_constraintRight_toRightOf="@id/clPolicy"
-                app:layout_constraintTop_toBottomOf="@id/clPolicy"
-                android:onClick="allow" />
-
-            <TextView
-                android:id="@+id/tvCancelBtn"
-                style="@style/consent_screen_cancel_btn"
-                app:layout_constraintLeft_toLeftOf="@id/clPolicy"
-                app:layout_constraintRight_toRightOf="@id/clPolicy"
-                app:layout_constraintTop_toBottomOf="@id/tvAllowBtn"
-                android:onClick="cancel" />
-
-            <ImageView
-                style="@style/consent_screen_smile_logo_bar"
-                app:layout_constraintTop_toBottomOf="@id/tvAllowBtn"
-                android:src="@drawable/ic_smile_logo_bar"
-                tools:ignore="MissingConstraints" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </ScrollView>
+    <ImageView
+        style="@style/consent_screen_smile_logo_bar"
+        app:layout_constraintTop_toBottomOf="@id/tvAllowBtn"
+        android:src="@drawable/ic_smile_logo_bar"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
