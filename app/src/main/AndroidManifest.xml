@@ -88,7 +88,9 @@ if target sdk is 30 and above this is not necessary for smile but migrations for
 
         <activity
             android:name=".SIDSelfieActivity"
-            android:label="@string/lbl_selfie_heading" />
+            android:label="@string/lbl_selfie_heading"
+            android:exported="false"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name=".SIDIDCardActivity"
