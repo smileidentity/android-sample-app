@@ -5,49 +5,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorGrey">
+    android:background="#E5E5E5">
 
     <ProgressBar
         android:id="@+id/pbLoading"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:visibility="gone"
-        tools:visibility="visible" />
+        style="@style/auth_result_screen_progress_bar"
+        tools:visibility="visible"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/tvConfidenceValue"
-        style="@style/MainHeading"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:text="Confidence value 100%"
+        style="@style/auth_result_screen_uploading_txt"
+        app:layout_constraintTop_toBottomOf="@id/pbLoading"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/tvResult"
-        style="@style/MainHeading"
-        app:layout_constraintBottom_toTopOf="@+id/tvConfidenceValue"
-        android:layout_marginBottom="59dp"
-        android:gravity="center"
-        android:textSize="25sp"
+        style="@style/auth_result_screen_result_txt"
+        app:layout_constraintTop_toBottomOf="@+id/tvConfidenceValue"
         tools:ignore="MissingConstraints" />
+
+    <ImageView
+        style="@style/auth_result_screen_bottom_logo"
+        tools:ignore="MissingConstraints" />
+
+    <View
+        android:id="@+id/vTransLayer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:alpha="0.85" />
 
     <TextView
         android:id="@+id/tvUploadNow"
-        style="@style/MainBtnAction"
-        android:drawableLeft="@drawable/ic_upload_now"
+        style="@style/auth_result_screen_upload_btn"
         android:onClick="uploadNow"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintWidth_percent="0.4"
-        android:layout_marginBottom="16dp"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:text="@string/lbl_enroll_result_upload_now"
         tools:ignore="MissingConstraints" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

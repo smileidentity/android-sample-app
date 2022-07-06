@@ -61,7 +61,7 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
     private ProgressBar mPbLoading;
     private CountryCodePicker mCcpCountryPicker;
     private Spinner mSIdType;
-    private boolean mHasId = false, mReEnrollUser = false, mHasNoIdCard, mMultipleEnroll,
+    private boolean mReEnrollUser = false, mHasNoIdCard, mMultipleEnroll,
             mContinueWithIdInfo;
     private int mEnrollType;
     private String mSelectedCountryName = "", mSelectedIdCard, mCurrentTag;
@@ -77,7 +77,7 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
         setContentView(R.layout.sid_activity_enroll_result);
 
         Intent intent = getIntent();
-        mHasId = intent.getBooleanExtra(SIDStringExtras.EXTRA_HAS_ID, false);
+//        mHasId = intent.getBooleanExtra(SIDStringExtras.EXTRA_HAS_ID, false);
         mHasNoIdCard = intent.getBooleanExtra(SIDStringExtras.EXTRA_HAS_NO_ID_CARD, false);
         mReEnrollUser = intent.getBooleanExtra(SIDStringExtras.EXTRA_REENROLL, false);
         mEnrollType = intent.getIntExtra(SIDStringExtras.EXTRA_ENROLL_TYPE, -1);
@@ -101,7 +101,7 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
         });
 
         findViewById(R.id.clNoCardLayout).setVisibility((mHasNoIdCard || mContinueWithIdInfo) ?
-                View.VISIBLE : View.GONE);
+            View.VISIBLE : View.GONE);
 
         if (mContinueWithIdInfo) {
             mSAutoUpload.setVisibility(View.GONE);
@@ -109,7 +109,7 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
         }
 
         findViewById(R.id.clMultipleEnrollActions).setVisibility((mMultipleEnroll) ? View.VISIBLE :
-                View.GONE);
+            View.GONE);
 
         mSIdType = findViewById(R.id.spIdType);
         mSIdType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -398,7 +398,7 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
 
         if (!TextUtils.isEmpty(response.getResultText())) {
             stringBuilder.append("Result Text : ").append(response.getResultText())
-                    .append(System.getProperty("line.separator"));
+                .append(System.getProperty("line.separator"));
         }
 
         if (response.getConfidenceValue() > 0) {

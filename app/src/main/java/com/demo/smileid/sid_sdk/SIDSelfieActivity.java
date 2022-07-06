@@ -6,45 +6,46 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
-
 import com.demo.smileid.sid_sdk.sidNet.Misc;
-import com.smileid.smileidui.Utils;
 import com.smileidentity.libsmileid.core.CameraSourcePreview;
 import com.smileidentity.libsmileid.core.SelfieCaptureConfig;
 import com.smileidentity.libsmileid.core.SmartSelfieManager;
 import com.smileidentity.libsmileid.core.captureCallback.FaceState;
 import com.smileidentity.libsmileid.core.captureCallback.OnFaceStateChangeListener;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-
 import static com.demo.smileid.sid_sdk.SIDStringExtras.EXTRA_TAG_PREFERENCES_AUTH_TAGS;
 
 public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateChangeListener,
         SmartSelfieManager.OnCompleteListener {
 
-    private ConstraintLayout mClSelfieBtnContainer;
-    private TextView mTvPromptReposition;
+    public static boolean SHOW_TOOLTIP = true;
     private SmartSelfieManager mSmartSelfieManager;
-    private CameraSourcePreview mCameraSourcePreview;
+    private ConstraintLayout mClSelfieBtnContainer;
+    private TextView mTvPrompt;
 
     private boolean mIsEnrollMode, mHasId, mUse258, mHasNoIdCard, mReEnrollUser,
         mMultipleEnroll = false, mUseOffLineAuth = false;
 
+    private boolean mIsAgentMode = false;
     private int mEnrollType;
     private String mCurrentTag;
     private ArrayList<String> mTagArrayList = new ArrayList<>();
-    Map<String, Boolean> selfieTagsSessions = new HashMap<>();
+    private Map<String, Boolean> selfieTagsSessions = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +53,13 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
 
         setContentView(R.layout.sid_activity_selfie);
 
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        initVars();
+        initView();
 
+        selfieTagsSessions.put(mCurrentTag, false);
+    }
+
+    private void initVars() {
         Intent intent = getIntent();
         mIsEnrollMode = intent.getBooleanExtra(SIDStringExtras.EXTRA_ENROLL_MODE, true);
         mReEnrollUser = intent.getBooleanExtra(SIDStringExtras.EXTRA_REENROLL, false);
@@ -64,16 +69,41 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
         mEnrollType = intent.getIntExtra(SIDStringExtras.EXTRA_ENROLL_TYPE, -1);
         mMultipleEnroll = intent.getBooleanExtra(SIDStringExtras.EXTRA_MULTIPLE_ENROLL, false);
         mUseOffLineAuth = intent.getBooleanExtra(SIDStringExtras.EXTRA_TAG_OFFLINE_AUTH, false);
+    }
 
-        mTvPromptReposition = findViewById(R.id.tvPromptReposition);
+    private void initView() {
+        mTvPrompt = findViewById(R.id.tvPrompt);
         mClSelfieBtnContainer = findViewById(R.id.clSelfieBtnContainer);
 
-        initSmartSelfieCamera(false);
-
-        /*if (mUseOffLineAuth) {
+        if (mUseOffLineAuth) {
             findViewById(R.id.tvContinueWithId).setVisibility(View.GONE);
             findViewById(R.id.tvSaveAuthLater).setVisibility(View.VISIBLE);
-        }*/
+        }
+
+        setToggle();
+        setToolTip();
+        initSmartSelfieCamera(false);
+    }
+
+    private void setToggle() {
+        final CardView cvAgentMode = findViewById(R.id.cvAgentMode);
+        final TextView tvAgentMode = findViewById(R.id.tvAgentMode);
+
+        ((Switch) findViewById(R.id.sAgentMode)).setOnCheckedChangeListener(
+            (compoundButton, state) -> {
+                cvAgentMode.setSelected(state);
+                tvAgentMode.setSelected(state);
+                tvAgentMode.setText(state ? "Disable Agent Mode" : "Enable Agent Mode");
+                SHOW_TOOLTIP = false;
+                setToolTip();
+                switchAgentMode(state);
+            }
+        );
+    }
+
+    private void setToolTip() {
+        findViewById(R.id.ivTriangle).setVisibility(SHOW_TOOLTIP ? View.VISIBLE : View.GONE);
+        findViewById(R.id.cvTooltip).setVisibility(SHOW_TOOLTIP ? View.VISIBLE : View.GONE);
     }
 
     private void initSmartSelfieCamera(boolean resumeCapture) {
@@ -82,34 +112,31 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
         mSmartSelfieManager.setOnFaceStateChangeListener(this);
         setBrightnessToMax(this);
         mSmartSelfieManager.captureSelfie(getTag());
-        selfieTagsSessions.put(mCurrentTag, false);
 
         if (resumeCapture) {
             mSmartSelfieManager.resume();
         }
     }
 
-    private void initView() {
-        mCameraSourcePreview = findViewById(com.smileid.smileidui.R.id.cspPreview);
-        mCameraSourcePreview.setOverlayHeight(Utils.dpToPx(this, sidSelfieCaptureConfig.getOverlayHeight()));
-        mCameraSourcePreview.setOverlayWidth(Utils.dpToPx(this, sidSelfieCaptureConfig.getOverlayWidth()));
-        mCameraSourcePreview.setCapturedProgressStateColor(sidSelfieCaptureConfig.getCapturedProgressColor());
-        mCameraSourcePreview.setCapturingProgressStateColor(sidSelfieCaptureConfig.getCapturingProgressColor());
-        mCameraSourcePreview.setProgressWidth(Utils.dpToPx(this, sidSelfieCaptureConfig.getOverlayThickness()));
-        mCameraSourcePreview.setOverlayColor(sidSelfieCaptureConfig.getOverlayColor());
-        mCameraSourcePreview.setOverlayAlpha(sidSelfieCaptureConfig.getOverlayAlpha());
-        mCameraSourcePreview.setOverlayDotted(sidSelfieCaptureConfig.isOverlayDotted());
+    private void switchAgentMode(boolean isAgentMode) {
+        mIsAgentMode = isAgentMode;
+        mSmartSelfieManager.pause();
+        mSmartSelfieManager.stop();
+
+        new Handler().postDelayed(() -> initSmartSelfieCamera(true), 500);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
         if (!selfieTagsSessions.isEmpty() && selfieTagsSessions.containsKey(mCurrentTag) && selfieTagsSessions.get(mCurrentTag)) {
             mSmartSelfieManager.captureSelfie(getTag());
             selfieTagsSessions.put(mCurrentTag, false);
         } else {
             mTagArrayList.remove(mCurrentTag);
         }
+
         mSmartSelfieManager.resume();
     }
 
@@ -117,6 +144,16 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
     protected void onPause() {
         super.onPause();
         mSmartSelfieManager.pause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mSmartSelfieManager.stop();
+    }
+
+    public void backPressed(View view) {
+        super.onBackPressed();
     }
 
     @Override
@@ -155,8 +192,8 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
                 break;
         }
 
-        mTvPromptReposition.setText(text);
-        mTvPromptReposition.setCompoundDrawablesWithIntrinsicBounds(drawable, 0, 0, 0);
+        mTvPrompt.setText(text);
+//        mTvPrompt.setCompoundDrawablesWithIntrinsicBounds(drawable, 0, 0, 0);
     }
 
     private void setBrightnessToMax(Activity activity) {
@@ -178,12 +215,6 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
 
         Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
         e.printStackTrace();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        mSmartSelfieManager.stop();
     }
 
     @Override
@@ -227,7 +258,7 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
     private void showRetakeSelfieButton() {
         findViewById(R.id.cspCamera).setVisibility(View.GONE);
         mClSelfieBtnContainer.setVisibility(View.VISIBLE);
-        mTvPromptReposition.setVisibility(View.GONE);
+        mTvPrompt.setVisibility(View.GONE);
         findViewById(R.id.tvCapture).setVisibility(View.GONE);
     }
 
@@ -284,11 +315,11 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
 
     private SelfieCaptureConfig getCaptureConfig() {
         return new SelfieCaptureConfig.Builder(this)
-                .setCameraType(/*mMultipleEnroll ? SelfieCaptureConfig.BACK_CAMERA : */SelfieCaptureConfig.FRONT_CAMERA)
-                .setPreview((CameraSourcePreview) findViewById(R.id.cspCamera))
-                .setManualSelfieCapture((mMultipleEnroll || mUseOffLineAuth))
-                .setFlashScreenOnShutter(!mMultipleEnroll && !mUseOffLineAuth)
-                .build();
+            .setCameraType(!mIsAgentMode ? SelfieCaptureConfig.FRONT_CAMERA : SelfieCaptureConfig.BACK_CAMERA)
+                .setPreview(findViewById(R.id.cspCamera))
+                    .setManualSelfieCapture((mMultipleEnroll || mUseOffLineAuth))
+                        .setFlashScreenOnShutter(!mMultipleEnroll && !mUseOffLineAuth)
+                            .build();
     }
 
     public void continueProcess(View view) {
@@ -309,7 +340,7 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
 
     public void takeAnotherSelfie(View view) {
         findViewById(R.id.cspCamera).setVisibility(View.VISIBLE);
-        mTvPromptReposition.setVisibility(View.VISIBLE);
+        mTvPrompt.setVisibility(View.VISIBLE);
         mClSelfieBtnContainer.setVisibility(View.GONE);
 
         if (mMultipleEnroll) {
