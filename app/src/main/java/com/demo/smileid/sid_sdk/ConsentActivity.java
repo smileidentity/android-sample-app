@@ -83,6 +83,8 @@ public class ConsentActivity extends AppCompatActivity {
             ivLogo.setVisibility(View.VISIBLE);
         }*/
 
+        ((TextView) findViewById(R.id.tvPartnerName)).setText(mPartnerName);
+
         TextView tvBigTxt = findViewById(R.id.tvBigTxt);
         Spanned bigTxt = Html.fromHtml(getString(com.smileidentity.libsmileid.R.string.user_consent_big_txt, mPartnerName));
         tvBigTxt.setText(bigTxt);

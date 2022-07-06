@@ -3,11 +3,11 @@ package com.demo.smileid.sid_sdk;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.text.Html;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -35,7 +35,7 @@ public class CustomProductBtn extends ConstraintLayout {
 
         String label = a.getString(R.styleable.CustomProductBtn_label);
         if ((label != null) && (!label.isEmpty())) {
-            ((TextView) findViewById(R.id.tvLabel)).setText(label);
+            ((TextView) findViewById(R.id.tvLabel)).setText(Html.fromHtml(label));
         }
 
         Drawable icon = a.getDrawable(R.styleable.CustomProductBtn_icon);

@@ -107,7 +107,8 @@ public class SIDAuthResultActivity extends AppCompatActivity implements SIDNetwo
         } else {
             //No internet connection so you can cache this job and
             // later use submitAll() to submit all offline jobs
-            SIDTagManager.getInstance(this).saveConfig(config.getSubmittedTag(), config.getJobType(), config.getMode(), config.getGeoInformation(), config.getSIDMetadata(), this);
+            SIDTagManager.getInstance(this).saveConfig(config.getSubmittedTag(), config.getJobType(),
+                config.getMode(), config.getGeoInformation(), config.getSIDMetadata(), this);
 
             Toast.makeText(this, "No internet connection", Toast.LENGTH_SHORT).show();
         }
@@ -289,6 +290,8 @@ public class SIDAuthResultActivity extends AppCompatActivity implements SIDNetwo
     }
 
     public void uploadNow(View view) {
+        findViewById(R.id.vTransLayer).setVisibility(View.GONE);
+        findViewById(R.id.tvUploadNow).setVisibility(View.GONE);
         createNetworkRequestManager();
         upload(createConfig());
     }
