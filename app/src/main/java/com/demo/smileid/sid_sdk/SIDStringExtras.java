@@ -1,6 +1,5 @@
 package com.demo.smileid.sid_sdk;
 
-
 public interface SIDStringExtras {
     String EXTRA_ENROLL_MODE = "com.demo.smileid.sid_sdk.EXTRA_ENROLL_MODE";
     String EXTRA_HAS_ID = "com.demo.smileid.sid_sdk.EXTRA_HAS_ID";
@@ -16,5 +15,4 @@ public interface SIDStringExtras {
     String EXTRA_TAG_PREFERENCES_AUTH_TAGS = "com.demo.smileid.sid_sdk.EXTRA_TAG_PREFERENCES_AUTH_TAGS";
     String SHARED_PREF_USER_ID = "SHARED_PREF_USER_ID";
     String SHARED_PREF_JOB_ID = "SHARED_PREF_JOB_ID";
-
 }

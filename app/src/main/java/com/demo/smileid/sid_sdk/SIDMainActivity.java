@@ -48,9 +48,9 @@ public class SIDMainActivity extends BaseSIDActivity implements
     }
 
     private void resetJob() {
-        jobType = -1;
+        /*jobType = -1;
         mUseMultipleEnroll = false;
-        mUseOffLineAuth = false;
+        mUseOffLineAuth = false;*/
     }
 
     public void smileUIIDCardRegister(View view) {
@@ -94,21 +94,21 @@ public class SIDMainActivity extends BaseSIDActivity implements
     }
 
     public void reEnroll(View view) {
-        resetJob();
+        /*resetJob();
         jobType = 4;
-        startSelfieCapture(true, false, false, true);
+        startSelfieCapture(true, false, false, true);*/
     }
 
     public void reEnrollWithId(View view) {
-        resetJob();
+        /*resetJob();
         jobType = 1;
-        startSelfieCapture(true, true, false, true);
+        startSelfieCapture(true, true, false, true);*/
     }
 
     public void updateUseImage(View view) {
-        resetJob();
+        /*resetJob();
         jobType = 8;
-        startSelfieCapture(false, false, false, false);
+        startSelfieCapture(false, false, false, false);*/
     }
 
     public void multipleEnroll(View view) {
@@ -145,9 +145,9 @@ public class SIDMainActivity extends BaseSIDActivity implements
         @Override
         public void verificationSelected(DOC_VER_TYPE type, DOC_VER_OPTION option) {
             if (type == SELFIE_PLUS_ID_CARD) {
-                startSelfieCapture(true);
+//                startSelfieCapture(true);
             } else {
-                String tag = getTag();
+                /*String tag = getTag();
                 ArrayList<String> tags = new ArrayList<>(Arrays.asList(tag));
                 SIDGeoInfos.getInstance().init(SIDMainActivity.this);
                 Intent mCurrentIntent = new Intent(SIDMainActivity.this, SIDIDCardActivity.class);
@@ -158,7 +158,7 @@ public class SIDMainActivity extends BaseSIDActivity implements
                 mCurrentIntent.putExtra(SIDStringExtras.EXTRA_HAS_NO_ID_CARD, false);
                 mCurrentIntent.putExtra(SIDStringExtras.EXTRA_MULTIPLE_ENROLL_ADD_ID_INFO, false);
                 mCurrentIntent.putExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO, tag);
-                startActivity(mCurrentIntent);
+                startActivity(mCurrentIntent);*/
             }
         }
     }
@@ -256,7 +256,7 @@ public class SIDMainActivity extends BaseSIDActivity implements
                 "Register (Enroll)",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        startSelfieCapture(true, false);
+//                        startSelfieCapture(true, false);
                     }
                 });
 

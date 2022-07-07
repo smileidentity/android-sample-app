@@ -63,7 +63,6 @@
     <TextView
         style="@style/get_started_ttn_txt"
         app:layout_constraintTop_toBottomOf="@id/tvSubTxt"
-        android:onClick="getStarted"
         tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -50,53 +50,51 @@ public class SIDHomeActivity extends BaseSIDActivity implements BaseFragment.Tab
     }
 
     private void resetJob() {
-        jobType = -1;
+        mKYCProductType = null;
         mConsentRequired = false;
-        mUseMultipleEnroll = false;
-        mUseOffLineAuth = false;
     }
 
     @Override
     public void doBasicKYC() {
         resetJob();
-        jobType = 4;
-        startSelfieCapture(true, false);
+        mKYCProductType = KYC_PRODUCT_TYPE.BASIC_KYC;
+        startSelfieCapture();
     }
 
     @Override
     public void doEnhancedKYC() {
         resetJob();
         mConsentRequired = true;
-        jobType = 1;
-        startSelfieCapture(true, true, false, false, true);
+        mKYCProductType = KYC_PRODUCT_TYPE.ENHANCED_KYC;
+        startSelfieCapture();
     }
 
     @Override
     public void doBiometricKYC() {
         resetJob();
-        jobType = 1;
-        startSelfieCapture(true);
+        mKYCProductType = KYC_PRODUCT_TYPE.BIOMETRIC_KYC;
+        startSelfieCapture();
     }
 
     @Override
     public void performDocV() {
         resetJob();
         mConsentRequired = true;
-        jobType = 6;
-        startSelfieCapture(true);
+        mKYCProductType = KYC_PRODUCT_TYPE.DOCUMENT_VERIFICATION;
+        startSelfieCapture();
     }
 
     @Override
     public void doSmartSelfieAuth() {
         resetJob();
-        jobType = 2;
+        mKYCProductType = KYC_PRODUCT_TYPE.SMART_SELFIE_AUTH;
 
         if (!hasSavedUser()) {
             enrolFirstDialog();
             return;
         }
 
-        startSelfieCapture(false);
+        startSelfieCapture();
     }
 
     private void enrolFirstDialog() {
@@ -106,7 +104,7 @@ public class SIDHomeActivity extends BaseSIDActivity implements BaseFragment.Tab
 
         builder.setPositiveButton(
                 "Register (Enroll)",
-                (dialog, id) -> startSelfieCapture(true, false));
+                (dialog, id) -> doBasicKYC());
 
         builder.setNegativeButton(
                 "Cancel",
@@ -142,7 +140,6 @@ public class SIDHomeActivity extends BaseSIDActivity implements BaseFragment.Tab
     }
 
     protected Intent buildIntent() {
-        Log.d("REQUIRE_CONSENT", "2: " + mConsentRequired);
         return new Intent(this, GetStartedActivity.class) {
             {
                 putExtra(GetStartedActivity.REQUIRE_CONSENT, mConsentRequired);
