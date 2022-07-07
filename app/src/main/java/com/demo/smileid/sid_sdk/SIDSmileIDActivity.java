@@ -111,7 +111,7 @@ public class SIDSmileIDActivity extends BaseSIDActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        jobType = -1;
+        /*jobType = -1;
         mUseMultipleEnroll = false;
         mUseOffLineAuth = false;
         switch (v.getId()) {
@@ -185,7 +185,7 @@ public class SIDSmileIDActivity extends BaseSIDActivity implements View.OnClickL
             case R.id.enroll_smile_ui:
                 new SIDCaptureManager.Builder(this, CaptureType.SELFIE, SMILE_SELFIE_REQUEST_CODE).build().start();
                 break;
-        }
+        }*/
     }
 
     private void showOfflineAuthDialog() {
@@ -193,7 +193,7 @@ public class SIDSmileIDActivity extends BaseSIDActivity implements View.OnClickL
         builder1.setMessage("Would you like to use existing or add new offline jobs?");
         builder1.setCancelable(false);
 
-        builder1.setPositiveButton(
+        /*builder1.setPositiveButton(
                 "Use existing jobs",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -207,10 +207,10 @@ public class SIDSmileIDActivity extends BaseSIDActivity implements View.OnClickL
                 "Add to existing Jobs",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        mUseOffLineAuth = true;
-                        startSelfieCapture(false);
+                        *//*mUseOffLineAuth = true;
+                        startSelfieCapture(false);*//*
                     }
-                });
+                });*/
 
         AlertDialog alert11 = builder1.create();
         alert11.show();
@@ -226,7 +226,7 @@ public class SIDSmileIDActivity extends BaseSIDActivity implements View.OnClickL
                 "Register (Enroll)",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        startSelfieCapture(true, false);
+//                        startSelfieCapture(true, false);
                     }
                 });
 

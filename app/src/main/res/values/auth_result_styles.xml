@@ -4,10 +4,9 @@
         <item name="android:layout_width">98.5dp</item>
         <item name="android:layout_height">98.5dp</item>
         <item name="layout_constraintTop_toTopOf">parent</item>
-        <item name="android:layout_marginTop">203dp</item>
+        <item name="android:layout_marginTop">123dp</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
-        <item name="android:visibility">gone</item>
     </style>
 
     <style name="auth_result_screen_uploading_txt" parent="TextAppearance.AppCompat">

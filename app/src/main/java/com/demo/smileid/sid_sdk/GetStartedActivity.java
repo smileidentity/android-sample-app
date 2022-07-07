@@ -50,6 +50,8 @@ public class GetStartedActivity extends AppCompatActivity {
     }
 
     private void moveForward() {
+        finish();
+
         startActivity(
             new Intent(this, SIDSelfieActivity.class) {
                 {

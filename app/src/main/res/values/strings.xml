@@ -11,7 +11,7 @@
 
     <!-- SELFIE SCREEN -->
     <string name="lbl_selfie_heading">Selfie Capture</string>
-    <string name="lbl_selfie_reposition">Put your face inside the oval</string>
+    <string name="lbl_selfie_reposition">Unable to detect face. Make sure your face fits the frame.</string>
     <string name="lbl_selfie_capturing">Capturing...</string>
     <string name="lbl_selfie_capture">Capture</string>
     <string name="lbl_selfie_take_another_selfie">Take Another Selfie</string>

@@ -18,7 +18,6 @@ if target sdk is 30 and above this is not necessary for smile but migrations for
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
-
     <uses-feature
         android:name="android.hardware.camera.front"
         android:required="false" />
@@ -29,13 +28,11 @@ if target sdk is 30 and above this is not necessary for smile but migrations for
     <uses-permission
         android:name="android.permission.READ_PHONE_STATE"
         android:maxSdkVersion="29" />
-
     <uses-permission android:name="android.permission.READ_PHONE_NUMBERS" />
 
     <uses-feature
         android:name="android.hardware.camera.autofocus"
         android:required="true" />
-
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true" />
@@ -49,27 +46,29 @@ if target sdk is 30 and above this is not necessary for smile but migrations for
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity
+            android:name=".SIDJobCompletedActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SIDIDInfoActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ConsentActivity"
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".GetStartedActivity"
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".AboutDemoActivity"
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".SIDHomeActivity"
             android:label="@string/lbl_main_heading"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".SIDSplashActivity"
             android:exported="true"
@@ -81,17 +80,14 @@ if target sdk is 30 and above this is not necessary for smile but migrations for
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".SIDMainActivity"
             android:label="@string/lbl_main_heading" />
-
         <activity
             android:name=".SIDSelfieActivity"
-            android:label="@string/lbl_selfie_heading"
             android:exported="false"
+            android:label="@string/lbl_selfie_heading"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".SIDIDCardActivity"
             android:screenOrientation="portrait" />
@@ -104,13 +100,11 @@ if target sdk is 30 and above this is not necessary for smile but migrations for
             android:name=".SIDIDCardCaptureActivity"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-
         <activity
             android:name=".SIDEnrollResultActivity"
             android:label="@string/lbl_enroll_result_heading"
-            android:screenOrientation="portrait" />
-
-        <activity android:name=".SIDAuthResultActivity" />
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".SIDSmileIDActivity" />
         <activity android:name=".SIDIDValidationActivity" />
         <activity android:name="com.smileid.smileidui.SIDIDCaptureActivity" />
@@ -120,11 +114,9 @@ if target sdk is 30 and above this is not necessary for smile but migrations for
         <meta-data
             android:name="android.support.VERSION"
             android:value="26.1.0" />
-
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
         <meta-data
             android:name="com.google.android.gms.vision.DEPENDENCIES"
             android:value="face" />
@@ -137,7 +129,6 @@ if target sdk is 30 and above this is not necessary for smile but migrations for
         <meta-data
             android:name="android.arch.lifecycle.VERSION"
             android:value="27.0.0-SNAPSHOT" />
-
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

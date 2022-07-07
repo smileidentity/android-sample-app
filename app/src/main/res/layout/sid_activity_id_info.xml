@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E5E5E5"
+    tools:context=".SIDIDInfoActivity">
+
+    <ImageView
+        android:id="@+id/ivBackArrow"
+        style="@style/sid_info_screen_back_img"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/tvHeading"
+        style="@style/sid_info_screen_heading_txt"
+        app:layout_constraintTop_toTopOf="@id/ivBackArrow"
+        app:layout_constraintBottom_toBottomOf="@id/ivBackArrow"
+        tools:ignore="MissingConstraints" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/ivBackArrow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="30dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="112.72dp">
+
+            <TextView
+                android:id="@+id/tvLblCountry"
+                style="@style/sid_info_screen_country_input_label"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@string/lbl_enroll_result_country"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/tvInputCountry"
+                style="@style/sid_info_screen_input_field"
+                app:layout_constraintTop_toBottomOf="@id/tvLblCountry"
+                android:text="@string/lbl_enroll_result_country"
+                android:onClick="openCountryPicker"
+                tools:ignore="MissingConstraints" />
+
+            <com.hbb20.CountryCodePicker
+                android:id="@+id/ccpCountry"
+                style="@style/EnrollResultCountryPicker"
+                android:visibility="invisible"
+                app:ccp_clickable="true"
+                app:layout_constraintTop_toTopOf="@id/tvInputCountry"
+                app:layout_constraintBottom_toBottomOf="@id/tvInputCountry"
+                app:layout_constraintStart_toStartOf="@id/tvInputCountry"
+                app:layout_constraintEnd_toEndOf="@id/tvInputCountry"
+                app:ccp_customMasterCountries="GH,NG,KE,TZ,ZA"
+                app:ccp_defaultPhoneCode="234"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/tvLblIdType"
+                style="@style/sid_info_screen_country_input_label"
+                android:visibility="invisible"
+                app:layout_constraintTop_toBottomOf="@id/tvInputCountry"
+                android:text="@string/sid_info_screen_input_id_type_lbl"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/tvInputIdType"
+                style="@style/sid_info_screen_input_field"
+                android:visibility="invisible"
+                android:paddingLeft="12dp"
+                app:layout_constraintTop_toBottomOf="@id/tvLblIdType"
+                android:drawableLeft="@null"
+                android:text="Driver's License"
+                android:onClick="openIdTypePicker"
+                tools:ignore="MissingConstraints" />
+
+            <Spinner
+                android:id="@+id/spIdType"
+                style="@style/EnrollResultIdTypeSpinner"
+                android:visibility="invisible"
+                app:layout_constraintTop_toTopOf="@id/tvInputIdType"
+                app:layout_constraintBottom_toBottomOf="@id/tvInputIdType"
+                app:layout_constraintStart_toStartOf="@id/tvInputIdType"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/tvLblIdNbr"
+                style="@style/sid_info_screen_country_input_label"
+                android:visibility="invisible"
+                app:layout_constraintTop_toBottomOf="@id/tvInputIdType"
+                android:text="@string/sid_info_screen_input_id_nbr_lbl"
+                tools:ignore="MissingConstraints" />
+
+            <EditText
+                android:id="@+id/edtIdNbr"
+                style="@style/sid_info_screen_edit_input_field"
+                android:visibility="invisible"
+                app:layout_constraintTop_toBottomOf="@id/tvLblIdNbr"
+                android:inputType="number"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/tvLblFirstName"
+                style="@style/sid_info_screen_country_input_label"
+                android:visibility="invisible"
+                app:layout_constraintTop_toBottomOf="@id/edtIdNbr"
+                android:text="@string/sid_info_screen_input_first_name_lbl"
+                tools:ignore="MissingConstraints" />
+
+            <EditText
+                android:id="@+id/edtFirstName"
+                style="@style/sid_info_screen_edit_input_field"
+                android:visibility="invisible"
+                app:layout_constraintTop_toBottomOf="@id/tvLblFirstName"
+                android:hint="@string/sid_info_screen_input_name_hint"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/tvLblLastName"
+                style="@style/sid_info_screen_country_input_label"
+                android:visibility="invisible"
+                app:layout_constraintTop_toBottomOf="@id/edtFirstName"
+                android:text="@string/sid_info_screen_input_last_name_lbl"
+                tools:ignore="MissingConstraints" />
+
+            <EditText
+                android:id="@+id/edtLastName"
+                style="@style/sid_info_screen_edit_input_field"
+                android:visibility="invisible"
+                app:layout_constraintTop_toBottomOf="@id/tvLblLastName"
+                android:hint="@string/sid_info_screen_input_name_hint"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/tvLblDoB"
+                style="@style/sid_info_screen_country_input_label"
+                android:visibility="invisible"
+                app:layout_constraintTop_toBottomOf="@id/edtLastName"
+                android:text="@string/sid_info_screen_input_dob_lbl"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/tvInputDoB"
+                style="@style/sid_info_screen_input_field"
+                android:visibility="invisible"
+                android:onClick="showDateDialog"
+                android:paddingLeft="18dp"
+                app:layout_constraintTop_toBottomOf="@id/tvLblDoB"
+                android:drawableLeft="@null"
+                android:drawableRight="@drawable/ic_calendar"
+                android:text="@string/sid_info_screen_input_dob_hint"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/tvContinueBtn"
+                style="@style/sid_info_continue_btn"
+                android:onClick="go2Next"
+                android:visibility="invisible"
+                android:drawableLeft="@drawable/ic_lock_white"
+                android:paddingLeft="18.43dp"
+                android:paddingRight="18.43dp"
+                app:layout_constraintTop_toBottomOf="@id/tvInputDoB"
+                tools:ignore="MissingConstraints" />
+
+            <ImageView
+                android:layout_width="159dp"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:src="@drawable/ic_smile_logo_bar"
+                tools:layout_editor_absoluteX="136dp"
+                tools:layout_editor_absoluteY="16dp"
+                tools:ignore="MissingConstraints" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <!--<com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tiIdNumber"
+        style="@style/EnrollResultTextInputLayout"
+        app:layout_constraintTop_toBottomOf="@id/spIdType"
+        android:hint="ID Number">
+
+        <com.google.android.material.textfield.TextInputEditText
+            style="@style/EnrollResultTextInputEditText" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tiFirstName"
+        style="@style/EnrollResultTextInputLayout"
+        app:layout_constraintTop_toBottomOf="@id/tiIdNumber"
+        android:hint="First Name">
+
+        <com.google.android.material.textfield.TextInputEditText
+            style="@style/EnrollResultTextInputEditText" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tiLastName"
+        style="@style/EnrollResultTextInputLayout"
+        app:layout_constraintTop_toBottomOf="@id/tiFirstName"
+        android:hint="Last Name">
+
+        <com.google.android.material.textfield.TextInputEditText
+            style="@style/EnrollResultTextInputEditText" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tiDOB"
+        style="@style/EnrollResultTextInputLayout"
+        android:onClick="showDateDialog"
+        app:layout_constraintTop_toBottomOf="@id/tiLastName"
+        android:hint="Date of Birth">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tietDOB"
+            style="@style/EnrollResultTextInputEditText"
+            android:onClick="showDateDialog"
+            android:clickable="true"
+            android:focusable="false"
+            android:focusableInTouchMode="false" />
+
+    </com.google.android.material.textfield.TextInputLayout>-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

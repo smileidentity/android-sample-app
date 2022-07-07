@@ -626,7 +626,7 @@ public class CountryCodePicker extends RelativeLayout {
         this.imageViewFlag = imageViewFlag;
     }
 
-    private CCPCountry getSelectedCountry() {
+    public CCPCountry getSelectedCountry() {
         if (selectedCCPCountry == null) {
             setSelectedCountry(getDefaultCountry());
         }
