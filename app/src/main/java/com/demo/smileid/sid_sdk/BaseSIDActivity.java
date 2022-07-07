@@ -18,8 +18,26 @@ import java.util.Arrays;
 import java.util.List;
 
 public class BaseSIDActivity extends AppCompatActivity {
-    protected boolean mUseMultipleEnroll = false, mUseOffLineAuth = false;
-    protected int jobType = -1;
+
+    public static final String KYC_PRODUCT_TYPE_PARAM = "KYC_PRODUCT_TYPE_PARAM";
+
+    public enum KYC_PRODUCT_TYPE {
+
+        BASIC_KYC(4), ENHANCED_KYC(1), BIOMETRIC_KYC(1),
+        DOCUMENT_VERIFICATION(6), SMART_SELFIE_AUTH(2);
+
+        private int mJobType = -1;
+
+        KYC_PRODUCT_TYPE(int jobType) {
+            mJobType = jobType;
+        }
+
+        public int getJobType() {
+            return mJobType;
+        }
+    }
+
+    protected KYC_PRODUCT_TYPE mKYCProductType = KYC_PRODUCT_TYPE.BASIC_KYC;
     private Intent mCurrentIntent = null;
     private static final int PERMISSION_ALL = 1;
 
@@ -42,33 +60,14 @@ public class BaseSIDActivity extends AppCompatActivity {
         PERMISSIONS = permissions.toArray(new String[] {});
     }
 
-    protected void startSelfieCapture(boolean isEnrollMode, boolean hasId, boolean use258, boolean reenroll, boolean hasNoIdCard) {
+    protected void startSelfieCapture() {
         mCurrentIntent = buildIntent();
-        mCurrentIntent.putExtra(SIDStringExtras.EXTRA_ENROLL_MODE, isEnrollMode);
-        mCurrentIntent.putExtra(SIDStringExtras.EXTRA_HAS_ID, hasId);
-        mCurrentIntent.putExtra(SIDStringExtras.EXTRA_USE_258, use258);
-        mCurrentIntent.putExtra(SIDStringExtras.EXTRA_REENROLL, reenroll);
-        mCurrentIntent.putExtra(SIDStringExtras.EXTRA_ENROLL_TYPE, jobType);
-        mCurrentIntent.putExtra(SIDStringExtras.EXTRA_MULTIPLE_ENROLL, mUseMultipleEnroll);
-        mCurrentIntent.putExtra(SIDStringExtras.EXTRA_HAS_NO_ID_CARD, hasNoIdCard);
-        mCurrentIntent.putExtra(SIDStringExtras.EXTRA_TAG_OFFLINE_AUTH, mUseOffLineAuth);
+        mCurrentIntent.putExtra(KYC_PRODUCT_TYPE_PARAM, mKYCProductType);
         coreStartSelfieCapture();
     }
 
     protected Intent buildIntent() {
         return new Intent(this, SIDSelfieActivity.class);
-    }
-
-    protected void startSelfieCapture(boolean isEnrollMode) {
-        startSelfieCapture(isEnrollMode, true);
-    }
-
-    protected void startSelfieCapture(boolean isEnrollMode, boolean hasId) {
-        startSelfieCapture(isEnrollMode, hasId, false, false);
-    }
-
-    protected void startSelfieCapture(boolean isEnrollMode, boolean hasId, boolean use258, boolean reenroll) {
-        startSelfieCapture(isEnrollMode, hasId, false, reenroll, false);
     }
 
     protected void coreStartSelfieCapture() {

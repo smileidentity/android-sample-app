@@ -24,8 +24,8 @@ public class HomeFragment extends BaseFragment {
     void setupViews() {
         ArrayList<DropDownObject> languages = new ArrayList<DropDownObject>() {
             {
-                add(new DropDownObject(R.drawable.online_green_dot, "Sandbox"));
-                add(new DropDownObject(R.drawable.online_blue_dot, "Live"));
+                add(new DropDownObject(R.drawable.online_green_dot, SANDBOX));
+                add(new DropDownObject(R.drawable.online_blue_dot, LIVE));
             }
         };
 
@@ -48,6 +48,8 @@ public class HomeFragment extends BaseFragment {
         });
 
         getView().findViewById(R.id.tvEnv).setOnClickListener(v -> getView().findViewById(R.id.spEnv).performClick());
+
+        switchEnv(SANDBOX); //Setting the default environment
 
         if (mActionListener == null) return;
         getView().findViewById(R.id.tvResBtn).setOnClickListener(v -> mActionListener.move2Tab(1));

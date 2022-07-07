@@ -29,20 +29,19 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import static com.demo.smileid.sid_sdk.SIDStringExtras.EXTRA_TAG_PREFERENCES_AUTH_TAGS;
+import com.demo.smileid.sid_sdk.BaseSIDActivity.KYC_PRODUCT_TYPE;
 
 public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateChangeListener,
         SmartSelfieManager.OnCompleteListener {
 
     public static boolean SHOW_TOOLTIP = true;
+    private KYC_PRODUCT_TYPE mKYCProductType = KYC_PRODUCT_TYPE.BASIC_KYC;
+
     private SmartSelfieManager mSmartSelfieManager;
     private ConstraintLayout mClSelfieBtnContainer;
     private TextView mTvPrompt;
 
-    private boolean mIsEnrollMode, mHasId, mUse258, mHasNoIdCard, mReEnrollUser,
-        mMultipleEnroll = false, mUseOffLineAuth = false;
-
     private boolean mIsAgentMode = false;
-    private int mEnrollType;
     private String mCurrentTag;
     private ArrayList<String> mTagArrayList = new ArrayList<>();
     private Map<String, Boolean> selfieTagsSessions = new HashMap<>();
@@ -60,7 +59,62 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
     }
 
     private void initVars() {
-        Intent intent = getIntent();
+        /*Basic KYC {
+            EXTRA_ENROLL_MODE => true;
+            EXTRA_REENROLL => false;
+            EXTRA_HAS_ID => false;
+            EXTRA_HAS_NO_ID_CARD => true;
+            EXTRA_USE_258 => false;
+            EXTRA_ENROLL_TYPE => 4;
+            EXTRA_MULTIPLE_ENROLL => false;
+            EXTRA_TAG_OFFLINE_AUTH => false;
+        */
+
+        /*Enhanced KYC {
+            EXTRA_ENROLL_MODE => true;
+            EXTRA_REENROLL => false;
+            EXTRA_HAS_ID => true;
+            EXTRA_HAS_NO_ID_CARD => true;
+            EXTRA_USE_258 => false;
+            EXTRA_ENROLL_TYPE => 1;
+            EXTRA_MULTIPLE_ENROLL => false;
+            EXTRA_TAG_OFFLINE_AUTH => false;
+        */
+
+        /*Biometric KYC {
+            EXTRA_ENROLL_MODE => true;
+            EXTRA_REENROLL => false;
+            EXTRA_HAS_ID => true;
+            EXTRA_HAS_NO_ID_CARD => false;
+            EXTRA_USE_258 => false;
+            EXTRA_ENROLL_TYPE => 1;
+            EXTRA_MULTIPLE_ENROLL => false;
+            EXTRA_TAG_OFFLINE_AUTH => false;
+        */
+
+        /*Document Verification {
+            EXTRA_ENROLL_MODE => true;
+            EXTRA_REENROLL => false;
+            EXTRA_HAS_ID => true;
+            EXTRA_HAS_NO_ID_CARD => true;
+            EXTRA_USE_258 => false;
+            EXTRA_ENROLL_TYPE => 6;
+            EXTRA_MULTIPLE_ENROLL => false;
+            EXTRA_TAG_OFFLINE_AUTH => false;
+        */
+
+        /*SmartSelfie Authentication {
+            EXTRA_ENROLL_MODE => false;
+            EXTRA_REENROLL => false;
+            EXTRA_HAS_ID => true;
+            EXTRA_HAS_NO_ID_CARD => false;
+            EXTRA_USE_258 => false;
+            EXTRA_ENROLL_TYPE => 2;
+            EXTRA_MULTIPLE_ENROLL => false;
+            EXTRA_TAG_OFFLINE_AUTH => false;
+        */
+
+        /*Intent intent = getIntent();
         mIsEnrollMode = intent.getBooleanExtra(SIDStringExtras.EXTRA_ENROLL_MODE, true);
         mReEnrollUser = intent.getBooleanExtra(SIDStringExtras.EXTRA_REENROLL, false);
         mHasId = intent.getBooleanExtra(SIDStringExtras.EXTRA_HAS_ID, true);
@@ -68,17 +122,12 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
         mUse258 = intent.getBooleanExtra(SIDStringExtras.EXTRA_USE_258, false);
         mEnrollType = intent.getIntExtra(SIDStringExtras.EXTRA_ENROLL_TYPE, -1);
         mMultipleEnroll = intent.getBooleanExtra(SIDStringExtras.EXTRA_MULTIPLE_ENROLL, false);
-        mUseOffLineAuth = intent.getBooleanExtra(SIDStringExtras.EXTRA_TAG_OFFLINE_AUTH, false);
+        mUseOffLineAuth = intent.getBooleanExtra(SIDStringExtras.EXTRA_TAG_OFFLINE_AUTH, false);*/
+        mKYCProductType = (KYC_PRODUCT_TYPE) getIntent().getSerializableExtra(BaseSIDActivity.KYC_PRODUCT_TYPE_PARAM);
     }
 
     private void initView() {
         mTvPrompt = findViewById(R.id.tvPrompt);
-        mClSelfieBtnContainer = findViewById(R.id.clSelfieBtnContainer);
-
-        if (mUseOffLineAuth) {
-            findViewById(R.id.tvContinueWithId).setVisibility(View.GONE);
-            findViewById(R.id.tvSaveAuthLater).setVisibility(View.VISIBLE);
-        }
 
         setToggle();
         setToolTip();
@@ -158,42 +207,51 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
 
     @Override
     public void onFaceStateChange(FaceState faceState) {
-        int drawable = 0;
         String text = "";
 
         switch (faceState) {
             case DO_SMILE:
-                if ((mMultipleEnroll || mUseOffLineAuth) && !mClSelfieBtnContainer.isShown()) {
-                    findViewById(R.id.tvCapture).setVisibility(View.VISIBLE);
-                } else {
-                    text = getString(R.string.default_toast_smile);
-                    drawable = R.drawable.ic_smile;
-                }
+                text = getString(R.string.default_toast_smile);
                 break;
 
             case CAPTURING:
                 text = getString(R.string.lbl_selfie_capturing);
-                drawable = R.drawable.ic_capture;
                 break;
 
             case DO_SMILE_MORE:
                 text = getString(R.string.default_toast_smile_more);
-                drawable = R.drawable.ic_smile;
                 break;
 
             case NO_FACE_FOUND:
                 text = getString(R.string.lbl_selfie_reposition);
-                drawable = R.drawable.ic_reposition;
                 break;
 
             case DO_MOVE_CLOSER:
                 text = getString(R.string.default_toast_text_move_closer);
-                drawable = R.drawable.ic_reposition;
+                break;
+
+            case FACE_TOO_CLOSE:
+                text = getString(R.string.default_toast_text_face_too_close);
+                break;
+
+            case BLURRY:
+                text = getString(R.string.default_toast_text_blurry);
+                break;
+
+            case TOO_DARK:
+                text = getString(R.string.default_toast_text_too_dark);
+                break;
+
+            case IDLE:
+                text = getString(R.string.default_toast_text_idle);
+                break;
+
+            case COMPATIBILITY_MODE:
+                text = getString(R.string.default_toast_text_compatibility_mode);
                 break;
         }
 
         mTvPrompt.setText(text);
-//        mTvPrompt.setCompoundDrawablesWithIntrinsicBounds(drawable, 0, 0, 0);
     }
 
     private void setBrightnessToMax(Activity activity) {
@@ -221,20 +279,20 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
     public void onComplete(Bitmap fullPreviewFrame) {
         if (fullPreviewFrame != null) {
             //Process returned full preview frame
+
         }
 
-        if (mIsEnrollMode) {
-            if (!mMultipleEnroll)
-                startEnrollMode(false);
-            else {
-                mTagArrayList.add(mCurrentTag);
-                selfieTagsSessions.put(mCurrentTag, true);
-                showRetakeSelfieButton();
-                return;
-            }
-        } else {
-            if (!mUseOffLineAuth) {
-                startActivity(
+        Class clazz = null;
+
+        if (mKYCProductType == KYC_PRODUCT_TYPE.BASIC_KYC) {
+            clazz = SIDEnrollResultActivity.class;
+        } else if (mKYCProductType == KYC_PRODUCT_TYPE.ENHANCED_KYC) {
+            clazz = SIDIDInfoActivity.class;
+        } else if ((mKYCProductType == KYC_PRODUCT_TYPE.BIOMETRIC_KYC) ||
+            (mKYCProductType == KYC_PRODUCT_TYPE.DOCUMENT_VERIFICATION)) {
+            clazz = SIDIDCardActivity.class;
+        } else if (mKYCProductType == KYC_PRODUCT_TYPE.SMART_SELFIE_AUTH) {
+            /*startActivity(
                     new Intent(this, SIDAuthResultActivity.class) {
                         {
                             putExtra(SIDStringExtras.EXTRA_ENROLL_TYPE, mEnrollType);
@@ -242,27 +300,25 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
                             putExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO, mCurrentTag);
                         }
                     }
-                );
-            } else {
-                mTagArrayList.add(mCurrentTag);
-                selfieTagsSessions.put(mCurrentTag, true);
-                showRetakeSelfieButton();
-                return;
-            }
+            );*/
         }
+
+        finish();
+
+        startActivity(
+            new Intent(this, clazz) {
+                {
+                    putExtra(BaseSIDActivity.KYC_PRODUCT_TYPE_PARAM, mKYCProductType);
+                    putExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO, mCurrentTag);
+                }
+            }
+        );
 
         mSmartSelfieManager.stop();
         finish();
     }
 
-    private void showRetakeSelfieButton() {
-        findViewById(R.id.cspCamera).setVisibility(View.GONE);
-        mClSelfieBtnContainer.setVisibility(View.VISIBLE);
-        mTvPrompt.setVisibility(View.GONE);
-        findViewById(R.id.tvCapture).setVisibility(View.GONE);
-    }
-
-    private void startEnrollMode(final boolean continueWithId) {
+    /*private void startEnrollMode(final boolean continueWithId) {
         Class clazz = (mHasId && !mHasNoIdCard) ? SIDIDCardActivity.class :
             SIDEnrollResultActivity.class;
 
@@ -311,53 +367,15 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
 
             sharedPreferences.edit().putString(EXTRA_TAG_PREFERENCES_AUTH_TAGS, sb.toString()).apply();
         }
-    }
+    }*/
 
     private SelfieCaptureConfig getCaptureConfig() {
         return new SelfieCaptureConfig.Builder(this)
             .setCameraType(!mIsAgentMode ? SelfieCaptureConfig.FRONT_CAMERA : SelfieCaptureConfig.BACK_CAMERA)
                 .setPreview(findViewById(R.id.cspCamera))
-                    .setManualSelfieCapture((mMultipleEnroll || mUseOffLineAuth))
-                        .setFlashScreenOnShutter(!mMultipleEnroll && !mUseOffLineAuth)
+                    .setManualSelfieCapture(false)
+                        .setFlashScreenOnShutter(true)
                             .build();
-    }
-
-    public void continueProcess(View view) {
-        if (mUseOffLineAuth) {
-            saveAuthTagsForLater();
-            startAuthMode();
-        } else {
-            startEnrollMode(false);
-        }
-
-        finish();
-    }
-
-    public void continueSaveWithId(View view) {
-        startEnrollMode(true);
-        finish();
-    }
-
-    public void takeAnotherSelfie(View view) {
-        findViewById(R.id.cspCamera).setVisibility(View.VISIBLE);
-        mTvPrompt.setVisibility(View.VISIBLE);
-        mClSelfieBtnContainer.setVisibility(View.GONE);
-
-        if (mMultipleEnroll) {
-            mSmartSelfieManager.captureSelfie(getTag());
-            selfieTagsSessions.put(mCurrentTag, false);
-        }
-
-        mSmartSelfieManager.resume();
-    }
-
-    public void captureSelfie(View view) {
-        mSmartSelfieManager.takePicture();
-    }
-
-    public void saveAndAuthLater(View view) {
-        saveAuthTagsForLater();
-        finish();
     }
 
     private String getTag() {

@@ -36,7 +36,7 @@ public class DropDownAdapter extends ArrayAdapter {
     private View buildView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.layout_lang_spinner_item, parent, false);
+                R.layout.layout_spinner_item, parent, false);
         }
 
         mListener.applyChoice((TextView) convertView, (DropDownObject) getItem(position), false);
