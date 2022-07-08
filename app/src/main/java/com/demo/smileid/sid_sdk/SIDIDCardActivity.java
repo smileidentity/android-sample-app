@@ -1,7 +1,6 @@
 package com.demo.smileid.sid_sdk;
 
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
@@ -11,15 +10,15 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.smileidentity.libsmileid.core.SmartCardView;
 import com.smileidentity.libsmileid.core.captureCallback.IDCardState;
+import com.demo.smileid.sid_sdk.BaseSIDActivity.KYC_PRODUCT_TYPE;
 
 public class SIDIDCardActivity extends AppCompatActivity implements SmartCardView.SmartCardViewCallBack,
     ActionDialog.DlgListener {
 
     private SmartCardView mSmartCardView;
-    private boolean mReEnrollUser;
-    private int mEnrollType;
     private String mCurrentTag;
     private boolean mShowingDlg = false;
+    private KYC_PRODUCT_TYPE mKYCProductType = KYC_PRODUCT_TYPE.BASIC_KYC;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,15 +28,8 @@ public class SIDIDCardActivity extends AppCompatActivity implements SmartCardVie
 
         mSmartCardView = findViewById(R.id.id_capture);
         mSmartCardView.setListener(this);
-        mReEnrollUser = getIntent().getBooleanExtra(SIDStringExtras.EXTRA_REENROLL, false);
-        mEnrollType = getIntent().getIntExtra(SIDStringExtras.EXTRA_ENROLL_TYPE, -1);
+        mKYCProductType = (BaseSIDActivity.KYC_PRODUCT_TYPE) getIntent().getSerializableExtra(BaseSIDActivity.KYC_PRODUCT_TYPE_PARAM);
         mCurrentTag = getIntent().getStringExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO);
-
-        try {
-            mSmartCardView.startCapture(mCurrentTag);
-        } catch (Exception e) {
-
-        }
     }
 
     @Override
@@ -47,7 +39,7 @@ public class SIDIDCardActivity extends AppCompatActivity implements SmartCardVie
         if (mShowingDlg) return;
 
         try {
-//            mSmartCardView.startCapture(mCurrentTag);
+            mSmartCardView.startCapture(mCurrentTag);
         } catch (Exception e) {
 
         }
@@ -81,7 +73,7 @@ public class SIDIDCardActivity extends AppCompatActivity implements SmartCardVie
     protected void onPause() {
         super.onPause();
         if (mShowingDlg) return;
-//        mSmartCardView.pauseCapture();
+        mSmartCardView.pauseCapture();
     }
 
     @Override
@@ -113,10 +105,8 @@ public class SIDIDCardActivity extends AppCompatActivity implements SmartCardVie
     }
 
     private void proceedWithResult() {
-        Intent intent = new Intent(this, SIDEnrollResultActivity.class);
-        intent.putExtra(SIDStringExtras.EXTRA_HAS_ID, true);
-        intent.putExtra(SIDStringExtras.EXTRA_REENROLL, mReEnrollUser);
-        intent.putExtra(SIDStringExtras.EXTRA_ENROLL_TYPE, mEnrollType);
+        Intent intent = new Intent(this, SIDJobResultActivity.class);
+        intent.putExtra(BaseSIDActivity.KYC_PRODUCT_TYPE_PARAM, mKYCProductType);
         intent.putExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO, mCurrentTag);
         startActivity(intent);
         finish();

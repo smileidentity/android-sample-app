@@ -1,17 +1,13 @@
 package com.demo.smileid.sid_sdk;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import com.demo.smileid.sid_sdk.sidNet.Misc;
-import com.smileidentity.libsmileid.core.CameraSourcePreview;
 import com.smileidentity.libsmileid.core.SelfieCaptureConfig;
 import com.smileidentity.libsmileid.core.SmartSelfieManager;
 import com.smileidentity.libsmileid.core.captureCallback.FaceState;
@@ -28,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-import static com.demo.smileid.sid_sdk.SIDStringExtras.EXTRA_TAG_PREFERENCES_AUTH_TAGS;
+
 import com.demo.smileid.sid_sdk.BaseSIDActivity.KYC_PRODUCT_TYPE;
 
 public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateChangeListener,
@@ -285,13 +280,14 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
         Class clazz = null;
 
         if (mKYCProductType == KYC_PRODUCT_TYPE.BASIC_KYC) {
-            clazz = SIDEnrollResultActivity.class;
+            clazz = SIDJobResultActivity.class;
         } else if (mKYCProductType == KYC_PRODUCT_TYPE.ENHANCED_KYC) {
             clazz = SIDIDInfoActivity.class;
         } else if ((mKYCProductType == KYC_PRODUCT_TYPE.BIOMETRIC_KYC) ||
             (mKYCProductType == KYC_PRODUCT_TYPE.DOCUMENT_VERIFICATION)) {
             clazz = SIDIDCardActivity.class;
         } else if (mKYCProductType == KYC_PRODUCT_TYPE.SMART_SELFIE_AUTH) {
+            clazz = SIDJobResultActivity.class;
             /*startActivity(
                     new Intent(this, SIDAuthResultActivity.class) {
                         {

@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -29,7 +30,7 @@ import java.util.HashMap;
 import static com.demo.smileid.sid_sdk.SIDStringExtras.SHARED_PREF_JOB_ID;
 import static com.demo.smileid.sid_sdk.SIDStringExtras.SHARED_PREF_USER_ID;
 
-public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetworkRequest.OnCompleteListener,
+public class SIDJobResultActivity extends BaseSIDActivity implements SIDNetworkRequest.OnCompleteListener,
         SIDNetworkRequest.OnErrorListener,
         SIDNetworkRequest.OnUpdateListener,
         SIDNetworkRequest.OnEnrolledListener,
@@ -39,7 +40,7 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
 
     public final static String USER_ID_INFO_PARAM = "USER_ID_INFO_PARAM";
 
-    private TextView mTvResult, mTvConfidenceValue;
+    private TextView mTvResult, mTvConfidenceValue, mTvUploadNow;
     private ProgressBar mPbLoading;
 
     private String mSelectedCountryName = "", mSelectedIdCard = "", mCurrentTag;
@@ -55,6 +56,13 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
 
         setContentView(R.layout.sid_activity_result);
 
+        initVars();
+        initViews();
+        buildNetObserver();
+        buildNetRequest();
+    }
+
+    private void initVars() {
         Intent intent = getIntent();
 
         if (intent != null) {
@@ -68,20 +76,29 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
             }
         }
 
+        mSharedPreferences = getSharedPreferences(getPackageName(), Context.MODE_PRIVATE);
+    }
+
+    private void initViews() {
         mTvResult = findViewById(R.id.tvResult);
         mPbLoading = findViewById(R.id.pbLoading);
         mTvConfidenceValue = findViewById(R.id.tvConfidenceValue);
-//        mSAutoUpload.setVisibility(mMultipleEnroll && !mContinueWithIdInfo ? View.VISIBLE : View.GONE);
-        mSharedPreferences = getSharedPreferences(getPackageName(), Context.MODE_PRIVATE);
+        mTvUploadNow = findViewById(R.id.tvUploadNow);
+    }
+
+    private void buildNetObserver() {
         mInternetStateBR = new InternetStateBroadCastReceiver();
         mInternetStateBR.setOnConnectionReceivedListener(this);
+    }
 
+    private void buildNetRequest() {
         mSIDNetworkRequest = new SIDNetworkRequest(this);
         mSIDNetworkRequest.setOnCompleteListener(this);
         mSIDNetworkRequest.set0nErrorListener(this);
         mSIDNetworkRequest.setOnUpdateListener(this);
         mSIDNetworkRequest.setOnEnrolledListener(this);
         mSIDNetworkRequest.setOnAuthenticatedListener(this);
+        mSIDNetworkRequest.setOnDocVerificationListener(this);
         mSIDNetworkRequest.initialize();
     }
 
@@ -89,8 +106,6 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
         if (mKYCProductType == KYC_PRODUCT_TYPE.DOCUMENT_VERIFICATION) {
             setCountryAndIDType();
         } else {
-            findViewById(R.id.vTransLayer).setVisibility(View.GONE);
-            findViewById(R.id.tvUploadNow).setVisibility(View.GONE);
             upload(mCurrentTag);
         }
     }
@@ -121,7 +136,8 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
 
             @Override
             public void cancel() {
-                Toast.makeText(SIDEnrollResultActivity.this, "To verify this document, kindly select a country and an ID type", Toast.LENGTH_LONG).show();
+                mTvUploadNow.setVisibility(View.VISIBLE);
+                Toast.makeText(SIDJobResultActivity.this, "To verify this document, kindly select a country and an ID type", Toast.LENGTH_LONG).show();
             }
         };
 
@@ -134,18 +150,17 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
         if ((mKYCProductType == KYC_PRODUCT_TYPE.BASIC_KYC) ||
                 (mKYCProductType == KYC_PRODUCT_TYPE.ENHANCED_KYC) ||
                     (mKYCProductType == KYC_PRODUCT_TYPE.DOCUMENT_VERIFICATION)) {
-
-//            Log.d("RESULT_TESTING", "USER_ID_INFO: " + mSIDUserIdInfo.toString());
             setUserIdInfo(metadata);
         }
 
         SIDConfig sidConfig = createConfig(tag, metadata);
 
         if (SIDNetworkingUtils.haveNetworkConnection(this)) {
+            mTvUploadNow.setVisibility(View.INVISIBLE);
+            findViewById(R.id.vTransLayer).setVisibility(View.GONE);
             mPbLoading.setVisibility(View.VISIBLE);
             mSIDNetworkRequest.submit(sidConfig);
         } else {
-
             SIDTagManager.getInstance(this).saveConfig(tag, sidConfig.getJobType(),
                 sidConfig.getMode(), sidConfig.getGeoInformation(), sidConfig.getSIDMetadata(),
                     this);
@@ -167,7 +182,7 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
             {
                 setSmileIdNetData(data);
                 setGeoInformation(infos);
-//              useEnrolledImage(true);
+                useEnrolledImage(mKYCProductType == KYC_PRODUCT_TYPE.DOCUMENT_VERIFICATION);
                 setJobType(mKYCProductType.getJobType());
                 setSIDMetadata(metadata != null ? metadata : new SIDMetadata());
 
@@ -350,7 +365,7 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
     private void go2Next() {
         Runnable runnable = () -> {
             finish();
-            startActivity(new Intent(SIDEnrollResultActivity.this,
+            startActivity(new Intent(SIDJobResultActivity.this,
                 SIDJobCompletedActivity.class));
         };
 
@@ -378,6 +393,17 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
 
     @Override
     public void onDocVerified(SIDResponse response) {
+        StringBuilder stringBuilder = new StringBuilder();
 
+        if (!TextUtils.isEmpty(response.getResultText())) {
+            stringBuilder.append("Result Text : ").append(response.getResultText())
+                .append(System.getProperty("line.separator"));
+        }
+
+        if (response.getConfidenceValue() > 0) {
+            stringBuilder.append(getString(R.string.demo_enrolled_confidence_value, response.getConfidenceValue()));
+        }
+
+        go2Next();
     }
 }

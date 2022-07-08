@@ -13,16 +13,13 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.demo.smileid.sid_sdk.sidNet.IdTypeUtil;
 import com.hbb20.CCPCountry;
 import com.hbb20.CountryCodePicker;
 import com.smileidentity.libsmileid.core.idcard.IdCard;
 import com.demo.smileid.sid_sdk.DropDownAdapter.DropDownObject;
 import com.smileidentity.libsmileid.model.SIDUserIdInfo;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -45,6 +42,12 @@ public class SIDIDInfoActivity extends AppCompatActivity {
     private TextView mTvInputDoB;
     private boolean mWasInputIdClicked = false;
     private HashMap<String, String> mSidUserIdInfo = new HashMap<String, String>();
+
+    private static final String SUPPORTED_COUNTRIES = "DZ,AO,BJ,BW,BF,BI,CM,CV,TD,KM,CG,CI,CD,DJ," +
+        "EG,GQ,ER,ET,GA,GM,GH,GN,GW,KE,LS,LR,LY,MG,MW,ML,MU,MA,MZ,NA,NE,NG,RW,ST,SN,SC,SL,SO,ZA," +
+            "SS,SD,TG,TN,UG,TZ,ZM,ZW,AL,AD,AT,BY,BE,BA,BG,HR,CZ,DK,EE,FI,FR,DE,GR,VA,HU,IS,IE," +
+                "IT,XK,LV,LI,LT,LU,MT,MC,ME,NL,NO,PL,PT,MD,RO,SM,RS,SK,SI,ES,SE,CH,MK,UA,GB,BS," +
+                    "BM,CA,JM,US";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +72,7 @@ public class SIDIDInfoActivity extends AppCompatActivity {
 
     private void initViews() {
         mTvInputCountry = findViewById(R.id.tvInputCountry);
+        TextView mTvLblIdType = findViewById(R.id.tvInputIdType);
         mTvInputIdType = findViewById(R.id.tvInputIdType);
         mEdtIdNbr = findViewById(R.id.edtIdNbr);
         mEdtFirstName = findViewById(R.id.edtFirstName);
@@ -76,9 +80,10 @@ public class SIDIDInfoActivity extends AppCompatActivity {
         mTvInputDoB = findViewById(R.id.tvInputDoB);
 
         mCcpCountryPicker = findViewById(R.id.ccpCountry);
+        mCcpCountryPicker.setCustomMasterCountries(SUPPORTED_COUNTRIES);
         mCcpCountryPicker.setOnCountryChangeListener(() -> {
-            findViewById(R.id.tvLblIdType).setVisibility(View.VISIBLE);
-            findViewById(R.id.tvInputIdType).setVisibility(View.VISIBLE);
+            mTvLblIdType.setVisibility(View.VISIBLE);
+            mTvInputIdType.setVisibility(View.VISIBLE);
             CCPCountry country = mCcpCountryPicker.getSelectedCountry();
             DropDownObject dropDownObject = new DropDownObject(country.getFlagID(), country.getEnglishName());
             applyChoice(mTvInputCountry, dropDownObject, true);
@@ -116,14 +121,17 @@ public class SIDIDInfoActivity extends AppCompatActivity {
     private void applyChoice(TextView tvLang, DropDownObject dropDownObject, boolean isCountryFlag) {
         tvLang.setText(dropDownObject.getLabel());
         Drawable left = null;
+        Drawable right = null;
 
         if (isCountryFlag) {
             left = getResources().getDrawable(dropDownObject.getFlagResId());
+            right = getResources().getDrawable(R.drawable.ic_down_arrow);
         } else {
             tvLang.setTextSize(14);
             tvLang.setPadding(tvLang.getPaddingLeft(), 4, tvLang.getTotalPaddingRight(), 4);
         }
-        tvLang.setCompoundDrawablesWithIntrinsicBounds(left, null, null, null);
+
+        tvLang.setCompoundDrawablesWithIntrinsicBounds(left, null, right, null);
     }
 
     private String getSelectedCountryName() {
@@ -174,6 +182,10 @@ public class SIDIDInfoActivity extends AppCompatActivity {
             Calendar.DAY_OF_MONTH)).show();
     }
 
+    public void backPressed(View view) {
+        super.onBackPressed();
+    }
+
     public void go2Next(View view) {
         if (!isIdInfoValid()) {
             Toast.makeText(this, "Kindly provide complete ID information",
@@ -185,10 +197,10 @@ public class SIDIDInfoActivity extends AppCompatActivity {
         finish();
 
         startActivity(
-            new Intent(this, SIDEnrollResultActivity.class) {
+            new Intent(this, SIDJobResultActivity.class) {
                 {
                     putExtra(BaseSIDActivity.KYC_PRODUCT_TYPE_PARAM, mKYCProductType);
-                    putExtra(SIDEnrollResultActivity.USER_ID_INFO_PARAM, mSidUserIdInfo);
+                    putExtra(SIDJobResultActivity.USER_ID_INFO_PARAM, mSidUserIdInfo);
                     putExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO, mCurrentTag);
                 }
             }

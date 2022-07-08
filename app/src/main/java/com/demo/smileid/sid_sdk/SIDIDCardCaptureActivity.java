@@ -3,7 +3,6 @@ package com.demo.smileid.sid_sdk;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.animation.Animation;
@@ -143,7 +142,7 @@ public class SIDIDCardCaptureActivity extends AppCompatActivity implements Captu
                 break;
 
             case R.id.viewYes:
-                Intent intent = new Intent(this, SIDEnrollResultActivity.class);
+                Intent intent = new Intent(this, SIDJobResultActivity.class);
                 intent.putExtra(SIDStringExtras.EXTRA_HAS_ID, true);
                 intent.putExtra(SIDStringExtras.EXTRA_REENROLL, reenrollUser);
                 intent.putExtra(SIDStringExtras.EXTRA_ENROLL_TYPE, enrollType);
