@@ -4,7 +4,7 @@
         <item name="android:layout_width">16dp</item>
         <item name="android:layout_height">16dp</item>
         <item name="layout_constraintTop_toTopOf">parent</item>
-        <item name="android:layout_marginTop">19dp</item>
+        <item name="android:layout_marginTop">42.74dp</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="android:layout_marginLeft">14dp</item>
         <item name="android:src">@drawable/ic_left_arrow</item>
@@ -28,7 +28,7 @@
     <style name="consent_screen_big_txt" parent="TextAppearance.AppCompat">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">44dp</item>
+        <item name="android:layout_marginTop">0dp</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="android:text">@string/consent_screen_partner_big_txt</item>

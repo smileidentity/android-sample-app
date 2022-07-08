@@ -1,15 +1,16 @@
 <resources>
 
-    <style name="auth_result_screen_progress_bar" parent="Widget.AppCompat.ProgressBar">
+    <style name="result_screen_progress_bar" parent="Widget.AppCompat.ProgressBar">
         <item name="android:layout_width">98.5dp</item>
         <item name="android:layout_height">98.5dp</item>
+        <item name="android:background">@drawable/progress_bar_bckgrd</item>
         <item name="layout_constraintTop_toTopOf">parent</item>
         <item name="android:layout_marginTop">123dp</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
     </style>
 
-    <style name="auth_result_screen_uploading_txt" parent="TextAppearance.AppCompat">
+    <style name="result_screen_uploading_txt" parent="TextAppearance.AppCompat">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:fontFamily">@font/inter</item>
@@ -28,7 +29,7 @@
         <item name="android:maxLines">1</item>
     </style>
 
-    <style name="auth_result_screen_result_txt" parent="auth_result_screen_uploading_txt">
+    <style name="result_screen_result_txt" parent="result_screen_uploading_txt">
         <item name="android:layout_marginBottom">27dp</item>
         <item name="android:textColor">#555B69</item>
         <item name="android:textSize">16sp</item>
@@ -39,11 +40,11 @@
         <item name="android:maxLines">3</item>
     </style>
 
-    <style name="auth_result_screen_upload_btn" parent="TextAppearance.AppCompat">
+    <style name="result_screen_upload_btn" parent="TextAppearance.AppCompat">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">54dp</item>
         <item name="layout_constraintBottom_toBottomOf">parent</item>
-        <item name="android:layout_marginBottom">48dp</item>
+        <item name="android:layout_marginBottom">103dp</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="android:layout_marginLeft">20.96dp</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
@@ -58,7 +59,7 @@
         <item name="android:background">@drawable/get_started_start_btn</item>
     </style>
 
-    <style name="auth_result_screen_bottom_logo">
+    <style name="result_screen_bottom_logo">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="layout_constraintBottom_toBottomOf">parent</item>

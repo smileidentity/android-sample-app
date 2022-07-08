@@ -9,23 +9,24 @@
 
     <ProgressBar
         android:id="@+id/pbLoading"
-        style="@style/auth_result_screen_progress_bar"
+        style="@style/result_screen_progress_bar"
+        android:visibility="invisible"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/tvConfidenceValue"
-        style="@style/auth_result_screen_uploading_txt"
+        style="@style/result_screen_uploading_txt"
         app:layout_constraintTop_toBottomOf="@id/pbLoading"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/tvResult"
-        style="@style/auth_result_screen_result_txt"
+        style="@style/result_screen_result_txt"
         app:layout_constraintTop_toBottomOf="@+id/tvConfidenceValue"
         tools:ignore="MissingConstraints" />
 
     <ImageView
-        style="@style/auth_result_screen_bottom_logo"
+        style="@style/result_screen_bottom_logo"
         tools:ignore="MissingConstraints" />
 
     <View
@@ -37,8 +38,19 @@
 
     <TextView
         android:id="@+id/tvUploadNow"
-        style="@style/auth_result_screen_upload_btn"
+        style="@style/result_screen_upload_btn"
         android:onClick="uploadNow"
         tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/tvUploadNow"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginLeft="87dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginRight="85dp"
+        android:src="@drawable/ic_smile_logo_bar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

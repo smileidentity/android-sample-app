@@ -40,7 +40,6 @@ public class GetStartedActivity extends AppCompatActivity {
     }
 
     public void getStarted(View view) {
-        Log.d("REQUIRE_CONSENT", "" + mParams.getBoolean(REQUIRE_CONSENT));
         if ((mParams != null) && (mParams.getBoolean(REQUIRE_CONSENT))) {
             mParams.remove(REQUIRE_CONSENT);
             requestUserConsent();
