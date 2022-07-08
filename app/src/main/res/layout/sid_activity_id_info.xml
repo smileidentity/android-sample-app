@@ -11,6 +11,7 @@
     <ImageView
         android:id="@+id/ivBackArrow"
         style="@style/sid_info_screen_back_img"
+        android:onClick="backPressed"
         tools:ignore="MissingConstraints" />
 
     <TextView
@@ -25,12 +26,13 @@
         android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@id/ivBackArrow"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginTop="30dp">
+        android:layout_marginTop="30dp"
+        android:background="@color/transparent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="112.72dp">
+            android:paddingBottom="42dp">
 
             <TextView
                 android:id="@+id/tvLblCountry"
@@ -56,7 +58,6 @@
                 app:layout_constraintBottom_toBottomOf="@id/tvInputCountry"
                 app:layout_constraintStart_toStartOf="@id/tvInputCountry"
                 app:layout_constraintEnd_toEndOf="@id/tvInputCountry"
-                app:ccp_customMasterCountries="GH,NG,KE,TZ,ZA"
                 app:ccp_defaultPhoneCode="234"
                 tools:ignore="MissingConstraints" />
 
@@ -160,7 +161,7 @@
                 android:id="@+id/tvContinueBtn"
                 style="@style/sid_info_continue_btn"
                 android:onClick="go2Next"
-                android:visibility="invisible"
+                android:visibility="visible"
                 android:drawableLeft="@drawable/ic_lock_white"
                 android:paddingLeft="18.43dp"
                 android:paddingRight="18.43dp"
@@ -168,66 +169,19 @@
                 tools:ignore="MissingConstraints" />
 
             <ImageView
-                android:layout_width="159dp"
+                android:id="@+id/ivLogo"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:src="@drawable/ic_smile_logo_bar"
-                tools:layout_editor_absoluteX="136dp"
-                tools:layout_editor_absoluteY="16dp"
-                tools:ignore="MissingConstraints" />
+                app:layout_constraintTop_toBottomOf="@id/tvContinueBtn"
+                android:layout_marginTop="40dp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginLeft="87dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginRight="85dp"
+                android:src="@drawable/ic_smile_logo_bar" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
-
-    <!--<com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tiIdNumber"
-        style="@style/EnrollResultTextInputLayout"
-        app:layout_constraintTop_toBottomOf="@id/spIdType"
-        android:hint="ID Number">
-
-        <com.google.android.material.textfield.TextInputEditText
-            style="@style/EnrollResultTextInputEditText" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tiFirstName"
-        style="@style/EnrollResultTextInputLayout"
-        app:layout_constraintTop_toBottomOf="@id/tiIdNumber"
-        android:hint="First Name">
-
-        <com.google.android.material.textfield.TextInputEditText
-            style="@style/EnrollResultTextInputEditText" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tiLastName"
-        style="@style/EnrollResultTextInputLayout"
-        app:layout_constraintTop_toBottomOf="@id/tiFirstName"
-        android:hint="Last Name">
-
-        <com.google.android.material.textfield.TextInputEditText
-            style="@style/EnrollResultTextInputEditText" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tiDOB"
-        style="@style/EnrollResultTextInputLayout"
-        android:onClick="showDateDialog"
-        app:layout_constraintTop_toBottomOf="@id/tiLastName"
-        android:hint="Date of Birth">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tietDOB"
-            style="@style/EnrollResultTextInputEditText"
-            android:onClick="showDateDialog"
-            android:clickable="true"
-            android:focusable="false"
-            android:focusableInTouchMode="false" />
-
-    </com.google.android.material.textfield.TextInputLayout>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

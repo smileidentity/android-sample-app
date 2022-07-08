@@ -15,8 +15,6 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.demo.smileid.sid_sdk.sidNet.InternetStateBroadCastReceiver;
 import com.demo.smileid.sid_sdk.sidNet.SIDNetworkingUtils;
-import com.smileid.smileidui.CaptureType;
-import com.smileid.smileidui.SIDCaptureManager;
 import com.smileidentity.libsmileid.core.RetryOnFailurePolicy;
 import com.smileidentity.libsmileid.core.SIDConfig;
 import com.smileidentity.libsmileid.core.SIDNetworkRequest;
@@ -338,7 +336,7 @@ public class SIDSmileIDActivity extends BaseSIDActivity implements View.OnClickL
 
         if (requestCode == SMILE_SELFIE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-                Intent intent = new Intent(this, SIDEnrollResultActivity.class);
+                Intent intent = new Intent(this, SIDJobResultActivity.class);
                 intent.putExtra(SIDStringExtras.EXTRA_ENROLL_TYPE, 4);
                 intent.putExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO, data.getStringExtra(SMILE_REQUEST_RESULT_TAG));
                 startActivity(intent);
@@ -347,7 +345,7 @@ public class SIDSmileIDActivity extends BaseSIDActivity implements View.OnClickL
             }
         } else if (requestCode == SMILE_ID_CARD_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-                Intent intent = new Intent(this, SIDEnrollResultActivity.class);
+                Intent intent = new Intent(this, SIDJobResultActivity.class);
                 intent.putExtra(SIDStringExtras.EXTRA_ENROLL_TYPE, 1);
                 intent.putExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO, data.getStringExtra(SMILE_REQUEST_RESULT_TAG));
                 startActivity(intent);

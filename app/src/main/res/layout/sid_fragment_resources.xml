@@ -27,8 +27,8 @@
         android:id="@+id/crlPolicy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:bigTxt="@string/res_fragment_link_docs_txt"
-        app:smallTxt="@string/res_fragment_link_docs_sub_txt"
+        app:bigTxt="@string/res_fragment_link_policy_txt"
+        app:smallTxt="@string/res_fragment_link_policy_sub_txt"
         app:layout_constraintTop_toBottomOf="@id/crlDocs"
         android:layout_marginTop="22dp" />
 
