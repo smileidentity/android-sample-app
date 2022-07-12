@@ -58,7 +58,7 @@ public class HomeFragment extends BaseFragment {
         getView().findViewById(R.id.cpbBiometricKYC).setOnClickListener(v -> mActionListener.doBiometricKYC());
         getView().findViewById(R.id.cpbDocV).setOnClickListener(v -> mActionListener.performDocV());
         getView().findViewById(R.id.cpbSmartSelfie).setOnClickListener(v -> mActionListener.doSmartSelfieAuth());
-        getView().findViewById(R.id.tvWatchBtn).setOnClickListener(v -> linkClicked(""));
+        getView().findViewById(R.id.tvWatchBtn).setOnClickListener(v -> /*linkClicked("")*/mActionListener.doBasicKYC());
     }
 
     public void switchEnv(String env) {

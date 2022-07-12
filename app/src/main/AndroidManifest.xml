@@ -95,10 +95,6 @@ if target sdk is 30 and above this is not necessary for smile but migrations for
         </activity>
 
         <activity
-            android:name=".SIDMainActivity"
-            android:label="@string/lbl_main_heading" />
-
-        <activity
             android:name=".SIDSelfieActivity"
             android:exported="false"
             android:label="@string/lbl_selfie_heading"
@@ -123,8 +119,6 @@ if target sdk is 30 and above this is not necessary for smile but migrations for
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
 
-        <activity android:name=".SIDSmileIDActivity" />
-        <activity android:name=".SIDIDValidationActivity" />
         <activity android:name="com.smileid.smileidui.SIDIDCaptureActivity" />
         <activity android:name="com.smileid.smileidui.SIDSelfieCaptureActivity" />
         <activity android:name="com.smileid.smileidui.SIDReviewActivity" />

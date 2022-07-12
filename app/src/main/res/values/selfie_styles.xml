@@ -69,7 +69,8 @@
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="android:layout_marginRight">26dp</item>
         <item name="android:src">@drawable/ic_triangle</item>
-        <item name="android:backgroundTint">#031532</item>
+        <item name="android:foregroundTint">#031532</item>
+        <item name="android:tint">#031532</item>
         <item name="android:visibility">visible</item>
     </style>
 

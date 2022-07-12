@@ -3,6 +3,7 @@
     <string name="sid_info_screen_heading">Provide ID Info</string>
     <string name="sid_info_screen_input_country_lbl">Country</string>
     <string name="sid_info_screen_input_id_type_lbl">Select type of identification</string>
+    <string name="sid_info_screen_input_id_type_hint">Driver\'s License</string>
     <string name="sid_info_screen_input_id_nbr_lbl">ID number</string>
     <string name="sid_info_screen_input_first_name_lbl">First Name</string>
     <string name="sid_info_screen_input_last_name_lbl">Last Name</string>

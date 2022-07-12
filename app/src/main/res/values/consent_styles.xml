@@ -57,6 +57,17 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <style name="consent_screen_info_cat_rv">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">115.68dp</item>
+        <item name="android:layout_marginTop">37.09dp</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="android:layout_marginLeft">26dp</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="android:layout_marginRight">24.67dp</item>
+        <item name="android:nestedScrollingEnabled">false</item>
+    </style>
+
     <style name="consent_screen_policy_block" parent="TextAppearance.AppCompat">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>

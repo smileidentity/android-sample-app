@@ -334,7 +334,6 @@ public class CountryCodePicker extends RelativeLayout {
                 }
             }
 
-
             //set auto detected country
             if (isAutoDetectCountryEnabled() && !isInEditMode()) {
                 setAutoDetectedCountry(true);
