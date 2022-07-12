@@ -222,8 +222,6 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
             clazz = SIDJobResultActivity.class;
         }
 
-        finish();
-
         startActivity(
             new Intent(this, clazz) {
                 {

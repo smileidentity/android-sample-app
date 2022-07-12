@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -118,7 +117,7 @@ public class SIDJobResultActivity extends BaseSIDActivity implements SIDNetworkR
             userIdInfo.setFirstName(mSIDUserIdInfo.get(SIDUserIdInfo.FIRST_NAME));
             userIdInfo.setLastName(mSIDUserIdInfo.get(SIDUserIdInfo.LAST_NAME));
             userIdInfo.setIdNumber(mSIDUserIdInfo.get(SIDUserIdInfo.ID_NUMBER));
-            userIdInfo.additionalValue("dob", mSIDUserIdInfo.get("dob"));
+            userIdInfo.additionalValue(SIDUserIdInfo.DOB, mSIDUserIdInfo.get(SIDUserIdInfo.DOB));
         }
 
         userIdInfo.setIdType(mSelectedIdCard.replace(" ", "_"));

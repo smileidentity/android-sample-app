@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -81,6 +80,7 @@ public class SIDIDInfoActivity extends AppCompatActivity {
 
         mCcpCountryPicker = findViewById(R.id.ccpCountry);
         mCcpCountryPicker.setCustomMasterCountries(SUPPORTED_COUNTRIES);
+
         mCcpCountryPicker.setOnCountryChangeListener(() -> {
             mTvLblIdType.setVisibility(View.VISIBLE);
             mTvInputIdType.setVisibility(View.VISIBLE);
@@ -169,15 +169,12 @@ public class SIDIDInfoActivity extends AppCompatActivity {
     public void showDateDialog(View view) {
         Calendar calendar = Calendar.getInstance();
 
-        new DatePickerDialog(this, AlertDialog.THEME_HOLO_LIGHT, new DatePickerDialog.OnDateSetListener() {
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                Calendar selectedDate = Calendar.getInstance();
-                selectedDate.set(year, monthOfYear, dayOfMonth);
+        new DatePickerDialog(this, AlertDialog.THEME_HOLO_LIGHT, (view1, year, monthOfYear, dayOfMonth) -> {
+            Calendar selectedDate = Calendar.getInstance();
+            selectedDate.set(year, monthOfYear, dayOfMonth);
 
-                mTvInputDoB.setText(new SimpleDateFormat("yyyy-MM-dd", Locale.US).format(
-                    selectedDate.getTime()));
-            }
-
+            mTvInputDoB.setText(new SimpleDateFormat("yyyy-MM-dd", Locale.US).format(
+                selectedDate.getTime()));
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(
             Calendar.DAY_OF_MONTH)).show();
     }
@@ -230,7 +227,7 @@ public class SIDIDInfoActivity extends AppCompatActivity {
         if (mTvInputDoB.getText().toString().equalsIgnoreCase(
             getString(R.string.sid_info_screen_input_dob_hint))) return false;
 
-        mSidUserIdInfo.put("dob", mTvInputDoB.getText().toString());
+        mSidUserIdInfo.put(SIDUserIdInfo.DOB, mTvInputDoB.getText().toString());
 
         return true;
     }

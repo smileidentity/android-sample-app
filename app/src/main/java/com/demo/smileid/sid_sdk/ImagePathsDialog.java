@@ -9,7 +9,6 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,14 +16,11 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.smileidentity.libsmileid.core.SIFileManager;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +33,6 @@ public class ImagePathsDialog {
     private RecyclerView mRvJobs;
     private RecyclerView mRvIDCards;
     private RecyclerView mRvSelfies;
-//    private SIFileManager mSiFileManager = new SIFileManager();
     private TagList mTagList;
 
     public interface DlgListener {
@@ -69,12 +64,6 @@ public class ImagePathsDialog {
         mRvSelfies.setLayoutManager(new GridLayoutManager(mDialog.getContext(), 2));
         mRvSelfies.setHasFixedSize(false);
         mRvSelfies.setNestedScrollingEnabled(false);
-
-        /*mDialog.findViewById(R.id.tvSubmit).setOnClickListener(v -> {
-             if (mListener == null) return;
-             mDialog.cancel();
-             mListener.submit("", "");
-        });*/
 
         mDialog.findViewById(R.id.ivBtnCancel).setOnClickListener(v -> {
             if (mDialog.findViewById(R.id.nsvPictures).getVisibility() == View.VISIBLE) {

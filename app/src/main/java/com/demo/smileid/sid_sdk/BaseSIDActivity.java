@@ -3,16 +3,12 @@ package com.demo.smileid.sid_sdk;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import com.demo.smileid.sid_sdk.geoloc.SIDGeoInfos;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -42,10 +38,10 @@ public class BaseSIDActivity extends AppCompatActivity {
     private static final int PERMISSION_ALL = 1;
 
     protected String[] PERMISSIONS = {
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.CAMERA,
-            Manifest.permission.ACCESS_FINE_LOCATION
+        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        Manifest.permission.READ_EXTERNAL_STORAGE,
+        Manifest.permission.CAMERA,
+        Manifest.permission.ACCESS_FINE_LOCATION
     };
 
     @Override
@@ -72,11 +68,6 @@ public class BaseSIDActivity extends AppCompatActivity {
 
     protected void coreStartSelfieCapture() {
         if (permissionGranted(PERMISSIONS)) {
-            /*if (mConsentRequired) {
-                requestUserConsent();
-            } else {
-
-            }*/
             proceedWithJob();
         } else {
             ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);

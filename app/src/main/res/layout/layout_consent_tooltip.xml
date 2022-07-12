@@ -11,7 +11,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         style="@style/consent_screen_consent_tooltip_block"
-        android:background="@drawable/bckgr"
+        android:background="@drawable/bckgrd"
         tools:ignore="MissingConstraints">
 
         <ImageView
