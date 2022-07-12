@@ -53,9 +53,9 @@ public class GetStartedActivity extends BaseSIDActivity {
     }
 
     private void moveForward() {
-        finish();
-        //useLocalScreen()
-        useSmileUIScreen();
+//        finish();
+        useLocalScreen();
+//        useSmileUIScreen();
     }
 
     private void useLocalScreen() {
@@ -78,9 +78,6 @@ public class GetStartedActivity extends BaseSIDActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        Log.d("SMILE_SELFIE_REQUEST", (requestCode == SMILE_SELFIE_REQUEST_CODE) + " : " +
-            (resultCode == RESULT_OK));
 
         if (requestCode == SMILE_SELFIE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
