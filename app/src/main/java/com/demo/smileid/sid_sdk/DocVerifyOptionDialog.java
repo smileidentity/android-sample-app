@@ -2,7 +2,6 @@ package com.demo.smileid.sid_sdk;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

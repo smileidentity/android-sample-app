@@ -1,86 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal"
-    android:background="@drawable/dlg_bckgrd"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingBottom="27.71dp">
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/id_card_dlg_cl">
 
     <ImageView
         android:id="@+id/ivImage"
-        android:layout_width="88.89dp"
-        android:layout_height="64dp"
-        android:src="@drawable/ic_passport"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="39dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        style="@style/id_card_dlg_top_img"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/tvHeading"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        style="@style/id_card_dlg_tv_heading"
         app:layout_constraintTop_toBottomOf="@id/ivImage"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="52dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="63dp"
-        android:text="@string/id_card_dialog_txt"
-        android:textSize="16sp"
-        android:textColor="#191D31"
-        android:textFontWeight="600"
-        android:lineSpacingExtra="2sp"
-        android:gravity="center" />
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/tvMsg"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        style="@style/id_card_dlg_tv_msg"
         app:layout_constraintTop_toBottomOf="@id/tvHeading"
-        android:layout_marginTop="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="37dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="48dp"
-        android:text="@string/id_card_dialog_txt_2"
-        android:textSize="16sp"
-        android:textColor="#828282"
-        android:textFontWeight="400"
-        android:lineSpacingExtra="4sp"
-        android:gravity="center" />
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/tvProceed"
-        android:layout_width="299.71dp"
-        android:layout_height="49.65dp"
-        android:background="@drawable/blue_btn_bckgrd"
+        style="@style/id_card_dlg_proceed_btn"
         app:layout_constraintTop_toBottomOf="@id/tvMsg"
-        android:layout_marginTop="31dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:textFontWeight="600"
-        android:gravity="center"
-        android:text="@string/btn_lbl_proceed" />
+        android:text="@string/id_card_back_dlg_proceed_btn"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/tvSkip"
-        android:layout_width="299.71dp"
-        android:layout_height="49.65dp"
-        android:background="@drawable/white_btn_bckgrd"
+        style="@style/id_card_dlg_skip_btn"
         app:layout_constraintTop_toBottomOf="@id/tvProceed"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="24.14dp"
-        android:layout_marginRight="23.15dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textColor="#121212"
-        android:textSize="16sp"
-        android:textFontWeight="600"
-        android:gravity="center"
-        android:text="@string/btn_lbl_skip" />
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

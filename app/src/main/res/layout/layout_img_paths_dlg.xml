@@ -20,7 +20,7 @@
         android:paddingRight="0dp"
         android:paddingTop="0dp"
         android:paddingBottom="12dp"
-        android:background="@drawable/bckgr">
+        android:background="@drawable/bckgrd">
         
         <ImageView
             android:id="@+id/ivBtnCancel"

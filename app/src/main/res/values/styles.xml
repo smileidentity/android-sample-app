@@ -33,30 +33,6 @@
     <style name="PopupStyle" parent="Widget.AppCompat.PopupWindow">
         <item name="android:background">@color/white_color</item>
     </style>
-
-    <style name="SplashSelfieLogo">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">0dp</item>
-        <item name="android:src">@drawable/ic_terminal_and_phone</item>
-        <item name="layout_constraintWidth_percent">0.4</item>
-        <item name="layout_constraintDimensionRatio">1:1</item>
-        <item name="layout_constraintBottom_toBottomOf">parent</item>
-        <item name="layout_constraintLeft_toLeftOf">parent</item>
-        <item name="layout_constraintRight_toRightOf">parent</item>
-        <item name="layout_constraintTop_toTopOf">parent</item>
-    </style>
-
-    <style name="SplashSelfieVersion">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">20dp</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:textStyle">bold|italic</item>
-        <item name="android:textColor">@color/colorPrimary</item>
-        <item name="layout_constraintBottom_toBottomOf">parent</item>
-        <item name="layout_constraintEnd_toEndOf">parent</item>
-        <item name="layout_constraintStart_toStartOf">parent</item>
-    </style>
     
     <style name="MainHeading">
         <item name="android:layout_width">match_parent</item>
@@ -65,47 +41,6 @@
         <item name="android:layout_marginTop">20dp</item>
         <item name="android:textColor">@color/darkerGray</item>
         <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="SelfieCapture" parent="MainBtnAction">
-
-    </style>
-
-    <style name="SelfieReposition">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:text">@string/lbl_selfie_reposition</item>
-        <item name="android:textColor">@color/colorPrimary</item>
-        <item name="android:textSize">20sp</item>
-        <item name="android:drawableTint">@color/colorPrimary</item>
-        <item name="android:drawablePadding">4dp</item>
-        <item name="layout_constraintStart_toStartOf">parent</item>
-        <item name="layout_constraintEnd_toEndOf">parent</item>
-        <item name="android:layout_marginBottom">16dp</item>
-    </style>
-
-    <style name="EnrollResultProgressBar">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="layout_constraintTop_toTopOf">parent</item>
-        <item name="layout_constraintBottom_toBottomOf">parent</item>
-        <item name="layout_constraintLeft_toLeftOf">parent</item>
-        <item name="layout_constraintRight_toRightOf">parent</item>
-    </style>
-
-    <style name="EnrollResultSwitch">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="layout_constraintTop_toTopOf">parent</item>
-        <item name="android:layout_marginTop">10dp</item>
-        <item name="layout_constraintLeft_toLeftOf">parent</item>
-        <item name="android:layout_marginLeft">10dp</item>
-        <item name="android:text">@string/lbl_enroll_result_internet_recovered</item>
-        <item name="android:textColor">@color/darkerGray</item>
-        <item name="android:shadowColor">@color/darkerGray</item>
-        <item name="android:trackTint">@color/darkerGray</item>
-        <item name="android:switchPadding">8dp</item>
-        <item name="android:visibility">gone</item>
     </style>
 
     <style name="EnrollResultCountryPicker">
@@ -132,26 +67,6 @@
         <item name="android:inputType">textPersonName</item>
     </style>
 
-    <style name="EnrollResultTextInputLayout">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">8dp</item>
-        <item name="android:theme">@style/TextInputLayoutTheme</item>
-    </style>
-
-    <style name="TextInputLayoutTheme">
-        <item name="colorControlNormal">@color/darkerGray</item>
-        <item name="colorAccent">@color/colorPrimary</item>
-        <item name="android:textColorHint">@color/darkerGray</item>
-    </style>
-
-    <style name="EnrollResultTextInputEditText">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/darkerGray</item>
-        <item name="android:textColorHint">@color/darkerGray</item>
-    </style>
-
     <style name="BtnAction">
         <item name="android:visibility">visible</item>
         <item name="android:layout_width">0dp</item>
@@ -164,15 +79,6 @@
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/white_color</item>
         <item name="android:background">@drawable/blue_btn_bckgrd</item>
-    </style>
-
-    <style name="MainBtnAction" parent="BtnAction">
-        <item name="android:minHeight">60dp</item>
-        <item name="android:layout_marginTop">12dp</item>
-        <item name="android:textSize">14sp</item>
-        <item name="layout_constraintWidth_percent">0.75</item>
-        <item name="layout_constraintStart_toStartOf">parent</item>
-        <item name="layout_constraintEnd_toEndOf">parent</item>
     </style>
 
     <style name="DlgBtnAction" parent="BtnAction">

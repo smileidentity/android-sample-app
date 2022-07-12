@@ -76,7 +76,7 @@
                 android:paddingLeft="12dp"
                 app:layout_constraintTop_toBottomOf="@id/tvLblIdType"
                 android:drawableLeft="@null"
-                android:text="Driver's License"
+                android:text="@string/sid_info_screen_input_id_type_hint"
                 android:onClick="openIdTypePicker"
                 tools:ignore="MissingConstraints" />
 
