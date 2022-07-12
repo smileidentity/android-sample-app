@@ -139,15 +139,12 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
 
         switch (faceState) {
             case DO_SMILE:
+            case DO_SMILE_MORE:
                 text = getString(R.string.default_toast_smile);
                 break;
 
             case CAPTURING:
                 text = getString(R.string.lbl_selfie_capturing);
-                break;
-
-            case DO_SMILE_MORE:
-                text = getString(R.string.default_toast_smile_more);
                 break;
 
             case NO_FACE_FOUND:
