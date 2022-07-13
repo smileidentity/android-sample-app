@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import com.demo.smileid.sid_sdk.sidNet.Misc;
+import com.smileidentity.libsmileid.core.CameraSourcePreview;
 import com.smileidentity.libsmileid.core.SelfieCaptureConfig;
 import com.smileidentity.libsmileid.core.SmartSelfieManager;
 import com.smileidentity.libsmileid.core.captureCallback.FaceState;
@@ -45,7 +46,7 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
         setContentView(R.layout.sid_activity_selfie);
 
         initVars();
-        initView();
+        initViews();
 
         selfieTagsSessions.put(mCurrentTag, false);
     }
@@ -54,7 +55,7 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
         mKYCProductType = (KYC_PRODUCT_TYPE) getIntent().getSerializableExtra(BaseSIDActivity.KYC_PRODUCT_TYPE_PARAM);
     }
 
-    private void initView() {
+    private void initViews() {
         mTvPrompt = findViewById(R.id.tvPrompt);
 
         setToggle();
@@ -73,6 +74,7 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
                 tvAgentMode.setText(state ? "Disable Agent Mode" : "Enable Agent Mode");
                 SHOW_TOOLTIP = false;
                 setToolTip();
+                toggleLoading(true);
                 switchAgentMode(state);
             }
         );
@@ -81,6 +83,10 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
     private void setToolTip() {
         findViewById(R.id.ivTriangle).setVisibility(SHOW_TOOLTIP ? View.VISIBLE : View.GONE);
         findViewById(R.id.cvTooltip).setVisibility(SHOW_TOOLTIP ? View.VISIBLE : View.GONE);
+    }
+
+    private void toggleLoading(boolean visible) {
+        findViewById(R.id.clLoading).setVisibility(visible ? View.VISIBLE : View.GONE);
     }
 
     private void initSmartSelfieCamera(boolean resumeCapture) {
@@ -100,7 +106,10 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
         mSmartSelfieManager.pause();
         mSmartSelfieManager.stop();
 
-        new Handler().postDelayed(() -> initSmartSelfieCamera(true), 500);
+        new Handler().postDelayed(() -> {
+            toggleLoading(false);
+            initSmartSelfieCamera(true);
+        }, 500);
     }
 
     @Override

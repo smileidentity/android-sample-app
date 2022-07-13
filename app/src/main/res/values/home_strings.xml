@@ -5,5 +5,9 @@
     <string name="home_screen_tab_lbl_settings">Settings</string>
     <string name="home_screen_lbl_version_nbr">Version %s Android</string>
     <string name="home_screen_lang_change_error_txt">The %s language has not yet been implemented. Kindly revert back to English.</string>
+    <string name="home_screen_enrol_first_heading_txt">Enrollment Required</string>
+    <string name="home_screen_enrol_first_error_txt">You have to enrol (register) first before you can authenticate.</string>
+    <string name="home_screen_lbl_register">Register (Enroll)</string>
+    <string name="home_screen_lbl_cancel">Cancel</string>
 
 </resources>

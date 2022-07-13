@@ -54,3 +54,7 @@ app/.cxx/*
 # External native build folder generated in Android Studio 2.2 and later
 .externalNativeBuild
 smile_config.json
+
+# MacOS files
+.DS_Store
+*.DS_Store

@@ -12,6 +12,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="android:layout_marginTop">36dp</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="android:background">@color/white_color</item>
@@ -20,6 +21,16 @@
         <item name="overlay_height">249.16dp</item>
         <item name="overlay_width">218.53dp</item>
         <item name="progress_width">15dp</item>
+    </style>
+
+    <style name="selfie_screen_progress_bar" parent="Widget.AppCompat.ProgressBar">
+        <item name="android:layout_width">42dp</item>
+        <item name="android:layout_height">42dp</item>
+        <item name="android:progressDrawable">@drawable/progress_bar_bckgrd</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
     </style>
 
     <style name="selfie_screen_agent_mode_cv">
@@ -115,6 +126,10 @@
         <item name="android:fontFamily">@font/roboto_medium</item>
         <item name="android:fontWeight">400</item>
         <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="selfie_screen_loading_txt" parent="selfie_screen_prompt_txt">
+        <item name="android:layout_marginBottom">0dp</item>
     </style>
 
     <style name="selfie_screen_tips_txt" parent="TextAppearance.AppCompat">

@@ -19,7 +19,8 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
 
-public class SIDHomeActivity extends BaseSIDActivity implements BaseFragment.TabActionListener {
+public class SIDHomeActivity extends BaseSIDActivity implements BaseFragment.TabActionListener,
+        ActionDialog.DlgListener {
 
     private boolean mConsentRequired = false;
     private StaticPager mStaticPager = null;
@@ -93,20 +94,23 @@ public class SIDHomeActivity extends BaseSIDActivity implements BaseFragment.Tab
     }
 
     private void enrolFirstDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("You have to enrol (register) first before you can authenticate");
-        builder.setCancelable(false);
+        String heading = getString(R.string.home_screen_enrol_first_heading_txt);
+        String message = getString(R.string.home_screen_enrol_first_error_txt);
+        String register = getString(R.string.home_screen_lbl_register);
+        String cancel = getString(R.string.home_screen_lbl_cancel);
 
-        builder.setPositiveButton(
-                "Register (Enroll)",
-                (dialog, id) -> doBasicKYC());
+        new ActionDialog.Builder(this).setDlgListener(this).setHeadingTxt(heading)
+            .setContentTxt(message).setPositiveBtnTxt(register).setNegativeBtnTxt(cancel).build()
+                .showDialog();
+    }
 
-        builder.setNegativeButton(
-                "Cancel",
-                (dialog, id) -> dialog.cancel());
+    @Override
+    public void cancel() {
+    }
 
-        AlertDialog alert = builder.create();
-        alert.show();
+    @Override
+    public void proceed() {
+        doBasicKYC();
     }
 
     private boolean hasSavedUser() {
