@@ -48,6 +48,7 @@ public class GetStartedActivity extends BaseSIDActivity {
             mParams.remove(REQUIRE_CONSENT);
             requestUserConsent();
         } else {
+            finish();
             moveForward();
         }
     }

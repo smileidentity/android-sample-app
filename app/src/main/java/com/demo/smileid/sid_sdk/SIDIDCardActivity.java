@@ -78,14 +78,22 @@ public class SIDIDCardActivity extends AppCompatActivity implements SmartCardVie
 
     @Override
     public void onSmartCardViewFrontComplete(Bitmap idCardBitmap, boolean faceFound) {
-        new ActionDialog(this, this).showDialog();
+        String heading = getString(R.string.id_card_back_dlg_txt);
+        String message = getString(R.string.id_card_back_dlg_txt_2);
+        String proceed = getString(R.string.id_card_back_dlg_proceed_btn);
+        String skip = getString(R.string.id_card_back_dlg_skip_btn);
+
+        new ActionDialog.Builder(this).setDlgListener(this).setHeadingTxt(heading)
+            .setContentTxt(message).setPositiveBtnTxt(proceed).setNegativeBtnTxt(skip).build()
+                .showDialog();
+
         mShowingDlg = true;
         return;
     }
 
     @Override
     public void onSmartCardViewBackComplete(Bitmap idCardBitmap) {
-        skip();
+        cancel();
     }
 
     @Override
@@ -99,7 +107,7 @@ public class SIDIDCardActivity extends AppCompatActivity implements SmartCardVie
     }
 
     @Override
-    public void skip() {
+    public void cancel() {
         mShowingDlg = false;
         proceedWithResult();
     }
@@ -113,7 +121,7 @@ public class SIDIDCardActivity extends AppCompatActivity implements SmartCardVie
     }
 
     @Override
-    public void capture() {
+    public void proceed() {
         mShowingDlg = true;
         mSmartCardView.setIDBackCapture();
         onResume();
