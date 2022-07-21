@@ -51,14 +51,11 @@
 
             <com.hbb20.CountryCodePicker
                 android:id="@+id/ccpCountry"
-                style="@style/EnrollResultCountryPicker"
+                style="@style/sid_info_screen_country_picker"
                 android:visibility="invisible"
-                app:ccp_clickable="true"
                 app:layout_constraintTop_toTopOf="@id/tvInputCountry"
-                app:layout_constraintBottom_toBottomOf="@id/tvInputCountry"
                 app:layout_constraintStart_toStartOf="@id/tvInputCountry"
                 app:layout_constraintEnd_toEndOf="@id/tvInputCountry"
-                app:ccp_defaultPhoneCode="234"
                 tools:ignore="MissingConstraints" />
 
             <TextView
@@ -82,10 +79,9 @@
 
             <Spinner
                 android:id="@+id/spIdType"
-                style="@style/EnrollResultIdTypeSpinner"
+                style="@style/sid_info_screen_id_type_spinner"
                 android:visibility="invisible"
                 app:layout_constraintTop_toTopOf="@id/tvInputIdType"
-                app:layout_constraintBottom_toBottomOf="@id/tvInputIdType"
                 app:layout_constraintStart_toStartOf="@id/tvInputIdType"
                 tools:ignore="MissingConstraints" />
 
@@ -161,7 +157,7 @@
                 android:id="@+id/tvContinueBtn"
                 style="@style/sid_info_continue_btn"
                 android:onClick="go2Next"
-                android:visibility="visible"
+                android:visibility="invisible"
                 android:drawableLeft="@drawable/ic_lock_white"
                 android:paddingLeft="18.43dp"
                 android:paddingRight="18.43dp"

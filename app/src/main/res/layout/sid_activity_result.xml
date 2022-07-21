@@ -29,17 +29,11 @@
         style="@style/result_screen_bottom_logo"
         tools:ignore="MissingConstraints" />
 
-    <View
-        android:id="@+id/vTransLayer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:alpha="0.9" />
-
     <TextView
         android:id="@+id/tvUploadNow"
         style="@style/result_screen_upload_btn"
         android:onClick="uploadNow"
+        android:visibility="visible"
         tools:ignore="MissingConstraints" />
 
     <ImageView

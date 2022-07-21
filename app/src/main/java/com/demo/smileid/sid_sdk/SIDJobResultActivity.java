@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -38,14 +39,16 @@ public class SIDJobResultActivity extends BaseSIDActivity implements SIDNetworkR
         InternetStateBroadCastReceiver.OnConnectionReceivedListener {
 
     public final static String USER_ID_INFO_PARAM = "USER_ID_INFO_PARAM";
+    public final static String USER_SELFIE_PARAM = "USER_SELFIE_PARAM";
 
-    private TextView mTvResult, mTvConfidenceValue, mTvUploadNow;
+    private TextView mTvResult, mTvConfidenceValue;
     private ProgressBar mPbLoading;
 
     private String mSelectedCountryName = "", mSelectedIdCard = "", mCurrentTag;
     private SIDNetworkRequest mSIDNetworkRequest;
     private SharedPreferences mSharedPreferences;
     private InternetStateBroadCastReceiver mInternetStateBR;
+    private boolean mEnrolledUser = false;
     private SIDConfig mConfig;
     private HashMap<String, String> mSIDUserIdInfo = null;
 
@@ -59,14 +62,17 @@ public class SIDJobResultActivity extends BaseSIDActivity implements SIDNetworkR
         initViews();
         buildNetObserver();
         buildNetRequest();
+//        uploadNow(null);
     }
 
     private void initVars() {
         Intent intent = getIntent();
 
         if (intent != null) {
+            mEnrolledUser = intent.getBooleanExtra(USER_SELFIE_PARAM, false);
             mCurrentTag = intent.getStringExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO);
             mKYCProductType = (KYC_PRODUCT_TYPE) intent.getSerializableExtra(BaseSIDActivity.KYC_PRODUCT_TYPE_PARAM);
+            Log.d("SID_JOB_RESULT_ACTIVITY", mCurrentTag + " : " + mKYCProductType);
             mSIDUserIdInfo = (HashMap<String, String>) intent.getSerializableExtra(USER_ID_INFO_PARAM);
 
             if (mSIDUserIdInfo != null) {
@@ -82,7 +88,6 @@ public class SIDJobResultActivity extends BaseSIDActivity implements SIDNetworkR
         mTvResult = findViewById(R.id.tvResult);
         mPbLoading = findViewById(R.id.pbLoading);
         mTvConfidenceValue = findViewById(R.id.tvConfidenceValue);
-        mTvUploadNow = findViewById(R.id.tvUploadNow);
     }
 
     private void buildNetObserver() {
@@ -135,7 +140,6 @@ public class SIDJobResultActivity extends BaseSIDActivity implements SIDNetworkR
 
             @Override
             public void cancel() {
-                mTvUploadNow.setVisibility(View.VISIBLE);
                 Toast.makeText(SIDJobResultActivity.this, "To verify this document, kindly select a country and an ID type", Toast.LENGTH_LONG).show();
             }
         };
@@ -155,8 +159,6 @@ public class SIDJobResultActivity extends BaseSIDActivity implements SIDNetworkR
         SIDConfig sidConfig = createConfig(tag, metadata);
 
         if (SIDNetworkingUtils.haveNetworkConnection(this)) {
-            mTvUploadNow.setVisibility(View.INVISIBLE);
-            findViewById(R.id.vTransLayer).setVisibility(View.GONE);
             mPbLoading.setVisibility(View.VISIBLE);
             mSIDNetworkRequest.submit(sidConfig);
         } else {
@@ -181,7 +183,7 @@ public class SIDJobResultActivity extends BaseSIDActivity implements SIDNetworkR
             {
                 setSmileIdNetData(data);
                 setGeoInformation(infos);
-                useEnrolledImage(mKYCProductType == KYC_PRODUCT_TYPE.DOCUMENT_VERIFICATION);
+                useEnrolledImage(mEnrolledUser);
                 setJobType(mKYCProductType.getJobType());
                 setSIDMetadata(metadata != null ? metadata : new SIDMetadata());
 

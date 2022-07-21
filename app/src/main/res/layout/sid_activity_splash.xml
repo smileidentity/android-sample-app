@@ -20,9 +20,7 @@
         style="@style/splash_screen_lang_spinner"
         android:visibility="visible"
         app:layout_constraintTop_toTopOf="@id/tvLang"
-        app:layout_constraintBottom_toBottomOf="@id/tvLang"
-        app:layout_constraintStart_toStartOf="@id/tvLang"
-        app:layout_constraintEnd_toEndOf="@id/tvLang" />
+        app:layout_constraintStart_toStartOf="@id/tvLang" />
 
     <View
         android:id="@+id/vPhoneMockup"

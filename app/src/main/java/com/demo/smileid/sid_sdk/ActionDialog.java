@@ -19,7 +19,7 @@ public class ActionDialog {
 
         mDialog = new Dialog(context);
         mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        mDialog.setContentView(R.layout.action_dialog_layout);
+        mDialog.setContentView(R.layout.layout_action_dlg);
         mDialog.setCancelable(false);
 
         mTvSkip = mDialog.findViewById(R.id.tvSkip);
