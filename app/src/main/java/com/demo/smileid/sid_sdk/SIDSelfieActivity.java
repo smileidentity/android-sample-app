@@ -13,8 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import com.demo.smileid.sid_sdk.DocVOptionDialog.DOC_VER_OPTION;
+import com.demo.smileid.sid_sdk.DocVOptionDialog.DOC_VER_TYPE;
 import com.demo.smileid.sid_sdk.sidNet.Misc;
-import com.smileidentity.libsmileid.core.CameraSourcePreview;
 import com.smileidentity.libsmileid.core.SelfieCaptureConfig;
 import com.smileidentity.libsmileid.core.SmartSelfieManager;
 import com.smileidentity.libsmileid.core.captureCallback.FaceState;
@@ -29,11 +30,15 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
         SmartSelfieManager.OnCompleteListener {
 
     public static boolean SHOW_TOOLTIP = true;
+    public final static String DOC_V_PARAM = "DOC_V_PARAM";
+    public final static String DOC_V_CAPTURE_TYPE = "DOC_V_CAPTURE_TYPE";
+    public final static String DOC_V_USER_SELFIE_OPTION = "DOC_V_USER_SELFIE_OPTION";
     private KYC_PRODUCT_TYPE mKYCProductType = KYC_PRODUCT_TYPE.BASIC_KYC;
 
     private SmartSelfieManager mSmartSelfieManager;
     private TextView mTvPrompt;
 
+    private boolean mEnrolledUser = false;
     private boolean mIsAgentMode = false;
     private String mCurrentTag;
     private ArrayList<String> mTagArrayList = new ArrayList<>();
@@ -221,8 +226,17 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
             clazz = SIDJobResultActivity.class;
         } else if (mKYCProductType == KYC_PRODUCT_TYPE.ENHANCED_KYC) {
             clazz = SIDIDInfoActivity.class;
-        } else if ((mKYCProductType == KYC_PRODUCT_TYPE.BIOMETRIC_KYC) ||
-            (mKYCProductType == KYC_PRODUCT_TYPE.DOCUMENT_VERIFICATION)) {
+        } else if (mKYCProductType == KYC_PRODUCT_TYPE.BIOMETRIC_KYC) {
+            clazz = SIDIDCardActivity.class;
+        } else if (mKYCProductType == KYC_PRODUCT_TYPE.DOCUMENT_VERIFICATION) {
+            Map<String, String> docVOptions = (Map<String, String>) getIntent().getSerializableExtra(
+                DOC_V_PARAM);
+
+            if (docVOptions.containsKey(DOC_V_USER_SELFIE_OPTION)) {
+                mEnrolledUser = docVOptions.get(DOC_V_USER_SELFIE_OPTION).equalsIgnoreCase(
+                    DOC_VER_OPTION.ENROLLED_USER.toString());
+            }
+
             clazz = SIDIDCardActivity.class;
         } else if (mKYCProductType == KYC_PRODUCT_TYPE.SMART_SELFIE_AUTH) {
             clazz = SIDJobResultActivity.class;
@@ -233,6 +247,7 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
                 {
                     putExtra(BaseSIDActivity.KYC_PRODUCT_TYPE_PARAM, mKYCProductType);
                     putExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO, mCurrentTag);
+                    putExtra(SIDJobResultActivity.USER_SELFIE_PARAM, mEnrolledUser);
                 }
             }
         );

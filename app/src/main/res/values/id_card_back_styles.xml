@@ -1,9 +1,11 @@
 <resources>
 
     <style name="id_card_dlg_cl">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">center_horizontal</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
         <item name="android:paddingBottom">27.71dp</item>
         <item name="android:background">@drawable/dlg_bckgrd</item>
     </style>
@@ -50,7 +52,9 @@
     </style>
 
     <style name="id_card_dlg_proceed_btn" parent="TextAppearance.AppCompat">
-        <item name="android:layout_width">299.71dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginLeft">48.28dp</item>
+        <item name="android:layout_marginRight">47dp</item>
         <item name="android:layout_height">49.65dp</item>
         <item name="android:background">@drawable/blue_btn_bckgrd</item>
         <item name="android:layout_marginTop">31dp</item>
@@ -66,8 +70,6 @@
     <style name="id_card_dlg_skip_btn" parent="id_card_dlg_proceed_btn">
         <item name="android:background">@drawable/white_btn_bckgrd</item>
         <item name="android:layout_marginTop">20dp</item>
-        <item name="android:layout_marginLeft">24.14dp</item>
-        <item name="android:layout_marginRight">23.15dp</item>
         <item name="android:text">@string/id_card_back_dlg_skip_btn</item>
         <item name="android:textColor">#121212</item>
     </style>

@@ -3,14 +3,18 @@ package com.demo.smileid.sid_sdk;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import com.demo.smileid.sid_sdk.sidNet.Misc;
 import com.smileidentity.libsmileid.core.SmartCardView;
 import com.smileidentity.libsmileid.core.captureCallback.IDCardState;
 import com.demo.smileid.sid_sdk.BaseSIDActivity.KYC_PRODUCT_TYPE;
+import java.util.Calendar;
 
 public class SIDIDCardActivity extends AppCompatActivity implements SmartCardView.SmartCardViewCallBack,
     ActionDialog.DlgListener {
@@ -30,6 +34,7 @@ public class SIDIDCardActivity extends AppCompatActivity implements SmartCardVie
         mSmartCardView.setListener(this);
         mKYCProductType = (BaseSIDActivity.KYC_PRODUCT_TYPE) getIntent().getSerializableExtra(BaseSIDActivity.KYC_PRODUCT_TYPE_PARAM);
         mCurrentTag = getIntent().getStringExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO);
+        mCurrentTag = ((mCurrentTag == null) || (mCurrentTag.isEmpty())) ? getTag() : mCurrentTag;
     }
 
     @Override
@@ -41,7 +46,6 @@ public class SIDIDCardActivity extends AppCompatActivity implements SmartCardVie
         try {
             mSmartCardView.startCapture(mCurrentTag);
         } catch (Exception e) {
-
         }
     }
 
@@ -115,6 +119,7 @@ public class SIDIDCardActivity extends AppCompatActivity implements SmartCardVie
     private void proceedWithResult() {
         Intent intent = new Intent(this, SIDJobResultActivity.class);
         intent.putExtra(BaseSIDActivity.KYC_PRODUCT_TYPE_PARAM, mKYCProductType);
+        Log.d("SID_JOB_RESULT_ACTIVITY", mCurrentTag + " : " + mKYCProductType);
         intent.putExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO, mCurrentTag);
         startActivity(intent);
         finish();
@@ -125,5 +130,10 @@ public class SIDIDCardActivity extends AppCompatActivity implements SmartCardVie
         mShowingDlg = true;
         mSmartCardView.setIDBackCapture();
         onResume();
+    }
+
+    private String getTag() {
+        return mCurrentTag = String.format(
+            Misc.USER_TAG, DateFormat.format("MM_dd_hh_mm_ss", Calendar.getInstance().getTime()).toString());
     }
 }

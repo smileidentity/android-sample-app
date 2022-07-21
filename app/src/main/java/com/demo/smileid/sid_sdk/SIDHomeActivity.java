@@ -55,6 +55,9 @@ public class SIDHomeActivity extends BaseSIDActivity implements BaseFragment.Tab
         resetJob();
         mKYCProductType = KYC_PRODUCT_TYPE.BASIC_KYC;
         startSelfieCapture();
+        /*new DocVOptionDialog(this, (type, option) -> {
+
+        }).showDialog();*/
     }
 
     @Override
