@@ -40,7 +40,7 @@ public class SIDIDInfoActivity extends AppCompatActivity {
     private EditText mEdtLastName;
     private TextView mTvInputDoB;
     private boolean mWasInputIdClicked = false;
-    private HashMap<String, String> mSidUserIdInfo = new HashMap<String, String>();
+    private HashMap<String, String> mSidUserIdInfo = new HashMap();
 
     private static final String SUPPORTED_COUNTRIES = "DZ,AO,BJ,BW,BF,BI,CM,CV,TD,KM,CG,CI,CD,DJ," +
         "EG,GQ,ER,ET,GA,GM,GH,GN,GW,KE,LS,LR,LY,MG,MW,ML,MU,MA,MZ,NA,NE,NG,RW,ST,SN,SC,SL,SO,ZA," +

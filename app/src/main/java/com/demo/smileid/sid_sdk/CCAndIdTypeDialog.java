@@ -65,6 +65,7 @@ public class CCAndIdTypeDialog {
 
         mCcpCountryPicker = mDialog.findViewById(R.id.ccpCountry);
         mCcpCountryPicker.setCustomMasterCountries(SUPPORTED_COUNTRIES);
+
         mCcpCountryPicker.setOnCountryChangeListener(() -> {
             mTvLblIdType.setVisibility(View.VISIBLE);
             mTvInputIdType.setVisibility(View.VISIBLE);
@@ -81,6 +82,7 @@ public class CCAndIdTypeDialog {
         mTvInputIdType.setOnClickListener(v -> mSIdType.performClick());
 
         mSIdType = mDialog.findViewById(R.id.spIdType);
+
         mSIdType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -98,6 +100,7 @@ public class CCAndIdTypeDialog {
         });
 
         mTvSubmit = mDialog.findViewById(R.id.tvSubmit);
+
         mTvSubmit.setOnClickListener(v -> {
             mDialog.cancel();
             if (mListener == null) return;

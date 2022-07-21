@@ -1,5 +1,13 @@
 package com.demo.smileid.sid_sdk;
 
+import static com.demo.smileid.sid_sdk.BaseSIDActivity.KYC_PRODUCT_TYPE.BASIC_KYC;
+import static com.demo.smileid.sid_sdk.BaseSIDActivity.KYC_PRODUCT_TYPE.BIOMETRIC_KYC;
+import static com.demo.smileid.sid_sdk.BaseSIDActivity.KYC_PRODUCT_TYPE.DOCUMENT_VERIFICATION;
+import static com.demo.smileid.sid_sdk.BaseSIDActivity.KYC_PRODUCT_TYPE.ENHANCED_KYC;
+import static com.demo.smileid.sid_sdk.BaseSIDActivity.KYC_PRODUCT_TYPE.SMART_SELFIE_AUTH;
+import static com.demo.smileid.sid_sdk.SIDSelfieActivity.DOC_V_PARAM;
+import static com.demo.smileid.sid_sdk.SIDSelfieActivity.DOC_V_CAPTURE_TYPE;
+import static com.demo.smileid.sid_sdk.SIDSelfieActivity.DOC_V_USER_SELFIE_OPTION;
 import static com.smileid.smileidui.IntentHelper.SMILE_REQUEST_RESULT_TAG;
 
 import android.content.Intent;
@@ -10,8 +18,10 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
+import com.demo.smileid.sid_sdk.DocVOptionDialog.DOC_VER_TYPE;
 import com.smileid.smileidui.CaptureType;
 import com.smileid.smileidui.SIDCaptureManager;
+import java.util.HashMap;
 
 public class GetStartedActivity extends BaseSIDActivity {
 
@@ -48,13 +58,58 @@ public class GetStartedActivity extends BaseSIDActivity {
             mParams.remove(REQUIRE_CONSENT);
             requestUserConsent();
         } else {
-            finish();
-            moveForward();
+            boolean isDocVJob = (mParams != null) && (mParams.containsKey(KYC_PRODUCT_TYPE_PARAM));
+            Log.d("JOB_PARAM", "" + isDocVJob);
+            isDocVJob &= (mParams.get(KYC_PRODUCT_TYPE_PARAM) == DOCUMENT_VERIFICATION);
+            Log.d("JOB_PARAM", mParams.get(KYC_PRODUCT_TYPE_PARAM).toString() + " : " + isDocVJob);
+
+            if (isDocVJob) {
+                showDocVOptionDlg();
+                return;
+            }
+
+            proceedWithSelfie();
         }
     }
 
-    private void moveForward() {
-//        finish();
+    private void showDocVOptionDlg() {
+        new DocVOptionDialog(this, (type, option) -> {
+            if (mParams != null) {
+                HashMap<String, String> docVParams = new HashMap() {
+                    {
+                        put(DOC_V_CAPTURE_TYPE, type.toString());
+
+                        if (type == DOC_VER_TYPE.SELFIE_PLUS_ID_CARD) {
+                            put(DOC_V_USER_SELFIE_OPTION, option.toString());
+                        }
+                    }
+                };
+
+                mParams.putSerializable(DOC_V_PARAM, docVParams);
+
+                if (type == DOC_VER_TYPE.SELFIE_PLUS_ID_CARD) {
+                    proceedWithSelfie();
+                } else {
+                    proceedWithIDCard();
+                }
+            }
+        }).showDialog();
+    }
+
+    private void proceedWithIDCard() {
+        finish();
+
+        startActivity(
+            new Intent(this, SIDIDCardActivity.class) {
+                {
+                    putExtras(mParams);
+                }
+            }
+        );
+    }
+
+    private void proceedWithSelfie() {
+        finish();
         useLocalScreen();
 //        useSmileUIScreen();
     }
@@ -84,13 +139,13 @@ public class GetStartedActivity extends BaseSIDActivity {
             if (resultCode == RESULT_OK) {
                 Class clazz = null;
 
-                if ((mKYCProductType == BaseSIDActivity.KYC_PRODUCT_TYPE.BASIC_KYC) ||
-                        (mKYCProductType == BaseSIDActivity.KYC_PRODUCT_TYPE.SMART_SELFIE_AUTH)) {
+                if ((mKYCProductType == BASIC_KYC) ||
+                        (mKYCProductType == SMART_SELFIE_AUTH)) {
                     clazz = SIDJobResultActivity.class;
-                } else if (mKYCProductType == BaseSIDActivity.KYC_PRODUCT_TYPE.ENHANCED_KYC) {
+                } else if (mKYCProductType == ENHANCED_KYC) {
                     clazz = SIDIDInfoActivity.class;
-                } else if ((mKYCProductType == BaseSIDActivity.KYC_PRODUCT_TYPE.BIOMETRIC_KYC) ||
-                        (mKYCProductType == BaseSIDActivity.KYC_PRODUCT_TYPE.DOCUMENT_VERIFICATION)) {
+                } else if ((mKYCProductType == BIOMETRIC_KYC) ||
+                        (mKYCProductType == DOCUMENT_VERIFICATION)) {
                     clazz = SIDIDCardActivity.class;
                 }
 
@@ -114,7 +169,8 @@ public class GetStartedActivity extends BaseSIDActivity {
 
         if (requestCode == USER_CONSENT_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-                moveForward();
+//                moveForward();
+                getStarted(null);
             } else {
                 finish();
                 Toast.makeText(this, getString(R.string.consent_screen_consent_declined_error),
