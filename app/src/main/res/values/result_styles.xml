@@ -3,7 +3,7 @@
     <style name="result_screen_progress_bar" parent="Widget.AppCompat.ProgressBar">
         <item name="android:layout_width">98.5dp</item>
         <item name="android:layout_height">98.5dp</item>
-        <item name="android:progressDrawable">@drawable/progress_bar_bckgrd</item>
+        <!--<item name="android:progressDrawable">@drawable/progress_bar_bckgrd</item>-->
         <item name="layout_constraintTop_toTopOf">parent</item>
         <item name="android:layout_marginTop">123dp</item>
         <item name="layout_constraintStart_toStartOf">parent</item>

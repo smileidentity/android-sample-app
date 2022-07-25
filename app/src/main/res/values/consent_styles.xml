@@ -4,7 +4,7 @@
         <item name="android:layout_width">16dp</item>
         <item name="android:layout_height">16dp</item>
         <item name="layout_constraintTop_toTopOf">parent</item>
-        <item name="android:layout_marginTop">42.74dp</item>
+        <item name="android:layout_marginTop">21dp</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="android:layout_marginLeft">14dp</item>
         <item name="android:src">@drawable/ic_left_arrow</item>
@@ -13,13 +13,11 @@
     <style name="consent_screen_partner_txt" parent="TextAppearance.AppCompat">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">27dp</item>
-        <item name="layout_constraintStart_toStartOf">parent</item>
-        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="android:layout_marginLeft">36dp</item>
         <item name="android:text">@string/consent_screen_heading</item>
-        <item name="android:textColor">#004071</item>
-        <item name="android:textSize">24sp</item>
-        <item name="android:textFontWeight">700</item>
+        <item name="android:textColor">#2B2D33</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textFontWeight">500</item>
         <item name="android:lineHeight">19.36sp</item>
         <item name="android:fontFamily">@font/roboto_medium</item>
         <item name="android:gravity">center</item>
@@ -132,7 +130,7 @@
     <style name="consent_screen_allow_btn" parent="consent_screen_btn">
         <item name="android:text">@string/consent_screen_allow_btn</item>
         <item name="android:textColor">#FEFEFE</item>
-        <item name="android:background">@drawable/get_started_start_btn</item>
+        <item name="android:background">@drawable/ic_consent_dlg_allow_btn</item>
         <item name="android:layout_marginTop">16.18dp</item>
         <item name="android:lineHeight">23.02dp</item>
     </style>

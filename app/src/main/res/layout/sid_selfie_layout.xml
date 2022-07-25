@@ -97,6 +97,8 @@
         <ProgressBar
             android:id="@+id/pbLoading"
             style="@style/selfie_screen_progress_bar"
+            android:progressTint="#2D9CDB"
+            android:progressBackgroundTint="#EFF3F9"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:ignore="MissingConstraints" />

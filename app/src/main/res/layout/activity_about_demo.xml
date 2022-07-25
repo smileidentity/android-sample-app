@@ -18,6 +18,7 @@
         style="@style/about_demo_screen_heading_txt"
         app:layout_constraintTop_toTopOf="@id/ivBackArrow"
         app:layout_constraintBottom_toBottomOf="@id/ivBackArrow"
+        app:layout_constraintStart_toEndOf="@id/ivBackArrow"
         tools:ignore="MissingConstraints" />
 
     <ImageView
@@ -55,7 +56,7 @@
         android:id="@+id/tvWebsiteLink"
         style="@style/about_demo_screen_about_link_txt"
         app:layout_constraintTop_toBottomOf="@id/tvContactLink"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="16dp"
         android:text="@string/about_demo_screen_view_website_link_txt"
         android:drawableLeft="@drawable/ic_web_link" />
 
