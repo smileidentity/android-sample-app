@@ -19,6 +19,7 @@
         style="@style/sid_info_screen_heading_txt"
         app:layout_constraintTop_toTopOf="@id/ivBackArrow"
         app:layout_constraintBottom_toBottomOf="@id/ivBackArrow"
+        app:layout_constraintStart_toEndOf="@id/ivBackArrow"
         tools:ignore="MissingConstraints" />
 
     <ScrollView
