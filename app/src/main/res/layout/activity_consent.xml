@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ConsentActivity"
-    android:background="#E5E5E5">
+    android:background="#FFFFFF">
 
     <ImageView
         android:id="@+id/ivBackArrow"
@@ -16,7 +16,9 @@
     <TextView
         android:id="@+id/tvPartnerName"
         style="@style/consent_screen_partner_txt"
-        app:layout_constraintTop_toBottomOf="@id/ivBackArrow"
+        app:layout_constraintTop_toTopOf="@id/ivBackArrow"
+        app:layout_constraintBottom_toBottomOf="@id/ivBackArrow"
+        app:layout_constraintStart_toEndOf="@id/ivBackArrow"
         tools:ignore="MissingConstraints" />
 
     <ScrollView

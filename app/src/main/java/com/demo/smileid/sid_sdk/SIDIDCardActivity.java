@@ -119,7 +119,6 @@ public class SIDIDCardActivity extends AppCompatActivity implements SmartCardVie
     private void proceedWithResult() {
         Intent intent = new Intent(this, SIDJobResultActivity.class);
         intent.putExtra(BaseSIDActivity.KYC_PRODUCT_TYPE_PARAM, mKYCProductType);
-        Log.d("SID_JOB_RESULT_ACTIVITY", mCurrentTag + " : " + mKYCProductType);
         intent.putExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO, mCurrentTag);
         startActivity(intent);
         finish();

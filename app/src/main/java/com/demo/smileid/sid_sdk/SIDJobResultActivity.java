@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -62,7 +61,7 @@ public class SIDJobResultActivity extends BaseSIDActivity implements SIDNetworkR
         initViews();
         buildNetObserver();
         buildNetRequest();
-//        uploadNow(null);
+        uploadNow(null);
     }
 
     private void initVars() {
@@ -72,7 +71,6 @@ public class SIDJobResultActivity extends BaseSIDActivity implements SIDNetworkR
             mEnrolledUser = intent.getBooleanExtra(USER_SELFIE_PARAM, false);
             mCurrentTag = intent.getStringExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO);
             mKYCProductType = (KYC_PRODUCT_TYPE) intent.getSerializableExtra(BaseSIDActivity.KYC_PRODUCT_TYPE_PARAM);
-            Log.d("SID_JOB_RESULT_ACTIVITY", mCurrentTag + " : " + mKYCProductType);
             mSIDUserIdInfo = (HashMap<String, String>) intent.getSerializableExtra(USER_ID_INFO_PARAM);
 
             if (mSIDUserIdInfo != null) {
@@ -290,9 +288,7 @@ public class SIDJobResultActivity extends BaseSIDActivity implements SIDNetworkR
         mTvResult.setVisibility(TextUtils.isEmpty(stringBuilder) ? View.GONE : View.VISIBLE);
         mTvResult.setText(stringBuilder);
 
-        if (approved) {
-            go2Next();
-        }
+        go2Next(approved, message);
     }
 
     @Override
@@ -358,16 +354,22 @@ public class SIDJobResultActivity extends BaseSIDActivity implements SIDNetworkR
         mTvResult.setVisibility(TextUtils.isEmpty(stringBuilder) ? View.GONE : View.VISIBLE);
         mTvResult.setText(stringBuilder);
 
-        if (approved) {
-            go2Next();
-        }
+        go2Next(approved, message);
     }
 
-    private void go2Next() {
+    private void go2Next(boolean result, final String message) {
+        Class clazz = (result) ? SIDJobCompletedActivity.class : SIDJobFailedActivity.class;
+
         Runnable runnable = () -> {
             finish();
-            startActivity(new Intent(SIDJobResultActivity.this,
-                SIDJobCompletedActivity.class));
+
+            startActivity(
+                new Intent(SIDJobResultActivity.this, clazz) {
+                    {
+                        putExtra(SIDJobFailedActivity.FAILED_MSG, message);
+                    }
+                }
+            );
         };
 
         new Handler().postDelayed(runnable, 2000);
@@ -405,6 +407,6 @@ public class SIDJobResultActivity extends BaseSIDActivity implements SIDNetworkR
             stringBuilder.append(getString(R.string.demo_enrolled_confidence_value, response.getConfidenceValue()));
         }
 
-        go2Next();
+        go2Next(true, "");
     }
 }
