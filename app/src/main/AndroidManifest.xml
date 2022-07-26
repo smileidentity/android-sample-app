@@ -51,6 +51,11 @@ if target sdk is 30 and above this is not necessary for smile but migrations for
         android:theme="@style/AppTheme">
 
         <activity
+          android:name=".SIDJobFailedActivity"
+          android:exported="false"
+          android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
             android:name=".SIDJobCompletedActivity"
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -61,7 +66,7 @@ if target sdk is 30 and above this is not necessary for smile but migrations for
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".ConsentActivity"
+            android:name="com.smileidentity.libsmileid.core.consent.ConsentActivity"
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />
 

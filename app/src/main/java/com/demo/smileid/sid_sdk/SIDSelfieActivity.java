@@ -6,6 +6,8 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.format.DateFormat;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Switch;
@@ -13,9 +15,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import com.demo.smileid.sid_sdk.DocVOptionDialog.DOC_VER_OPTION;
-import com.demo.smileid.sid_sdk.DocVOptionDialog.DOC_VER_TYPE;
 import com.demo.smileid.sid_sdk.sidNet.Misc;
+import com.smileidentity.libsmileid.core.CameraSourcePreview;
 import com.smileidentity.libsmileid.core.SelfieCaptureConfig;
 import com.smileidentity.libsmileid.core.SmartSelfieManager;
 import com.smileidentity.libsmileid.core.captureCallback.FaceState;
@@ -29,17 +33,18 @@ import com.demo.smileid.sid_sdk.BaseSIDActivity.KYC_PRODUCT_TYPE;
 public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateChangeListener,
         SmartSelfieManager.OnCompleteListener {
 
-    public static boolean SHOW_TOOLTIP = true;
     public final static String DOC_V_PARAM = "DOC_V_PARAM";
     public final static String DOC_V_CAPTURE_TYPE = "DOC_V_CAPTURE_TYPE";
     public final static String DOC_V_USER_SELFIE_OPTION = "DOC_V_USER_SELFIE_OPTION";
     private KYC_PRODUCT_TYPE mKYCProductType = KYC_PRODUCT_TYPE.BASIC_KYC;
 
     private SmartSelfieManager mSmartSelfieManager;
+    private CameraSourcePreview mCameraSourcePreview;
     private TextView mTvPrompt;
 
     private boolean mEnrolledUser = false;
     private boolean mIsAgentMode = false;
+    public static boolean mShowTip = true;
     private String mCurrentTag;
     private ArrayList<String> mTagArrayList = new ArrayList<>();
     private Map<String, Boolean> selfieTagsSessions = new HashMap<>();
@@ -62,10 +67,63 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
 
     private void initViews() {
         mTvPrompt = findViewById(R.id.tvPrompt);
+        mCameraSourcePreview = findViewById(R.id.cspCamera);
 
+//        positionPrompt();
         setToggle();
         setToolTip();
         initSmartSelfieCamera(false);
+        positionPrompt();
+
+        new Handler().postDelayed(() -> {
+            mShowTip = false;
+            setToolTip();
+        }, 2000);
+    }
+
+    private void positionPrompt() {
+        View vSeparator = findViewById(com.smileid.smileidui.R.id.vSeparator);
+        TextView tvTips = findViewById(com.smileid.smileidui.R.id.tvTips);
+        mCameraSourcePreview.getOverlayPosition();
+
+        Log.d("SELFIE_SIZES", mCameraSourcePreview.getOverlayTop() + " : " +
+            mCameraSourcePreview.getOverlayThickness() + " : " + mCameraSourcePreview.getOverlayHeight());
+
+        /*ConstraintLayout cl = (ConstraintLayout) findViewById(R.id.clParent);
+        cl.layout(0, 0, cl.getWidth(), cl.getHeight());
+
+        ConstraintSet constraintSet = new ConstraintSet();
+        constraintSet.clone(cl);
+        constraintSet.connect(mCameraSourcePreview.getId(), ConstraintSet.LEFT, cl.getId(), ConstraintSet.LEFT, 0);
+        constraintSet.connect(mCameraSourcePreview.getId(), ConstraintSet.RIGHT, cl.getId(), ConstraintSet.RIGHT, 0);
+        constraintSet.connect(mCameraSourcePreview.getId(), ConstraintSet.TOP, cl.getId(), ConstraintSet.TOP, 0);
+        constraintSet.applyTo(cl);
+
+        float margin = mCameraSourcePreview.getOverlayPosition();
+        margin += 50; //Prompt view's top margin
+
+        constraintSet = new ConstraintSet();
+        constraintSet.clone(cl);
+        constraintSet.connect(mTvPrompt.getId(), ConstraintSet.LEFT, cl.getId(), ConstraintSet.LEFT, 0);
+        constraintSet.connect(mTvPrompt.getId(), ConstraintSet.RIGHT, cl.getId(), ConstraintSet.RIGHT, 0);
+        constraintSet.connect(mTvPrompt.getId(), ConstraintSet.TOP, cl.getId(), ConstraintSet.TOP, (int) margin);
+        constraintSet.applyTo(cl);
+        mTvPrompt.setGravity(Gravity.CENTER);
+
+        constraintSet = new ConstraintSet();
+        constraintSet.clone(cl);
+        constraintSet.constrainPercentWidth(vSeparator.getId(), 0.8f);
+        constraintSet.connect(vSeparator.getId(), ConstraintSet.LEFT, cl.getId(), ConstraintSet.LEFT, 0);
+        constraintSet.connect(vSeparator.getId(), ConstraintSet.RIGHT, cl.getId(), ConstraintSet.RIGHT, 0);
+        constraintSet.connect(vSeparator.getId(), ConstraintSet.TOP, mTvPrompt.getId(), ConstraintSet.BOTTOM, 20);
+        constraintSet.applyTo(cl);
+
+        constraintSet = new ConstraintSet();
+        constraintSet.clone(cl);
+        constraintSet.connect(tvTips.getId(), ConstraintSet.LEFT, cl.getId(), ConstraintSet.LEFT, 16);
+        constraintSet.connect(tvTips.getId(), ConstraintSet.RIGHT, vSeparator.getId(), ConstraintSet.RIGHT, 0);
+        constraintSet.connect(tvTips.getId(), ConstraintSet.TOP, vSeparator.getId(), ConstraintSet.BOTTOM, 14);
+        constraintSet.applyTo(cl);*/
     }
 
     private void setToggle() {
@@ -77,7 +135,7 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
                 cvAgentMode.setSelected(state);
                 tvAgentMode.setSelected(state);
                 tvAgentMode.setText(state ? "Disable Agent Mode" : "Enable Agent Mode");
-                SHOW_TOOLTIP = false;
+                mShowTip = false;
                 setToolTip();
                 toggleLoading(true);
                 switchAgentMode(state);
@@ -86,8 +144,8 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
     }
 
     private void setToolTip() {
-        findViewById(R.id.ivTriangle).setVisibility(SHOW_TOOLTIP ? View.VISIBLE : View.GONE);
-        findViewById(R.id.cvTooltip).setVisibility(SHOW_TOOLTIP ? View.VISIBLE : View.GONE);
+        findViewById(R.id.ivTriangle).setVisibility(mShowTip ? View.VISIBLE : View.GONE);
+        findViewById(R.id.cvTooltip).setVisibility(mShowTip ? View.VISIBLE : View.GONE);
     }
 
     private void toggleLoading(boolean visible) {
@@ -259,7 +317,7 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
     private SelfieCaptureConfig getCaptureConfig() {
         return new SelfieCaptureConfig.Builder(this)
             .setCameraType(!mIsAgentMode ? SelfieCaptureConfig.FRONT_CAMERA : SelfieCaptureConfig.BACK_CAMERA)
-                .setPreview(findViewById(R.id.cspCamera))
+                .setPreview(mCameraSourcePreview)
                     .setManualSelfieCapture(false)
                         .setFlashScreenOnShutter(true)
                             .build();

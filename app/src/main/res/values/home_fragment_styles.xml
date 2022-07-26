@@ -76,8 +76,8 @@
     </style>
 
     <style name="home_fragment_watch_btn" parent="TextAppearance.AppCompat">
-        <item name="android:layout_width">64dp</item>
-        <item name="android:layout_height">24dp</item>
+        <item name="android:layout_width">72dp</item>
+        <item name="android:layout_height">32dp</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="android:layout_marginLeft">15dp</item>
         <item name="layout_constraintBottom_toBottomOf">parent</item>
@@ -136,8 +136,8 @@
     </style>
 
     <style name="home_fragment_cl_res_btn" parent="TextAppearance.AppCompat">
-        <item name="android:layout_width">64dp</item>
-        <item name="android:layout_height">24dp</item>
+        <item name="android:layout_width">72dp</item>
+        <item name="android:layout_height">32dp</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="android:layout_marginLeft">15dp</item>
         <item name="layout_constraintBottom_toBottomOf">parent</item>
@@ -195,23 +195,25 @@
     </style>
 
     <style name="home_fragment_custom_product_btn">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="layout_constraintWidth_percent">0.3</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="layout_constraintDimensionRatio">1:1</item>
         <item name="android:layout_marginTop">24dp</item>
     </style>
 
     <style name="home_fragment_custom_product_btn_cl">
-        <item name="android:layout_width">104.78dp</item>
-        <item name="android:layout_height">98.9dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
         <item name="android:background">@drawable/custom_product_btn_bckgrd</item>
         <item name="android:elevation">9.79dp</item>
     </style>
 
     <style name="home_fragment_custom_product_btn_icon">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">15.85dp</item>
-        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="layout_constraintHeight_percent">0.4</item>
+        <item name="layout_constraintDimensionRatio">1:1</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
     </style>
@@ -225,7 +227,7 @@
         <item name="android:paddingLeft">10dp</item>
         <item name="android:paddingRight">10dp</item>
         <item name="android:fontFamily">@font/inter</item>
-        <item name="android:textSize">10sp</item>
+        <item name="android:textSize">12sp</item>
         <item name="android:textColor">#100F0F</item>
         <item name="android:textFontWeight">500</item>
         <item name="android:lineHeight">12.1dp</item>

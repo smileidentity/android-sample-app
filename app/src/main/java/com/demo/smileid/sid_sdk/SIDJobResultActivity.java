@@ -61,7 +61,8 @@ public class SIDJobResultActivity extends BaseSIDActivity implements SIDNetworkR
         initViews();
         buildNetObserver();
         buildNetRequest();
-        uploadNow(null);
+//        uploadNow(null);
+        mPbLoading.setVisibility(View.VISIBLE);
     }
 
     private void initVars() {
@@ -205,6 +206,7 @@ public class SIDJobResultActivity extends BaseSIDActivity implements SIDNetworkR
         mTvResult.setTextColor(Color.RED);
         mTvResult.setText(e.getMessage());
         e.printStackTrace();
+        go2Next(false, e.getMessage());
     }
 
     @Override

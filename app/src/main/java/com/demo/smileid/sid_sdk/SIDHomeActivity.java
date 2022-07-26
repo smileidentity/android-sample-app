@@ -29,9 +29,6 @@ public class SIDHomeActivity extends BaseSIDActivity implements BaseFragment.Tab
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        /*getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
-
         setContentView(R.layout.sid_activity_home);
 
         ((TextView) findViewById(R.id.tvVersion)).setText(String.format(getString(
