@@ -51,6 +51,7 @@ public class SIDIDCardActivity extends AppCompatActivity implements SmartCardVie
 
     private void setFullScreen() {
         final View decorView = getWindow().getDecorView();
+
         decorView.setSystemUiVisibility(
             View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
