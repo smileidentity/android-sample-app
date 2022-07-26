@@ -15,12 +15,12 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import com.demo.smileid.sid_sdk.DocVOptionDialog.DOC_VER_TYPE;
 import com.smileid.smileidui.CaptureType;
 import com.smileid.smileidui.SIDCaptureManager;
+import com.smileidentity.libsmileid.core.consent.ConsentActivity;
 import java.util.HashMap;
 
 public class GetStartedActivity extends BaseSIDActivity {
@@ -33,9 +33,6 @@ public class GetStartedActivity extends BaseSIDActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        /*getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
 
         setContentView(R.layout.activity_get_started);
         findViewById(R.id.ivBackArrow).setOnClickListener(v -> super.onBackPressed());

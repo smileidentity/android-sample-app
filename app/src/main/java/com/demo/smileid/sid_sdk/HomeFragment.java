@@ -14,6 +14,7 @@ public class HomeFragment extends BaseFragment {
 
     private static final String SANDBOX = "Sandbox";
     private static final String LIVE = "Live";
+    private static final String SMILE_VIDEO = "https://youtu.be/g1vHLH4gWyo";
 
     @Override
     int getLayout() {
@@ -58,7 +59,7 @@ public class HomeFragment extends BaseFragment {
         getView().findViewById(R.id.cpbBiometricKYC).setOnClickListener(v -> mActionListener.doBiometricKYC());
         getView().findViewById(R.id.cpbDocV).setOnClickListener(v -> mActionListener.performDocV());
         getView().findViewById(R.id.cpbSmartSelfie).setOnClickListener(v -> mActionListener.doSmartSelfieAuth());
-        getView().findViewById(R.id.tvWatchBtn).setOnClickListener(v -> linkClicked("https://youtu.be/g1vHLH4gWyo"));
+        getView().findViewById(R.id.tvWatchBtn).setOnClickListener(v -> linkClicked(SMILE_VIDEO));
     }
 
     public void switchEnv(String env) {
