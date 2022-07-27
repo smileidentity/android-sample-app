@@ -13,8 +13,9 @@ import com.smileidentity.libsmileid.utils.AppData;
 public class HomeFragment extends BaseFragment {
 
     private static final String SANDBOX = "Sandbox";
-    private static final String LIVE = "Live";
+    private static final String PRODUCTION = "Production";
     private static final String SMILE_VIDEO = "https://youtu.be/g1vHLH4gWyo";
+    private BottomDialogHelper mBottomDialogHelper = null;
 
     @Override
     int getLayout() {
@@ -25,8 +26,8 @@ public class HomeFragment extends BaseFragment {
     void setupViews() {
         ArrayList<DropDownObject> languages = new ArrayList<DropDownObject>() {
             {
-                add(new DropDownObject(R.drawable.online_green_dot, SANDBOX));
-                add(new DropDownObject(R.drawable.online_blue_dot, LIVE));
+                add(new DropDownObject(R.drawable.online_orange_dot, SANDBOX));
+                add(new DropDownObject(R.drawable.online_green_dot, PRODUCTION));
             }
         };
 
@@ -48,7 +49,7 @@ public class HomeFragment extends BaseFragment {
             }
         });
 
-        getView().findViewById(R.id.tvEnv).setOnClickListener(v -> getView().findViewById(R.id.spEnv).performClick());
+        getView().findViewById(R.id.tvEnv).setOnClickListener(v -> /*getView().findViewById(R.id.spEnv).performClick()*/showEnvDialog());
 
         switchEnv(SANDBOX); //Setting the default environment
 
@@ -60,6 +61,11 @@ public class HomeFragment extends BaseFragment {
         getView().findViewById(R.id.cpbDocV).setOnClickListener(v -> mActionListener.performDocV());
         getView().findViewById(R.id.cpbSmartSelfie).setOnClickListener(v -> mActionListener.doSmartSelfieAuth());
         getView().findViewById(R.id.tvWatchBtn).setOnClickListener(v -> linkClicked(SMILE_VIDEO));
+    }
+
+    private void showEnvDialog() {
+        mBottomDialogHelper = new BottomDialogHelper(getContext(), R.layout.fragment_test);
+        mBottomDialogHelper.showDialog();
     }
 
     public void switchEnv(String env) {

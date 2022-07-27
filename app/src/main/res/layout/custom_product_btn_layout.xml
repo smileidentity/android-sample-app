@@ -25,6 +25,7 @@
         android:id="@+id/tvLabel"
         style="@style/home_fragment_custom_product_btn_label"
         app:layout_constraintTop_toBottomOf="@id/vSeparator"
+        app:layout_constraintBottom_toBottomOf="parent"
         tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

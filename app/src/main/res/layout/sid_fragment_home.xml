@@ -114,27 +114,19 @@
         android:id="@+id/cpbDocV"
         style="@style/home_fragment_custom_product_btn"
         app:layout_constraintTop_toBottomOf="@id/cpbBasicKYC"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="12dp"
         app:layout_constraintStart_toStartOf="@id/cpbBasicKYC"
         app:layout_constraintEnd_toEndOf="@id/cpbBasicKYC"
-        android:layout_width="0dp"
-        app:layout_constraintWidth_percent="0.3"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="1:1"
         app:label="@string/home_fragment_cpb_doc_v"
         app:icon="@drawable/ic_doc_v"  />
 
     <com.demo.smileid.sid_sdk.CustomProductBtn
         android:id="@+id/cpbSmartSelfie"
         style="@style/home_fragment_custom_product_btn"
-        app:layout_constraintTop_toBottomOf="@id/cpbEnhancedKYC"
-        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toTopOf="@id/cpbDocV"
+        android:layout_marginTop="0dp"
         app:layout_constraintStart_toStartOf="@id/cpbEnhancedKYC"
         app:layout_constraintEnd_toEndOf="@id/cpbEnhancedKYC"
-        android:layout_width="0dp"
-        app:layout_constraintWidth_percent="0.3"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="1:1"
         app:label="@string/home_fragment_cpb_smart_selfie_auth"
         app:icon="@drawable/ic_smart_selfie"  />
 
