@@ -8,8 +8,7 @@ import android.widget.TextView;
 public class ActionDialog {
 
     private Dialog mDialog;
-    private TextView mTvSkip;
-    private TextView mTvProceed;
+    private TextView mTvSkip, mTvProceed;
     private DlgListener mDlgListener;
 
     public ActionDialog(Context context, DlgListener dlgListener, String headingTxt,
@@ -72,10 +71,7 @@ public class ActionDialog {
 
         private Context mContext;
         private DlgListener mDlgListener;
-        private String mHeadingTxt;
-        private String mContentTxt;
-        private String mPositiveBtnTxt;
-        private String mNegativeBtnTxt;
+        private String mHeadingTxt, mContentTxt, mPositiveBtnTxt, mNegativeBtnTxt;
 
         public Builder(Context context) {
             mContext = context;

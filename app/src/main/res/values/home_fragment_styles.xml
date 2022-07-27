@@ -53,7 +53,7 @@
         <item name="android:layout_height">120.19dp</item>
         <item name="android:layout_marginTop">49dp</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
-        <item name="android:layout_marginLeft">19dp</item>
+        <item name="android:layout_marginLeft">12dp</item>
         <item name="android:layout_marginRight">6.79dp</item>
         <item name="android:background">@drawable/home_fragment_block_bckgrd_1</item>
     </style>
@@ -107,7 +107,7 @@
         <item name="android:layout_height">120.19dp</item>
         <item name="android:layout_marginTop">49dp</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
-        <item name="android:layout_marginRight">19dp</item>
+        <item name="android:layout_marginRight">12dp</item>
         <item name="android:layout_marginLeft">6.79dp</item>
     </style>
 
@@ -221,7 +221,6 @@
     <style name="home_fragment_custom_product_btn_label" parent="TextAppearance.AppCompat">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">12dp</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="android:paddingLeft">10dp</item>
@@ -231,7 +230,18 @@
         <item name="android:textColor">#100F0F</item>
         <item name="android:textFontWeight">500</item>
         <item name="android:lineHeight">12.1dp</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:ellipsize">end</item>
         <item name="android:gravity">center</item>
+    </style>
+
+    <style name="BottomSheetDialog" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetDialogStyle</item>
+    </style>
+
+    <style name="BottomSheetDialogStyle" parent="Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:backgroundTint">@android:color/transparent</item>
     </style>
 
 </resources>
