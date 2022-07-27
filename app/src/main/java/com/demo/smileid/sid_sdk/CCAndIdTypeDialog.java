@@ -23,11 +23,7 @@ public class CCAndIdTypeDialog {
     private Dialog mDialog;
     private CountryCodePicker mCcpCountryPicker;
     private Spinner mSIdType;
-    private TextView mTvLblCountry;
-    private TextView mTvInputCountry;
-    private TextView mTvLblIdType;
-    private TextView mTvInputIdType;
-    private TextView mTvSubmit;
+    private TextView mTvInputCountry, mTvLblIdType, mTvInputIdType, mTvSubmit;
     private DlgListener mListener;
     private String mSelectedCountryName = "", mSelectedIdType;
 
@@ -58,8 +54,6 @@ public class CCAndIdTypeDialog {
     }
 
     private void setupViews() {
-        mTvLblCountry = mDialog.findViewById(R.id.tvLblCountry);
-
         mTvInputCountry = mDialog.findViewById(R.id.tvInputCountry);
         mTvInputCountry.setOnClickListener(v -> mCcpCountryPicker.launchCountrySelectionDialog());
 
