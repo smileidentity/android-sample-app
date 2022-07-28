@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="12dp"
+    android:paddingRight="12dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:layout_constraintTop_toTopOf="parent"
+      android:maxHeight="292dp"
+      android:paddingBottom="4dp"
+      android:background="@drawable/bottom_dlg_bckgrd">
+
+        <TextView
+          android:id="@+id/tvTitle"
+          style="@style/cc_id_type_dlg_heading"
+          android:layout_width="match_parent"
+          app:layout_constraintTop_toTopOf="parent"
+          android:layout_marginTop="18dp"
+          android:layout_marginLeft="0dp"
+          android:layout_marginRight="0dp"
+          android:text="Environment"
+          tools:ignore="MissingConstraints" />
+
+        <RadioButton
+          android:id="@+id/rbSandbox"
+          style="@style/env_bottom_dlg_radio_btn"
+          app:layout_constraintTop_toBottomOf="@id/tvTitle"
+          android:layout_marginTop="12dp"
+          android:text="Sandbox"
+          android:checked="true"
+          tools:ignore="MissingConstraints" />
+
+        <RadioButton
+          android:id="@+id/rbProd"
+          style="@style/env_bottom_dlg_radio_btn_2"
+          app:layout_constraintTop_toBottomOf="@id/rbSandbox"
+          android:layout_marginTop="6dp"
+          android:text="Production"
+          android:checked="false"
+          tools:ignore="MissingConstraints" />
+
+        <View
+          android:id="@+id/vBottom"
+          android:layout_width="72dp"
+          android:layout_height="2dp"
+          app:layout_constraintTop_toBottomOf="@id/rbProd"
+          android:layout_marginTop="15dp"
+          app:layout_constraintLeft_toLeftOf="parent"
+          app:layout_constraintRight_toRightOf="parent"
+          android:background="@drawable/bottom_bar" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

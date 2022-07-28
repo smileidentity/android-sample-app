@@ -1,9 +1,10 @@
 package com.demo.smileid.sid_sdk;
 
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Spinner;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import java.util.ArrayList;
 import com.demo.smileid.sid_sdk.DropDownAdapter.DropDownObject;
@@ -13,9 +14,18 @@ import com.smileidentity.libsmileid.utils.AppData;
 public class HomeFragment extends BaseFragment {
 
     private static final String SANDBOX = "Sandbox";
-    private static final String PRODUCTION = "Production";
+    private static final String PROD = "Production";
     private static final String SMILE_VIDEO = "https://youtu.be/g1vHLH4gWyo";
+
+    private static final ArrayList<DropDownObject> environments = new ArrayList<DropDownObject>() {
+        {
+            add(new DropDownObject(R.drawable.online_orange_dot, SANDBOX));
+            add(new DropDownObject(R.drawable.online_green_dot, PROD));
+        }
+    };
+
     private BottomDialogHelper mBottomDialogHelper = null;
+    private TextView mTvEnv = null;
 
     @Override
     int getLayout() {
@@ -24,34 +34,27 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     void setupViews() {
-        ArrayList<DropDownObject> languages = new ArrayList<DropDownObject>() {
-            {
-                add(new DropDownObject(R.drawable.online_orange_dot, SANDBOX));
-                add(new DropDownObject(R.drawable.online_green_dot, PRODUCTION));
-            }
+        mTvEnv = getView().findViewById(R.id.tvEnv);
+        mTvEnv.setOnClickListener(v -> mBottomDialogHelper.showDialog());
+
+        mBottomDialogHelper = new BottomDialogHelper(getContext(), R.layout.layout_env);
+
+        View view = mBottomDialogHelper.getContentView();
+        final RadioButton mRbSandbox = view.findViewById(R.id.rbSandbox);
+        final RadioButton mRbProd = view.findViewById(R.id.rbProd);
+
+        OnCheckedChangeListener listener = (buttonView, isChecked) -> {
+            if (!isChecked) return;
+            switchEnv(environments.get((mRbSandbox == buttonView) ? 0 : 1));
+            RadioButton rb = (mRbSandbox == buttonView) ? mRbProd : mRbSandbox;
+            rb.setChecked(false);
+            mBottomDialogHelper.dismissDialog();
         };
 
-        DropDownAdapter envAdapter = new DropDownAdapter(getContext(), languages);
-        envAdapter.setListener(this::setEnvironment);
-        ((Spinner) getView().findViewById(R.id.spEnv)).setAdapter(envAdapter);
+        mRbSandbox.setOnCheckedChangeListener(listener);
+        mRbProd.setOnCheckedChangeListener(listener);
 
-        ((Spinner) getView().findViewById(R.id.spEnv)).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                DropDownObject object = (DropDownObject) envAdapter.getItem(position);
-                setEnvironment(getView().findViewById(R.id.tvEnv), object, true);
-                switchEnv(object.getLabel());
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        getView().findViewById(R.id.tvEnv).setOnClickListener(v -> /*getView().findViewById(R.id.spEnv).performClick()*/showEnvDialog());
-
-        switchEnv(SANDBOX); //Setting the default environment
+        switchEnv(environments.get(0)); //Setting the default environment
 
         if (mActionListener == null) return;
         getView().findViewById(R.id.tvResBtn).setOnClickListener(v -> mActionListener.move2Tab(1));
@@ -63,20 +66,15 @@ public class HomeFragment extends BaseFragment {
         getView().findViewById(R.id.tvWatchBtn).setOnClickListener(v -> linkClicked(SMILE_VIDEO));
     }
 
-    private void showEnvDialog() {
-        mBottomDialogHelper = new BottomDialogHelper(getContext(), R.layout.fragment_test);
-        mBottomDialogHelper.showDialog();
-    }
+    public void switchEnv(DropDownObject env) {
+        boolean isSandBox = env.getLabel().equalsIgnoreCase(SANDBOX);
 
-    public void switchEnv(String env) {
-        AppData.getInstance(getContext()).setSDKEnvir(env.equalsIgnoreCase(SANDBOX) ?
-            Environment.TEST : Environment.PROD);
-    }
+        AppData.getInstance(getContext()).setSDKEnvir(isSandBox ? Environment.TEST : Environment.PROD);
 
-    private void setEnvironment(TextView tvEnv, DropDownObject environment, boolean isMain) {
-        tvEnv.setText(environment.getLabel());
-        Drawable left = getResources().getDrawable(environment.getFlagResId());
-        Drawable right = isMain ? getResources().getDrawable(R.drawable.ic_down_arrow) : null;
-        tvEnv.setCompoundDrawablesWithIntrinsicBounds(left, null, right, null);
+        mTvEnv.setText(env.getLabel());
+        Drawable left = getResources().getDrawable(env.getFlagResId());
+        Drawable right = getResources().getDrawable(R.drawable.ic_down_arrow);
+        mTvEnv.setCompoundDrawablesWithIntrinsicBounds(left, null, right, null);
+        mTvEnv.setTextColor(Color.parseColor(isSandBox ? "#F2994A" : "#1DA469"));
     }
 }

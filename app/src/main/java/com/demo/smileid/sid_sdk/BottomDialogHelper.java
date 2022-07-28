@@ -11,8 +11,8 @@ public class BottomDialogHelper {
 
   public BottomDialogHelper(Context context, int contentResID) {
     mBottomSheetDialog = new BottomSheetDialog(context, R.style.BottomSheetDialog);
-    mBottomSheetDialog.setCanceledOnTouchOutside(false);
-    mBottomSheetDialog.setCancelable(false);
+    /*mBottomSheetDialog.setCanceledOnTouchOutside(false);
+    mBottomSheetDialog.setCancelable(false);*/
     mBottomSheetDialog.setDismissWithAnimation(true);
     mContentView = mBottomSheetDialog.getLayoutInflater().inflate(contentResID, null);
     mBottomSheetDialog.setContentView(mContentView);
@@ -27,9 +27,8 @@ public class BottomDialogHelper {
     mBottomSheetDialog.show();
   }
 
-  public void dismiss() {
+  public void dismissDialog() {
     if (mBottomSheetDialog == null) return;
     mBottomSheetDialog.dismiss();
-    mBottomSheetDialog = null;
   }
 }

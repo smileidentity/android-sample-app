@@ -2,10 +2,14 @@
 
     <style name="splash_screen_spinner_lang_txt" parent="TextAppearance.AppCompat">
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">24dp</item>
+        <item name="android:layout_height">32dp</item>
         <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="android:textSize">14sp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
         <item name="android:paddingLeft">7dp</item>
         <item name="android:paddingStart">7dp</item>
         <item name="android:paddingRight">9.8dp</item>

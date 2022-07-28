@@ -80,7 +80,7 @@ public class SIDSplashActivity extends AppCompatActivity {
     }
 
     public void move2AboutScreen(View view) {
-        startActivity(new Intent(SIDSplashActivity.this, AboutDemoActivity.class));
+        startActivity(new Intent(SIDSplashActivity.this, SIDIDInfoActivity.class/*AboutDemoActivity.class*/));
     }
 
     public void chooseLanguage(View view) {
