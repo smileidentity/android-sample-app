@@ -61,7 +61,7 @@ public class SIDJobResultActivity extends BaseSIDActivity implements SIDNetworkR
         initViews();
         buildNetObserver();
         buildNetRequest();
-//        uploadNow(null);
+        uploadNow(null);
         mPbLoading.setVisibility(View.VISIBLE);
     }
 
