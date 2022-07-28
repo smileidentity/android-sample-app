@@ -23,7 +23,6 @@ import com.futuremind.recyclerviewfastscroll.SectionTitleProvider;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * Created by hbb20 on 11/1/16.
  */

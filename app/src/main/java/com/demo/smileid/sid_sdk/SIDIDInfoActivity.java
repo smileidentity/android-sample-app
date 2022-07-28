@@ -6,18 +6,21 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import com.demo.smileid.sid_sdk.BaseSIDActivity.KYC_PRODUCT_TYPE;
+import com.demo.smileid.sid_sdk.DropDownAdapter.DropDownObject;
+import com.demo.smileid.sid_sdk.ItemListAdapter.ItemSelectedInterface;
 import com.demo.smileid.sid_sdk.sidNet.IdTypeUtil;
 import com.hbb20.CCPCountry;
-import com.hbb20.CountryCodePicker;
 import com.smileidentity.libsmileid.core.idcard.IdCard;
-import com.demo.smileid.sid_sdk.DropDownAdapter.DropDownObject;
 import com.smileidentity.libsmileid.model.SIDUserIdInfo;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,20 +28,16 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import com.demo.smileid.sid_sdk.BaseSIDActivity.KYC_PRODUCT_TYPE;
 
-public class SIDIDInfoActivity extends AppCompatActivity {
+public class SIDIDInfoActivity extends AppCompatActivity implements ItemSelectedInterface {
 
     private String mSelectedCountryName = "", mSelectedIdCard, mCurrentTag;
     private KYC_PRODUCT_TYPE mKYCProductType = KYC_PRODUCT_TYPE.BASIC_KYC;
-    private CountryCodePicker mCcpCountryPicker;
     private Spinner mSIdType;
-    private TextView mTvInputCountry;
-    private TextView mTvInputIdType;
-    private EditText mEdtIdNbr;
-    private EditText mEdtFirstName;
-    private EditText mEdtLastName;
-    private TextView mTvInputDoB;
+    private TextView mTvInputCountry, mTvInputIdType, mTvLblIdType, mTvInputDoB;
+    private EditText mEdtIdNbr, mEdtFirstName, mEdtLastName;
+    private BottomDialogHelper mCountryDialog, mIdDialog;
+    private IdListAdapter mIdListAdapter = null;
     private boolean mWasInputIdClicked = false;
     private HashMap<String, String> mSidUserIdInfo = new HashMap();
 
@@ -68,17 +67,20 @@ public class SIDIDInfoActivity extends AppCompatActivity {
 
     private void initViews() {
         mTvInputCountry = findViewById(R.id.tvInputCountry);
-        TextView mTvLblIdType = findViewById(R.id.tvInputIdType);
+        mTvLblIdType = findViewById(R.id.tvInputIdType);
         mTvInputIdType = findViewById(R.id.tvInputIdType);
         mEdtIdNbr = findViewById(R.id.edtIdNbr);
         mEdtFirstName = findViewById(R.id.edtFirstName);
         mEdtLastName = findViewById(R.id.edtLastName);
         mTvInputDoB = findViewById(R.id.tvInputDoB);
 
-        mCcpCountryPicker = findViewById(R.id.ccpCountry);
-        mCcpCountryPicker.setCustomMasterCountries(SUPPORTED_COUNTRIES);
+        mCountryDialog = new BottomDialogHelper(this, R.layout.layout_country_list);
+        setCountryDialog();
 
-        mCcpCountryPicker.setOnCountryChangeListener(() -> {
+        mIdDialog = new BottomDialogHelper(this, R.layout.layout_id_list);
+        setIdDialog();
+
+        /*mCcpCountryPicker.setOnCountryChangeListener(() -> {
             mTvLblIdType.setVisibility(View.VISIBLE);
             mTvInputIdType.setVisibility(View.VISIBLE);
             CCPCountry country = mCcpCountryPicker.getSelectedCountry();
@@ -86,26 +88,14 @@ public class SIDIDInfoActivity extends AppCompatActivity {
             applyChoice(mTvInputCountry, dropDownObject, true);
             getSelectedCountryName();
             populateIdCard();
-        });
+        });*/
 
         mSIdType = findViewById(R.id.spIdType);
         mSIdType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 mSelectedIdCard = ((DropDownObject) parent.getItemAtPosition(position)).getLabel();
-                mTvInputIdType.setText(mSelectedIdCard);
 
-                if (!mWasInputIdClicked) return;
-
-                findViewById(R.id.tvLblIdNbr).setVisibility(View.VISIBLE);
-                findViewById(R.id.edtIdNbr).setVisibility(View.VISIBLE);
-                findViewById(R.id.tvLblFirstName).setVisibility(View.VISIBLE);
-                findViewById(R.id.edtFirstName).setVisibility(View.VISIBLE);
-                findViewById(R.id.tvLblLastName).setVisibility(View.VISIBLE);
-                findViewById(R.id.edtLastName).setVisibility(View.VISIBLE);
-                findViewById(R.id.tvLblDoB).setVisibility(View.VISIBLE);
-                findViewById(R.id.tvInputDoB).setVisibility(View.VISIBLE);
-                findViewById(R.id.tvContinueBtn).setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -115,52 +105,78 @@ public class SIDIDInfoActivity extends AppCompatActivity {
         });
     }
 
-    private void applyChoice(TextView tvLang, DropDownObject dropDownObject, boolean isCountryFlag) {
-        tvLang.setText(dropDownObject.getLabel());
-        Drawable left = null;
-        Drawable right = null;
+    private void setCountryDialog() {
+        RecyclerView rv = mCountryDialog.getContentView().findViewById(R.id.rvCountries);
+        rv.setLayoutManager(new LinearLayoutManager(this));
+        CountryListAdapter adapter = new CountryListAdapter();
+        adapter.setListener(this);
+        rv.setAdapter(adapter);
+    }
 
-        if (isCountryFlag) {
-            left = getResources().getDrawable(dropDownObject.getFlagResId());
-            right = getResources().getDrawable(R.drawable.ic_down_arrow);
+    private void setIdDialog() {
+        RecyclerView rv = mIdDialog.getContentView().findViewById(R.id.rvIds);
+        rv.setLayoutManager(new LinearLayoutManager(this));
+        mIdListAdapter = new IdListAdapter();
+        mIdListAdapter.setListener(this);
+        rv.setAdapter(mIdListAdapter);
+    }
+
+    public void buildItem(TextView tvLang, Object object, boolean isCountryFlag) {
+        int flagId = -1;
+        String name = "";
+        Drawable left = null;
+
+        if (object instanceof CCPCountry) {
+            CCPCountry country = (CCPCountry) object;
+            name = country.getName();
+            flagId = country.getFlagID();
+
+            if ((isCountryFlag) && (flagId != (-1))) {
+                left = getResources().getDrawable(country.getFlagID());
+            }
         } else {
-            tvLang.setTextSize(14);
-            tvLang.setPadding(tvLang.getPaddingLeft(), 4, tvLang.getTotalPaddingRight(), 4);
+            name = object.toString();
         }
 
-        tvLang.setCompoundDrawablesWithIntrinsicBounds(left, null, right, null);
+        tvLang.setText(name);
+        tvLang.setCompoundDrawablesWithIntrinsicBounds(left, null, null, null);
+
+        mTvLblIdType.setVisibility(View.VISIBLE);
+        mTvInputIdType.setVisibility(View.VISIBLE);
     }
 
-    private String getSelectedCountryName() {
-        return mSelectedCountryName = mCcpCountryPicker.getSelectedCountryName();
-    }
+    public void applyChoice(Object object) {
+        if (object instanceof CCPCountry) {
+            mSelectedCountryName = ((CCPCountry) object).getName();
+            mIdListAdapter.setIdList(IdTypeUtil.idCards(mSelectedCountryName).getIdCards());
+            mIdListAdapter.notifyDataSetChanged();
+        } else {
+            mSelectedIdCard = object.toString();
 
-    private void populateIdCard() {
-        IdCard idCard = IdTypeUtil.idCards(mSelectedCountryName);
-        initSpinner(idCard.getIdCards());
-    }
+            mTvInputIdType.setText(mSelectedIdCard);
 
-    private void initSpinner(List<String> idTypes) {
-        ArrayList<DropDownObject> ids = new ArrayList<DropDownObject>() {
-            {
-                for (String idType : idTypes) {
-                    add(new DropDownObject(-1, idType));
-                }
-            }
-        };
+            if (!mWasInputIdClicked) return;
 
-        DropDownAdapter dataAdapter = new DropDownAdapter(this, ids);
-        dataAdapter.setListener(this::applyChoice);
-        mSIdType.setAdapter(dataAdapter);
+            findViewById(R.id.tvLblIdNbr).setVisibility(View.VISIBLE);
+            findViewById(R.id.edtIdNbr).setVisibility(View.VISIBLE);
+            findViewById(R.id.tvLblFirstName).setVisibility(View.VISIBLE);
+            findViewById(R.id.edtFirstName).setVisibility(View.VISIBLE);
+            findViewById(R.id.tvLblLastName).setVisibility(View.VISIBLE);
+            findViewById(R.id.edtLastName).setVisibility(View.VISIBLE);
+            findViewById(R.id.tvLblDoB).setVisibility(View.VISIBLE);
+            findViewById(R.id.tvInputDoB).setVisibility(View.VISIBLE);
+            findViewById(R.id.tvContinueBtn).setVisibility(View.VISIBLE);
+            findViewById(R.id.ivLogo).setVisibility(View.VISIBLE);
+        }
     }
 
     public void openCountryPicker(View view) {
-        mCcpCountryPicker.launchCountrySelectionDialog();
+        mCountryDialog.showDialog();
     }
 
     public void openIdTypePicker(View view) {
         mWasInputIdClicked = true;
-        mSIdType.performClick();
+        mIdDialog.showDialog();
     }
 
     public void showDateDialog(View view) {
@@ -227,5 +243,39 @@ public class SIDIDInfoActivity extends AppCompatActivity {
         mSidUserIdInfo.put(SIDUserIdInfo.DOB, mTvInputDoB.getText().toString());
 
         return true;
+    }
+
+    class CountryListAdapter extends ItemListAdapter {
+
+        private ArrayList<CCPCountry> mCountries = new ArrayList<>(CCPCountry.getLibraryMasterCountriesEnglish());
+
+        @Override
+        public void onBindViewHolder(@NonNull ItemViewHolder viewHolder, int i) {
+            viewHolder.populate(mCountries.get(i));
+        }
+
+        @Override
+        public int getItemCount() {
+            return mCountries.size();
+        }
+    }
+
+    class IdListAdapter extends ItemListAdapter {
+
+        private ArrayList<String> mIds = new ArrayList<>();
+
+        @Override
+        public void onBindViewHolder(@NonNull ItemViewHolder viewHolder, int i) {
+            viewHolder.populate(mIds.get(i));
+        }
+
+        @Override
+        public int getItemCount() {
+            return mIds.size();
+        }
+
+        public void setIdList(List<String> ids) {
+            mIds.addAll(ids);
+        }
     }
 }
