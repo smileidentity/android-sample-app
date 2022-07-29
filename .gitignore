@@ -252,6 +252,7 @@ Thumbs.db
 ## Plugin-specific files:
 
 # mpeltonen/sbt-idea plugin
+.idea/
 .idea_modules/
 
 # JIRA plugin
