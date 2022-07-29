@@ -1,6 +1,6 @@
 package com.demo.smileid.sid_sdk;
 
-import static com.demo.smileid.sid_sdk.BaseSIDActivity.KYC_PRODUCT_TYPE.BASIC_KYC;
+import static com.demo.smileid.sid_sdk.BaseSIDActivity.KYC_PRODUCT_TYPE.ENROLL_TEST;
 import static com.demo.smileid.sid_sdk.BaseSIDActivity.KYC_PRODUCT_TYPE.BIOMETRIC_KYC;
 import static com.demo.smileid.sid_sdk.BaseSIDActivity.KYC_PRODUCT_TYPE.DOCUMENT_VERIFICATION;
 import static com.demo.smileid.sid_sdk.BaseSIDActivity.KYC_PRODUCT_TYPE.ENHANCED_KYC;
@@ -55,17 +55,20 @@ public class GetStartedActivity extends BaseSIDActivity {
             mParams.remove(REQUIRE_CONSENT);
             requestUserConsent();
         } else {
-            boolean isDocVJob = (mParams != null) && (mParams.containsKey(KYC_PRODUCT_TYPE_PARAM));
-            Log.d("JOB_PARAM", "" + isDocVJob);
-            isDocVJob &= (mParams.get(KYC_PRODUCT_TYPE_PARAM) == DOCUMENT_VERIFICATION);
-            Log.d("JOB_PARAM", mParams.get(KYC_PRODUCT_TYPE_PARAM).toString() + " : " + isDocVJob);
+            KYC_PRODUCT_TYPE productType = (KYC_PRODUCT_TYPE) mParams.get(KYC_PRODUCT_TYPE_PARAM);
 
-            if (isDocVJob) {
-                showDocVOptionDlg();
-                return;
+            switch (productType) {
+                case DOCUMENT_VERIFICATION:
+                    showDocVOptionDlg();
+                    break;
+
+                case BASIC_KYC:
+                    proceedWithIDInfo();
+                    break;
+
+                default:
+                    proceedWithSelfie();
             }
-
-            proceedWithSelfie();
         }
     }
 
@@ -105,6 +108,16 @@ public class GetStartedActivity extends BaseSIDActivity {
         );
     }
 
+    private void proceedWithIDInfo() {
+        startActivity(
+            new Intent(this, SIDIDInfoActivity.class) {
+                {
+                    putExtras(mParams);
+                }
+            }
+        );
+    }
+
     private void proceedWithSelfie() {
         finish();
         useLocalScreen();
@@ -136,7 +149,7 @@ public class GetStartedActivity extends BaseSIDActivity {
             if (resultCode == RESULT_OK) {
                 Class clazz = null;
 
-                if ((mKYCProductType == BASIC_KYC) ||
+                if ((mKYCProductType == ENROLL_TEST) ||
                         (mKYCProductType == SMART_SELFIE_AUTH)) {
                     clazz = SIDJobResultActivity.class;
                 } else if (mKYCProductType == ENHANCED_KYC) {

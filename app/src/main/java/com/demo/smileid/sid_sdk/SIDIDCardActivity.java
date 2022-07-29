@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -22,7 +21,7 @@ public class SIDIDCardActivity extends AppCompatActivity implements SmartCardVie
     private SmartCardView mSmartCardView;
     private String mCurrentTag;
     private boolean mShowingDlg = false;
-    private KYC_PRODUCT_TYPE mKYCProductType = KYC_PRODUCT_TYPE.BASIC_KYC;
+    private KYC_PRODUCT_TYPE mKYCProductType = KYC_PRODUCT_TYPE.ENROLL_TEST;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

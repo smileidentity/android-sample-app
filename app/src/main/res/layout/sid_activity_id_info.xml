@@ -69,14 +69,6 @@
                 android:onClick="openIdTypePicker"
                 tools:ignore="MissingConstraints" />
 
-            <Spinner
-                android:id="@+id/spIdType"
-                style="@style/sid_info_screen_id_type_spinner"
-                android:visibility="gone"
-                app:layout_constraintTop_toTopOf="@id/tvInputIdType"
-                app:layout_constraintStart_toStartOf="@id/tvInputIdType"
-                tools:ignore="MissingConstraints" />
-
             <TextView
                 android:id="@+id/tvLblIdNbr"
                 style="@style/sid_info_screen_country_input_label"
