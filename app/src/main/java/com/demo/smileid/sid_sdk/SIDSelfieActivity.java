@@ -6,8 +6,6 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.format.DateFormat;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Switch;
@@ -15,8 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
 import com.demo.smileid.sid_sdk.DocVOptionDialog.DOC_VER_OPTION;
 import com.demo.smileid.sid_sdk.sidNet.Misc;
 import com.smileidentity.libsmileid.core.CameraSourcePreview;
@@ -36,7 +32,7 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
     public final static String DOC_V_PARAM = "DOC_V_PARAM";
     public final static String DOC_V_CAPTURE_TYPE = "DOC_V_CAPTURE_TYPE";
     public final static String DOC_V_USER_SELFIE_OPTION = "DOC_V_USER_SELFIE_OPTION";
-    private KYC_PRODUCT_TYPE mKYCProductType = KYC_PRODUCT_TYPE.BASIC_KYC;
+    private KYC_PRODUCT_TYPE mKYCProductType = KYC_PRODUCT_TYPE.ENROLL_TEST;
 
     private SmartSelfieManager mSmartSelfieManager;
     private CameraSourcePreview mCameraSourcePreview;
@@ -233,7 +229,7 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
 
         Class clazz = null;
 
-        if (mKYCProductType == KYC_PRODUCT_TYPE.BASIC_KYC) {
+        if (mKYCProductType == KYC_PRODUCT_TYPE.ENROLL_TEST) {
             clazz = SIDJobResultActivity.class;
         } else if (mKYCProductType == KYC_PRODUCT_TYPE.ENHANCED_KYC) {
             clazz = SIDIDInfoActivity.class;

@@ -6,14 +6,11 @@ import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.demo.smileid.sid_sdk.DropDownAdapter.DropDownObject;
-
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 
@@ -80,7 +77,7 @@ public class SIDSplashActivity extends AppCompatActivity {
     }
 
     public void move2AboutScreen(View view) {
-        startActivity(new Intent(SIDSplashActivity.this, SIDIDInfoActivity.class/*AboutDemoActivity.class*/));
+        startActivity(new Intent(SIDSplashActivity.this, AboutDemoActivity.class));
     }
 
     public void chooseLanguage(View view) {

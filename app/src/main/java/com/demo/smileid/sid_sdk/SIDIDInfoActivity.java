@@ -5,10 +5,9 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -16,11 +15,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.demo.smileid.sid_sdk.BaseSIDActivity.KYC_PRODUCT_TYPE;
-import com.demo.smileid.sid_sdk.DropDownAdapter.DropDownObject;
 import com.demo.smileid.sid_sdk.ItemListAdapter.ItemSelectedInterface;
 import com.demo.smileid.sid_sdk.sidNet.IdTypeUtil;
+import com.demo.smileid.sid_sdk.sidNet.Misc;
 import com.hbb20.CCPCountry;
-import com.smileidentity.libsmileid.core.idcard.IdCard;
 import com.smileidentity.libsmileid.model.SIDUserIdInfo;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -32,13 +30,11 @@ import java.util.Locale;
 public class SIDIDInfoActivity extends AppCompatActivity implements ItemSelectedInterface {
 
     private String mSelectedCountryName = "", mSelectedIdCard, mCurrentTag;
-    private KYC_PRODUCT_TYPE mKYCProductType = KYC_PRODUCT_TYPE.BASIC_KYC;
-    private Spinner mSIdType;
-    private TextView mTvInputCountry, mTvInputIdType, mTvLblIdType, mTvInputDoB;
+    private KYC_PRODUCT_TYPE mKYCProductType = KYC_PRODUCT_TYPE.ENROLL_TEST;
+    private TextView mTvInputCountry, mTvLblIdType, mTvInputIdType, mTvInputDoB;
     private EditText mEdtIdNbr, mEdtFirstName, mEdtLastName;
     private BottomDialogHelper mCountryDialog, mIdDialog;
     private IdListAdapter mIdListAdapter = null;
-    private boolean mWasInputIdClicked = false;
     private HashMap<String, String> mSidUserIdInfo = new HashMap();
 
     private static final String SUPPORTED_COUNTRIES = "DZ,AO,BJ,BW,BF,BI,CM,CV,TD,KM,CG,CI,CD,DJ," +
@@ -67,7 +63,7 @@ public class SIDIDInfoActivity extends AppCompatActivity implements ItemSelected
 
     private void initViews() {
         mTvInputCountry = findViewById(R.id.tvInputCountry);
-        mTvLblIdType = findViewById(R.id.tvInputIdType);
+        mTvLblIdType = findViewById(R.id.tvLblIdType);
         mTvInputIdType = findViewById(R.id.tvInputIdType);
         mEdtIdNbr = findViewById(R.id.edtIdNbr);
         mEdtFirstName = findViewById(R.id.edtFirstName);
@@ -79,33 +75,10 @@ public class SIDIDInfoActivity extends AppCompatActivity implements ItemSelected
 
         mIdDialog = new BottomDialogHelper(this, R.layout.layout_id_list);
         setIdDialog();
-
-        /*mCcpCountryPicker.setOnCountryChangeListener(() -> {
-            mTvLblIdType.setVisibility(View.VISIBLE);
-            mTvInputIdType.setVisibility(View.VISIBLE);
-            CCPCountry country = mCcpCountryPicker.getSelectedCountry();
-            DropDownObject dropDownObject = new DropDownObject(country.getFlagID(), country.getEnglishName());
-            applyChoice(mTvInputCountry, dropDownObject, true);
-            getSelectedCountryName();
-            populateIdCard();
-        });*/
-
-        mSIdType = findViewById(R.id.spIdType);
-        mSIdType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mSelectedIdCard = ((DropDownObject) parent.getItemAtPosition(position)).getLabel();
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
     }
 
     private void setCountryDialog() {
+        mCountryDialog.setCancellable(false);
         RecyclerView rv = mCountryDialog.getContentView().findViewById(R.id.rvCountries);
         rv.setLayoutManager(new LinearLayoutManager(this));
         CountryListAdapter adapter = new CountryListAdapter();
@@ -114,6 +87,7 @@ public class SIDIDInfoActivity extends AppCompatActivity implements ItemSelected
     }
 
     private void setIdDialog() {
+        mIdDialog.setCancellable(false);
         RecyclerView rv = mIdDialog.getContentView().findViewById(R.id.rvIds);
         rv.setLayoutManager(new LinearLayoutManager(this));
         mIdListAdapter = new IdListAdapter();
@@ -140,22 +114,26 @@ public class SIDIDInfoActivity extends AppCompatActivity implements ItemSelected
 
         tvLang.setText(name);
         tvLang.setCompoundDrawablesWithIntrinsicBounds(left, null, null, null);
-
-        mTvLblIdType.setVisibility(View.VISIBLE);
-        mTvInputIdType.setVisibility(View.VISIBLE);
     }
 
     public void applyChoice(Object object) {
         if (object instanceof CCPCountry) {
+            mCountryDialog.setCancellable(true);
+            mCountryDialog.dismissDialog();
+            mIdDialog.setCancellable(false);
+
             mSelectedCountryName = ((CCPCountry) object).getName();
             mIdListAdapter.setIdList(IdTypeUtil.idCards(mSelectedCountryName).getIdCards());
             mIdListAdapter.notifyDataSetChanged();
+            mTvInputCountry.setText(mSelectedCountryName);
+            mTvLblIdType.setVisibility(View.VISIBLE);
+            mTvInputIdType.setVisibility(View.VISIBLE);
         } else {
+            mIdDialog.setCancellable(true);
+            mIdDialog.dismissDialog();
+
             mSelectedIdCard = object.toString();
-
             mTvInputIdType.setText(mSelectedIdCard);
-
-            if (!mWasInputIdClicked) return;
 
             findViewById(R.id.tvLblIdNbr).setVisibility(View.VISIBLE);
             findViewById(R.id.edtIdNbr).setVisibility(View.VISIBLE);
@@ -166,7 +144,6 @@ public class SIDIDInfoActivity extends AppCompatActivity implements ItemSelected
             findViewById(R.id.tvLblDoB).setVisibility(View.VISIBLE);
             findViewById(R.id.tvInputDoB).setVisibility(View.VISIBLE);
             findViewById(R.id.tvContinueBtn).setVisibility(View.VISIBLE);
-            findViewById(R.id.ivLogo).setVisibility(View.VISIBLE);
         }
     }
 
@@ -175,7 +152,6 @@ public class SIDIDInfoActivity extends AppCompatActivity implements ItemSelected
     }
 
     public void openIdTypePicker(View view) {
-        mWasInputIdClicked = true;
         mIdDialog.showDialog();
     }
 
@@ -205,6 +181,10 @@ public class SIDIDInfoActivity extends AppCompatActivity implements ItemSelected
         }
 
         finish();
+
+        if ((mCurrentTag == null) || (mCurrentTag.isEmpty())) {
+            buildTag();
+        }
 
         startActivity(
             new Intent(this, SIDJobResultActivity.class) {
@@ -252,6 +232,7 @@ public class SIDIDInfoActivity extends AppCompatActivity implements ItemSelected
         @Override
         public void onBindViewHolder(@NonNull ItemViewHolder viewHolder, int i) {
             viewHolder.populate(mCountries.get(i));
+            viewHolder.itemView.setOnClickListener(v -> mListener.applyChoice(mCountries.get(i)));
         }
 
         @Override
@@ -267,6 +248,7 @@ public class SIDIDInfoActivity extends AppCompatActivity implements ItemSelected
         @Override
         public void onBindViewHolder(@NonNull ItemViewHolder viewHolder, int i) {
             viewHolder.populate(mIds.get(i));
+            viewHolder.itemView.setOnClickListener(v -> mListener.applyChoice(mIds.get(i)));
         }
 
         @Override
@@ -277,5 +259,10 @@ public class SIDIDInfoActivity extends AppCompatActivity implements ItemSelected
         public void setIdList(List<String> ids) {
             mIds.addAll(ids);
         }
+    }
+
+    private void buildTag() {
+        mCurrentTag = String.format(
+            Misc.USER_TAG, DateFormat.format("MM_dd_hh_mm_ss", Calendar.getInstance().getTime()).toString());
     }
 }

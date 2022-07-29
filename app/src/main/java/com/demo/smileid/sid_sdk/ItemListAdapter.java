@@ -11,7 +11,7 @@ import com.demo.smileid.sid_sdk.ItemListAdapter.ItemViewHolder;
 
 public class ItemListAdapter extends RecyclerView.Adapter<ItemViewHolder> {
 
-  private ItemSelectedInterface mListener = null;
+  protected ItemSelectedInterface mListener = null;
 
   public void setListener(ItemSelectedInterface listener) {
     mListener = listener;
