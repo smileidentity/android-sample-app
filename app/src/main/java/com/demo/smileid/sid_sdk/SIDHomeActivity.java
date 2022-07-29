@@ -8,11 +8,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -48,13 +46,18 @@ public class SIDHomeActivity extends BaseSIDActivity implements BaseFragment.Tab
     }
 
     @Override
+    public void testEnroll() {
+        resetJob();
+        mKYCProductType = KYC_PRODUCT_TYPE.ENROLL_TEST;
+        startKYCProcess();
+    }
+
+    @Override
     public void doBasicKYC() {
         resetJob();
+        mConsentRequired = true;
         mKYCProductType = KYC_PRODUCT_TYPE.BASIC_KYC;
-        startSelfieCapture();
-        /*new DocVOptionDialog(this, (type, option) -> {
-
-        }).showDialog();*/
+        startKYCProcess();
     }
 
     @Override
@@ -62,14 +65,14 @@ public class SIDHomeActivity extends BaseSIDActivity implements BaseFragment.Tab
         resetJob();
         mConsentRequired = true;
         mKYCProductType = KYC_PRODUCT_TYPE.ENHANCED_KYC;
-        startSelfieCapture();
+        startKYCProcess();
     }
 
     @Override
     public void doBiometricKYC() {
         resetJob();
         mKYCProductType = KYC_PRODUCT_TYPE.BIOMETRIC_KYC;
-        startSelfieCapture();
+        startKYCProcess();
     }
 
     @Override
@@ -77,7 +80,7 @@ public class SIDHomeActivity extends BaseSIDActivity implements BaseFragment.Tab
         resetJob();
         mConsentRequired = true;
         mKYCProductType = KYC_PRODUCT_TYPE.DOCUMENT_VERIFICATION;
-        startSelfieCapture();
+        startKYCProcess();
     }
 
     @Override
@@ -90,7 +93,7 @@ public class SIDHomeActivity extends BaseSIDActivity implements BaseFragment.Tab
             return;
         }
 
-        startSelfieCapture();
+        startKYCProcess();
     }
 
     private void enrolFirstDialog() {

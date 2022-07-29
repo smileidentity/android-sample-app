@@ -19,7 +19,7 @@ public class BaseSIDActivity extends AppCompatActivity {
 
     public enum KYC_PRODUCT_TYPE {
 
-        BASIC_KYC(4), ENHANCED_KYC(1), BIOMETRIC_KYC(1),
+        ENROLL_TEST(4), BASIC_KYC(5), ENHANCED_KYC(1005), BIOMETRIC_KYC(1),
         DOCUMENT_VERIFICATION(6), SMART_SELFIE_AUTH(2);
 
         private int mJobType = -1;
@@ -33,7 +33,7 @@ public class BaseSIDActivity extends AppCompatActivity {
         }
     }
 
-    protected KYC_PRODUCT_TYPE mKYCProductType = KYC_PRODUCT_TYPE.BASIC_KYC;
+    protected KYC_PRODUCT_TYPE mKYCProductType = KYC_PRODUCT_TYPE.ENROLL_TEST;
     private Intent mCurrentIntent = null;
     private static final int PERMISSION_ALL = 1;
 
@@ -56,17 +56,17 @@ public class BaseSIDActivity extends AppCompatActivity {
         PERMISSIONS = permissions.toArray(new String[] {});
     }
 
-    protected void startSelfieCapture() {
+    protected void startKYCProcess() {
         mCurrentIntent = buildIntent();
         mCurrentIntent.putExtra(KYC_PRODUCT_TYPE_PARAM, mKYCProductType);
-        coreStartSelfieCapture();
+        coreStartKYCProcess();
     }
 
     protected Intent buildIntent() {
         return new Intent(this, SIDSelfieActivity.class);
     }
 
-    protected void coreStartSelfieCapture() {
+    protected void coreStartKYCProcess() {
         if (permissionGranted(PERMISSIONS)) {
             proceedWithJob();
         } else {
@@ -98,7 +98,7 @@ public class BaseSIDActivity extends AppCompatActivity {
         if (requestCode == PERMISSION_ALL && (grantResults.length > 0) &&
                 (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
 
-            coreStartSelfieCapture();
+            coreStartKYCProcess();
         } else {
             mCurrentIntent = null;
         }

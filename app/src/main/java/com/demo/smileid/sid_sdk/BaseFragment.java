@@ -44,6 +44,7 @@ public abstract class BaseFragment extends Fragment {
 
     public interface TabActionListener {
 
+        void testEnroll();
         void doBasicKYC();
         void doEnhancedKYC();
         void doBiometricKYC();

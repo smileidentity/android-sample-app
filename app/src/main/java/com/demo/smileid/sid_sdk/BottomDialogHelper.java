@@ -11,11 +11,15 @@ public class BottomDialogHelper {
 
   public BottomDialogHelper(Context context, int contentResID) {
     mBottomSheetDialog = new BottomSheetDialog(context, R.style.BottomSheetDialog);
-    /*mBottomSheetDialog.setCanceledOnTouchOutside(false);
-    mBottomSheetDialog.setCancelable(false);*/
     mBottomSheetDialog.setDismissWithAnimation(true);
     mContentView = mBottomSheetDialog.getLayoutInflater().inflate(contentResID, null);
     mBottomSheetDialog.setContentView(mContentView);
+  }
+
+  public void setCancellable(boolean isCancellable) {
+    if (mBottomSheetDialog == null) return;
+    mBottomSheetDialog.setCanceledOnTouchOutside(isCancellable);
+    mBottomSheetDialog.setCancelable(isCancellable);
   }
 
   public View getContentView() {

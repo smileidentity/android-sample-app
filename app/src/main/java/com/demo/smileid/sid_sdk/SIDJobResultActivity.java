@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import com.smileidentity.libsmileid.model.PartnerParams;
 import com.smileidentity.libsmileid.model.SIDMetadata;
 import com.smileidentity.libsmileid.model.SIDNetData;
 import com.smileidentity.libsmileid.model.SIDUserIdInfo;
+import com.smileidentity.libsmileid.net.model.idValidation.IDValidationResponse;
 import com.smileidentity.libsmileid.utils.AppData;
 import java.util.HashMap;
 import static com.demo.smileid.sid_sdk.SIDStringExtras.SHARED_PREF_JOB_ID;
@@ -35,6 +37,7 @@ public class SIDJobResultActivity extends BaseSIDActivity implements SIDNetworkR
         SIDNetworkRequest.OnEnrolledListener,
         SIDNetworkRequest.OnAuthenticatedListener,
         SIDNetworkRequest.OnDocVerificationListener,
+        SIDNetworkRequest.OnIDValidationListener,
         InternetStateBroadCastReceiver.OnConnectionReceivedListener {
 
     public final static String USER_ID_INFO_PARAM = "USER_ID_INFO_PARAM";
@@ -74,6 +77,8 @@ public class SIDJobResultActivity extends BaseSIDActivity implements SIDNetworkR
             mKYCProductType = (KYC_PRODUCT_TYPE) intent.getSerializableExtra(BaseSIDActivity.KYC_PRODUCT_TYPE_PARAM);
             mSIDUserIdInfo = (HashMap<String, String>) intent.getSerializableExtra(USER_ID_INFO_PARAM);
 
+            Log.d("SID_RESPONSE", "CURRENT_TAG: " + mCurrentTag);
+
             if (mSIDUserIdInfo != null) {
                 mSelectedCountryName = mSIDUserIdInfo.get(SIDUserIdInfo.COUNTRY);
                 mSelectedIdCard = mSIDUserIdInfo.get(SIDUserIdInfo.ID_TYPE);
@@ -102,6 +107,7 @@ public class SIDJobResultActivity extends BaseSIDActivity implements SIDNetworkR
         mSIDNetworkRequest.setOnEnrolledListener(this);
         mSIDNetworkRequest.setOnAuthenticatedListener(this);
         mSIDNetworkRequest.setOnDocVerificationListener(this);
+        mSIDNetworkRequest.setOnIDValidationListener(this);
         mSIDNetworkRequest.initialize();
     }
 
@@ -149,15 +155,15 @@ public class SIDJobResultActivity extends BaseSIDActivity implements SIDNetworkR
     private void upload(String tag) {
         SIDMetadata metadata = new SIDMetadata();
 
-        if ((mKYCProductType == KYC_PRODUCT_TYPE.BASIC_KYC) ||
-                (mKYCProductType == KYC_PRODUCT_TYPE.ENHANCED_KYC) ||
-                    (mKYCProductType == KYC_PRODUCT_TYPE.DOCUMENT_VERIFICATION)) {
+        if ((mKYCProductType != KYC_PRODUCT_TYPE.SMART_SELFIE_AUTH) &&
+            (mKYCProductType != KYC_PRODUCT_TYPE.BIOMETRIC_KYC)) {
             setUserIdInfo(metadata);
         }
 
         SIDConfig sidConfig = createConfig(tag, metadata);
 
         if (SIDNetworkingUtils.haveNetworkConnection(this)) {
+            Log.d("USER_ID_INFO", metadata.getSidUserIdInfo().toString());
             mPbLoading.setVisibility(View.VISIBLE);
             mSIDNetworkRequest.submit(sidConfig);
         } else {
@@ -206,6 +212,7 @@ public class SIDJobResultActivity extends BaseSIDActivity implements SIDNetworkR
         mTvResult.setTextColor(Color.RED);
         mTvResult.setText(e.getMessage());
         e.printStackTrace();
+//        Log.d("SID_RESPONSE", "DEBUGGING " + e.toString());
         go2Next(false, e.getMessage());
     }
 
@@ -409,6 +416,11 @@ public class SIDJobResultActivity extends BaseSIDActivity implements SIDNetworkR
             stringBuilder.append(getString(R.string.demo_enrolled_confidence_value, response.getConfidenceValue()));
         }
 
+        go2Next(true, "");
+    }
+
+    @Override
+    public void onIdValidated(IDValidationResponse result) {
         go2Next(true, "");
     }
 }
