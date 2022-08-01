@@ -13,15 +13,6 @@
       tools:ignore="MissingConstraints">
 
         <ImageView
-          android:id="@+id/ivBtnCancel"
-          android:layout_width="24dp"
-          android:layout_height="24dp"
-          android:src="@drawable/ic_cancel"
-          app:layout_constraintTop_toTopOf="parent"
-          app:layout_constraintRight_toRightOf="parent"
-          android:layout_margin="6dp" />
-
-        <ImageView
           android:id="@+id/ivImage"
           style="@style/cc_id_type_dlg_top_img"
           tools:ignore="MissingConstraints" />

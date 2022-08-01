@@ -1,7 +1,7 @@
 <resources>
 
     <style name="doc_very_option_dlg_cl">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">center_horizontal</item>
         <item name="layout_constraintTop_toTopOf">parent</item>
@@ -16,7 +16,7 @@
         <item name="android:layout_width">88.89dp</item>
         <item name="android:layout_height">64dp</item>
         <item name="layout_constraintTop_toTopOf">parent</item>
-        <item name="android:layout_marginTop">39dp</item>
+        <item name="android:layout_marginTop">8dp</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="android:src">@drawable/ic_passport</item>

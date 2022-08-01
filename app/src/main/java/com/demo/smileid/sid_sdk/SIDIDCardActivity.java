@@ -21,7 +21,7 @@ public class SIDIDCardActivity extends AppCompatActivity implements SmartCardVie
     private SmartCardView mSmartCardView;
     private String mCurrentTag;
     private boolean mShowingDlg = false;
-    private KYC_PRODUCT_TYPE mKYCProductType = KYC_PRODUCT_TYPE.ENROLL_TEST;
+    private Bundle mParams = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +31,9 @@ public class SIDIDCardActivity extends AppCompatActivity implements SmartCardVie
 
         mSmartCardView = findViewById(R.id.id_capture);
         mSmartCardView.setListener(this);
-        mKYCProductType = (BaseSIDActivity.KYC_PRODUCT_TYPE) getIntent().getSerializableExtra(BaseSIDActivity.KYC_PRODUCT_TYPE_PARAM);
-        mCurrentTag = getIntent().getStringExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO);
+
+        mParams = getIntent().getExtras();
+        mCurrentTag = mParams.getString(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO);
         mCurrentTag = ((mCurrentTag == null) || (mCurrentTag.isEmpty())) ? getTag() : mCurrentTag;
     }
 
@@ -117,10 +118,18 @@ public class SIDIDCardActivity extends AppCompatActivity implements SmartCardVie
     }
 
     private void proceedWithResult() {
-        Intent intent = new Intent(this, SIDJobResultActivity.class);
-        intent.putExtra(BaseSIDActivity.KYC_PRODUCT_TYPE_PARAM, mKYCProductType);
-        intent.putExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO, mCurrentTag);
-        startActivity(intent);
+        if ((mParams != null) && (!mParams.containsKey(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO))) {
+            mParams.putString(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO, mCurrentTag);
+        }
+
+        startActivity(
+            new Intent(this, SIDJobResultActivity.class) {
+                {
+                    putExtras(mParams);
+                }
+            }
+        );
+
         finish();
     }
 

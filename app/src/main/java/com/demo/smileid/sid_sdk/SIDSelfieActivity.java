@@ -38,12 +38,11 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
     private CameraSourcePreview mCameraSourcePreview;
     private TextView mTvPrompt;
 
-    private boolean mEnrolledUser = false;
-    private boolean mIsAgentMode = false;
-    public static boolean mShowTip = true;
+    private boolean mEnrolledUser = false, mIsAgentMode = false, mShowTip = true;
     private String mCurrentTag;
     private ArrayList<String> mTagArrayList = new ArrayList<>();
     private Map<String, Boolean> selfieTagsSessions = new HashMap<>();
+    private Bundle mParams = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +57,8 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
     }
 
     private void initVars() {
-        mKYCProductType = (KYC_PRODUCT_TYPE) getIntent().getSerializableExtra(BaseSIDActivity.KYC_PRODUCT_TYPE_PARAM);
+        mParams = getIntent().getExtras();
+        mKYCProductType = (KYC_PRODUCT_TYPE) mParams.getSerializable(BaseSIDActivity.KYC_PRODUCT_TYPE_PARAM);
     }
 
     private void initViews() {
@@ -72,7 +72,7 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
         new Handler().postDelayed(() -> {
             mShowTip = false;
             setToolTip();
-        }, 2000);
+        }, 5000);
     }
 
     private void setToggle() {
@@ -231,10 +231,8 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
 
         if (mKYCProductType == KYC_PRODUCT_TYPE.ENROLL_TEST) {
             clazz = SIDJobResultActivity.class;
-        } else if (mKYCProductType == KYC_PRODUCT_TYPE.ENHANCED_KYC) {
-            clazz = SIDIDInfoActivity.class;
         } else if (mKYCProductType == KYC_PRODUCT_TYPE.BIOMETRIC_KYC) {
-            clazz = SIDIDCardActivity.class;
+            clazz = SIDIDInfoActivity.class;
         } else if (mKYCProductType == KYC_PRODUCT_TYPE.DOCUMENT_VERIFICATION) {
             Map<String, String> docVOptions = (Map<String, String>) getIntent().getSerializableExtra(
                 DOC_V_PARAM);
@@ -244,17 +242,51 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
                     DOC_VER_OPTION.ENROLLED_USER.toString());
             }
 
-            clazz = SIDIDCardActivity.class;
+            if ((mParams != null) && (mParams.containsKey(DOC_V_PARAM))) {
+                mParams.remove(DOC_V_PARAM);
+            }
+
+            setCountryAndIDType();
+            return;
         } else if (mKYCProductType == KYC_PRODUCT_TYPE.SMART_SELFIE_AUTH) {
             clazz = SIDJobResultActivity.class;
+        }
+
+        go2Next(clazz);
+    }
+
+    private void setCountryAndIDType() {
+        CCAndIdTypeDialog.DlgListener listener = new CCAndIdTypeDialog.DlgListener() {
+            @Override
+            public void submit(String countryCode, String idType) {
+                if (mParams != null) {
+                    mParams.putString(SIDJobResultActivity.DOC_COUNTRY_PARAM, countryCode);
+                    mParams.putString(SIDJobResultActivity.DOC_ID_TYPE_PARAM, idType);
+                }
+
+                go2Next(SIDIDCardActivity.class);
+            }
+
+            @Override
+            public void cancel() {
+                Toast.makeText(SIDSelfieActivity.this, "To verify this document, kindly select a country and an ID type", Toast.LENGTH_LONG).show();
+                finish();
+            }
+        };
+
+        new CCAndIdTypeDialog(this, listener).showDialog();
+    }
+
+    private void go2Next(Class clazz) {
+        if (mParams != null) {
+            mParams.putString(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO, mCurrentTag);
+            mParams.putBoolean(SIDJobResultActivity.USER_SELFIE_PARAM, mEnrolledUser);
         }
 
         startActivity(
             new Intent(this, clazz) {
                 {
-                    putExtra(BaseSIDActivity.KYC_PRODUCT_TYPE_PARAM, mKYCProductType);
-                    putExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO, mCurrentTag);
-                    putExtra(SIDJobResultActivity.USER_SELFIE_PARAM, mEnrolledUser);
+                    putExtras(mParams);
                 }
             }
         );
