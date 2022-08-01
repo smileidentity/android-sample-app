@@ -63,6 +63,7 @@ public class GetStartedActivity extends BaseSIDActivity {
                     break;
 
                 case BASIC_KYC:
+                case ENHANCED_KYC:
                     proceedWithIDInfo();
                     break;
 
@@ -97,36 +98,27 @@ public class GetStartedActivity extends BaseSIDActivity {
     }
 
     private void proceedWithIDCard() {
-        finish();
-
-        startActivity(
-            new Intent(this, SIDIDCardActivity.class) {
-                {
-                    putExtras(mParams);
-                }
-            }
-        );
+        go2Screen(SIDIDCardActivity.class);
     }
 
     private void proceedWithIDInfo() {
-        startActivity(
-            new Intent(this, SIDIDInfoActivity.class) {
-                {
-                    putExtras(mParams);
-                }
-            }
-        );
+        go2Screen(SIDIDInfoActivity.class);
     }
 
     private void proceedWithSelfie() {
-        finish();
         useLocalScreen();
 //        useSmileUIScreen();
     }
 
     private void useLocalScreen() {
+        go2Screen(SIDSelfieActivity.class);
+    }
+
+    private void go2Screen(Class clazz) {
+        finish();
+
         startActivity(
-            new Intent(this, SIDSelfieActivity.class) {
+            new Intent(this, clazz) {
                 {
                     putExtras(mParams);
                 }

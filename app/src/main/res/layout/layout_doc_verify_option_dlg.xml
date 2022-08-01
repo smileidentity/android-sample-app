@@ -13,16 +13,6 @@
       tools:ignore="MissingConstraints">
 
         <ImageView
-          android:id="@+id/ivBtnCancel"
-          android:layout_width="24dp"
-          android:layout_height="24dp"
-          android:src="@drawable/ic_cancel"
-          android:visibility="visible"
-          app:layout_constraintTop_toTopOf="parent"
-          app:layout_constraintRight_toRightOf="parent"
-          android:layout_margin="6dp" />
-
-        <ImageView
           android:id="@+id/ivImage"
           style="@style/doc_very_option_dlg_top_img"
           tools:ignore="MissingConstraints" />
@@ -40,24 +30,35 @@
           android:text="What do you want to capture?"
           tools:ignore="MissingConstraints" />
 
-        <TextView
-          android:id="@+id/tvCaptureType"
-          style="@style/doc_very_option_dlg_input_field"
+        <RadioGroup
+          android:id="@+id/rgTypes"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
           app:layout_constraintTop_toBottomOf="@id/tvLblTypes"
-          tools:ignore="MissingConstraints" />
+          android:layout_marginTop="6dp"
+          app:layout_constraintStart_toStartOf="@id/tvLblTypes"
+          android:layout_marginLeft="12dp"
+          android:visibility="visible"
+          android:checkedButton="@id/rbEnrolled">
 
-        <Spinner
-          android:id="@+id/spCaptureType"
-          style="@style/doc_very_option_dlg_capture_type_spinner"
-          app:layout_constraintStart_toStartOf="@id/tvCaptureType"
-          app:layout_constraintTop_toBottomOf="@id/tvCaptureType"
-          android:visibility="invisible"
-          tools:ignore="MissingConstraints" />
+            <RadioButton
+              android:id="@+id/rbCardOnly"
+              style="@style/doc_very_option_dlg_radio_btn"
+              android:text="ID Card Only"
+              android:checked="true" />
+
+            <RadioButton
+              android:id="@+id/rbSelfieAndCard"
+              style="@style/doc_very_option_dlg_radio_btn"
+              android:text="Selfie and ID Card"
+              android:checked="false" />
+
+        </RadioGroup>
 
         <TextView
           android:id="@+id/tvUserTypes"
           style="@style/doc_very_option_dlg_input_label"
-          app:layout_constraintTop_toBottomOf="@id/tvCaptureType"
+          app:layout_constraintTop_toBottomOf="@id/rgTypes"
           android:visibility="gone"
           android:text="User Enrolment Type"
           tools:ignore="MissingConstraints" />

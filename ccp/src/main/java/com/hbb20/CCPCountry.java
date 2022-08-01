@@ -4,6 +4,7 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import android.util.Log;
 
+import java.util.Objects;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -1202,5 +1203,18 @@ public class CCPCountry implements Comparable<CCPCountry> {
     @Override
     public int compareTo(@NonNull CCPCountry o) {
         return Collator.getInstance().compare(getName(), o.getName());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        CCPCountry that = (CCPCountry) o;
+        return Objects.equals(name, that.name);
     }
 }

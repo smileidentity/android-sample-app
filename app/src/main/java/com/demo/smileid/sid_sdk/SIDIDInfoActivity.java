@@ -2,9 +2,13 @@ package com.demo.smileid.sid_sdk;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.EditText;
@@ -14,15 +18,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.demo.smileid.sid_sdk.BaseSIDActivity.KYC_PRODUCT_TYPE;
 import com.demo.smileid.sid_sdk.ItemListAdapter.ItemSelectedInterface;
 import com.demo.smileid.sid_sdk.sidNet.IdTypeUtil;
 import com.demo.smileid.sid_sdk.sidNet.Misc;
+import com.google.common.collect.Collections2;
 import com.hbb20.CCPCountry;
 import com.smileidentity.libsmileid.model.SIDUserIdInfo;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -30,18 +36,13 @@ import java.util.Locale;
 public class SIDIDInfoActivity extends AppCompatActivity implements ItemSelectedInterface {
 
     private String mSelectedCountryName = "", mSelectedIdCard, mCurrentTag;
-    private KYC_PRODUCT_TYPE mKYCProductType = KYC_PRODUCT_TYPE.ENROLL_TEST;
     private TextView mTvInputCountry, mTvLblIdType, mTvInputIdType, mTvInputDoB;
     private EditText mEdtIdNbr, mEdtFirstName, mEdtLastName;
     private BottomDialogHelper mCountryDialog, mIdDialog;
     private IdListAdapter mIdListAdapter = null;
+    private CountryListAdapter mAdapter = new CountryListAdapter();
     private HashMap<String, String> mSidUserIdInfo = new HashMap();
-
-    private static final String SUPPORTED_COUNTRIES = "DZ,AO,BJ,BW,BF,BI,CM,CV,TD,KM,CG,CI,CD,DJ," +
-        "EG,GQ,ER,ET,GA,GM,GH,GN,GW,KE,LS,LR,LY,MG,MW,ML,MU,MA,MZ,NA,NE,NG,RW,ST,SN,SC,SL,SO,ZA," +
-            "SS,SD,TG,TN,UG,TZ,ZM,ZW,AL,AD,AT,BY,BE,BA,BG,HR,CZ,DK,EE,FI,FR,DE,GR,VA,HU,IS,IE," +
-                "IT,XK,LV,LI,LT,LU,MT,MC,ME,NL,NO,PL,PT,MD,RO,SM,RS,SK,SI,ES,SE,CH,MK,UA,GB,BS," +
-                    "BM,CA,JM,US";
+    private Bundle mParams = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +50,10 @@ public class SIDIDInfoActivity extends AppCompatActivity implements ItemSelected
 
         setContentView(R.layout.sid_activity_id_info);
 
-        Intent intent = getIntent();
+        mParams = getIntent().getExtras();
 
-        if (intent != null) {
-            mKYCProductType = (KYC_PRODUCT_TYPE) getIntent().getSerializableExtra(
-                BaseSIDActivity.KYC_PRODUCT_TYPE_PARAM);
-
-            mCurrentTag = getIntent().getStringExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO);
+        if (mParams != null) {
+            mCurrentTag = mParams.getString(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO);
         }
 
         initViews();
@@ -81,9 +79,34 @@ public class SIDIDInfoActivity extends AppCompatActivity implements ItemSelected
         mCountryDialog.setCancellable(false);
         RecyclerView rv = mCountryDialog.getContentView().findViewById(R.id.rvCountries);
         rv.setLayoutManager(new LinearLayoutManager(this));
-        CountryListAdapter adapter = new CountryListAdapter();
-        adapter.setListener(this);
-        rv.setAdapter(adapter);
+        mAdapter.setListener(this);
+        rv.setAdapter(mAdapter);
+        filterCountryList("");
+
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                filterCountryList(s.toString());
+            }
+        };
+
+        EditText edtSearch = mCountryDialog.getContentView().findViewById(R.id.edtCountry);
+        edtSearch.addTextChangedListener(textWatcher);
+        mCountryDialog.setDismissListener(dialog -> edtSearch.setText(""));
+    }
+
+    private void filterCountryList(String constraint) {
+        mAdapter.filterList(constraint);
     }
 
     private void setIdDialog() {
@@ -186,12 +209,16 @@ public class SIDIDInfoActivity extends AppCompatActivity implements ItemSelected
             buildTag();
         }
 
+        if ((mParams != null) && (!mParams.containsKey(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO))) {
+            mParams.putString(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO, mCurrentTag);
+        }
+
+        mParams.putSerializable(SIDJobResultActivity.USER_ID_INFO_PARAM, mSidUserIdInfo);
+
         startActivity(
             new Intent(this, SIDJobResultActivity.class) {
                 {
-                    putExtra(BaseSIDActivity.KYC_PRODUCT_TYPE_PARAM, mKYCProductType);
-                    putExtra(SIDJobResultActivity.USER_ID_INFO_PARAM, mSidUserIdInfo);
-                    putExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO, mCurrentTag);
+                    putExtras(mParams);
                 }
             }
         );
@@ -223,42 +250,6 @@ public class SIDIDInfoActivity extends AppCompatActivity implements ItemSelected
         mSidUserIdInfo.put(SIDUserIdInfo.DOB, mTvInputDoB.getText().toString());
 
         return true;
-    }
-
-    class CountryListAdapter extends ItemListAdapter {
-
-        private ArrayList<CCPCountry> mCountries = new ArrayList<>(CCPCountry.getLibraryMasterCountriesEnglish());
-
-        @Override
-        public void onBindViewHolder(@NonNull ItemViewHolder viewHolder, int i) {
-            viewHolder.populate(mCountries.get(i));
-            viewHolder.itemView.setOnClickListener(v -> mListener.applyChoice(mCountries.get(i)));
-        }
-
-        @Override
-        public int getItemCount() {
-            return mCountries.size();
-        }
-    }
-
-    class IdListAdapter extends ItemListAdapter {
-
-        private ArrayList<String> mIds = new ArrayList<>();
-
-        @Override
-        public void onBindViewHolder(@NonNull ItemViewHolder viewHolder, int i) {
-            viewHolder.populate(mIds.get(i));
-            viewHolder.itemView.setOnClickListener(v -> mListener.applyChoice(mIds.get(i)));
-        }
-
-        @Override
-        public int getItemCount() {
-            return mIds.size();
-        }
-
-        public void setIdList(List<String> ids) {
-            mIds.addAll(ids);
-        }
     }
 
     private void buildTag() {
