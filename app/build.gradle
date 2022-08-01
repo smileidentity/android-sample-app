@@ -118,16 +118,16 @@ dependencies {
     /*
   USE THIS if you do not intend to use smile-id-ui
    */
-//    implementation 'com.smileidentity:smile-id-sdk:7.3.6(6)-SNAPSHOT'
+//    implementation 'com.smileidentity:smile-id-sdk:7.3.10(1)-SNAPSHOT'
     /*
     OR USE THIS
      */
-//    implementation 'com.smileidentity:smile-id-ui:0.2.0(14)-SNAPSHOT'
+//    implementation 'com.smileidentity:smile-id-ui:0.2.2(1)-SNAPSHOT'
 
-//    implementation 'com.smileidentity:netjava:0.0.5'
+//    implementation 'com.smileidentity:netjava:1.0.11(1)-SNAPSHOT'
 
     // DEV DEPENDENCIES
     implementation project(':android_lib')
-    implementation project(':smile_id_android_ui')
+    implementation project(':smile-id-ui')
     implementation project(':smile_id_simplified_java_lib')
 }

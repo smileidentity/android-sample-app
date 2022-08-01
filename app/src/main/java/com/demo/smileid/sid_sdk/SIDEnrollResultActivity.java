@@ -276,7 +276,7 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
     }
 
     private SIDConfig createConfig(String tag, SIDMetadata metadata) {
-        SIDNetData data = new SIDNetData(this, SIDNetData.Environment.PROD);
+        SIDNetData data = new SIDNetData(this, SIDNetData.Environment.TEST);
 
         if (mReEnrollUser && !TextUtils.isEmpty(getSavedUserId())) {
             //USe the PartnerParams object to set the user id of the user to be reernolled.
@@ -292,7 +292,7 @@ public class SIDEnrollResultActivity extends BaseSIDActivity implements SIDNetwo
                 .setMode(SIDConfig.Mode.ENROLL)
                 .setSmileIdNetData(data)
                 .setGeoInformation(infos)
-                .useEnrolledImage(true)
+//                .useEnrolledImage(true)
                 .setSIDMetadata(metadata != null ? metadata : new SIDMetadata())
                 .setJobType(mEnrollType);
 

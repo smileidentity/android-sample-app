@@ -3,6 +3,7 @@ package com.demo.smileid.sid_sdk;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +17,7 @@ public class SIDIDCardActivity extends AppCompatActivity implements SmartCardVie
     private boolean reenrollUser;
     private int enrollType;
     private String mCurrentTag;
+    private boolean mShowingDlg = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,9 @@ public class SIDIDCardActivity extends AppCompatActivity implements SmartCardVie
     @Override
     protected void onResume() {
         super.onResume();
+
+        if (mShowingDlg) return;
+
         try {
             mSmartCardView.startCapture(mCurrentTag);
         } catch (Exception e) {
@@ -61,12 +66,14 @@ public class SIDIDCardActivity extends AppCompatActivity implements SmartCardVie
     @Override
     protected void onPause() {
         super.onPause();
+        if (mShowingDlg) return;
         mSmartCardView.pauseCapture();
     }
 
     @Override
     public void onSmartCardViewFrontComplete(Bitmap idCardBitmap, boolean faceFound) {
         new ActionDialog(this, this).showDialog();
+        mShowingDlg = true;
         return;
     }
 
@@ -87,6 +94,7 @@ public class SIDIDCardActivity extends AppCompatActivity implements SmartCardVie
 
     @Override
     public void skip() {
+        mShowingDlg = false;
         proceedWithResult();
     }
 
@@ -102,6 +110,7 @@ public class SIDIDCardActivity extends AppCompatActivity implements SmartCardVie
 
     @Override
     public void capture() {
+        mShowingDlg = true;
         mSmartCardView.setIDBackCapture();
         onResume();
     }

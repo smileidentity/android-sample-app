@@ -55,32 +55,9 @@ public class SIDMainActivity extends BaseSIDActivity implements
 
     public void smileUIIDCardRegister(View view) {
         if (permissionGranted(PERMISSIONS)) {
-            /*resetJob();
-            mConsentRequired = true;
-            requestUserConsent();*/
             SIDCaptureManager.Builder sidCaptureManager = new SIDCaptureManager.Builder(this,
                 CaptureType.SELFIE_AND_ID_CAPTURE, SMILE_ID_CARD_REQUEST_CODE);
-//
-//            SIDSelfieCaptureConfig.Builder config = new SIDSelfieCaptureConfig.Builder();
-//            config.setOverlayColor("#FF0000");
-//            config.setOverlayAlpha(200);
-//            config.setOverlayThickness(10);
-//            config.setOverlayDotted(true);
-//
-//            HashMap<String, Object> styleMap = new HashMap<String, Object>() {
-//                {
-//                    put("text_size", 24);
-//                    put("text_color", Color.RED);
-//                    put("font_style", 0);
-//                    put("font_family", "Arial");
-//                }
-//            };
-//
-//            config.setPromptStyle(new JSONObject(styleMap).toString());
-//            config.setReviewPromptStyle(new JSONObject(styleMap).toString());
-//            config.setReviewTipStyle(new JSONObject(styleMap).toString());
 
-//            sidCaptureManager.setSidSelfieConfig(config.build());
             sidCaptureManager.build().start();
         } else {
             ActivityCompat.requestPermissions(this, PERMISSIONS, SMILE_ID_UI_SELFIE_PERMISSION_REQUEST);
@@ -91,61 +68,6 @@ public class SIDMainActivity extends BaseSIDActivity implements
         if (permissionGranted(PERMISSIONS)) {
             SIDCaptureManager.Builder sidCaptureManager = new SIDCaptureManager.Builder(this,
                 CaptureType.SELFIE, SMILE_SELFIE_REQUEST_CODE);
-
-            /*SIDSelfieCaptureConfig.Builder config = new SIDSelfieCaptureConfig.Builder();
-            config.setCaptureTitle("CAPTURING...");
-            config.setReviewTitle("REVIEW...");
-            config.setOverlayColor("#000000");
-            config.setOverlayAlpha(50);
-            config.setOverlayThickness(10);
-            config.setOverlayWidth(260);
-            config.setOverlayHeight(350);
-            config.setOverlayDotted(true);
-            config.setPromptDefault("Here we go...");
-            config.setCapturingProgressColor("#0000FF");
-            config.setCapturedProgressColor("#00FF00");
-            config.setCaptureFullScreen(true);
-
-            HashMap<String, Object> styleMap = new HashMap<String, Object>() {
-                {
-                    put("text_size", 12);
-                    put("text_color", "#0000FF");
-                    put("font_style", "bold");
-                }
-            };
-
-            config.setTitleStyle(new JSONObject(styleMap).toString());
-
-            config.setReviewConfirmButtonStyle(new JSONObject(styleMap).toString());
-            config.setReviewConfirmButtonColor("#00FFFF,#FF0000,#788096");
-
-            styleMap = new HashMap<String, Object>() {
-                {
-                    put("text_size", 12);
-                    put("text_color", "#00FF00,#FFFFFF,#0000FF");
-                    put("font_style", "normal");
-                    put("width", 240);
-                    put("height", 48);
-                }
-            };
-
-            config.setReviewConfirmButtonStyle(new JSONObject(styleMap).toString());
-
-            styleMap = new HashMap<String, Object>() {
-                {
-                    put("text_size", 18);
-                    put("text_color", "#FF0000,#FFFFFF,#0000FF");
-                    put("font_style", "normal");
-                    put("width", 360);
-                    put("height", 120);
-                }
-            };
-
-            config.setReviewRetakeButtonStyle(new JSONObject(styleMap).toString());
-            config.setReviewRetakeButtonColor("#00FFFF,#FF0000,#788096");
-            config.setReviewRetakeButton("ANOTHER ONE");
-
-            sidCaptureManager.setSidSelfieConfig(config.build());*/
             sidCaptureManager.build().start();
         } else {
             ActivityCompat.requestPermissions(this, PERMISSIONS, SMILE_ID_UI_SELFIE_PERMISSION_REQUEST);

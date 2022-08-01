@@ -208,7 +208,7 @@ public class SIDIDValidationActivity extends AppCompatActivity implements
     }
 
     private SIDConfig createConfig(SIDMetadata metadata) {
-        SIDNetData data = new SIDNetData(this, SIDNetData.Environment.PROD);
+        SIDNetData data = new SIDNetData(this, SIDNetData.Environment.TEST);
 
         SIDConfig.Builder builder = new SIDConfig.Builder(this)
                 .setRetryOnfailurePolicy(getRetryOnFailurePolicy())
