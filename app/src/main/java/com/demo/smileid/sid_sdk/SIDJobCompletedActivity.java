@@ -17,4 +17,9 @@ public class SIDJobCompletedActivity extends AppCompatActivity {
     public void go2Next(View view) {
         finish();
     }
+
+    @Override
+    public void onBackPressed() {
+
+    }
 }

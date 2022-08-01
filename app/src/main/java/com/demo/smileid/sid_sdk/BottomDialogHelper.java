@@ -1,6 +1,8 @@
 package com.demo.smileid.sid_sdk;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnDismissListener;
 import android.view.View;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -20,6 +22,11 @@ public class BottomDialogHelper {
     if (mBottomSheetDialog == null) return;
     mBottomSheetDialog.setCanceledOnTouchOutside(isCancellable);
     mBottomSheetDialog.setCancelable(isCancellable);
+  }
+
+  public void setDismissListener(OnDismissListener onDismissListener) {
+    if (mBottomSheetDialog == null) return;
+    mBottomSheetDialog.setOnDismissListener(onDismissListener);
   }
 
   public View getContentView() {

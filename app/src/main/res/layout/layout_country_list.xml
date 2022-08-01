@@ -18,7 +18,7 @@
       tools:ignore="MissingConstraints" />
 
     <EditText
-      android:id="@+id/edtIdNbr"
+      android:id="@+id/edtCountry"
       style="@style/sid_info_screen_edit_input_field"
       app:layout_constraintTop_toBottomOf="@id/tvTitle"
       android:layout_marginTop="16dp"
@@ -45,11 +45,11 @@
       android:id="@+id/rvCountries"
       android:layout_width="0dp"
       android:layout_height="0dp"
-      app:layout_constraintTop_toBottomOf="@id/edtIdNbr"
+      app:layout_constraintTop_toBottomOf="@id/edtCountry"
       android:layout_marginTop="12dp"
       app:layout_constraintBottom_toBottomOf="@id/vBottom"
       android:layout_marginBottom="15dp"
-      app:layout_constraintStart_toStartOf="@id/edtIdNbr"
-      app:layout_constraintEnd_toEndOf="@id/edtIdNbr" />
+      app:layout_constraintStart_toStartOf="@id/edtCountry"
+      app:layout_constraintEnd_toEndOf="@id/edtCountry" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

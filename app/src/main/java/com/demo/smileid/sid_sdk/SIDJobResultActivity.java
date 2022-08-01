@@ -42,6 +42,8 @@ public class SIDJobResultActivity extends BaseSIDActivity implements SIDNetworkR
 
     public final static String USER_ID_INFO_PARAM = "USER_ID_INFO_PARAM";
     public final static String USER_SELFIE_PARAM = "USER_SELFIE_PARAM";
+    public final static String DOC_COUNTRY_PARAM = "DOC_COUNTRY_PARAM";
+    public final static String DOC_ID_TYPE_PARAM = "DOC_ID_TYPE_PARAM";
 
     private TextView mTvResult, mTvConfidenceValue;
     private ProgressBar mPbLoading;
@@ -65,7 +67,6 @@ public class SIDJobResultActivity extends BaseSIDActivity implements SIDNetworkR
         buildNetObserver();
         buildNetRequest();
         uploadNow(null);
-        mPbLoading.setVisibility(View.VISIBLE);
     }
 
     private void initVars() {
@@ -77,11 +78,14 @@ public class SIDJobResultActivity extends BaseSIDActivity implements SIDNetworkR
             mKYCProductType = (KYC_PRODUCT_TYPE) intent.getSerializableExtra(BaseSIDActivity.KYC_PRODUCT_TYPE_PARAM);
             mSIDUserIdInfo = (HashMap<String, String>) intent.getSerializableExtra(USER_ID_INFO_PARAM);
 
-            Log.d("SID_RESPONSE", "CURRENT_TAG: " + mCurrentTag);
-
             if (mSIDUserIdInfo != null) {
                 mSelectedCountryName = mSIDUserIdInfo.get(SIDUserIdInfo.COUNTRY);
                 mSelectedIdCard = mSIDUserIdInfo.get(SIDUserIdInfo.ID_TYPE);
+            }
+
+            if (mKYCProductType == KYC_PRODUCT_TYPE.DOCUMENT_VERIFICATION) {
+                mSelectedCountryName = intent.getStringExtra(DOC_COUNTRY_PARAM);
+                mSelectedIdCard = intent.getStringExtra(DOC_ID_TYPE_PARAM);
             }
         }
 
@@ -112,11 +116,7 @@ public class SIDJobResultActivity extends BaseSIDActivity implements SIDNetworkR
     }
 
     public void uploadNow(View view) {
-        if (mKYCProductType == KYC_PRODUCT_TYPE.DOCUMENT_VERIFICATION) {
-            setCountryAndIDType();
-        } else {
-            upload(mCurrentTag);
-        }
+        upload(mCurrentTag);
     }
 
     private SIDMetadata setUserIdInfo(SIDMetadata metadata) {
@@ -134,36 +134,16 @@ public class SIDJobResultActivity extends BaseSIDActivity implements SIDNetworkR
         return metadata;
     }
 
-    private void setCountryAndIDType() {
-        CCAndIdTypeDialog.DlgListener listener = new CCAndIdTypeDialog.DlgListener() {
-            @Override
-            public void submit(String countryCode, String idType) {
-                mSelectedCountryName = countryCode;
-                mSelectedIdCard = idType;
-                upload(mCurrentTag);
-            }
-
-            @Override
-            public void cancel() {
-                Toast.makeText(SIDJobResultActivity.this, "To verify this document, kindly select a country and an ID type", Toast.LENGTH_LONG).show();
-            }
-        };
-
-        new CCAndIdTypeDialog(this, listener).showDialog();
-    }
-
     private void upload(String tag) {
         SIDMetadata metadata = new SIDMetadata();
 
-        if ((mKYCProductType != KYC_PRODUCT_TYPE.SMART_SELFIE_AUTH) &&
-            (mKYCProductType != KYC_PRODUCT_TYPE.BIOMETRIC_KYC)) {
+        if (mKYCProductType != KYC_PRODUCT_TYPE.SMART_SELFIE_AUTH) {
             setUserIdInfo(metadata);
         }
 
         SIDConfig sidConfig = createConfig(tag, metadata);
 
         if (SIDNetworkingUtils.haveNetworkConnection(this)) {
-            Log.d("USER_ID_INFO", metadata.getSidUserIdInfo().toString());
             mPbLoading.setVisibility(View.VISIBLE);
             mSIDNetworkRequest.submit(sidConfig);
         } else {
@@ -192,8 +172,10 @@ public class SIDJobResultActivity extends BaseSIDActivity implements SIDNetworkR
                 setJobType(mKYCProductType.getJobType());
                 setSIDMetadata(metadata != null ? metadata : new SIDMetadata());
 
-                setMode((mKYCProductType == KYC_PRODUCT_TYPE.SMART_SELFIE_AUTH) ?
-                    SIDConfig.Mode.AUTHENTICATION : SIDConfig.Mode.ENROLL);
+                boolean isAuthMode = (mKYCProductType == KYC_PRODUCT_TYPE.SMART_SELFIE_AUTH) ||
+                    (mKYCProductType == KYC_PRODUCT_TYPE.ENHANCED_KYC);
+
+                setMode(isAuthMode ? SIDConfig.Mode.AUTHENTICATION : SIDConfig.Mode.ENROLL);
             }
         }.build(mCurrentTag);
 
@@ -208,11 +190,11 @@ public class SIDJobResultActivity extends BaseSIDActivity implements SIDNetworkR
 
     @Override
     public void onError(SIDException e) {
+        Log.d("JOB_SUBMISSION", "SIDEXCEPTION: " + e.getMessage());
         mPbLoading.setVisibility(View.INVISIBLE);
         mTvResult.setTextColor(Color.RED);
         mTvResult.setText(e.getMessage());
         e.printStackTrace();
-//        Log.d("SID_RESPONSE", "DEBUGGING " + e.toString());
         go2Next(false, e.getMessage());
     }
 
@@ -252,6 +234,8 @@ public class SIDJobResultActivity extends BaseSIDActivity implements SIDNetworkR
 
     @Override
     public void onEnrolled(SIDResponse response) {
+        Log.d("JOB_SUBMISSION", "ONENROLLED: " + response.toString());
+
         saveUserId(response.getPartnerParams().getUserId(), response.getPartnerParams().getJobId());
         mPbLoading.setVisibility(View.INVISIBLE);
         String message;
@@ -302,6 +286,7 @@ public class SIDJobResultActivity extends BaseSIDActivity implements SIDNetworkR
 
     @Override
     public void onAuthenticated(SIDResponse response) {
+        Log.d("JOB_SUBMISSION", "ONAUTHENTICATED: " + response.toString());
         String message;
         boolean approved = false;
 
@@ -405,6 +390,7 @@ public class SIDJobResultActivity extends BaseSIDActivity implements SIDNetworkR
 
     @Override
     public void onDocVerified(SIDResponse response) {
+        Log.d("JOB_SUBMISSION", "ONVERIFIED: " + response.toString());
         StringBuilder stringBuilder = new StringBuilder();
 
         if (!TextUtils.isEmpty(response.getResultText())) {
@@ -420,7 +406,13 @@ public class SIDJobResultActivity extends BaseSIDActivity implements SIDNetworkR
     }
 
     @Override
-    public void onIdValidated(IDValidationResponse result) {
+    public void onIdValidated(IDValidationResponse response) {
+        Log.d("JOB_SUBMISSION", "ONIDVALIDATED: " + response.toString());
         go2Next(true, "");
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 }

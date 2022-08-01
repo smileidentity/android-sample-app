@@ -71,6 +71,7 @@ public class SIDHomeActivity extends BaseSIDActivity implements BaseFragment.Tab
     @Override
     public void doBiometricKYC() {
         resetJob();
+        mConsentRequired = true;
         mKYCProductType = KYC_PRODUCT_TYPE.BIOMETRIC_KYC;
         startKYCProcess();
     }
@@ -78,7 +79,6 @@ public class SIDHomeActivity extends BaseSIDActivity implements BaseFragment.Tab
     @Override
     public void performDocV() {
         resetJob();
-        mConsentRequired = true;
         mKYCProductType = KYC_PRODUCT_TYPE.DOCUMENT_VERIFICATION;
         startKYCProcess();
     }
@@ -86,6 +86,7 @@ public class SIDHomeActivity extends BaseSIDActivity implements BaseFragment.Tab
     @Override
     public void doSmartSelfieAuth() {
         resetJob();
+        mConsentRequired = true;
         mKYCProductType = KYC_PRODUCT_TYPE.SMART_SELFIE_AUTH;
 
         if (!hasSavedUser()) {

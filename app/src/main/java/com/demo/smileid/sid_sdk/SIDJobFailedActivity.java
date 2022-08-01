@@ -29,4 +29,9 @@ public class SIDJobFailedActivity extends AppCompatActivity {
     public void goHome(View view) {
         finish();
     }
+
+    @Override
+    public void onBackPressed() {
+
+    }
 }
