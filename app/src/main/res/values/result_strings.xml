@@ -2,6 +2,6 @@
 
     <string name="enroll_result_screen_upload_now">Upload Now</string>
     <string name="enroll_result_screen_upload_default_txt">Selfie Uploading...</string>
-    <string name="enroll_result_screen_result_default_txt">Just a few more seconds.\nWe are verifying the test ID number provided and reviewing your selfie image</string>
+    <string name="enroll_result_screen_result_default_txt">Just a few more seconds. We are verifying your information.</string>
 
 </resources>

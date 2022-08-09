@@ -5,12 +5,14 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,7 +37,7 @@ import java.util.Locale;
 
 public class SIDIDInfoActivity extends AppCompatActivity implements ItemSelectedInterface {
 
-    private String mSelectedCountryName = "", mSelectedIdCard, mCurrentTag;
+    private String mSelectedCountryName = "", mSelectedIdCard = "", mCurrentTag;
     private TextView mTvInputCountry, mTvLblIdType, mTvInputIdType, mTvInputDoB;
     private EditText mEdtIdNbr, mEdtFirstName, mEdtLastName;
     private BottomDialogHelper mCountryDialog, mIdDialog;
@@ -76,7 +78,6 @@ public class SIDIDInfoActivity extends AppCompatActivity implements ItemSelected
     }
 
     private void setCountryDialog() {
-        mCountryDialog.setCancellable(false);
         RecyclerView rv = mCountryDialog.getContentView().findViewById(R.id.rvCountries);
         rv.setLayoutManager(new LinearLayoutManager(this));
         mAdapter.setListener(this);
@@ -103,6 +104,10 @@ public class SIDIDInfoActivity extends AppCompatActivity implements ItemSelected
         EditText edtSearch = mCountryDialog.getContentView().findViewById(R.id.edtCountry);
         edtSearch.addTextChangedListener(textWatcher);
         mCountryDialog.setDismissListener(dialog -> edtSearch.setText(""));
+
+        mCountryDialog.getContentView().findViewById(R.id.ivBtnCancel).setOnClickListener(
+            v -> mCountryDialog.dismissDialog()
+        );
     }
 
     private void filterCountryList(String constraint) {
@@ -110,12 +115,15 @@ public class SIDIDInfoActivity extends AppCompatActivity implements ItemSelected
     }
 
     private void setIdDialog() {
-        mIdDialog.setCancellable(false);
         RecyclerView rv = mIdDialog.getContentView().findViewById(R.id.rvIds);
         rv.setLayoutManager(new LinearLayoutManager(this));
         mIdListAdapter = new IdListAdapter();
         mIdListAdapter.setListener(this);
         rv.setAdapter(mIdListAdapter);
+
+        mIdDialog.getContentView().findViewById(R.id.ivBtnCancel).setOnClickListener(
+            v -> mIdDialog.dismissDialog()
+        );
     }
 
     public void buildItem(TextView tvLang, Object object, boolean isCountryFlag) {
@@ -141,22 +149,24 @@ public class SIDIDInfoActivity extends AppCompatActivity implements ItemSelected
 
     public void applyChoice(Object object) {
         if (object instanceof CCPCountry) {
-            mCountryDialog.setCancellable(true);
             mCountryDialog.dismissDialog();
-            mIdDialog.setCancellable(false);
 
             mSelectedCountryName = ((CCPCountry) object).getName();
+            mSelectedIdCard = "";
             mIdListAdapter.setIdList(IdTypeUtil.idCards(mSelectedCountryName).getIdCards());
             mIdListAdapter.notifyDataSetChanged();
             mTvInputCountry.setText(mSelectedCountryName);
+            mTvInputCountry.setTextColor(Color.parseColor(mSelectedCountryName.isEmpty() ? "#9AA6AC" : "#252C32"));
+            mTvInputIdType.setText("");
+            mTvInputIdType.setTextColor(Color.parseColor("#9AA6AC"));
             mTvLblIdType.setVisibility(View.VISIBLE);
             mTvInputIdType.setVisibility(View.VISIBLE);
         } else {
-            mIdDialog.setCancellable(true);
             mIdDialog.dismissDialog();
 
             mSelectedIdCard = object.toString();
             mTvInputIdType.setText(mSelectedIdCard);
+            mTvInputIdType.setTextColor(Color.parseColor(mSelectedIdCard.isEmpty() ? "#9AA6AC" : "#252C32"));
 
             findViewById(R.id.tvLblIdNbr).setVisibility(View.VISIBLE);
             findViewById(R.id.edtIdNbr).setVisibility(View.VISIBLE);
@@ -197,7 +207,7 @@ public class SIDIDInfoActivity extends AppCompatActivity implements ItemSelected
 
     public void go2Next(View view) {
         if (!isIdInfoValid()) {
-            Toast.makeText(this, "Kindly provide complete ID information",
+            Toast.makeText(this, getString(R.string.sid_info_screen_incomplete_info_error),
                 Toast.LENGTH_LONG).show();
 
             return;
@@ -236,6 +246,10 @@ public class SIDIDInfoActivity extends AppCompatActivity implements ItemSelected
         mSidUserIdInfo.put(SIDUserIdInfo.ID_TYPE, mSelectedIdCard.replace(" ", "_"));
 
         if (mEdtIdNbr.getText().toString().isEmpty()) return false;
+
+        if (mEdtIdNbr.getText().toString().equalsIgnoreCase(getString(
+            R.string.sid_info_screen_input_id_type_lbl))) return false;
+
         mSidUserIdInfo.put(SIDUserIdInfo.ID_NUMBER, mEdtIdNbr.getText().toString());
 
         if (mEdtFirstName.getText().toString().isEmpty()) return false;
@@ -253,7 +267,7 @@ public class SIDIDInfoActivity extends AppCompatActivity implements ItemSelected
     }
 
     private void buildTag() {
-        mCurrentTag = String.format(
-            Misc.USER_TAG, DateFormat.format("MM_dd_hh_mm_ss", Calendar.getInstance().getTime()).toString());
+        mCurrentTag = String.format(Misc.USER_TAG, DateFormat.format("MM_dd_hh_mm_ss",
+            Calendar.getInstance().getTime()).toString());
     }
 }

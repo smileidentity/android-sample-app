@@ -53,9 +53,7 @@ public class CCAndIdTypeDialog implements ItemSelectedInterface {
     @Override
     public void applyChoice(Object object) {
         if (object instanceof CCPCountry) {
-            mCountryDialog.setCancellable(true);
             mCountryDialog.dismissDialog();
-            mIdDialog.setCancellable(false);
 
             mSelectedCountryName = ((CCPCountry) object).getName();
             mIdListAdapter.setIdList(IdTypeUtil.idCards(mSelectedCountryName).getIdCards());
@@ -64,7 +62,6 @@ public class CCAndIdTypeDialog implements ItemSelectedInterface {
             mTvLblIdType.setVisibility(View.VISIBLE);
             mTvInputIdType.setVisibility(View.VISIBLE);
         } else {
-            mIdDialog.setCancellable(true);
             mIdDialog.dismissDialog();
 
             mSelectedIdType = object.toString();
@@ -126,7 +123,6 @@ public class CCAndIdTypeDialog implements ItemSelectedInterface {
     }
 
     private void setCountryDialog() {
-        mCountryDialog.setCancellable(false);
         RecyclerView rv = mCountryDialog.getContentView().findViewById(R.id.rvCountries);
         rv.setLayoutManager(new LinearLayoutManager(mDialog.getContext()));
         mAdapter.setListener(this);
@@ -160,28 +156,11 @@ public class CCAndIdTypeDialog implements ItemSelectedInterface {
     }
 
     private void setIdDialog() {
-        mIdDialog.setCancellable(false);
         RecyclerView rv = mIdDialog.getContentView().findViewById(R.id.rvIds);
         rv.setLayoutManager(new LinearLayoutManager(mDialog.getContext()));
         mIdListAdapter = new IdListAdapter();
         mIdListAdapter.setListener(this);
         rv.setAdapter(mIdListAdapter);
-    }
-
-    private void applyChoice(TextView tvLang, DropDownAdapter.DropDownObject dropDownObject, boolean isCountryFlag) {
-        tvLang.setText(dropDownObject.getLabel());
-        Drawable left = null;
-        Drawable right = null;
-
-        if (isCountryFlag) {
-            left = mDialog.getContext().getResources().getDrawable(dropDownObject.getFlagResId());
-            right = mDialog.getContext().getResources().getDrawable(R.drawable.ic_down_arrow);
-        } else {
-            tvLang.setTextSize(14);
-            tvLang.setPadding(tvLang.getPaddingLeft(), 4, tvLang.getTotalPaddingRight(), 4);
-        }
-
-        tvLang.setCompoundDrawablesWithIntrinsicBounds(left, null, right, null);
     }
 
     public CCAndIdTypeDialog(Context context, DlgListener listener) {

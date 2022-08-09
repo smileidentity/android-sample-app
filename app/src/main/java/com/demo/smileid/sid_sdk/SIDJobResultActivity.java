@@ -96,6 +96,20 @@ public class SIDJobResultActivity extends BaseSIDActivity implements SIDNetworkR
         mTvResult = findViewById(R.id.tvResult);
         mPbLoading = findViewById(R.id.pbLoading);
         mTvConfidenceValue = findViewById(R.id.tvConfidenceValue);
+
+        String text = "Selfie Uploading...";
+
+        switch (mKYCProductType) {
+            case BASIC_KYC:
+            case ENHANCED_KYC:
+                text = "ID Info Uploading...";
+                break;
+            case DOCUMENT_VERIFICATION:
+                text = "Document Uploading...";
+                break;
+        }
+
+        mTvConfidenceValue.setText(text);
     }
 
     private void buildNetObserver() {
@@ -200,7 +214,7 @@ public class SIDJobResultActivity extends BaseSIDActivity implements SIDNetworkR
 
     @Override
     public void onUpdate(int progress) {
-        mTvResult.setText("progress " + String.valueOf(progress) + " % ");
+        mTvResult.setText("Progress " + String.valueOf(progress) + " % ");
     }
 
     @Override

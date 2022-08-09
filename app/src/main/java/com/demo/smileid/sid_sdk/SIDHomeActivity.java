@@ -17,8 +17,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
 
-public class SIDHomeActivity extends BaseSIDActivity implements BaseFragment.TabActionListener,
-        ActionDialog.DlgListener {
+public class SIDHomeActivity extends BaseSIDActivity implements BaseFragment.TabActionListener {
 
     private boolean mConsentRequired = false;
     private StaticPager mStaticPager = null;
@@ -88,39 +87,7 @@ public class SIDHomeActivity extends BaseSIDActivity implements BaseFragment.Tab
         resetJob();
         mConsentRequired = true;
         mKYCProductType = KYC_PRODUCT_TYPE.SMART_SELFIE_AUTH;
-
-        if (!hasSavedUser()) {
-            enrolFirstDialog();
-            return;
-        }
-
         startKYCProcess();
-    }
-
-    private void enrolFirstDialog() {
-        String heading = getString(R.string.home_screen_enrol_first_heading_txt);
-        String message = getString(R.string.home_screen_enrol_first_error_txt);
-        String register = getString(R.string.home_screen_lbl_register);
-        String cancel = getString(R.string.home_screen_lbl_cancel);
-
-        new ActionDialog.Builder(this).setDlgListener(this).setHeadingTxt(heading)
-            .setContentTxt(message).setPositiveBtnTxt(register).setNegativeBtnTxt(cancel).build()
-                .showDialog();
-    }
-
-    @Override
-    public void cancel() {
-    }
-
-    @Override
-    public void proceed() {
-        doBasicKYC();
-    }
-
-    private boolean hasSavedUser() {
-        SharedPreferences sharedPreferences = getSharedPreferences(getPackageName(), Context.MODE_PRIVATE);
-        String tags = sharedPreferences.getString(SHARED_PREF_USER_ID, null);
-        return !TextUtils.isEmpty(tags);
     }
 
     @Override
