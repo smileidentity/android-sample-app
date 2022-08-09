@@ -4,4 +4,8 @@
     <color name="colorPrimaryDark">#FF0A92D4</color> <!-- #FF2C1440 -->
     <color name="colorAccent">#FF4081</color>
     <color name="darkerGray">#CC222222</color>
+    <color name="colorGrey">#CC222222</color>
+    <color name="colorBlue">#CC222222</color>
+    <color name="app_green">#CC222222</color>
+    <color name="colorRed">#CC222222</color>
 </resources>
