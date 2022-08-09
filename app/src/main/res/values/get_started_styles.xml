@@ -58,7 +58,7 @@
         <item name="android:layout_marginLeft">20dp</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="android:layout_marginRight">16.28dp</item>
-        <item name="android:paddingTop">31.14dp</item>
+        <item name="android:paddingTop">34.42dp</item>
         <item name="android:paddingBottom">34.42dp</item>
         <item name="android:paddingLeft">19dp</item>
         <item name="android:paddingRight">19dp</item>
@@ -66,7 +66,7 @@
 
     <style name="get_started_screen_tip_txt" parent="TextAppearance.AppCompat">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">19.67dp</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">#100F0F</item>
         <item name="android:textSize">11sp</item>
         <item name="android:textFontWeight">400</item>
@@ -111,15 +111,18 @@
     </style>
 
     <style name="get_started_ttn_txt" parent="TextAppearance.AppCompat">
-        <item name="android:layout_width">84.41dp</item>
-        <item name="android:layout_height">18.85dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingLeft">19dp</item>
+        <item name="android:paddingRight">19dp</item>
         <item name="android:text">@string/get_started_screen_ttn_txt</item>
         <item name="android:textColor">#092548</item>
         <item name="android:textSize">10sp</item>
         <item name="android:lineHeight">14.95sp</item>
         <item name="android:textFontWeight">500</item>
-        <item name="android:gravity">center</item>
-        <item name="android:layout_marginTop">25.12sp</item>
+        <item name="android:gravity">center</item>=
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="android:background">@drawable/get_started_tip_txt_bckgrd</item>

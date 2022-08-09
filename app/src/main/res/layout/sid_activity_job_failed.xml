@@ -20,7 +20,9 @@
 
     <TextView
         android:id="@+id/tvOops"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/ivFailure"
         android:layout_marginTop="55dp"
@@ -30,7 +32,9 @@
         android:textFontWeight="700"
         android:textColor="#030303"
         android:textSize="24sp"
-        android:text="Oops!" />
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:text="We are unable to validate your identity" />
     
     <TextView
       android:id="@+id/tvFailedMsg"

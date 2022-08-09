@@ -32,12 +32,12 @@
 
         <RadioGroup
           android:id="@+id/rgTypes"
-          android:layout_width="match_parent"
+          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           app:layout_constraintTop_toBottomOf="@id/tvLblTypes"
           android:layout_marginTop="6dp"
           app:layout_constraintStart_toStartOf="@id/tvLblTypes"
-          android:layout_marginLeft="12dp"
+          android:layout_marginLeft="6dp"
           android:visibility="visible"
           android:checkedButton="@id/rbEnrolled">
 
@@ -70,7 +70,7 @@
           app:layout_constraintTop_toBottomOf="@id/tvUserTypes"
           android:layout_marginTop="6dp"
           app:layout_constraintStart_toStartOf="@id/tvUserTypes"
-          android:layout_marginLeft="0dp"
+          android:layout_marginLeft="6dp"
           android:visibility="gone"
           android:checkedButton="@id/rbEnrolled">
 

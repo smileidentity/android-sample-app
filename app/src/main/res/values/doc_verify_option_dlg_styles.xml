@@ -25,6 +25,7 @@
     <style name="doc_very_option_dlg_heading" parent="TextAppearance.AppCompat">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">8dp</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="android:layout_marginLeft">52dp</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
@@ -40,7 +41,7 @@
     <style name="doc_very_option_dlg_input_label" parent="TextAppearance.AppCompat">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">24dp</item>
-        <item name="android:layout_marginTop">12dp</item>
+        <item name="android:layout_marginTop">16dp</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="android:layout_marginLeft">20dp</item>
         <item name="android:layout_marginRight">20dp</item>
@@ -95,7 +96,7 @@
     </style>
 
     <style name="doc_very_option_dlg_radio_btn" parent="TextAppearance.AppCompat">
-        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:fontFamily">@font/inter</item>
         <item name="android:fontWeight">400</item>
@@ -117,7 +118,7 @@
         <item name="android:text">@string/id_card_back_dlg_proceed_btn</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">16sp</item>
-        <item name="android:text">Proceed</item>
+        <item name="android:text">Continue</item>
         <item name="android:textFontWeight">600</item>
         <item name="android:gravity">center</item>
         <item name="android:visibility">gone</item>
