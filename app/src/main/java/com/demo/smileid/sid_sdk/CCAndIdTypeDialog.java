@@ -7,6 +7,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
@@ -148,6 +149,10 @@ public class CCAndIdTypeDialog implements ItemSelectedInterface {
 
         EditText edtSearch = mCountryDialog.getContentView().findViewById(R.id.edtCountry);
         edtSearch.addTextChangedListener(textWatcher);
+
+        mCountryDialog.getContentView().findViewById(R.id.ivBtnCancel).setOnClickListener(
+            v -> mCountryDialog.dismissDialog());
+
         mCountryDialog.setDismissListener(dialog -> edtSearch.setText(""));
     }
 
@@ -161,6 +166,9 @@ public class CCAndIdTypeDialog implements ItemSelectedInterface {
         mIdListAdapter = new IdListAdapter();
         mIdListAdapter.setListener(this);
         rv.setAdapter(mIdListAdapter);
+
+        mIdDialog.getContentView().findViewById(R.id.ivBtnCancel).setOnClickListener(
+            v -> mIdDialog.dismissDialog());
     }
 
     public CCAndIdTypeDialog(Context context, DlgListener listener) {
