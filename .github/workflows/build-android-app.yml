@@ -31,7 +31,10 @@ jobs:
           cat app/smile_config.json
           echo "$KEY_STORE" >> app/app_keystore.keystore
           cat app/app_keystore.keystore
-          echo "::set-env name=SID_storePassword::${SID_storePassword}"
+          echo SID_keyAlias=\"$SID_keyAlias\" >> ./secrets.properties
+          echo SID_keyPassword=\"$SID_keyPassword\" >> ./secrets.properties
+          echo SID_storePassword=\"$SID_storePassword\" >> ./secrets.properties
+          echo SID_KEYSTORE=\"$SID_KEYSTORE\" >> ./secrets.properties
       shell: bash
       env:
         MY_SECRET: ${{secrets.SMILE_CONFIG}}
@@ -39,6 +42,7 @@ jobs:
         SID_keyAlias: '${{secrets.SID_KEYALIAS}}'
         SID_keyPassword: '${{secrets.SID_KEYPASSWORD}}'
         SID_storePassword: '${{secrets.SID_STOREPASSWORD}}'
+        SID_KEYSTORE: '${{secrets.SID_KEYSTORE}}'
         SID_AWS_ACCESS_KEY_ID: '${{secrets.SID_AWS_ACCESS_KEY_ID}}'
         SID_AWS_SECRET_ACCESS_KEY: '${{secrets.SID_AWS_SECRET_ACCESS_KEY}}'
         SID_AWS_BUCKET: '${{secrets.SID_AWS_BUCKET}}'
