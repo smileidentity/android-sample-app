@@ -36,17 +36,22 @@ jobs:
           echo SID_storePassword=\"$SID_storePassword\" >> ./secrets.properties
           echo SID_KEYSTORE=\"$SID_KEYSTORE\" >> ./secrets.properties
           cat ./secrets.properties
+          echo SID_AWS_ACCESS_KEY_ID=\"$SID_AWS_ACCESS_KEY_ID\" >> .fastlane/secrets.json
+          echo SID_AWS_SECRET_ACCESS_KEY=\"$SID_AWS_SECRET_ACCESS_KEY\" >> .fastlane/secrets.json
+          echo SID_AWS_BUCKET=\"$SID_AWS_BUCKET\" >> .fastlane/secrets.json
+          echo SID_AWS_REGION=\"$SID_AWS_REGION\" >> .fastlane/secrets.json
+          cat .fastlane/secrets.json
       shell: bash
       env:
         MY_SECRET: ${{secrets.SMILE_CONFIG}}
         KEY_STORE: ${{secrets.KEY_STORE}}
-        SID_keyAlias: '${{secrets.SID_KEYALIAS}}'
-        SID_keyPassword: '${{secrets.SID_KEYPASSWORD}}'
-        SID_storePassword: '${{secrets.SID_STOREPASSWORD}}'
-        SID_KEYSTORE: '${{secrets.SID_KEYSTORE}}'
-        SID_AWS_ACCESS_KEY_ID: '${{secrets.SID_AWS_ACCESS_KEY_ID}}'
-        SID_AWS_SECRET_ACCESS_KEY: '${{secrets.SID_AWS_SECRET_ACCESS_KEY}}'
-        SID_AWS_BUCKET: '${{secrets.SID_AWS_BUCKET}}'
-        SID_AWS_REGION: '${{secrets.SID_AWS_REGION}}'
+        SID_keyAlias: ${{secrets.SID_KEYALIAS}}
+        SID_keyPassword: ${{secrets.SID_KEYPASSWORD}}
+        SID_storePassword: ${{secrets.SID_STOREPASSWORD}}
+        SID_KEYSTORE: ${{secrets.SID_KEYSTORE}}
+        SID_AWS_ACCESS_KEY_ID: ${{secrets.SID_AWS_ACCESS_KEY_ID}}
+        SID_AWS_SECRET_ACCESS_KEY: ${{secrets.SID_AWS_SECRET_ACCESS_KEY}}
+        SID_AWS_BUCKET: ${{secrets.SID_AWS_BUCKET}}
+        SID_AWS_REGION: ${{secrets.SID_AWS_REGION}}
     - run: fastlane android deploy_beta
     
