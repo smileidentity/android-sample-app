@@ -14,10 +14,10 @@ android {
     }
     signingConfigs {
         config {
-            keyAlias 'alias'
-            keyPassword 'Smile1dKey5tore'
-            storeFile file('../../android_lib/keystore/smileId_keystore.keystore')
-            storePassword 'Smile1dKey5tore'
+            keyAlias System.getenv('SID_keyAlias')
+            keyPassword System.getenv('SID_keyPassword')
+            storeFile file('app_keystore.keystore')
+            storePassword System.getenv('SID_storePassword')
         }
     }
     compileSdkVersion 33

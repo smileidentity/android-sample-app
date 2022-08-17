@@ -29,8 +29,14 @@ jobs:
       run: |
           echo "$MY_SECRET" >> app/smile_config.json
           cat app/smile_config.json
+          echo "$KEY_STORE" >> app/app_keystore.keystore
+          cat app/app_keystore.keystore
       shell: bash
       env:
         MY_SECRET: ${{secrets.SMILE_CONFIG}}
+        KEY_STORE: ${{secrets.KEY_STORE}}
+        SID_keyAlias: ${{secrets.SID_KEYALIAS}}
+        SID_keyPassword: ${{secrets.SID_KEYPASSWORD}}
+        SID_storePassword: ${{secrets.SID_STOREPASSWORD}}
     - run: fastlane android deploy_beta
     
