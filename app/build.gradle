@@ -15,9 +15,9 @@ android {
     signingConfigs {
         config {
             keyAlias System.getenv('SID_keyAlias')
+            storePassword System.getenv('SID_storePassword')
             keyPassword System.getenv('SID_keyPassword')
             storeFile file('app_keystore.keystore')
-            storePassword System.getenv('SID_storePassword')
         }
     }
     compileSdkVersion 33
