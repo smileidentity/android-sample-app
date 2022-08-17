@@ -20,7 +20,7 @@ android {
             keyAlias properties['SID_keyAlias']
             storePassword properties['SID_storePassword']
             keyPassword properties['SID_keyPassword']
-            storeFile file(properties['SID_keystore'])
+            storeFile file('app_keystore.keystore')
         }
     }
     compileSdkVersion 33
