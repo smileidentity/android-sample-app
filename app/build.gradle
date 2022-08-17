@@ -13,11 +13,14 @@ android {
         targetCompatibility 1.8
     }
     signingConfigs {
+        def propFile = rootProject.file("./secrets.properties")
+        def properties = new Properties()
+        properties.load(new FileInputStream(propFile))
         config {
-            keyAlias System.getenv('SID_keyAlias')
-            storePassword System.getenv('SID_storePassword')
-            keyPassword System.getenv('SID_keyPassword')
-            storeFile file('app_keystore.keystore')
+            keyAlias properties['SID_keyAlias']
+            storePassword properties['SID_storePassword']
+            keyPassword properties['SID_keyPassword']
+            storeFile file(properties['SID_keystore'])
         }
     }
     compileSdkVersion 33
