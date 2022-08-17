@@ -35,8 +35,8 @@ jobs:
       env:
         MY_SECRET: ${{secrets.SMILE_CONFIG}}
         KEY_STORE: ${{secrets.KEY_STORE}}
-        SID_keyAlias: ${{secrets.SID_KEYALIAS}}
-        SID_keyPassword: ${{secrets.SID_KEYPASSWORD}}
-        SID_storePassword: ${{secrets.SID_STOREPASSWORD}}
+        SID_keyAlias: '${{secrets.SID_KEYALIAS}}'
+        SID_keyPassword: '${{secrets.SID_KEYPASSWORD}}'
+        SID_storePassword: '${{secrets.SID_STOREPASSWORD}}'
     - run: fastlane android deploy_beta
     
