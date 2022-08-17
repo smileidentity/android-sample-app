@@ -38,5 +38,9 @@ jobs:
         SID_keyAlias: '${{secrets.SID_KEYALIAS}}'
         SID_keyPassword: '${{secrets.SID_KEYPASSWORD}}'
         SID_storePassword: '${{secrets.SID_STOREPASSWORD}}'
+        SID_AWS_ACCESS_KEY_ID: '${{secrets.SID_AWS_ACCESS_KEY_ID}}'
+        SID_AWS_SECRET_ACCESS_KEY: '${{secrets.SID_AWS_SECRET_ACCESS_KEY}}'
+        SID_AWS_BUCKET: '${{secrets.SID_AWS_BUCKET}}'
+        SID_AWS_REGION: '${{secrets.SID_AWS_REGION}}'
     - run: fastlane android deploy_beta
     
