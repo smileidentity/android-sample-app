@@ -31,6 +31,7 @@ jobs:
           cat app/smile_config.json
           echo "$KEY_STORE" >> app/app_keystore.keystore
           cat app/app_keystore.keystore
+          echo inside a multi-line script: $SID_keyAlias
       shell: bash
       env:
         MY_SECRET: ${{secrets.SMILE_CONFIG}}
