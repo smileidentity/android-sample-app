@@ -272,6 +272,8 @@ fabric.properties
 !/gradle/wrapper/gradle-wrapper.jar
 
 smile_config.json
+secrets.properties
+*/secrets.properties
 */smile_config.json
 # End of https://www.toptal.com/developers/gitignore/api/android,androidstudio,java,kotlin,macos
 
