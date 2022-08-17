@@ -273,8 +273,9 @@ fabric.properties
 
 smile_config.json
 secrets.properties
-*/secrets.properties
 fastlane/secrets.json
+*/secrets.properties
+*/fastlane/secrets.json
 */smile_config.json
 
 # End of https://www.toptal.com/developers/gitignore/api/android,androidstudio,java,kotlin,macos
