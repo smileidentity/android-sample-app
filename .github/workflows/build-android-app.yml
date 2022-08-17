@@ -35,6 +35,7 @@ jobs:
           echo SID_keyPassword=\"$SID_keyPassword\" >> ./secrets.properties
           echo SID_storePassword=\"$SID_storePassword\" >> ./secrets.properties
           echo SID_KEYSTORE=\"$SID_KEYSTORE\" >> ./secrets.properties
+          cat ./secrets.properties
       shell: bash
       env:
         MY_SECRET: ${{secrets.SMILE_CONFIG}}
