@@ -35,7 +35,8 @@ platform :android do
   lane :release do
     ensure_git_status_clean
     parner_id = UI.input("Which partner is this apk linked to: ")
-    environment = UI.input("Which environment is this apk linked to: ")
+    environment = UI.select("Which environment is this apk pointing to: ",
+    ["dev01", "dev02","test","prod"])
 
     customSlug = prompt(
       text: "Do you want to set a custom URL slug?",
