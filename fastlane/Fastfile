@@ -34,6 +34,8 @@ platform :android do
   desc "Release a new tag based on your current config"
   lane :release do
     ensure_git_status_clean
+    parner_id = UI.input("Which partner is this apk linked to: ")
+    environment = UI.input("Which environment is this apk linked to: ")
 
     customSlug = prompt(
       text: "Do you want to set a custom URL slug?",
@@ -43,7 +45,7 @@ platform :android do
     slug = if customSlug then prompt(text: "What is the URL slug?") else git_branch().downcase.split("/")[1] end
 
     commit = last_git_commit
-    tag = "beta-#{commit[:abbreviated_commit_hash]}-#{type}/#{slug}"
+    tag = "beta-#{commit[:abbreviated_commit_hash]}-#{parner_id}-#{environment}/#{slug}"
 
       # Confirm with the user
     confirm = prompt(
