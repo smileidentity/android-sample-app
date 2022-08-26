@@ -288,7 +288,7 @@ public class IdTypeUtil {
                         .addCard(IdType.DRIVER_LICENSE.replace("_", " "))
                         .addCard(IdType.NIN)
                         .addCard(IdType.NIN_SLIP.replace("_", " "))
-                        .addCard(IdType.PHONE_NUMBER.replace("_", " "))
+//                        .addCard(IdType.PHONE_NUMBER.replace("_", " "))
                         .addCard(IdType.VOTER_ID.replace("_", " "))
                         .addCard(IdType.OTHER_ID_TYPE.replace("_", " "))
                         .create();

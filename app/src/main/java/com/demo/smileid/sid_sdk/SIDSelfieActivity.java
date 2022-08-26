@@ -274,7 +274,7 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
             }
         };
 
-        new CCAndIdTypeDialog(this, listener).showDialog();
+        new CCAndIdTypeDialog(this, mKYCProductType == KYC_PRODUCT_TYPE. DOCUMENT_VERIFICATION, listener).showDialog();
     }
 
     private void go2Next(Class clazz) {

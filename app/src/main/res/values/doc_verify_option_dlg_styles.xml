@@ -121,7 +121,7 @@
         <item name="android:text">Continue</item>
         <item name="android:textFontWeight">600</item>
         <item name="android:gravity">center</item>
-        <item name="android:visibility">gone</item>
+        <item name="android:visibility">visible</item>
     </style>
 
 </resources>
