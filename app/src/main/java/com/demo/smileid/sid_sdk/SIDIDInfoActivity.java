@@ -38,11 +38,12 @@ import java.util.Locale;
 public class SIDIDInfoActivity extends AppCompatActivity implements ItemSelectedInterface {
 
     private String mSelectedCountryName = "", mSelectedIdCard = "", mCurrentTag;
+    private static final String SUPPORTED_COUNTRIES = "GH,KE,NG,ZA,UG";
     private TextView mTvInputCountry, mTvLblIdType, mTvInputIdType, mTvInputDoB;
     private EditText mEdtIdNbr, mEdtFirstName, mEdtLastName;
     private BottomDialogHelper mCountryDialog, mIdDialog;
     private IdListAdapter mIdListAdapter = null;
-    private CountryListAdapter mAdapter = new CountryListAdapter();
+    private CountryListAdapter mAdapter = null;
     private HashMap<String, String> mSidUserIdInfo = new HashMap();
     private Bundle mParams = null;
 
@@ -57,6 +58,8 @@ public class SIDIDInfoActivity extends AppCompatActivity implements ItemSelected
         if (mParams != null) {
             mCurrentTag = mParams.getString(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO);
         }
+
+        mAdapter = new CountryListAdapter(SUPPORTED_COUNTRIES);
 
         initViews();
     }

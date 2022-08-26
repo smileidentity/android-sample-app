@@ -15,15 +15,16 @@ public class CountryListAdapter extends ItemListAdapter {
   private ArrayList<CCPCountry> mDefaultCountries = new ArrayList(CCPCountry.getLibraryMasterCountriesEnglish());
   private ArrayList<CCPCountry> mCountries = new ArrayList();
 
-  private static final String SUPPORTED_COUNTRIES = "GH,KE,NG,ZA,UG";
+  private String mSupportedCountries = "";
 
-  public CountryListAdapter() {
+  public CountryListAdapter(String supportedCountries) {
+    mSupportedCountries = supportedCountries;
     filterList("");
   }
 
   public void filterList(String constraint) {
     mCountries = new ArrayList<>(Collections2.filter(mDefaultCountries, country -> {
-      boolean valid = SUPPORTED_COUNTRIES.contains(country.getNameCode().toUpperCase());
+      boolean valid = mSupportedCountries.isEmpty() || mSupportedCountries.contains(country.getNameCode().toUpperCase());
 
       if (!constraint.isEmpty()) {
         valid &= country.getName().toLowerCase().contains(constraint.toLowerCase());

@@ -24,10 +24,11 @@ public class CCAndIdTypeDialog implements ItemSelectedInterface {
     private Dialog mDialog;
     private BottomDialogHelper mCountryDialog, mIdDialog;
     private IdListAdapter mIdListAdapter = null;
-    private CountryListAdapter mAdapter = new CountryListAdapter();
+    private CountryListAdapter mAdapter = null;
     private TextView mTvInputCountry, mTvLblIdType, mTvInputIdType, mTvSubmit;
     private DlgListener mListener;
     private String mSelectedCountryName = "", mSelectedIdType;
+    private static final String SUPPORTED_COUNTRIES = "GH,KE,NG,ZA,UG";
 
     @Override
     public void buildItem(TextView textView, Object object, boolean isCountryFlag) {
@@ -60,6 +61,7 @@ public class CCAndIdTypeDialog implements ItemSelectedInterface {
             mIdListAdapter.setIdList(IdTypeUtil.idCards(mSelectedCountryName).getIdCards());
             mIdListAdapter.notifyDataSetChanged();
             mTvInputCountry.setText(mSelectedCountryName);
+            mTvInputCountry.setTextColor(mDialog.getContext().getResources().getColor(R.color.darkerGray));
             mTvLblIdType.setVisibility(View.VISIBLE);
             mTvInputIdType.setVisibility(View.VISIBLE);
         } else {
@@ -67,6 +69,7 @@ public class CCAndIdTypeDialog implements ItemSelectedInterface {
 
             mSelectedIdType = object.toString();
             mTvInputIdType.setText(mSelectedIdType);
+            mTvInputIdType.setTextColor(mDialog.getContext().getResources().getColor(R.color.darkerGray));
 
             mDialog.findViewById(R.id.tvSubmit).setVisibility(View.VISIBLE);
         }
@@ -171,14 +174,13 @@ public class CCAndIdTypeDialog implements ItemSelectedInterface {
             v -> mIdDialog.dismissDialog());
     }
 
-    public CCAndIdTypeDialog(Context context, DlgListener listener) {
+    public CCAndIdTypeDialog(Context context, boolean allCountries, DlgListener listener) {
         View root = LayoutInflater.from(context).inflate(R.layout.layout_cc_id_type_dlg, null);
         root.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
-        buildIdTypeDialog(context, root);
-
+        mAdapter = new CountryListAdapter(allCountries? "" : SUPPORTED_COUNTRIES);
         mListener = listener;
-
+        buildIdTypeDialog(context, root);
         setupViews();
     }
 

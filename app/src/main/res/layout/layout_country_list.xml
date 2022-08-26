@@ -32,7 +32,7 @@
       android:layout_width="48dp"
       android:layout_height="48dp"
       android:src="@drawable/ic_globe"
-      android:layout_marginTop="52dp"
+      android:layout_marginTop="56dp"
       tools:ignore="MissingConstraints" />
 
     <EditText
