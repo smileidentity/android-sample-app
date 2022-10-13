@@ -33,6 +33,7 @@
         android:textColor="#030303"
         android:textSize="24sp"
         android:maxLines="2"
+        android:gravity="center"
         android:ellipsize="end"
         android:text="We are unable to validate your identity" />
     

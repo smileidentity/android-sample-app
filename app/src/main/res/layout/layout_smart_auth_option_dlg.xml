@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:paddingLeft="12dp"
+    android:paddingRight="12dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/doc_very_option_dlg_cl"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/ivImage"
+            style="@style/doc_very_option_dlg_top_img"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            style="@style/doc_very_option_dlg_heading"
+            android:text="New User / Existing User"
+            app:layout_constraintTop_toBottomOf="@id/ivImage"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/tvLblTypes"
+            style="@style/doc_very_option_dlg_input_label"
+            android:text="Enroll new user or authenticate last enrolled user?"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle"
+            tools:ignore="MissingConstraints" />
+
+        <RadioGroup
+            android:id="@+id/rgTypes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="6dp"
+            android:checkedButton="@id/rbNewEnroll"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="@id/tvLblTypes"
+            app:layout_constraintTop_toBottomOf="@id/tvLblTypes">
+
+            <RadioButton
+                android:id="@+id/rbNewEnroll"
+                style="@style/doc_very_option_dlg_radio_btn"
+                android:checked="true"
+                android:text="Enroll new user" />
+
+            <RadioButton
+                android:id="@+id/rbEnrolled"
+                style="@style/doc_very_option_dlg_radio_btn"
+                android:checked="false"
+                android:text="Last enrolled user" />
+
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/tvSubmit"
+            style="@style/doc_very_option_dlg_submit_btn"
+            app:layout_constraintTop_toBottomOf="@id/rgTypes"
+            tools:ignore="MissingConstraints" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

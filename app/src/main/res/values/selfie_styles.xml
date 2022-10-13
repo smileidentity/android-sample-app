@@ -16,8 +16,8 @@
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="android:background">@color/white_color</item>
-        <item name="captured_progress_state_color">@color/colorPrimary</item>
-        <item name="capturing_progress_state_color">@color/colorAccent</item>
+        <item name="captured_progress_state_color">@color/selfieComplete</item>
+        <item name="capturing_progress_state_color">@color/selfieCapturing</item>
         <item name="overlay_height">249.16dp</item>
         <item name="overlay_width">218.53dp</item>
         <item name="progress_width">15dp</item>

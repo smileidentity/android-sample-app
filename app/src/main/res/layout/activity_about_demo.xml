@@ -44,20 +44,5 @@
         style="@style/about_demo_screen_small_txt"
         app:layout_constraintTop_toBottomOf="@id/tvVersion" />
 
-    <TextView
-        android:id="@+id/tvContactLink"
-        style="@style/about_demo_screen_about_link_txt"
-        app:layout_constraintTop_toBottomOf="@id/tvDesc"
-        android:layout_marginTop="44dp"
-        android:text="@string/about_demo_screen_contact_link_txt"
-        android:drawableLeft="@drawable/ic_email" />
-
-    <TextView
-        android:id="@+id/tvWebsiteLink"
-        style="@style/about_demo_screen_about_link_txt"
-        app:layout_constraintTop_toBottomOf="@id/tvContactLink"
-        android:layout_marginTop="16dp"
-        android:text="@string/about_demo_screen_view_website_link_txt"
-        android:drawableLeft="@drawable/ic_web_link" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

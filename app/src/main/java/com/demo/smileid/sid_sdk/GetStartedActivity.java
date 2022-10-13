@@ -8,6 +8,8 @@ import static com.demo.smileid.sid_sdk.BaseSIDActivity.KYC_PRODUCT_TYPE.SMART_SE
 import static com.demo.smileid.sid_sdk.SIDSelfieActivity.DOC_V_PARAM;
 import static com.demo.smileid.sid_sdk.SIDSelfieActivity.DOC_V_CAPTURE_TYPE;
 import static com.demo.smileid.sid_sdk.SIDSelfieActivity.DOC_V_USER_SELFIE_OPTION;
+import static com.demo.smileid.sid_sdk.SIDSelfieActivity.SMART_AUTH_CAPTURE_TYPE;
+import static com.demo.smileid.sid_sdk.SIDSelfieActivity.SMART_AUTH_PARAM;
 import static com.smileid.smileidui.IntentHelper.SMILE_REQUEST_RESULT_TAG;
 
 import android.content.Intent;
@@ -61,12 +63,13 @@ public class GetStartedActivity extends BaseSIDActivity {
                 case DOCUMENT_VERIFICATION:
                     showDocVOptionDlg();
                     break;
-
+                case SMART_SELFIE_AUTH:
+                    showSmartSelfieDialog();
+                    break;
                 case BASIC_KYC:
                 case ENHANCED_KYC:
                     proceedWithIDInfo();
                     break;
-
                 default:
                     proceedWithSelfie();
             }
@@ -95,6 +98,25 @@ public class GetStartedActivity extends BaseSIDActivity {
                 }
             }
         }).showDialog();
+    }
+
+    private void showSmartSelfieDialog() {
+    new SmartAuthOptionDialog(
+            this,
+            (type) -> {
+              if (mParams != null) {
+                HashMap<String, String> docVParams =
+                    new HashMap() {
+                      {
+                        put(SMART_AUTH_CAPTURE_TYPE, type.toString());
+                      }
+                    };
+
+                mParams.putSerializable(SMART_AUTH_PARAM, docVParams);
+                proceedWithSelfie();
+              }
+            })
+        .showDialog();
     }
 
     private void proceedWithIDCard() {

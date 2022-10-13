@@ -30,7 +30,9 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
         SmartSelfieManager.OnCompleteListener {
 
     public final static String DOC_V_PARAM = "DOC_V_PARAM";
+    public final static String SMART_AUTH_PARAM = "SMART_AUTH_PARAM";
     public final static String DOC_V_CAPTURE_TYPE = "DOC_V_CAPTURE_TYPE";
+    public final static String SMART_AUTH_CAPTURE_TYPE = "SMART_AUTH_CAPTURE_TYPE";
     public final static String DOC_V_USER_SELFIE_OPTION = "DOC_V_USER_SELFIE_OPTION";
     private KYC_PRODUCT_TYPE mKYCProductType = KYC_PRODUCT_TYPE.ENROLL_TEST;
 

@@ -5,5 +5,6 @@
     <string name="splash_screen_explore_txt">Explore our products and see how Smile Identity creates a seamless user experience</string>
     <string name="splash_screen_get_started">Get Started</string>
     <string name="splash_screen_about_demo_link" translatable="false">&lt;span style="color:#99FFFFFF;">&lt;u>About our demo app&lt;/u>&lt;/span></string>
+    <string name="lbl_version_number">lib: %s - app: %s</string>
 
 </resources>
