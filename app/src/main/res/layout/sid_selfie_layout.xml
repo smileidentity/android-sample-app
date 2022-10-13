@@ -5,12 +5,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/clParent"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/transparent">
 
     <com.smileidentity.libsmileid.core.CameraSourcePreview
         android:id="@+id/cspCamera"
         style="@style/selfie_screen_camera_preview"
+        app:overlay_height="300dp"
+        app:overlay_width="250dp"
+        app:progress_width="15dp"
         tools:ignore="MissingConstraints" />
 
     <androidx.cardview.widget.CardView
