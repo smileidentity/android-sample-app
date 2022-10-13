@@ -8,4 +8,7 @@
     <color name="colorBlue">#CC222222</color>
     <color name="app_green">#CC222222</color>
     <color name="colorRed">#CC222222</color>
+    <color name="selfieComplete">#17A3DC</color>
+    <color name="selfieCapturing">#FC9191</color>
+    <color name="backgroundMainWindow">#E5E5E5</color>
 </resources>

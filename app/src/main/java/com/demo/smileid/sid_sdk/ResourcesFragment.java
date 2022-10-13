@@ -11,7 +11,7 @@ public class ResourcesFragment extends BaseFragment {
     void setupViews() {
         getView().findViewById(R.id.crlDocs).setOnClickListener(v -> linkClicked("https://docs.smileidentity.com/"));
         getView().findViewById(R.id.crlPolicy).setOnClickListener(v -> linkClicked("https://smileidentity.com/privacy-policy"));
-        getView().findViewById(R.id.crlFaqs).setOnClickListener(v -> linkClicked(""));
-        getView().findViewById(R.id.crlIds).setOnClickListener(v -> linkClicked("https://docs.smileidentity.com/supported-id-types/for-individuals-kyc/backed-by-id-authority/supported-countries"));
+        getView().findViewById(R.id.crlFaqs).setOnClickListener(v -> linkClicked("https://docs.smileidentity.com/further-reading/faqs"));
+        getView().findViewById(R.id.crlIds).setOnClickListener(v -> linkClicked("https://docs.smileidentity.com/supported-id-types/for-individuals-kyc"));
     }
 }

@@ -11,6 +11,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.demo.smileid.sid_sdk.DropDownAdapter.DropDownObject;
+import com.smileidentity.libsmileid.utils.Version;
+
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 
@@ -27,8 +29,8 @@ public class SIDSplashActivity extends AppCompatActivity {
     }
 
     private void setBottomLink() {
-        Spanned strPrivacy = Html.fromHtml(getString(R.string.splash_screen_about_demo_link));
-        ((TextView) findViewById(R.id.tvAboutDemo)).setText(strPrivacy);
+        ((TextView) findViewById(R.id.tvVersion)).setText(String.format(getString(
+                R.string.lbl_version_number), Version.name(), BuildConfig.VERSION_NAME));
     }
 
     private void populateLangs() {
