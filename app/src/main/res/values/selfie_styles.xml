@@ -9,7 +9,7 @@
     </style>
 
     <style name="selfie_screen_camera_preview">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="layout_constraintTop_toTopOf">parent</item>
         <item name="android:layout_marginTop">36dp</item>
@@ -18,9 +18,6 @@
         <item name="android:background">@color/white_color</item>
         <item name="captured_progress_state_color">@color/selfieComplete</item>
         <item name="capturing_progress_state_color">@color/selfieCapturing</item>
-        <item name="overlay_height">249.16dp</item>
-        <item name="overlay_width">218.53dp</item>
-        <item name="progress_width">15dp</item>
     </style>
 
     <style name="selfie_screen_progress_bar" parent="Widget.AppCompat.ProgressBar">
