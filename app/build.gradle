@@ -116,14 +116,14 @@ dependencies {
     implementation 'com.google.guava:guava:24.1-jre'
 
 //    PRODUCTION DEPENDENCIES
-//    implementation 'com.smileidentity:smile-id-sdk:7.3.12-SNAPSHOT'
-//    implementation 'com.smileidentity:netjava:0.0.8'
-//    implementation 'com.smileidentity:smile-id-ui:0.2.5-SNAPSHOT'
+    implementation 'com.smileidentity:smile-id-sdk:7.3.14'
+    implementation 'com.smileidentity:netjava:0.0.8'
+    implementation 'com.smileidentity:smile-id-ui:0.2.8'
 
     // DEV DEPENDENCIES
-    implementation project(':android_lib')
-    implementation project(':smile-id-ui')
-    implementation project(':netjava')
+//    implementation project(':android_lib')
+//    implementation project(':smile-id-ui')
+//    implementation project(':netjava')
 //    implementation platform('com.google.firebase:firebase-bom:25.12.0')
 //    implementation 'com.google.firebase:firebase-analytics'
 //    implementation 'com.google.firebase:firebase-crashlytics'

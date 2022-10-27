@@ -176,7 +176,7 @@ public class GetStartedActivity extends BaseSIDActivity {
                 if (clazz == null) return;
 
                 startActivity(
-                    new Intent(this, clazz) {
+                    new Int ent(this, clazz) {
                         {
                             putExtra(BaseSIDActivity.KYC_PRODUCT_TYPE_PARAM, mKYCProductType);
                             putExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO,
