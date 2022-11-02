@@ -128,8 +128,8 @@ public class GetStartedActivity extends BaseSIDActivity {
     }
 
     private void proceedWithSelfie() {
-        useLocalScreen();
-//        useSmileUIScreen();
+//        useLocalScreen();
+        useSmileUIScreen();
     }
 
     private void useLocalScreen() {
@@ -176,7 +176,7 @@ public class GetStartedActivity extends BaseSIDActivity {
                 if (clazz == null) return;
 
                 startActivity(
-                    new Int ent(this, clazz) {
+                    new Intent(this, clazz) {
                         {
                             putExtra(BaseSIDActivity.KYC_PRODUCT_TYPE_PARAM, mKYCProductType);
                             putExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO,

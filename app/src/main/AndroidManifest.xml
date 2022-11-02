@@ -41,6 +41,7 @@ if target sdk is 30 and above this is not necessary for smile but migrations for
         android:required="true" />
 
     <application
+        android:name="SmileIDDemoApplication"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -51,9 +52,9 @@ if target sdk is 30 and above this is not necessary for smile but migrations for
         android:theme="@style/AppTheme">
 
         <activity
-          android:name=".SIDJobFailedActivity"
-          android:exported="false"
-          android:theme="@style/AppTheme.NoActionBar" />
+            android:name=".SIDJobFailedActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name=".SIDJobCompletedActivity"
@@ -89,14 +90,12 @@ if target sdk is 30 and above this is not necessary for smile but migrations for
             android:name=".SIDSplashActivity"
             android:exported="true"
             android:theme="@style/AppTheme.NoActionBar">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
 
         <activity
@@ -148,7 +147,7 @@ if target sdk is 30 and above this is not necessary for smile but migrations for
         <meta-data
             android:name="android.arch.lifecycle.VERSION"
             android:value="27.0.0-SNAPSHOT" />
-        
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
