@@ -35,6 +35,7 @@ jobs:
         Write-Output "::set-output name=SECRET_FILE::$secretFile";
         Write-Output "::set-output name=SECRET_FILE_HASH::$($secretFileHash.Hash)";
         Write-Output "Secret file $secretFile has hash $($secretFileHash)";
+        gc $secretFile
       shell: pwsh
       env:
         SECRET_DATA1: ${{ secrets.B64_SECRET1 }}
