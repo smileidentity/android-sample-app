@@ -28,7 +28,7 @@ jobs:
     - name: Create secret-file.txt from B64_SECRET1
       id: secret-file1
       run: |
-        $secretFile = Join-Path -Path $env:RUNNER_TEMP -ChildPath "smile_config.json";
+        $secretFile = Join-Path -Path $env:RUNNER_TEMP -ChildPath "Smile_ID_Android_Sample/Smile_ID_Android_Sample/app/smile_config.json";
         $encodedBytes = [System.Convert]::FromBase64String($env:SECRET_DATA1);
         Set-Content $secretFile -Value $encodedBytes -AsByteStream;
         $secretFileHash = Get-FileHash $secretFile;
