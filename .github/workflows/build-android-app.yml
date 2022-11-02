@@ -25,33 +25,25 @@ jobs:
       uses: gradle/gradle-build-action@v2
     - name: initialize gradle
       run: gradle init
-    - name: config proj
+    - name: Create secret-file.txt from B64_SECRET1
+      id: secret-file1
       run: |
-          echo "$MY_SECRET" >> app/smile_config.json
-          cat app/smile_config.json
-          echo "$KEY_STORE" >> app/app_keystore.keystore
-          cat app/app_keystore.keystore
-          echo SID_keyAlias=\"$SID_keyAlias\" >> secrets.properties
-          echo SID_keyPassword=\"$SID_keyPassword\" >> secrets.properties
-          echo SID_storePassword=\"$SID_storePassword\" >> secrets.properties
-          echo SID_KEYSTORE=\"$SID_KEYSTORE\" >> secrets.properties
-          cat secrets.properties
-          echo SID_AWS_ACCESS_KEY_ID=\"$SID_AWS_ACCESS_KEY_ID\" >> fastlane/secrets.json
-          echo SID_AWS_SECRET_ACCESS_KEY=\"$SID_AWS_SECRET_ACCESS_KEY\" >> fastlane/secrets.json
-          echo SID_AWS_BUCKET=\"$SID_AWS_BUCKET\" >> fastlane/secrets.json
-          echo SID_AWS_REGION=\"$SID_AWS_REGION\" >> fastlane/secrets.json
-          cat fastlane/secrets.json
-      shell: bash
+        $secretFile = Join-Path -Path $env:RUNNER_TEMP -ChildPath "smile_config.json";
+        $encodedBytes = [System.Convert]::FromBase64String($env:SECRET_DATA1);
+        Set-Content $secretFile -Value $encodedBytes -AsByteStream;
+        $secretFileHash = Get-FileHash $secretFile;
+        Write-Output "::set-output name=SECRET_FILE::$secretFile";
+        Write-Output "::set-output name=SECRET_FILE_HASH::$($secretFileHash.Hash)";
+        Write-Output "Secret file $secretFile has hash $($secretFileHash.Hash)";
+      shell: pwsh
       env:
-        MY_SECRET: ${{secrets.SMILE_CONFIG}}
-        KEY_STORE: ${{secrets.KEY_STORE}}
-        SID_keyAlias: ${{secrets.SID_KEYALIAS}}
-        SID_keyPassword: ${{secrets.SID_KEYPASSWORD}}
-        SID_storePassword: ${{secrets.SID_STOREPASSWORD}}
-        SID_KEYSTORE: ${{secrets.SID_KEYSTORE}}
-        SID_AWS_ACCESS_KEY_ID: ${{secrets.SID_AWS_ACCESS_KEY_ID}}
-        SID_AWS_SECRET_ACCESS_KEY: ${{secrets.SID_AWS_SECRET_ACCESS_KEY}}
-        SID_AWS_BUCKET: ${{secrets.SID_AWS_BUCKET}}
-        SID_AWS_REGION: ${{secrets.SID_AWS_REGION}}
+        SECRET_DATA1: ${{ secrets.B64_SECRET1 }}
+    - name: Delete secret file
+        run: |
+          Remove-Item -Path $env:SECRET_FILE;
+        shell: pwsh
+        if: always()
+        env:
+          SECRET_FILE: ${{ steps.secret-file1.outputs.SECRET_FILE }}
     - run: fastlane android deploy_beta
     
