@@ -39,8 +39,8 @@ jobs:
       env:
         SECRET_DATA1: ${{ secrets.B64_SECRET1 }}
     - name: Delete secret file
-        run: |
-          Remove-Item -Path $env:SECRET_FILE;
+      run: |
+        Remove-Item -Path $env:SECRET_FILE;
         shell: pwsh
         if: always()
         env:
