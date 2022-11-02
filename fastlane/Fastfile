@@ -80,18 +80,18 @@ platform :android do
     )
 
     # Deploy to S3
-#     aws_s3(
-#       access_key: ENV["SID_AWS_ACCESS_KEY_ID"],
-#       secret_access_key: ENV["SID_AWS_SECRET_ACCESS_KEY"],
-#       bucket: ENV["SID_AWS_BUCKET"],
-#       region: ENV["SID_AWS_REGION"],
-#       apk: "#{lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]}",
-#       upload_metadata: true,
-#       app_directory: "Beta/#{options[:slug]}",
-#       html_template_path: "fastlane/template/smile_android.erb",
-#       html_template_params: {
-#         build_version: ENV["BUILD_VERSION"]
-#       }
-#       )
+    aws_s3(
+      access_key: ENV["SID_AWS_ACCESS_KEY_ID"],
+      secret_access_key: ENV["SID_AWS_SECRET_ACCESS_KEY"],
+      bucket: ENV["SID_AWS_BUCKET"],
+      region: ENV["SID_AWS_REGION"],
+      apk: "#{lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]}",
+      upload_metadata: true,
+      app_directory: "Beta/#{options[:slug]}",
+      html_template_path: "fastlane/template/smile_android.erb",
+      html_template_params: {
+        build_version: ENV["BUILD_VERSION"]
+      }
+      )
   end
 end
