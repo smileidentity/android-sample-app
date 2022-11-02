@@ -38,12 +38,5 @@ jobs:
       shell: pwsh
       env:
         SECRET_DATA1: ${{ secrets.B64_SECRET1 }}
-    - name: Delete secret file
-      run: |
-        Remove-Item -Path $env:SECRET_FILE;
-        shell: pwsh
-        if: always()
-        env:
-          SECRET_FILE: ${{ steps.secret-file1.outputs.SECRET_FILE }}
     - run: fastlane android deploy_beta
     
