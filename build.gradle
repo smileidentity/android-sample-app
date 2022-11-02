@@ -9,13 +9,16 @@ buildscript {
         maven {
             url 'https://oss.sonatype.org/content/repositories/snapshots/'
         }
+        maven { url 'https://androidx.dev/snapshots/builds/6787662/artifacts/repository/' }
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.3'
+        classpath 'com.android.tools.build:gradle:7.2.1'
 //        classpath 'com.google.gms:google-services:4.3.3'
 //        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.0.0-beta02'
         classpath group: 'com.smileidentity', name: 'smile-id-android', version: '1.0.1'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.10'
     }
 }
 
@@ -27,6 +30,7 @@ allprojects {
         maven {
             url 'https://oss.sonatype.org/content/repositories/snapshots/'
         }
+        maven { url 'https://androidx.dev/snapshots/builds/6787662/artifacts/repository/' }
     }
 }
 

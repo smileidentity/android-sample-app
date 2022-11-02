@@ -1,0 +1,16 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
+    <string name="home_fragment_heading_txt">Welcome to Smile Identity</string>
+    <string name="home_fragment_env_txt">Sandbox</string>
+    <string name="home_fragment_how_it_works_txt">What We Do</string>
+    <string name="home_fragment_watch_btn">Watch</string>
+    <string name="home_fragment_res_txt">How We Work</string>
+    <string name="home_fragment_heading_2_txt">Test Our Products</string>
+    <string name="home_fragment_sub_heading_txt">Explore key KYC product actions</string>
+    <string name="home_fragment_cpb_basic_kyc" translatable="false">Basic KYC</string>
+    <string name="home_fragment_cpb_enhanced_kyc" translatable="false">Enhanced KYC</string>
+    <string name="home_fragment_cpb_biometric_kyc" translatable="false">Biometric KYC</string>
+    <string name="home_fragment_cpb_doc_v" translatable="false">Document Verification</string>
+    <string name="home_fragment_cpb_smart_selfie_auth" translatable="false">SmartSelfie™\nAuthentication</string>
+
+</resources>

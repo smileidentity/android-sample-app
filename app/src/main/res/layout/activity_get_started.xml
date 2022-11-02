@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="#E5E5E5"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".GetStartedActivity">
+
+
+        <ImageView
+            android:id="@+id/ivBackArrow"
+            style="@style/get_started_screen_back_img"
+            tools:ignore="MissingConstraints" />
+
+        <ImageView
+            android:id="@+id/ivImage"
+            style="@style/get_started_screen_mockup_img"
+            app:layout_constraintTop_toBottomOf="@id/ivBackArrow"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/tvTxt"
+            style="@style/get_started_screen_big_txt"
+            app:layout_constraintTop_toBottomOf="@id/ivImage"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/tvSubTxt"
+            style="@style/get_started_screen_small_txt"
+            app:layout_constraintTop_toBottomOf="@id/tvTxt"
+            tools:ignore="MissingConstraints" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clTips"
+            style="@style/get_started_screen_cl_tips"
+            android:background="@drawable/get_started_tip_bckgrd"
+            app:layout_constraintTop_toBottomOf="@id/tvSubTxt"
+            tools:ignore="MissingConstraints">
+
+            <TextView
+                android:id="@+id/ivTipLock"
+                style="@style/get_started_screen_tip_lock_txt" />
+
+            <TextView
+                android:id="@+id/ivTipInternet"
+                style="@style/get_started_screen_tip_internet_txt"
+                app:layout_constraintTop_toBottomOf="@id/ivTipLock" />
+
+            <TextView
+                style="@style/get_started_screen_tip_security_txt"
+                app:layout_constraintTop_toBottomOf="@id/ivTipInternet" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tvStartBtn"
+            style="@style/get_started_get_started_btn"
+            android:onClick="getStarted"
+            app:layout_constraintTop_toBottomOf="@id/clTips"
+            tools:ignore="MissingConstraints" />
+
+        <View
+            android:id="@+id/vAligner"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:layout_constraintTop_toTopOf="@id/clTips" />
+
+        <TextView
+            style="@style/get_started_ttn_txt"
+            app:layout_constraintBottom_toBottomOf="@id/vAligner"
+            app:layout_constraintTop_toTopOf="@id/vAligner"
+            android:layout_marginBottom="20dp"
+            tools:ignore="MissingConstraints" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

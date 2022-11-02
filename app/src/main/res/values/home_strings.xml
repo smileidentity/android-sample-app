@@ -1,0 +1,13 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
+    <string name="home_screen_tab_lbl_home">Home</string>
+    <string name="home_screen_tab_lbl_resources">Resources</string>
+    <string name="home_screen_tab_lbl_settings">About Us</string>
+    <string name="home_screen_lbl_version_nbr">Version %s Android</string>
+    <string name="home_screen_lang_change_error_txt">The %s language has not yet been implemented. Kindly revert back to English.</string>
+    <string name="home_screen_enrol_first_heading_txt">Enrolment Required</string>
+    <string name="home_screen_enrol_first_error_txt">You have to enroll (register) first before you can authenticate.</string>
+    <string name="home_screen_lbl_register">Register (Enroll)</string>
+    <string name="home_screen_lbl_cancel">Cancel</string>
+
+</resources>

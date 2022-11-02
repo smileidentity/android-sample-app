@@ -1,4 +1,4 @@
-include ':app', ':ccp', ':smile-id-ui', ':android_lib', ':smile_id_simplified_java_lib'
+include ':app' ,':smile-id-ui', ':android_lib', ':netjava'
 project(':android_lib').projectDir = new File('../android_lib')
-project(':smile-id-ui').projectDir = new File('../smildidui')
-project(':smile_id_simplified_java_lib').projectDir = new File('../smile_id_simplified_java_lib/SmileIDSimplifiedJava')
+project(':smile-id-ui').projectDir = new File('../smile_id_android_ui')
+project(':netjava').projectDir = new File('../netjava')

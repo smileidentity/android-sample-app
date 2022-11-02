@@ -334,7 +334,6 @@ public class CountryCodePicker extends RelativeLayout {
                 }
             }
 
-
             //set auto detected country
             if (isAutoDetectCountryEnabled() && !isInEditMode()) {
                 setAutoDetectedCountry(true);
@@ -626,7 +625,7 @@ public class CountryCodePicker extends RelativeLayout {
         this.imageViewFlag = imageViewFlag;
     }
 
-    private CCPCountry getSelectedCountry() {
+    public CCPCountry getSelectedCountry() {
         if (selectedCCPCountry == null) {
             setSelectedCountry(getDefaultCountry());
         }

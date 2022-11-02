@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E5E5E5"
+    tools:context=".SIDIDInfoActivity">
+
+    <ImageView
+        android:id="@+id/ivBackArrow"
+        style="@style/sid_info_screen_back_img"
+        android:onClick="backPressed"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/tvHeading"
+        style="@style/sid_info_screen_heading_txt"
+        app:layout_constraintTop_toTopOf="@id/ivBackArrow"
+        app:layout_constraintBottom_toBottomOf="@id/ivBackArrow"
+        app:layout_constraintStart_toEndOf="@id/ivBackArrow"
+        tools:ignore="MissingConstraints" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/ivBackArrow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="0dp"
+        android:background="@color/transparent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="42dp">
+
+            <TextView
+                android:id="@+id/tvLblCountry"
+                style="@style/sid_info_screen_country_input_label"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@string/lbl_enroll_result_country"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/tvInputCountry"
+                style="@style/sid_info_screen_input_field"
+                app:layout_constraintTop_toBottomOf="@id/tvLblCountry"
+                android:text="@string/lbl_enroll_result_country"
+                android:onClick="openCountryPicker"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/tvLblIdType"
+                style="@style/sid_info_screen_country_input_label"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/tvInputCountry"
+                android:text="@string/sid_info_screen_input_id_type_lbl"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/tvInputIdType"
+                style="@style/sid_info_screen_input_field"
+                android:visibility="gone"
+                android:paddingLeft="12dp"
+                app:layout_constraintTop_toBottomOf="@id/tvLblIdType"
+                android:drawableLeft="@null"
+                android:text="@string/sid_info_screen_input_id_type_lbl"
+                android:onClick="openIdTypePicker"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/tvLblIdNbr"
+                style="@style/sid_info_screen_country_input_label"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/tvInputIdType"
+                android:text="@string/sid_info_screen_input_id_nbr_lbl"
+                tools:ignore="MissingConstraints" />
+
+            <EditText
+                android:id="@+id/edtIdNbr"
+                style="@style/sid_info_screen_edit_input_field"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/tvLblIdNbr"
+                android:inputType="number"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/tvLblFirstName"
+                style="@style/sid_info_screen_country_input_label"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/edtIdNbr"
+                android:text="@string/sid_info_screen_input_first_name_lbl"
+                tools:ignore="MissingConstraints" />
+
+            <EditText
+                android:id="@+id/edtFirstName"
+                style="@style/sid_info_screen_edit_input_field"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/tvLblFirstName"
+                android:hint="@string/sid_info_screen_input_name_hint"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/tvLblLastName"
+                style="@style/sid_info_screen_country_input_label"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/edtFirstName"
+                android:text="@string/sid_info_screen_input_last_name_lbl"
+                tools:ignore="MissingConstraints" />
+
+            <EditText
+                android:id="@+id/edtLastName"
+                style="@style/sid_info_screen_edit_input_field"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/tvLblLastName"
+                android:hint="@string/sid_info_screen_input_name_hint"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/tvLblDoB"
+                style="@style/sid_info_screen_country_input_label"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/edtLastName"
+                android:text="@string/sid_info_screen_input_dob_lbl"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/tvInputDoB"
+                style="@style/sid_info_screen_input_field"
+                android:visibility="gone"
+                android:onClick="showDateDialog"
+                android:paddingLeft="18dp"
+                app:layout_constraintTop_toBottomOf="@id/tvLblDoB"
+                android:drawableLeft="@null"
+                android:drawableRight="@drawable/ic_calendar"
+                android:text="@string/sid_info_screen_input_dob_hint"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/tvContinueBtn"
+                style="@style/sid_info_continue_btn"
+                android:onClick="go2Next"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/tvInputDoB"
+                tools:ignore="MissingConstraints" />
+
+            <ImageView
+                android:id="@+id/ivLogo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/tvContinueBtn"
+                android:layout_marginTop="40dp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginLeft="87dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginRight="85dp"
+                android:src="@drawable/ic_smile_logo_bar" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

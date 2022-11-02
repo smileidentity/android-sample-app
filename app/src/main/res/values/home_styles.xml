@@ -1,0 +1,60 @@
+<resources>
+
+    <style name="home_screen_version_txt" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="android:layout_marginTop">70dp</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#979797</item>
+        <item name="android:textFontWeight">400</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="android:lineHeight">14.06dp</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="home_screen_tab_layout" parent="Base.Widget.Design.TabLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">76.8dp</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="tabTextColor">#919EAB</item>
+        <item name="tabSelectedTextColor">#17A3DC</item>
+        <item name="tabIndicatorColor">@color/transparent</item>
+        <item name="tabGravity">fill</item>
+        <item name="tabMaxWidth">0dp</item>
+        <item name="tabMode">fixed</item>
+        <item name="tabTextAppearance">@style/home_screen_tab_txt</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:elevation">17.28dp</item>
+        <item name="android:weightSum">3</item>
+    </style>
+
+    <style name="home_screen_tab_item">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="home_screen_tab_txt" parent="TextAppearance.Design.Tab">
+        <item name="android:singleLine">true</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:layout_margin">0dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textFontWeight">400</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineHeight">14.52dp</item>
+        <item name="android:fontFamily">@font/inter</item>
+    </style>
+
+    <style name="home_screen_pager">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+    </style>
+
+</resources>

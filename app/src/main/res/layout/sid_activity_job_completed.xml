@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E5E5E5"
+    tools:context=".SIDJobCompletedActivity">
+
+    <ImageView
+        android:id="@+id/ivSuccess"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="158dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/ic_success" />
+    
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/ivSuccess"
+        android:layout_marginTop="51dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="31dp"
+        android:fontFamily="@font/inter"
+        android:textFontWeight="500"
+        android:lineSpacingExtra="3sp"
+        android:lineHeight="32dp"
+        android:gravity="center"
+        android:text="Congratulations! \nVerification has been successfully completed!"
+        android:textSize="24sp"
+        android:textColor="#060417" />
+
+    <TextView
+        android:id="@+id/tvContinueBtn"
+        style="@style/sid_info_continue_btn"
+        android:onClick="go2Next"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="103dp"
+        app:layout_constraintTop_toBottomOf="@id/tvInputDoB"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/tvContinueBtn"
+        android:layout_marginTop="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginLeft="87dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginRight="85dp"
+        android:src="@drawable/ic_smile_logo_bar" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

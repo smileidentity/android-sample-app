@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#FF0A92D4</color> <!-- #FF4BDBF6 --> <!-- #FF4C2075 -->
-    <color name="colorPrimaryDark">#FF0A92D4</color> <!-- #FF2C1440 -->
+    <color name="colorPrimaryDark">#031532</color> <!-- #FF2C1440 -->
     <color name="colorAccent">#FF4081</color>
     <color name="darkerGray">#CC222222</color>
+    <color name="colorGrey">#CC222222</color>
+    <color name="colorBlue">#CC222222</color>
+    <color name="app_green">#CC222222</color>
+    <color name="colorRed">#CC222222</color>
+    <color name="selfieComplete">#17A3DC</color>
+    <color name="selfieCapturing">#FC9191</color>
+    <color name="backgroundMainWindow">#E5E5E5</color>
 </resources>

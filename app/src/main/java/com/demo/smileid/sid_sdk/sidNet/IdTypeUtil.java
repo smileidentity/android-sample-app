@@ -160,12 +160,13 @@ public class IdTypeUtil {
             case Country.GHANA:
                 return new IdCard.For(Country.GHANA)
                         .setCountryCode("233")
-                        .addCard(IdType.NATIONAL_ID.replace("_", " "))
-                        .addCard(IdType.NATIONAL_ID_NON_CITIZEN.replace("_", " "))
+                        /*.addCard(IdType.NATIONAL_ID.replace("_", " "))
+                        .addCard(IdType.NATIONAL_ID_NON_CITIZEN.replace("_", " "))*/
+                        .addCard(IdType.DRIVER_LICENSE.replace("_", " "))
                         .addCard(IdType.PASSPORT)
                         .addCard(IdType.SSNIT)
                         .addCard(IdType.VOTER_ID.replace("_", " "))
-                        .addCard(IdType.DRIVER_LICENSE.replace("_", " "))
+                        .addCard(IdType.NEW_VOTER_ID.replace("_", " "))
                         .addCard(IdType.OTHER_ID_TYPE.replace("_", " "))
                         .create();
 
@@ -190,7 +191,7 @@ public class IdTypeUtil {
                         .addCard(IdType.PASSPORT)
                         .addCard(IdType.ALIEN_CARD.replace("_", " "))
                         .addCard(IdType.OTHER_ID_TYPE.replace("_", " "))
-                        .addCard(IdType.REFUGEE_CARD.replace("_", " "))
+//                        .addCard(IdType.REFUGEE_CARD.replace("_", " "))
                         .create();
 
             case Country.LESOTHO:
@@ -280,11 +281,14 @@ public class IdTypeUtil {
             case Country.NIGERIA:
                 return new IdCard.For(Country.NIGERIA)
                         .setCountryCode("234")
-                        .addCard(IdType.DRIVER_LICENSE.replace("_", " "))
-                        .addCard(IdType.NATIONAL_ID.replace("_", " "))
-                        .addCard(IdType.PASSPORT)
+                        /*.addCard(IdType.NATIONAL_ID.replace("_", " "))
+                        .addCard(IdType.PASSPORT)*/
+                        .addCard(IdType.BANK_ACCOUNT.replace("_", " "))
                         .addCard(IdType.BVN)
+                        .addCard(IdType.DRIVER_LICENSE.replace("_", " "))
                         .addCard(IdType.NIN)
+                        .addCard(IdType.NIN_SLIP.replace("_", " "))
+//                        .addCard(IdType.PHONE_NUMBER.replace("_", " "))
                         .addCard(IdType.VOTER_ID.replace("_", " "))
                         .addCard(IdType.OTHER_ID_TYPE.replace("_", " "))
                         .create();
@@ -339,11 +343,13 @@ public class IdTypeUtil {
             case Country.SOUTH_AFRICA:
                 return new IdCard.For(Country.SOUTH_AFRICA)
                         .setCountryCode("27")
-                        .addCard(IdType.DRIVER_LICENSE.replace("_", " "))
+                        /*.addCard(IdType.DRIVER_LICENSE.replace("_", " "))
                         .addCard(IdType.TRAVEL_DOCUMENT.replace("_", " "))
                         .addCard(IdType.PASSPORT)
                         .addCard(IdType.NATIONAL_ID.replace("_", " "))
-                        .addCard(IdType.NATIONAL_ID_DOC.replace("_", " "))
+                        .addCard(IdType.NATIONAL_ID_DOC.replace("_", " "))*/
+                        .addCard(IdType.NATIONAL_ID.replace("_", " "))
+                        .addCard(IdType.NATIONAL_ID_NO_PHOTO.replace("_", " "))
                         .addCard(IdType.OTHER_ID_TYPE.replace("_", " "))
                         .create();
 
@@ -392,9 +398,10 @@ public class IdTypeUtil {
             case Country.UGANDA:
                 return new IdCard.For(Country.UGANDA)
                         .setCountryCode("256")
-                        .addCard(IdType.DRIVER_LICENSE.replace("_", " "))
+                        /*.addCard(IdType.DRIVER_LICENSE.replace("_", " "))
                         .addCard(IdType.PASSPORT)
-                        .addCard(IdType.NATIONAL_ID.replace("_", " "))
+                        .addCard(IdType.NATIONAL_ID.replace("_", " "))*/
+                        .addCard(IdType.NATIONAL_ID_NO_PHOTO.replace("_", " "))
                         .addCard(IdType.OTHER_ID_TYPE.replace("_", " "))
                         .create();
 

@@ -2,16 +2,6 @@
 
     <string name="app_name">Smile ID Demo</string>
 
-    <!-- SPLASH SCREEN -->
-    <string name="lbl_smile_identity">Smile Identity</string>
-    <string name="lbl_version_number">lib: %s - app: %s</string>
-    <string name="lbl_play_service_error">Install or update Play Service</string>
-    <string name="msg_use_offline_jobs">Would you like to use existing or add new offline jobs?</string>
-    <string name="lbl_use_offline_jobs">Use existing jobs</string>
-    <string name="lbl_add_offline_jobs">Add to existing Jobs</string>
-    <string name="msg_enrollment_required">You have to enrol (register) first before you can authenticate</string>
-    <string name="btn_cancel">Cancel</string>
-
     <!-- MAIN SCREEN -->
     <string name="lbl_main_heading">Home Menu</string>
     <string name="lbl_heading_enrollment">ENROLLMENT</string>
@@ -21,7 +11,7 @@
 
     <!-- SELFIE SCREEN -->
     <string name="lbl_selfie_heading">Selfie Capture</string>
-    <string name="lbl_selfie_reposition">Put your face inside the oval</string>
+    <string name="lbl_selfie_reposition">Unable to detect face. Make sure your face fits the frame.</string>
     <string name="lbl_selfie_capturing">Capturing...</string>
     <string name="lbl_selfie_capture">Capture</string>
     <string name="lbl_selfie_take_another_selfie">Take Another Selfie</string>
@@ -97,8 +87,4 @@
     <string name="lbl_smile_ui">SMILE UI</string>
     <string name="lbl_smile_ui_enroll_id_card">Smile UI ID Card Register (Enroll)</string>
     <string name="lbl_smile_ui_enroll">Smile UI Register (Enroll)</string>
-
-    <string name="id_card_dialog_txt" translatable="false">Would you like to capture the back of the ID Card as well?</string>
-    <string name="btn_lbl_proceed" translatable="false">Proceed</string>
-    <string name="btn_lbl_skip" translatable="false">Skip</string>
 </resources>

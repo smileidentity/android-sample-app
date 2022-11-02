@@ -1,0 +1,273 @@
+<resources>
+
+    <style name="home_fragment_heading_txt" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="android:layout_marginLeft">12dp</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:text">@string/home_fragment_heading_txt</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">#100F0F</item>
+        <item name="android:textFontWeight">600</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="android:lineHeight">19.36dp</item>
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="home_fragment_env_txt" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">32dp</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="android:layout_marginRight">12dp</item>
+        <item name="android:background">@drawable/env_drop_down_bckgrd</item>
+        <item name="android:text">@string/home_fragment_env_txt</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:paddingLeft">7dp</item>
+        <item name="android:paddingRight">9.8dp</item>
+        <item name="android:textColor">#0A1E2D</item>
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="android:textFontWeight">500</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="android:lineHeight">12.1dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:drawablePadding">6dp</item>
+        <item name="android:drawableLeft">@drawable/online_orange_dot</item>
+        <item name="android:drawableRight">@drawable/ic_down_arrow</item>
+    </style>
+
+    <style name="env_bottom_dlg_radio_btn" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="android:layout_marginLeft">24dp</item>
+        <item name="android:layout_marginRight">24dp</item>
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="android:fontWeight">400</item>
+        <item name="android:lineHeight">24dp</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:lineSpacingExtra">7sp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/darkerGray</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:buttonTint">#F2994A</item>
+    </style>
+
+    <style name="env_bottom_dlg_radio_btn_2" parent="env_bottom_dlg_radio_btn">
+        <item name="android:buttonTint">#219653</item>
+    </style>
+
+    <style name="home_fragment_separator">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+    </style>
+
+    <style name="home_fragment_cl_security">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">120.19dp</item>
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="android:layout_marginLeft">12dp</item>
+        <item name="android:layout_marginRight">6.79dp</item>
+        <item name="android:background">@drawable/home_fragment_block_bckgrd_1</item>
+    </style>
+
+    <style name="home_fragment_how_it_works_txt" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">100.89dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="android:text">@string/home_fragment_how_it_works_txt</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="android:lineHeight">16sp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textFontWeight">600</item>
+        <item name="android:lineSpacingExtra">-1sp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="home_fragment_watch_btn" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">72dp</item>
+        <item name="android:layout_height">32dp</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="android:layout_marginBottom">16.6dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:text">@string/home_fragment_watch_btn</item>
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="android:textColor">#092A55</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textFontWeight">500</item>
+        <item name="android:lineHeight">15.52dp</item>
+        <item name="android:lineSpacingExtra">2sp</item>
+        <item name="android:background">@drawable/watch_btn</item>
+    </style>
+
+    <style name="home_fragment_security_img">
+        <item name="android:layout_width">79dp</item>
+        <item name="android:layout_height">79dp</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="android:layout_marginTop">48dp</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="android:src">@drawable/ic_illustration_secure_account</item>
+    </style>
+
+    <style name="home_fragment_cl_resources">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">120.19dp</item>
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="android:layout_marginRight">12dp</item>
+        <item name="android:layout_marginLeft">6.79dp</item>
+    </style>
+
+    <style name="home_fragment_cl_res_view">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:alpha">0.5</item>
+        <item name="android:background">@drawable/home_fragment_block_bckgrd_2</item>
+    </style>
+
+    <style name="home_fragment_cl_res_txt" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">96.85dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="android:text">@string/home_fragment_res_txt</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#100F0F</item>
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="android:lineHeight">16sp</item>
+        <item name="android:textFontWeight">600</item>
+        <item name="android:lineSpacingExtra">-1sp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="home_fragment_cl_res_btn" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">72dp</item>
+        <item name="android:layout_height">32dp</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="android:layout_marginBottom">16.6dp</item>
+        <item name="android:text">View</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="android:lineHeight">15.52dp</item>
+        <item name="android:textFontWeight">500</item>
+        <item name="android:lineSpacingExtra">2sp</item>
+        <item name="android:background">@drawable/view_btn</item>
+    </style>
+
+    <style name="home_fragment_res_img">
+        <item name="android:layout_width">79dp</item>
+        <item name="android:layout_height">79dp</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="android:layout_marginTop">48dp</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="android:src">@drawable/ic_illustration_secure_account_2</item>
+        <item name="android:alpha">0.5</item>
+    </style>
+
+    <style name="home_fragment_heading_2_txt" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">50.18dp</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:text">@string/home_fragment_heading_2_txt</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#040C22</item>
+        <item name="android:textFontWeight">600</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="android:lineSpacingExtra">-2sp</item>
+        <item name="android:lineHeight">17.38dp</item>
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="home_fragment_sub_heading_txt" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">12dp</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:textFontWeight">400</item>
+        <item name="android:lineHeight">17.98dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">#A2A5A6</item>
+        <item name="android:text">@string/home_fragment_sub_heading_txt</item>
+    </style>
+
+    <style name="home_fragment_custom_product_btn">
+        <item name="android:layout_width">0dp</item>
+        <item name="layout_constraintWidth_percent">0.3</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="layout_constraintDimensionRatio">1:1</item>
+        <item name="android:layout_marginTop">24dp</item>
+    </style>
+
+    <style name="home_fragment_custom_product_btn_cl">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@drawable/custom_product_btn_bckgrd</item>
+        <item name="android:elevation">9.79dp</item>
+    </style>
+
+    <style name="home_fragment_custom_product_btn_icon">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="layout_constraintHeight_percent">0.4</item>
+        <item name="layout_constraintDimensionRatio">1:1</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+    </style>
+
+    <style name="home_fragment_custom_product_btn_label" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">#100F0F</item>
+        <item name="android:textFontWeight">500</item>
+        <item name="android:lineHeight">12.1dp</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="BottomSheetDialog" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetDialogStyle</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+    </style>
+
+    <style name="BottomSheetDialogStyle" parent="Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:backgroundTint">@android:color/transparent</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+</resources>

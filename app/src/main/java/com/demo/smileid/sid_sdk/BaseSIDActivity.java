@@ -3,33 +3,46 @@ package com.demo.smileid.sid_sdk;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import com.demo.smileid.sid_sdk.geoloc.SIDGeoInfos;
-import com.smileidentity.libsmileid.core.consent.DlgListener;
-import com.smileidentity.libsmileid.core.consent.ConsentDialog.Builder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class BaseSIDActivity extends AppCompatActivity implements DlgListener {
-    protected boolean mUseMultipleEnroll = false, mUseOffLineAuth = false;
-    protected int jobType = -1;
-    protected boolean mConsentRequired = false;
+public class BaseSIDActivity extends AppCompatActivity {
+
+    public static final String KYC_PRODUCT_TYPE_PARAM = "KYC_PRODUCT_TYPE_PARAM";
+
+    public enum KYC_PRODUCT_TYPE {
+
+        ENROLL_TEST(4), BASIC_KYC(5), ENHANCED_KYC(5), BIOMETRIC_KYC(1),
+        DOCUMENT_VERIFICATION(6), SMART_SELFIE_AUTH(2);
+
+        private int mJobType = -1;
+
+        KYC_PRODUCT_TYPE(int jobType) {
+            mJobType = jobType;
+        }
+
+        public int getJobType() {
+            return mJobType;
+        }
+    }
+
+    protected KYC_PRODUCT_TYPE mKYCProductType = KYC_PRODUCT_TYPE.ENROLL_TEST;
     private Intent mCurrentIntent = null;
     private static final int PERMISSION_ALL = 1;
 
     protected String[] PERMISSIONS = {
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.CAMERA,
-            Manifest.permission.ACCESS_FINE_LOCATION};
+        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        Manifest.permission.READ_EXTERNAL_STORAGE,
+        Manifest.permission.CAMERA,
+        Manifest.permission.ACCESS_FINE_LOCATION
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,38 +56,19 @@ public class BaseSIDActivity extends AppCompatActivity implements DlgListener {
         PERMISSIONS = permissions.toArray(new String[] {});
     }
 
-    protected void startSelfieCapture(boolean isEnrollMode, boolean hasId, boolean use258, boolean reenroll, boolean hasNoIdCard) {
-        mCurrentIntent = new Intent(this, SIDSelfieActivity.class);
-        mCurrentIntent.putExtra(SIDStringExtras.EXTRA_ENROLL_MODE, isEnrollMode);
-        mCurrentIntent.putExtra(SIDStringExtras.EXTRA_HAS_ID, hasId);
-        mCurrentIntent.putExtra(SIDStringExtras.EXTRA_USE_258, use258);
-        mCurrentIntent.putExtra(SIDStringExtras.EXTRA_REENROLL, reenroll);
-        mCurrentIntent.putExtra(SIDStringExtras.EXTRA_ENROLL_TYPE, jobType);
-        mCurrentIntent.putExtra(SIDStringExtras.EXTRA_MULTIPLE_ENROLL, mUseMultipleEnroll);
-        mCurrentIntent.putExtra(SIDStringExtras.EXTRA_HAS_NO_ID_CARD, hasNoIdCard);
-        mCurrentIntent.putExtra(SIDStringExtras.EXTRA_TAG_OFFLINE_AUTH, mUseOffLineAuth);
-        coreStartSelfieCapture();
+    protected void startKYCProcess() {
+        mCurrentIntent = buildIntent();
+        mCurrentIntent.putExtra(KYC_PRODUCT_TYPE_PARAM, mKYCProductType);
+        coreStartKYCProcess();
     }
 
-    protected void startSelfieCapture(boolean isEnrollMode) {
-        startSelfieCapture(isEnrollMode, true);
+    protected Intent buildIntent() {
+        return new Intent(this, SIDSelfieActivity.class);
     }
 
-    protected void startSelfieCapture(boolean isEnrollMode, boolean hasId) {
-        startSelfieCapture(isEnrollMode, hasId, false, false);
-    }
-
-    protected void startSelfieCapture(boolean isEnrollMode, boolean hasId, boolean use258, boolean reenroll) {
-        startSelfieCapture(isEnrollMode, hasId, false, reenroll, false);
-    }
-
-    protected void coreStartSelfieCapture() {
+    protected void coreStartKYCProcess() {
         if (permissionGranted(PERMISSIONS)) {
-            if (mConsentRequired) {
-                requestUserConsent();
-            } else {
-                proceedWithJob();
-            }
+            proceedWithJob();
         } else {
             ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
         }
@@ -83,7 +77,6 @@ public class BaseSIDActivity extends AppCompatActivity implements DlgListener {
     private void proceedWithJob() {
         SIDGeoInfos.getInstance().init(this);
         startActivity(mCurrentIntent);
-        mConsentRequired = false;
         mCurrentIntent = null;
     }
 
@@ -98,33 +91,6 @@ public class BaseSIDActivity extends AppCompatActivity implements DlgListener {
         return true;
     }
 
-    protected void requestUserConsent() {
-        //To be replaced by a partner-set values as returned by the backend
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_purse);
-
-        //Partner's name shouldn't be hardcoded
-        try {
-            new Builder("USER_TAG", bitmap, "AM Loans Inc.", "www.google.com")
-                .setListener(this).build(this).showDialog();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void decline(String tag) {
-        mConsentRequired = false;
-        mCurrentIntent = null;
-        //A more appropriate message should be provided
-        String message = "You need to provide consent in order to proceed";
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void consentProvided(String tag) {
-        proceedWithJob();
-    }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -132,9 +98,8 @@ public class BaseSIDActivity extends AppCompatActivity implements DlgListener {
         if (requestCode == PERMISSION_ALL && (grantResults.length > 0) &&
                 (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
 
-            coreStartSelfieCapture();
+            coreStartKYCProcess();
         } else {
-            mConsentRequired = false;
             mCurrentIntent = null;
         }
     }

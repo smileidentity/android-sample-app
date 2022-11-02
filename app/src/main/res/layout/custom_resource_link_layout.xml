@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="24dp"
+    android:paddingRight="24dp"
+    android:background="#E5E5E5">
+
+    <TextView
+        android:id="@+id/tvBigTxt"
+        style="@style/res_fragment_link_big_txt"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/tvSmallTxt"
+        style="@style/res_fragment_link_small_txt"
+        app:layout_constraintTop_toBottomOf="@id/tvBigTxt"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        style="@style/res_fragment_link_arrow_img"
+        app:layout_constraintTop_toTopOf="@id/tvBigTxt"
+        app:layout_constraintBottom_toBottomOf="@id/tvSmallTxt"
+        tools:ignore="MissingConstraints" />
+    
+    <View
+        android:id="@+id/vSeparator"
+        style="@style/res_fragment_link_separator"
+        app:layout_constraintTop_toBottomOf="@id/tvSmallTxt"
+        tools:ignore="MissingConstraints" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="360dp"
+    android:paddingBottom="4dp"
+    android:background="@drawable/bottom_dlg_bckgrd">
+
+    <ImageView
+      android:id="@+id/ivBtnCancel"
+      android:layout_width="24dp"
+      android:layout_height="24dp"
+      android:src="@drawable/ic_cancel"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      android:layout_margin="12dp" />
+
+    <TextView
+      android:id="@+id/tvTitle"
+      style="@style/cc_id_type_dlg_heading"
+      android:text="Select a country"
+      app:layout_constraintTop_toTopOf="parent"
+      android:layout_marginTop="24dp"
+      tools:ignore="MissingConstraints" />
+
+    <ImageView
+      android:id="@+id/ivImage"
+      style="@style/doc_very_option_dlg_top_img"
+      android:layout_width="48dp"
+      android:layout_height="48dp"
+      android:src="@drawable/ic_globe"
+      android:layout_marginTop="56dp"
+      tools:ignore="MissingConstraints" />
+
+    <EditText
+      android:id="@+id/edtCountry"
+      style="@style/sid_info_screen_edit_input_field"
+      app:layout_constraintTop_toBottomOf="@id/ivImage"
+      android:layout_marginTop="12dp"
+      android:hint="Country"
+      android:padding="6dp"
+      android:textSize="14sp"
+      android:textColor="#072A3D"
+      android:drawableLeft="@drawable/ic_search"
+      android:drawablePadding="8dp"
+      android:inputType="text"
+      tools:ignore="MissingConstraints" />
+
+    <View
+      android:id="@+id/vBottom"
+      android:layout_width="72dp"
+      android:layout_height="2dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      android:layout_marginTop="15dp"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      android:background="@drawable/bottom_bar" />
+
+    <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/rvCountries"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      app:layout_constraintTop_toBottomOf="@id/edtCountry"
+      android:layout_marginTop="12dp"
+      app:layout_constraintBottom_toBottomOf="@id/vBottom"
+      android:layout_marginBottom="15dp"
+      app:layout_constraintStart_toStartOf="@id/edtCountry"
+      app:layout_constraintEnd_toEndOf="@id/edtCountry" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

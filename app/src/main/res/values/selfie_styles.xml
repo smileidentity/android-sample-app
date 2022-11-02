@@ -1,0 +1,171 @@
+<resources>
+
+    <style name="selfie_screen_back_img">
+        <item name="android:layout_width">16dp</item>
+        <item name="android:layout_height">16dp</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="android:layout_marginLeft">14dp</item>
+        <item name="android:src">@drawable/ic_left_arrow</item>
+    </style>
+
+    <style name="selfie_screen_camera_preview">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="android:layout_marginTop">36dp</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="android:background">@color/white_color</item>
+        <item name="captured_progress_state_color">@color/selfieComplete</item>
+        <item name="capturing_progress_state_color">@color/selfieCapturing</item>
+    </style>
+
+    <style name="selfie_screen_progress_bar" parent="Widget.AppCompat.ProgressBar">
+        <item name="android:layout_width">42dp</item>
+        <item name="android:layout_height">42dp</item>
+        <!--<item name="android:progressDrawable">@drawable/progress_bar_bckgrd</item>-->
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+    </style>
+
+    <style name="selfie_screen_agent_mode_cv">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="android:layout_marginTop">24dp</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:layout_gravity">right|center_vertical</item>
+        <item name="cardBackgroundColor">@color/agent_mode_bckgrd_color</item>
+        <item name="cardCornerRadius">6dp</item>
+    </style>
+
+    <style name="selfie_screen_agent_mode_switch">
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">42dp</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="android:textColor">@color/review_confirm_button</item>
+        <item name="android:background">@drawable/track_selector</item>
+        <item name="android:thumb">@drawable/thumb_selector</item>
+        <item name="android:trackTint">@android:color/transparent</item>
+        <item name="android:checked">false</item>
+    </style>
+
+    <style name="selfie_screen_agent_mode_txt" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:text">Enable Agent Mode</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/agent_mode_txt_color</item>
+        <item name="android:gravity">center</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:maxLines">2</item>
+    </style>
+
+    <style name="selfie_screen_agent_mode_tooltip_triangle">
+        <item name="android:layout_width">16dp</item>
+        <item name="android:layout_height">16dp</item>
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="android:layout_marginRight">26dp</item>
+        <item name="android:src">@drawable/ic_triangle</item>
+        <item name="android:foregroundTint">#031532</item>
+        <item name="android:tint">#031532</item>
+        <item name="android:visibility">visible</item>
+    </style>
+
+    <style name="selfie_screen_agent_mode_tooltip_cv">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:visibility">visible</item>
+        <item name="android:layout_marginTop">11dp</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="android:layout_marginLeft">118dp</item>
+        <item name="android:layout_marginRight">4dp</item>
+        <item name="cardCornerRadius">6dp</item>
+        <item name="cardBackgroundColor">#031532</item>
+    </style>
+
+    <style name="selfie_screen_agent_mode_tooltip_content">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:text">Agent mode will help you capture user photos using the back camera</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_marginRight">12dp</item>
+        <item name="android:lineSpacingExtra">3sp</item>
+        <item name="android:gravity">center_vertical|right</item>
+        <item name="android:fontFamily">@font/inter</item>
+    </style>
+
+    <style name="selfie_screen_prompt_txt" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">26.08dp</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="android:layout_marginLeft">33dp</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="android:layout_marginRight">33dp</item>
+        <item name="android:textColor">#100F0F</item>
+        <item name="android:textSize">15.68sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:fontWeight">400</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="selfie_screen_loading_txt" parent="selfie_screen_prompt_txt">
+        <item name="android:layout_marginBottom">0dp</item>
+    </style>
+
+    <style name="selfie_screen_tips_txt" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="android:layout_marginTop">609.53dp</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="android:layout_marginLeft">33dp</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="android:layout_marginRight">33dp</item>
+        <item name="android:textColor">#828CA3</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">left|top</item>
+        <item name="android:fontWeight">400</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:drawableLeft">@drawable/ic_light</item>
+        <item name="android:drawablePadding">14.91sp</item>
+    </style>
+
+    <style name="selfie_screen_separator">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0.5dp</item>
+        <item name="android:layout_marginBottom">23.07dp</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="android:layout_marginLeft">35dp</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="android:layout_marginRight">35dp</item>
+        <item name="android:background">#E6EDF0</item>
+    </style>
+
+    <style name="selfie_screen_bottom_logo">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:layout_marginTop">28dp</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="android:src">@drawable/ic_smile_logo_bar</item>
+    </style>
+
+</resources>

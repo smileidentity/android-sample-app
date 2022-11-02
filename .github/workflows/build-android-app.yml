@@ -1,0 +1,48 @@
+name: build-android-app
+
+on:
+  push:
+    branches: [ "*" ]
+  pull_request:
+    branches: [ "master" , "develop" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+    - name: Setup Gradle
+      uses: gradle/gradle-build-action@v2
+    - name: initialize gradle
+      run: gradle init
+    - name: Create secret-file.txt from B64_SECRET1
+      id: secret-file1
+      run: |
+        $secretFile = Join-Path -Path $env:GITHUB_WORKSPACE -ChildPath "app/smile_config.json";
+        $encodedBytes = [System.Convert]::FromBase64String($env:SECRET_DATA1);
+        Set-Content $secretFile -Value $encodedBytes -AsByteStream;
+        $secretFileHash = Get-FileHash $secretFile;
+        Write-Output "::set-output name=SECRET_FILE::$secretFile";
+        Write-Output "::set-output name=SECRET_FILE_HASH::$($secretFileHash.Hash)";
+      shell: pwsh
+      env:
+        SECRET_DATA1: ${{ secrets.B64_SECRET1 }}
+    - run: fastlane android deploy_beta
+    - name: Delete secret file
+      run: |
+        Remove-Item -Path $env:SECRET_FILE;
+      shell: pwsh
+      if: always()
+      env:
+        SECRET_FILE: ${{ steps.secret-file1.outputs.SECRET_FILE }}
+    

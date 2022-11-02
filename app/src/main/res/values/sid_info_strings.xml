@@ -1,0 +1,16 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
+    <string name="sid_info_screen_heading">Provide ID Information</string>
+    <string name="sid_info_screen_input_country_lbl">Country</string>
+    <string name="sid_info_screen_input_id_type_lbl">ID Type</string>
+    <string name="sid_info_screen_input_id_type_hint">Driver\'s License</string>
+    <string name="sid_info_screen_input_id_nbr_lbl">ID Number</string>
+    <string name="sid_info_screen_input_first_name_lbl">First Name</string>
+    <string name="sid_info_screen_input_last_name_lbl">Last Name</string>
+    <string name="sid_info_screen_input_name_hint">Enter name</string>
+    <string name="sid_info_screen_input_dob_lbl">Date of Birth</string>
+    <string name="sid_info_screen_input_dob_hint">Select Date</string>
+    <string name="sid_info_screen_continue_btn">Continue</string>
+    <string name="sid_info_screen_incomplete_info_error">Please provide your ID information</string>
+
+</resources>

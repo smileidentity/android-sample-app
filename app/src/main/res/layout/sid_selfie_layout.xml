@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clParent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent">
+
+    <com.smileidentity.libsmileid.core.CameraSourcePreview
+        android:id="@+id/cspCamera"
+        style="@style/selfie_screen_camera_preview"
+        app:overlay_height="300dp"
+        app:overlay_width="250dp"
+        app:progress_width="15dp"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvAgentMode"
+        style="@style/selfie_screen_agent_mode_cv"
+        tools:ignore="MissingConstraints">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp">
+
+            <Switch
+                android:id="@+id/sAgentMode"
+                style="@style/selfie_screen_agent_mode_switch" />
+
+            <TextView
+                android:id="@+id/tvAgentMode"
+                style="@style/selfie_screen_agent_mode_txt"
+                app:layout_constraintEnd_toStartOf="@id/sAgentMode"
+                app:layout_constraintTop_toTopOf="@id/sAgentMode"
+                app:layout_constraintBottom_toBottomOf="@id/sAgentMode" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/ivTriangle"
+        style="@style/selfie_screen_agent_mode_tooltip_triangle"
+        app:layout_constraintTop_toBottomOf="@id/cvAgentMode"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvTooltip"
+        style="@style/selfie_screen_agent_mode_tooltip_cv"
+        app:layout_constraintTop_toBottomOf="@id/cvAgentMode"
+        app:layout_constraintEnd_toEndOf="@id/cvAgentMode">
+
+        <TextView
+            style="@style/selfie_screen_agent_mode_tooltip_content" />
+
+    </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/ivBackArrow"
+        style="@style/selfie_screen_back_img"
+        android:src="@drawable/ic_left_arrow"
+        android:onClick="backPressed"
+        app:layout_constraintTop_toTopOf="@id/cvAgentMode"
+        app:layout_constraintBottom_toBottomOf="@id/cvAgentMode"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/tvTips"
+        style="@style/selfie_screen_tips_txt"
+        android:text="Put your face inside the oval frame and wait until it turns blue."
+        tools:ignore="MissingConstraints" />
+
+    <View
+        android:id="@+id/vSeparator"
+        style="@style/selfie_screen_separator"
+        app:layout_constraintBottom_toTopOf="@id/tvTips"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/tvPrompt"
+        style="@style/selfie_screen_prompt_txt"
+        android:text="Smile for the Camera"
+        app:layout_constraintBottom_toTopOf="@id/vSeparator"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+      android:id="@+id/ivBottomLogo"
+        style="@style/selfie_screen_bottom_logo"
+        app:layout_constraintTop_toBottomOf="@id/tvTips"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clLoading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="#FAFFFFFF">
+
+        <ProgressBar
+            android:id="@+id/pbLoading"
+            style="@style/selfie_screen_progress_bar"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            style="@style/selfie_screen_loading_txt"
+            app:layout_constraintTop_toBottomOf="@id/pbLoading"
+            android:layout_marginTop="12dp"
+            android:text="Toggling camera..."
+            tools:ignore="MissingConstraints" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

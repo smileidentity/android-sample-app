@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent"
+    tools:context=".HomeFragment">
+
+    <TextView
+      android:id="@+id/tvEnv"
+      style="@style/home_fragment_env_txt"
+      android:textColor="#F2994A"
+      tools:ignore="MissingConstraints" />
+    
+    <TextView
+        android:id="@+id/tvHeading"
+        style="@style/home_fragment_heading_txt"
+        app:layout_constraintEnd_toStartOf="@id/tvEnv"
+        tools:ignore="MissingConstraints" />
+    
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@id/tvEnv"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+                <View
+                  android:id="@+id/vSeparator"
+                  style="@style/home_fragment_separator"
+                  tools:ignore="MissingConstraints" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                  style="@style/home_fragment_cl_security"
+                    android:visibility="gone"
+                  app:layout_constraintTop_toTopOf="parent"
+                  app:layout_constraintEnd_toEndOf="@id/vSeparator">
+
+                    <TextView
+                      style="@style/home_fragment_how_it_works_txt"
+                      tools:ignore="MissingConstraints" />
+
+                    <TextView
+                      android:id="@+id/tvWatchBtn"
+                      style="@style/home_fragment_watch_btn"
+                      tools:ignore="MissingConstraints" />
+
+                    <ImageView
+                      style="@style/home_fragment_security_img"
+                      tools:ignore="MissingConstraints" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                  android:id="@+id/clResources"
+                    android:visibility="gone"
+                  style="@style/home_fragment_cl_resources"
+                  app:layout_constraintTop_toTopOf="parent"
+                  app:layout_constraintStart_toEndOf="@id/vSeparator">
+
+                    <View
+                      style="@style/home_fragment_cl_res_view"
+                      tools:ignore="MissingConstraints" />
+
+                    <TextView
+                      style="@style/home_fragment_cl_res_txt"
+                      tools:ignore="MissingConstraints" />
+
+                    <TextView
+                      android:id="@+id/tvResBtn"
+                      style="@style/home_fragment_cl_res_btn"
+                      tools:ignore="MissingConstraints" />
+
+                    <ImageView
+                      style="@style/home_fragment_res_img"
+                      tools:ignore="MissingConstraints" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                  android:id="@+id/tvSubHeading"
+                  style="@style/home_fragment_heading_2_txt"
+                  app:layout_constraintTop_toBottomOf="@id/clResources"
+                  app:layout_constraintStart_toStartOf="parent"
+                  android:layout_marginLeft="12dp" />
+
+                <com.demo.smileid.sid_sdk.CustomProductBtn
+                  android:id="@+id/cpbBasicKYC"
+                  style="@style/home_fragment_custom_product_btn"
+                  app:layout_constraintTop_toBottomOf="@id/tvSubHeading"
+                  app:layout_constraintLeft_toLeftOf="parent"
+                  app:layout_constraintRight_toRightOf="parent"
+                  app:layout_constraintHorizontal_bias="0.035"
+                  app:label="@string/home_fragment_cpb_basic_kyc"
+                  app:icon="@drawable/ic_basic_kyc" />
+
+                <com.demo.smileid.sid_sdk.CustomProductBtn
+                  android:id="@+id/cpbEnhancedKYC"
+                  style="@style/home_fragment_custom_product_btn"
+                  app:layout_constraintTop_toBottomOf="@id/tvSubHeading"
+                  app:layout_constraintLeft_toLeftOf="parent"
+                  app:layout_constraintRight_toRightOf="parent"
+                  app:label="@string/home_fragment_cpb_enhanced_kyc"
+                  app:icon="@drawable/ic_enhanced_kyc"  />
+
+                <com.demo.smileid.sid_sdk.CustomProductBtn
+                  android:id="@+id/cpbBiometricKYC"
+                  style="@style/home_fragment_custom_product_btn"
+                  app:layout_constraintTop_toBottomOf="@id/tvSubHeading"
+                  app:layout_constraintLeft_toLeftOf="parent"
+                  app:layout_constraintRight_toRightOf="parent"
+                  app:layout_constraintHorizontal_bias="0.965"
+                  app:label="@string/home_fragment_cpb_biometric_kyc"
+                  app:icon="@drawable/ic_biometric_kyc"  />
+
+                <com.demo.smileid.sid_sdk.CustomProductBtn
+                  android:id="@+id/cpbDocV"
+                  style="@style/home_fragment_custom_product_btn"
+                  app:layout_constraintTop_toBottomOf="@id/cpbBasicKYC"
+                  android:layout_marginTop="24dp"
+                  app:layout_constraintStart_toStartOf="@id/cpbBasicKYC"
+                  app:layout_constraintEnd_toEndOf="@id/cpbBasicKYC"
+                  app:label="@string/home_fragment_cpb_doc_v"
+                  app:icon="@drawable/ic_doc_v"  />
+
+                <com.demo.smileid.sid_sdk.CustomProductBtn
+                  android:id="@+id/cpbSmartSelfie"
+                  style="@style/home_fragment_custom_product_btn"
+                  app:layout_constraintTop_toTopOf="@id/cpbDocV"
+                  android:layout_marginTop="0dp"
+                  app:layout_constraintStart_toStartOf="@id/cpbEnhancedKYC"
+                  app:layout_constraintEnd_toEndOf="@id/cpbEnhancedKYC"
+                  app:label="@string/home_fragment_cpb_smart_selfie_auth"
+                  app:icon="@drawable/ic_smart_selfie"  />
+
+                <!--<com.demo.smileid.sid_sdk.CustomProductBtn
+                    android:id="@+id/cpbTestSelfie"
+                    style="@style/home_fragment_custom_product_btn"
+                    app:layout_constraintTop_toTopOf="@id/cpbDocV"
+                    android:layout_marginTop="0dp"
+                    app:layout_constraintStart_toStartOf="@id/cpbBiometricKYC"
+                    app:layout_constraintEnd_toEndOf="@id/cpbBiometricKYC"
+                    app:label="Test Selfie"
+                    app:icon="@drawable/ic_smart_selfie"  />-->
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

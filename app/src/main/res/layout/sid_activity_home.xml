@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E5E5E5"
+    tools:context=".SIDHomeActivity">
+
+    <TextView
+        android:id="@+id/tvVersion"
+        style="@style/home_screen_version_txt"
+        tools:ignore="MissingConstraints" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tlMenu"
+        style="@style/home_screen_tab_layout"
+        tools:ignore="MissingConstraints">
+
+        <com.google.android.material.tabs.TabItem
+            style="@style/home_screen_tab_layout"
+            android:text="@string/home_screen_tab_lbl_home"
+            android:icon="@drawable/tab_home_image" />
+
+        <com.google.android.material.tabs.TabItem
+            style="@style/home_screen_tab_layout"
+            android:text="@string/home_screen_tab_lbl_resources"
+            android:icon="@drawable/tab_resources_image" />
+
+        <com.google.android.material.tabs.TabItem
+            style="@style/home_screen_tab_layout"
+            android:text="@string/home_screen_tab_lbl_settings"
+            android:icon="@drawable/tab_settings_image" />
+
+    </com.google.android.material.tabs.TabLayout>
+    
+    <com.demo.smileid.sid_sdk.StaticPager
+        android:id="@+id/spScreens"
+        style="@style/home_screen_pager"
+        app:layout_constraintBottom_toBottomOf="@id/tlMenu"
+        tools:ignore="MissingConstraints" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

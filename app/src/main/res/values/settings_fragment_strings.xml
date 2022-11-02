@@ -1,0 +1,10 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
+    <string name="settings_fragment_heading_txt">About Us</string>
+    <string name="settings_fragment_about_txt">Who we are</string>
+    <string name="settings_fragment_lbl_version_nbr">Version %s</string>
+    <string name="settings_fragment_contact_link_txt">Contact our support</string>
+    <string name="settings_fragment_view_website_link_txt">View our
+        website</string>
+
+</resources>

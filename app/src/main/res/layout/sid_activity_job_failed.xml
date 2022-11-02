@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E5E5E5"
+    tools:context=".SIDJobFailedActivity">
+
+    <ImageView
+        android:id="@+id/ivFailure"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="90dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/ic_failure" />
+
+    <TextView
+        android:id="@+id/tvOops"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/ivFailure"
+        android:layout_marginTop="55dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:fontFamily="@font/roboto_medium"
+        android:textFontWeight="700"
+        android:textColor="#030303"
+        android:textSize="24sp"
+        android:maxLines="2"
+        android:gravity="center"
+        android:ellipsize="end"
+        android:text="We are unable to validate your identity" />
+    
+    <TextView
+      android:id="@+id/tvFailedMsg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvOops"
+        android:layout_marginTop="24dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="31dp"
+        android:fontFamily="@font/roboto_medium"
+        android:textFontWeight="400"
+        android:lineSpacingExtra="3sp"
+        android:lineHeight="32dp"
+        android:gravity="center"
+        android:text="This user is already enrolled"
+        android:textSize="16sp"
+        android:textColor="#555B69" />
+
+    <TextView
+        android:id="@+id/tvContinueBtn"
+        style="@style/sid_info_continue_btn"
+        android:onClick="goHome"
+        android:text="Go Home"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="103dp"
+        android:paddingLeft="18.43dp"
+        android:paddingRight="18.43dp"
+        app:layout_constraintTop_toBottomOf="@id/tvInputDoB"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/tvContinueBtn"
+        android:layout_marginTop="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginLeft="87dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginRight="85dp"
+        android:src="@drawable/ic_smile_logo_bar" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

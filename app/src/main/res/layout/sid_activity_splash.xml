@@ -1,33 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorGrey"
+    android:paddingBottom="32dp"
+    android:background="@drawable/splash_screen_bckgrd"
     tools:context="com.demo.smileid.sid_sdk.SIDSplashActivity">
 
-    <ImageView
-        android:id="@+id/ivSelfieLogo"
-        style="@style/SplashSelfieLogo" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tvSubLabel"
-        style="@style/SplashSelfieLabel"
-        android:text="Demo"
-        android:textColor="@color/colorPrimary"
-        android:textSize="20sp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.7"
-        app:layout_constraintBottom_toTopOf="@id/ivSelfieLogo" />
+        <TextView
+          android:id="@+id/tvLang"
+          style="@style/splash_screen_lang_txt"
+          android:elevation="2dp"
+          android:onClick="chooseLanguage"
+          android:visibility="invisible"
+          tools:ignore="MissingConstraints" />
 
-    <TextView
-        style="@style/SplashSelfieLabel"
-        app:layout_constraintBottom_toTopOf="@id/tvSubLabel" />
+        <Spinner
+          android:id="@+id/spLang"
+          style="@style/splash_screen_lang_spinner"
+          android:visibility="invisible"
+          app:layout_constraintTop_toTopOf="@id/tvLang"
+          app:layout_constraintStart_toStartOf="@id/tvLang" />
 
-    <TextView
-        android:id="@+id/tvVersion"
-        style="@style/SplashSelfieVersion" />
+        <View
+          android:id="@+id/vPhoneMockup"
+          style="@style/splash_screen_phone_mockup"
+          tools:ignore="MissingConstraints" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+          android:id="@+id/ivCamBtn"
+          style="@style/splash_screen_cam_btn"
+          app:layout_constraintTop_toTopOf="@id/vPhoneMockup"
+          tools:ignore="MissingConstraints" />
+
+        <TextView
+          android:id="@+id/tvWelcome"
+          style="@style/splash_screen_welcome_txt"
+          app:layout_constraintTop_toBottomOf="@id/ivCamBtn"
+          tools:ignore="MissingConstraints" />
+
+        <TextView
+          android:id="@+id/tvExplore"
+          style="@style/splash_screen_explore_txt"
+          app:layout_constraintTop_toBottomOf="@id/tvWelcome"
+          tools:ignore="MissingConstraints" />
+
+        <TextView
+          android:id="@+id/tvStartBtn"
+          style="@style/splash_screen_get_started_btn"
+          app:layout_constraintTop_toBottomOf="@id/tvExplore"
+          android:onClick="move2HomeScreen"
+          tools:ignore="MissingConstraints" />
+
+        <TextView
+          android:id="@+id/tvVersion"
+          style="@style/splash_screen_about_demo_txt"
+          app:layout_constraintTop_toBottomOf="@id/tvStartBtn"
+          tools:ignore="MissingConstraints" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

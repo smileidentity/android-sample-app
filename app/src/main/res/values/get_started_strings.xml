@@ -1,0 +1,11 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
+    <string name="get_started_screen_big_txt">Get Verified</string>
+    <string name="get_started_screen_small_txt">Make sure you have a government-issued ID handy and we’ll verify you in an instant</string>
+    <string name="get_started_screen_tip_lock_txt">Smile Identity uses sample data for its demo</string>
+    <string name="get_started_screen_tip_internet_txt">A stable internet connection is needed for the demo</string>
+    <string name="get_started_screen_tip_security_txt">By clicking \"Get Started\", you agree to share a selfie with Smile Identity who will store the image</string>
+    <string name="get_started_screen_get_started_btn">Get Started</string>
+    <string name="get_started_screen_ttn_txt">Things to Note</string>
+
+</resources>

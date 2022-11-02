@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent"
+    tools:context=".SettingsFragment">
+
+    <TextView
+        android:id="@+id/tvHeading"
+        style="@style/settings_fragment_heading_txt"
+        android:text="@string/settings_fragment_heading_txt"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/tvAboutLink"
+        style="@style/settings_fragment_about_link_txt"
+        app:layout_constraintTop_toBottomOf="@id/tvHeading"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/tvViewWebsite"
+        style="@style/settings_fragment_about_link_txt"
+        android:drawableLeft="@drawable/ic_web_link"
+        android:text="@string/settings_fragment_view_website_link_txt"
+        app:layout_constraintTop_toBottomOf="@id/tvAboutLink"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/tvSupport"
+        style="@style/settings_fragment_about_link_txt"
+        android:drawableLeft="@drawable/ic_email"
+        android:text="@string/settings_fragment_contact_link_txt"
+        app:layout_constraintTop_toBottomOf="@id/tvViewWebsite"
+        tools:ignore="MissingConstraints" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

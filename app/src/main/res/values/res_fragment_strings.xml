@@ -1,0 +1,19 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
+    <string name="res_fragment_heading_txt">Resources</string>
+    <string name="res_fragment_link_1_big_txt">Resources</string>
+    <string name="res_fragment_link_1_small_txt">Read everything related to our solution stack</string>
+    <string name="res_fragment_link_2_big_txt">Resources</string>
+    <string name="res_fragment_link_2_small_txt">Read everything related to our solution stack</string>
+    <string name="res_fragment_link_3_big_txt">Resources</string>
+    <string name="res_fragment_link_3_small_txt">Read everything related to our solution stack</string>
+    <string name="res_fragment_link_docs_txt">Explore our documentation</string>
+    <string name="res_fragment_link_docs_sub_txt">Read everything related to our solution stack</string>
+    <string name="res_fragment_link_policy_txt">Privacy policy</string>
+    <string name="res_fragment_link_policy_sub_txt">Learn more about our handling of data</string>
+    <string name="res_fragment_link_faqs_txt">View FAQs</string>
+    <string name="res_fragment_link_faqs_sub_txt">Explore frequently asked questions</string>
+    <string name="res_fragment_link_id_types_txt">Supported ID types and documents</string>
+    <string name="res_fragment_link_id_types_sub_txt">See our coverage range across the continent</string>
+
+</resources>

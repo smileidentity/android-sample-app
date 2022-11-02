@@ -1,0 +1,8 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
+    <string name="id_card_back_dlg_txt" translatable="false">ID Card Capture</string>
+    <string name="id_card_back_dlg_txt_2" translatable="false">Would you like to capture the back of the ID Card as well?</string>
+    <string name="id_card_back_dlg_proceed_btn" translatable="false">Proceed</string>
+    <string name="id_card_back_dlg_skip_btn" translatable="false">Skip</string>
+
+</resources>

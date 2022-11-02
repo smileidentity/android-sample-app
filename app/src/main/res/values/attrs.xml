@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomProductBtn">
+        <attr name="label" format="string" />
+        <attr name="icon" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="CustomResourceLink">
+        <attr name="bigTxt" format="string" />
+        <attr name="smallTxt" format="string" />
+        <attr name="lastItem" format="boolean" />
+    </declare-styleable>
+</resources>
