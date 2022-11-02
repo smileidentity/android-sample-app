@@ -34,9 +34,15 @@ jobs:
         $secretFileHash = Get-FileHash $secretFile;
         Write-Output "::set-output name=SECRET_FILE::$secretFile";
         Write-Output "::set-output name=SECRET_FILE_HASH::$($secretFileHash.Hash)";
-        gc $secretFile
       shell: pwsh
       env:
         SECRET_DATA1: ${{ secrets.B64_SECRET1 }}
     - run: fastlane android deploy_beta
+    - name: Delete secret file
+        run: |
+          Remove-Item -Path $env:SECRET_FILE;
+        shell: pwsh
+        if: always()
+        env:
+          SECRET_FILE: ${{ steps.secret-file1.outputs.SECRET_FILE }}
     
