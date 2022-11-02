@@ -1,0 +1,64 @@
+name: build-android-manually
+
+on:
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+          - info
+          - warning
+          - debug
+      tags:
+        description: 'Test scenario tags'
+        required: false
+        type: boolean
+      environment:
+        description: 'Environment to run tests against'
+        type: environment
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+    - name: Setup Gradle
+      uses: gradle/gradle-build-action@v2
+    - name: initialize gradle
+      run: gradle init
+    - name: Create secret-file.txt from B64_SECRET1
+      id: secret-file1
+      run: |
+        $secretFile = Join-Path -Path $env:RUNNER_TEMP -ChildPath "smile_config.json";
+        $encodedBytes = [System.Convert]::FromBase64String($env:SECRET_DATA1);
+        Set-Content $secretFile -Value $encodedBytes -AsByteStream;
+        $secretFileHash = Get-FileHash $secretFile;
+        Write-Output "::set-output name=SECRET_FILE::$secretFile";
+        Write-Output "::set-output name=SECRET_FILE_HASH::$($secretFileHash.Hash)";
+        Write-Output "Secret file $secretFile has hash $($secretFileHash.Hash)";
+      shell: pwsh
+      env:
+        SECRET_DATA1: ${{ secrets.B64_SECRET1 }}
+    - name: Delete secret file
+      run: |
+        Remove-Item -Path $env:SECRET_FILE;
+        shell: pwsh
+        if: always()
+        env:
+          SECRET_FILE: ${{ steps.secret-file1.outputs.SECRET_FILE }}
+    - run: fastlane android deploy_beta
+    
