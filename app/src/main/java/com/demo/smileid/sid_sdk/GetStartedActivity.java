@@ -22,6 +22,7 @@ import androidx.annotation.Nullable;
 import com.demo.smileid.sid_sdk.DocVOptionDialog.DOC_VER_TYPE;
 import com.smileid.smileidui.CaptureType;
 import com.smileid.smileidui.SIDCaptureManager;
+import com.smileid.smileidui.SIDIDCaptureConfig;
 import com.smileidentity.libsmileid.core.consent.ConsentActivity;
 import java.util.HashMap;
 
@@ -133,7 +134,7 @@ public class GetStartedActivity extends BaseSIDActivity {
     }
 
     private void useLocalScreen() {
-        go2Screen(SIDSelfieActivity.class);
+//        go2Screen(SIDSelfieActivity.class);
     }
 
     private void go2Screen(Class clazz) {
@@ -149,9 +150,10 @@ public class GetStartedActivity extends BaseSIDActivity {
     }
 
     public void useSmileUIScreen() {
-        SIDCaptureManager.Builder sidCaptureManager = new SIDCaptureManager.Builder(this,
-            CaptureType.SELFIE, SMILE_SELFIE_REQUEST_CODE);
-
+        SIDIDCaptureConfig.Builder sIDIDCaptureConfig =
+                new SIDIDCaptureConfig.Builder();
+        SIDCaptureManager.Builder sidCaptureManager = new SIDCaptureManager.Builder(this, CaptureType.ID_CAPTURE, SMILE_SELFIE_REQUEST_CODE);
+        sidCaptureManager.setSidIdCaptureConfig(sIDIDCaptureConfig.build());
         sidCaptureManager.build().start();
     }
 
