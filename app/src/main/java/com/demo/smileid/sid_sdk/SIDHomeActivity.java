@@ -78,6 +78,7 @@ public class SIDHomeActivity extends BaseSIDActivity implements BaseFragment.Tab
     @Override
     public void performDocV() {
         resetJob();
+        mConsentRequired = false;
         mKYCProductType = KYC_PRODUCT_TYPE.DOCUMENT_VERIFICATION;
         startKYCProcess();
     }
