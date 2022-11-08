@@ -234,7 +234,8 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
         if (mKYCProductType == KYC_PRODUCT_TYPE.ENROLL_TEST) {
             clazz = SIDJobResultActivity.class;
         } else if (mKYCProductType == KYC_PRODUCT_TYPE.BIOMETRIC_KYC) {
-            clazz = SIDIDInfoActivity.class;
+            // For Biometric KYC, Selife is the last step
+            clazz = SIDJobResultActivity.class;
         } else if (mKYCProductType == KYC_PRODUCT_TYPE.DOCUMENT_VERIFICATION) {
             Map<String, String> docVOptions = (Map<String, String>) getIntent().getSerializableExtra(
                 DOC_V_PARAM);
