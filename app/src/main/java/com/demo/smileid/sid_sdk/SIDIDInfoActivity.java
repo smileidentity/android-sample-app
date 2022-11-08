@@ -2,8 +2,6 @@ package com.demo.smileid.sid_sdk;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -12,27 +10,23 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.demo.smileid.sid_sdk.ItemListAdapter.ItemSelectedInterface;
 import com.demo.smileid.sid_sdk.sidNet.IdTypeUtil;
 import com.demo.smileid.sid_sdk.sidNet.Misc;
-import com.google.common.collect.Collections2;
 import com.hbb20.CCPCountry;
 import com.smileidentity.libsmileid.model.SIDUserIdInfo;
+
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 
 public class SIDIDInfoActivity extends AppCompatActivity implements ItemSelectedInterface {
@@ -47,6 +41,7 @@ public class SIDIDInfoActivity extends AppCompatActivity implements ItemSelected
   private HashMap<String, String> mSidUserIdInfo = new HashMap();
   private Bundle mParams = null;
   private boolean showExtraFields = false;
+  private BaseSIDActivity.KYC_PRODUCT_TYPE mKYCProductType;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +53,7 @@ public class SIDIDInfoActivity extends AppCompatActivity implements ItemSelected
 
     if (mParams != null) {
       mCurrentTag = mParams.getString(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO);
+      mKYCProductType = (BaseSIDActivity.KYC_PRODUCT_TYPE) mParams.getSerializable(BaseSIDActivity.KYC_PRODUCT_TYPE_PARAM);
     }
 
     mAdapter = new CountryListAdapter(SUPPORTED_COUNTRIES);
@@ -239,12 +235,15 @@ public class SIDIDInfoActivity extends AppCompatActivity implements ItemSelected
 
     mParams.putSerializable(SIDJobResultActivity.USER_ID_INFO_PARAM, mSidUserIdInfo);
 
-    startActivity(
-        new Intent(this, SIDJobResultActivity.class) {
-          {
-            putExtras(mParams);
-          }
-        });
+    if (mKYCProductType == BaseSIDActivity.KYC_PRODUCT_TYPE.BIOMETRIC_KYC) {
+      // For Biometric KYC, we ask for ID info before Selfie
+      startActivity(new Intent(this, SIDSelfieActivity.class).putExtras(mParams));
+    } else {
+      startActivity(new Intent(this, SIDJobResultActivity.class) {{
+          putExtras(mParams);
+      }});
+    }
+
   }
 
   private boolean isIdInfoValid() {
