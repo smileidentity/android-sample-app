@@ -68,6 +68,7 @@ public class GetStartedActivity extends BaseSIDActivity {
                     break;
                 case BASIC_KYC:
                 case ENHANCED_KYC:
+                case BIOMETRIC_KYC:
                     proceedWithIDInfo();
                     break;
                 default:
