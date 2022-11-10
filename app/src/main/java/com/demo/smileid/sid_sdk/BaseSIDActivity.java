@@ -1,17 +1,17 @@
 package com.demo.smileid.sid_sdk;
 
-import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+
 import com.demo.smileid.sid_sdk.geoloc.SIDGeoInfos;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class BaseSIDActivity extends AppCompatActivity {
 
@@ -37,23 +37,10 @@ public class BaseSIDActivity extends AppCompatActivity {
     private Intent mCurrentIntent = null;
     private static final int PERMISSION_ALL = 1;
 
-    protected String[] PERMISSIONS = {
-        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-        Manifest.permission.READ_EXTERNAL_STORAGE,
-        Manifest.permission.CAMERA,
-        Manifest.permission.ACCESS_FINE_LOCATION
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        List<String> permissions = new ArrayList<>(Arrays.asList(PERMISSIONS));
-
-        permissions.add((Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) ?
-            Manifest.permission.READ_PHONE_NUMBERS : Manifest.permission.READ_PHONE_STATE);
-
-        PERMISSIONS = permissions.toArray(new String[] {});
     }
 
     protected void startKYCProcess() {
@@ -67,10 +54,11 @@ public class BaseSIDActivity extends AppCompatActivity {
     }
 
     protected void coreStartKYCProcess() {
-        if (permissionGranted(PERMISSIONS)) {
+        String[] permissions = getPermissions();
+        if (permissionGranted(permissions)) {
             proceedWithJob();
         } else {
-            ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
+            ActivityCompat.requestPermissions(this, permissions, PERMISSION_ALL);
         }
     }
 
@@ -100,7 +88,21 @@ public class BaseSIDActivity extends AppCompatActivity {
 
             coreStartKYCProcess();
         } else {
+            Log.i(this.getClass().getSimpleName(), "Permission not granted");
+            Toast.makeText(this, "Permissions not granted", Toast.LENGTH_SHORT).show();
             mCurrentIntent = null;
         }
+    }
+
+    // Get all permissions defined in Android Manifest
+    private String[] getPermissions() {
+        try {
+            return getPackageManager()
+                    .getPackageInfo(getPackageName(), PackageManager.GET_PERMISSIONS)
+                    .requestedPermissions;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
