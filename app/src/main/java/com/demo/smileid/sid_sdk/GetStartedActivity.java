@@ -1,12 +1,12 @@
 package com.demo.smileid.sid_sdk;
 
-import static com.demo.smileid.sid_sdk.BaseSIDActivity.KYC_PRODUCT_TYPE.ENROLL_TEST;
 import static com.demo.smileid.sid_sdk.BaseSIDActivity.KYC_PRODUCT_TYPE.BIOMETRIC_KYC;
 import static com.demo.smileid.sid_sdk.BaseSIDActivity.KYC_PRODUCT_TYPE.DOCUMENT_VERIFICATION;
 import static com.demo.smileid.sid_sdk.BaseSIDActivity.KYC_PRODUCT_TYPE.ENHANCED_KYC;
+import static com.demo.smileid.sid_sdk.BaseSIDActivity.KYC_PRODUCT_TYPE.ENROLL_TEST;
 import static com.demo.smileid.sid_sdk.BaseSIDActivity.KYC_PRODUCT_TYPE.SMART_SELFIE_AUTH;
-import static com.demo.smileid.sid_sdk.SIDSelfieActivity.DOC_V_PARAM;
 import static com.demo.smileid.sid_sdk.SIDSelfieActivity.DOC_V_CAPTURE_TYPE;
+import static com.demo.smileid.sid_sdk.SIDSelfieActivity.DOC_V_PARAM;
 import static com.demo.smileid.sid_sdk.SIDSelfieActivity.DOC_V_USER_SELFIE_OPTION;
 import static com.demo.smileid.sid_sdk.SIDSelfieActivity.SMART_AUTH_CAPTURE_TYPE;
 import static com.demo.smileid.sid_sdk.SIDSelfieActivity.SMART_AUTH_PARAM;
@@ -15,14 +15,16 @@ import static com.smileid.smileidui.IntentHelper.SMILE_REQUEST_RESULT_TAG;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
 import androidx.annotation.Nullable;
+
 import com.demo.smileid.sid_sdk.DocVOptionDialog.DOC_VER_TYPE;
 import com.smileid.smileidui.CaptureType;
 import com.smileid.smileidui.SIDCaptureManager;
 import com.smileidentity.libsmileid.core.consent.ConsentActivity;
+
 import java.util.HashMap;
 
 public class GetStartedActivity extends BaseSIDActivity {
@@ -61,7 +63,7 @@ public class GetStartedActivity extends BaseSIDActivity {
 
             switch (productType) {
                 case DOCUMENT_VERIFICATION:
-                    showDocVOptionDlg();
+                    proceedWithDocV();
                     break;
                 case SMART_SELFIE_AUTH:
                     showSmartSelfieDialog();
@@ -77,28 +79,13 @@ public class GetStartedActivity extends BaseSIDActivity {
         }
     }
 
-    private void showDocVOptionDlg() {
-        new DocVOptionDialog(this, (type, option) -> {
-            if (mParams != null) {
-                HashMap<String, String> docVParams = new HashMap() {
-                    {
-                        put(DOC_V_CAPTURE_TYPE, type.toString());
-
-                        if (type == DOC_VER_TYPE.SELFIE_PLUS_ID_CARD) {
-                            put(DOC_V_USER_SELFIE_OPTION, option.toString());
-                        }
-                    }
-                };
-
-                mParams.putSerializable(DOC_V_PARAM, docVParams);
-
-                if (type == DOC_VER_TYPE.SELFIE_PLUS_ID_CARD) {
-                    proceedWithSelfie();
-                } else {
-                    proceedWithIDCard();
-                }
-            }
-        }).showDialog();
+    private void proceedWithDocV() {
+        // Default to Non-Enrolled User Selfie+ID
+        HashMap<String, String> docVParams = new HashMap<>();
+        docVParams.put(DOC_V_CAPTURE_TYPE, DOC_VER_TYPE.SELFIE_PLUS_ID_CARD.toString());
+        docVParams.put(DOC_V_USER_SELFIE_OPTION, DocVOptionDialog.DOC_VER_OPTION.NON_ENROLLED_USER.toString());
+        mParams.putSerializable(DOC_V_PARAM, docVParams);
+        proceedWithIDCard();
     }
 
     private void showSmartSelfieDialog() {
