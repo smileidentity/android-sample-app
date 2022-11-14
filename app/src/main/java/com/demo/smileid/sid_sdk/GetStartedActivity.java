@@ -140,7 +140,9 @@ public class GetStartedActivity extends BaseSIDActivity {
     public void useSmileUIScreen() {
         SIDIDCaptureConfig.Builder sIDIDCaptureConfig =
                 new SIDIDCaptureConfig.Builder();
-        SIDCaptureManager.Builder sidCaptureManager = new SIDCaptureManager.Builder(this, CaptureType.ID_CAPTURE, SMILE_SELFIE_REQUEST_CODE);
+        SIDCaptureManager.Builder sidCaptureManager =
+                new SIDCaptureManager.Builder(this, CaptureType.SELFIE,
+                        SMILE_SELFIE_REQUEST_CODE);
         sidCaptureManager.setSidIdCaptureConfig(sIDIDCaptureConfig.build());
         sidCaptureManager.build().start();
     }
