@@ -122,7 +122,7 @@ public class GetStartedActivity extends BaseSIDActivity {
     }
 
     private void useLocalScreen() {
-//        go2Screen(SIDSelfieActivity.class);
+        go2Screen(SIDSelfieActivity.class);
     }
 
     private void go2Screen(Class clazz) {
