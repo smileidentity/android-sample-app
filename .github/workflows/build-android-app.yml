@@ -53,6 +53,7 @@ jobs:
         SID_AWS_SECRET_ACCESS_KEY: ${{ secrets.SID_AWS_SECRET_ACCESS_KEY }}
         SID_AWS_BUCKET: ${{ secrets.SID_AWS_BUCKET }}
         SID_AWS_REGION: ${{ secrets.SID_AWS_REGION }}
+        SLACK_URL: ${{ secrets.SLACK_URL }}
     - name: Delete secret file
       run: |
         Remove-Item -Path $env:SECRET_FILE;
