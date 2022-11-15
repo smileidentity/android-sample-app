@@ -1,8 +1,5 @@
 package com.demo.smileid.sid_sdk;
 
-import static com.smileid.smileidui.Utils.enableSmileIdentityCrashReporting;
-import static com.smileid.smileidui.Utils.forceCrash;
-
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -26,12 +23,9 @@ public class SIDSplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.sid_activity_splash);
-        enableSmileIdentityCrashReporting();
 
         setBottomLink();
         populateLangs();
-        forceCrash();
-        // throw new RuntimeException("Testing a uncaught exception handler");
     }
 
     private void setBottomLink() {
