@@ -37,13 +37,13 @@ jobs:
       shell: pwsh
       env:
         SECRET_DATA1: ${{ secrets.B64_SECRET1 }}
-    - if: ${{ github.EVENT_NAME == 'pull_request' }}
     - name: "Get branch name and save to env"
+      if: ${{ github.EVENT_NAME == 'pull_request' }}
       run: |
           BRANCH_NAME="${GITHUB_HEAD_REF}"
           echo "BRANCH_NAME=${BRANCH_NAME}" >> $GITHUB_ENV
-    - if: ${{ github.EVENT_NAME == 'push' }}
     - name: "Get branch name and save to env"
+      if: ${{ github.EVENT_NAME == 'push' }}
       run: |
           BRANCH_NAME="${GITHUB_REF##*/}"
           echo "BRANCH_NAME=${BRANCH_NAME}" >> $GITHUB_ENV
