@@ -37,16 +37,16 @@ jobs:
       shell: pwsh
       env:
         SECRET_DATA1: ${{ secrets.B64_SECRET1 }}
+    - if: ${{ github.EVENT_NAME == 'pull_request' }}
     - name: "Get branch name and save to env"
-      env:
-        IS_PR: ${{ github.EVENT_NAME == 'pull_request' }}
       run: |
-        if ${IS_PR}; then
           BRANCH_NAME="${GITHUB_HEAD_REF}"
-        else
+          echo "BRANCH_NAME=${BRANCH_NAME}" >> $GITHUB_ENV
+    - if: ${{ github.EVENT_NAME == 'push' }}
+    - name: "Get branch name and save to env"
+      run: |
           BRANCH_NAME="${GITHUB_REF##*/}"
-        fi
-        echo "BRANCH_NAME=${BRANCH_NAME}" >> $GITHUB_ENV
+          echo "BRANCH_NAME=${BRANCH_NAME}" >> $GITHUB_ENV
     - run: fastlane android deploy_beta
       env:
         SID_AWS_ACCESS_KEY_ID: ${{ secrets.SID_AWS_ACCESS_KEY_ID }}
