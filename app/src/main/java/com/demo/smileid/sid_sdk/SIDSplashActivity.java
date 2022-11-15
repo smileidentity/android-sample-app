@@ -3,17 +3,17 @@ package com.demo.smileid.sid_sdk;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.demo.smileid.sid_sdk.DropDownAdapter.DropDownObject;
 import com.smileidentity.libsmileid.utils.Version;
 
+import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 
 public class SIDSplashActivity extends AppCompatActivity {
