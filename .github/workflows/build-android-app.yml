@@ -37,12 +37,23 @@ jobs:
       shell: pwsh
       env:
         SECRET_DATA1: ${{ secrets.B64_SECRET1 }}
+    - name: "Get branch name and save to env"
+      if: ${{ github.EVENT_NAME == 'pull_request' }}
+      run: |
+          BRANCH_NAME="${GITHUB_HEAD_REF}"
+          echo "BRANCH_NAME=${BRANCH_NAME}" >> $GITHUB_ENV
+    - name: "Get branch name and save to env"
+      if: ${{ github.EVENT_NAME == 'push' }}
+      run: |
+          BRANCH_NAME="${GITHUB_REF##*/}"
+          echo "BRANCH_NAME=${BRANCH_NAME}" >> $GITHUB_ENV
     - run: fastlane android deploy_beta
       env:
         SID_AWS_ACCESS_KEY_ID: ${{ secrets.SID_AWS_ACCESS_KEY_ID }}
         SID_AWS_SECRET_ACCESS_KEY: ${{ secrets.SID_AWS_SECRET_ACCESS_KEY }}
         SID_AWS_BUCKET: ${{ secrets.SID_AWS_BUCKET }}
         SID_AWS_REGION: ${{ secrets.SID_AWS_REGION }}
+        SLACK_URL: ${{ secrets.SLACK_URL }}
     - name: Delete secret file
       run: |
         Remove-Item -Path $env:SECRET_FILE;
