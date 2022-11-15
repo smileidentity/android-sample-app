@@ -64,7 +64,10 @@ platform :android do
   end
 
   lane :deploy_beta do |options|
-    slug = options[:slug] || ENV['SLUG'] || git_branch().downcase.split("/")[1]
+    slug = git_branch().downcase.split("/")[1]
+    if slug.nil? || slug.empty? then
+       slug = ENV["BRANCH_NAME"]
+    end
     deploy_env(env: "beta", slug: slug)
   end
 
@@ -93,5 +96,28 @@ platform :android do
         build_version: ENV["BUILD_VERSION"]
       }
       )
+
+    slack(
+      message: "New android demo available for testing",
+      channel: "#mobile",  # Optional, by default will post to the default channel configurd for the POST URL.
+      success: true,        # Optional, defaults to true.
+      payload: {  # Optional, lets you specify any number of your own Slack attachments.
+        "Build Date" => Time.new.to_s,
+        "Built by" => "FastLane",
+      },
+      default_payloads: [:git_branch], # Optional, lets you specify default payloads to include. Pass an empty array to suppress all the default payloads.
+      attachment_properties: { # Optional, lets you specify any other properties available for attachments in the slack API (see https://api.slack.com/docs/attachments).
+        fields: [{
+          title: "Available here",
+          value: "https://#{ENV["SID_AWS_BUCKET"]}.s3.#{ENV["SID_AWS_REGION"]}.amazonaws
+          .com/Beta/#{options[:slug]}/index.html",
+          short: false
+        },{
+        title: "Version",
+        value: ENV["BUILD_VERSION"],
+        short: false
+      }]
+      }
+    )
   end
 end

@@ -28,7 +28,7 @@ android {
     ndkVersion '21.3.6528147'
     defaultConfig {
         applicationId "com.demo.smileid.sid_sdk_3_0"
-        minSdkVersion 21
+        minSdkVersion 19
         targetSdkVersion 33
         versionCode 1
         versionName "0.0.1"
@@ -114,9 +114,9 @@ dependencies {
     implementation 'com.google.guava:guava:24.1-jre'
 
 //    PRODUCTION DEPENDENCIES
-    implementation 'com.smileidentity:smile-id-sdk:7.3.14-SNAPSHOT'
-    implementation 'com.smileidentity:netjava:1.1.12-SNAPSHOT'
-    implementation 'com.smileidentity:smile-id-ui:0.2.7-SNAPSHOT'
+    implementation 'com.smileidentity:smile-id-sdk:7.3.16'
+    implementation 'com.smileidentity:netjava:0.0.9'
+    implementation 'com.smileidentity:smile-id-ui:0.2.10'
 
     // DEV DEPENDENCIES
 //    implementation project(':android_lib')
