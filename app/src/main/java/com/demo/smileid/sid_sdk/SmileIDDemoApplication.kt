@@ -1,7 +1,7 @@
 package com.demo.smileid.sid_sdk
 
 import androidx.multidex.MultiDexApplication
-import com.smileid.smileidui.CrashReporting.enableSmileIdentityCrashReporting
+import com.smileidentity.libsmileid.utils.CrashReporting.enableSmileIdentityCrashReporting
 
 class SmileIDDemoApplication : MultiDexApplication() {
     override fun onCreate() {
