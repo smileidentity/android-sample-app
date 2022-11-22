@@ -1,5 +1,7 @@
 package com.demo.smileid.sid_sdk;
 
+import static com.smileid.smileidui.IntentHelper.ID_CARD_CAPTURE_ERROR;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -13,6 +15,8 @@ import com.demo.smileid.sid_sdk.sidNet.Misc;
 import com.smileidentity.libsmileid.core.SmartCardView;
 import com.smileidentity.libsmileid.core.captureCallback.IDCardState;
 import com.demo.smileid.sid_sdk.BaseSIDActivity.KYC_PRODUCT_TYPE;
+import com.smileidentity.libsmileid.exception.SIDException;
+
 import java.util.Calendar;
 
 public class SIDIDCardActivity extends AppCompatActivity implements SmartCardView.SmartCardViewCallBack,
@@ -137,7 +141,11 @@ public class SIDIDCardActivity extends AppCompatActivity implements SmartCardVie
     public void proceed() {
         mShowingDlg = true;
         mSmartCardView.setIDBackCapture();
-        onResume();
+        try {
+            mSmartCardView.startCapture(mCurrentTag);
+        } catch (SIDException e) {
+            e.printStackTrace();
+        }
     }
 
     private String getTag() {

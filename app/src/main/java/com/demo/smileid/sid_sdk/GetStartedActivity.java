@@ -85,7 +85,7 @@ public class GetStartedActivity extends BaseSIDActivity {
         docVParams.put(DOC_V_CAPTURE_TYPE, DOC_VER_TYPE.SELFIE_PLUS_ID_CARD.toString());
         docVParams.put(DOC_V_USER_SELFIE_OPTION, DocVOptionDialog.DOC_VER_OPTION.NON_ENROLLED_USER.toString());
         mParams.putSerializable(DOC_V_PARAM, docVParams);
-        proceedWithIDCard();
+        proceedWithSelfie();
     }
 
     private void showSmartSelfieDialog() {
