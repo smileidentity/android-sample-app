@@ -116,8 +116,8 @@ public class GetStartedActivity extends BaseSIDActivity {
     }
 
     private void proceedWithSelfie() {
-//        useLocalScreen();
-        useSmileUIScreen();
+        useLocalScreen();
+//        useSmileUIScreen();
     }
 
     private void useLocalScreen() {
@@ -138,8 +138,7 @@ public class GetStartedActivity extends BaseSIDActivity {
 
     public void useSmileUIScreen() {
         SIDCaptureManager.Builder sidCaptureManager = new SIDCaptureManager.Builder(this,
-            CaptureType.SELFIE, SMILE_SELFIE_REQUEST_CODE);
-
+            CaptureType.SELFIE_AND_ID_CAPTURE, SMILE_SELFIE_REQUEST_CODE);
         sidCaptureManager.build().start();
     }
 
