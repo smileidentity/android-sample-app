@@ -11,9 +11,8 @@ permissions:
 
 jobs:
   build:
-
+    timeout-minutes: 10
     runs-on: macos-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: Set up JDK 11
