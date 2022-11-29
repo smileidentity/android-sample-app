@@ -121,7 +121,7 @@ dependencies {
      implementation 'com.smileidentity:smile-id-ui:0.3.0-SNAPSHOT'
 
     // DEV DEPENDENCIES
-    //implementation project(':android_lib')
-    //implementation project(':smile-id-ui')
-    //implementation project(':netjava')
+//    implementation project(':android_lib')
+//    implementation project(':smile-id-ui')
+//    implementation project(':netjava')
 }

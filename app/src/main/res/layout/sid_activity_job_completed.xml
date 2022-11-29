@@ -30,6 +30,7 @@
         android:lineSpacingExtra="3sp"
         android:lineHeight="32dp"
         android:gravity="center"
+        android:id="@+id/tv_status"
         android:text="Congratulations! \nVerification has been successfully completed!"
         android:textSize="24sp"
         android:textColor="#060417" />

@@ -121,7 +121,7 @@ class SIDJobResultActivity : BaseSIDActivity(),
     }
 
     fun uploadNow(view: View?) {
-        lifecycleScope.launch{
+        lifecycleScope.launch {
             upload(mCurrentTag)
         }
     }
@@ -342,6 +342,17 @@ class SIDJobResultActivity : BaseSIDActivity(),
                     Intent(this, clazz) {
                     init {
                         putExtra(SIDJobFailedActivity.FAILED_MSG, message)
+                        if (result && mKYCProductType == KYC_PRODUCT_TYPE
+                                .SMART_SELFIE_AUTH
+                            && smartAuthType!![SIDSelfieActivity
+                                .SMART_AUTH_CAPTURE_TYPE]!!.toString()
+                                .equals("ENROLL")
+                        ) {
+                            putExtra(
+                                SIDJobCompletedActivity.SUCCESS_MESSAGE,
+                                getString(R.string.enroll_success_messsage)
+                            )
+                        }
                     }
                 })
         }
