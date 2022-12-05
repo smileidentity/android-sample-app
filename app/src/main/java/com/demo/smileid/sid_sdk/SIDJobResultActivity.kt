@@ -12,7 +12,6 @@ import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
-import androidx.lifecycle.lifecycleScope
 import com.demo.smileid.sid_sdk.geoloc.SIDGeoInfos
 import com.demo.smileid.sid_sdk.sidNet.InternetStateBroadCastReceiver
 import com.demo.smileid.sid_sdk.sidNet.InternetStateBroadCastReceiver.OnConnectionReceivedListener
@@ -121,9 +120,7 @@ class SIDJobResultActivity : BaseSIDActivity(),
     }
 
     fun uploadNow(view: View?) {
-        lifecycleScope.launch {
-            upload(mCurrentTag)
-        }
+        upload(mCurrentTag)
     }
 
     private fun setUserIdInfo(metadata: SIDMetadata): SIDMetadata {
