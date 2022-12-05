@@ -109,8 +109,7 @@ platform :android do
       attachment_properties: { # Optional, lets you specify any other properties available for attachments in the slack API (see https://api.slack.com/docs/attachments).
         fields: [{
           title: "Available here",
-          value: "https://#{ENV["SID_AWS_BUCKET"]}.s3.#{ENV["SID_AWS_REGION"]}.amazonaws
-          .com/Beta/#{options[:slug]}/index.html",
+          value: "https://#{ENV["SID_AWS_BUCKET"]}.s3.#{ENV["SID_AWS_REGION"]}.amazonaws.com/Beta/#{options[:slug]}/index.html",
           short: false
         },{
         title: "Version",
