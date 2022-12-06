@@ -57,26 +57,23 @@ class SIDJobResultActivity : BaseSIDActivity(),
     }
 
     private fun initVars() {
-        val intent = intent
-        intent?.let {
-            mEnrolledUser = it.getBooleanExtra(USER_SELFIE_PARAM, false)
-            mCurrentTag =
-                it.getStringExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO)
-            mKYCProductType =
-                it.getSerializableExtra(KYC_PRODUCT_TYPE_PARAM) as KYC_PRODUCT_TYPE?
-            mSIDUserIdInfo =
-                it.getSerializableExtra(USER_ID_INFO_PARAM) as HashMap<String, String>?
-            mSIDUserIdInfo?.let {
-                mSelectedCountryName = it[SIDUserIdInfo.COUNTRY]
-                mSelectedIdCard = it[SIDUserIdInfo.ID_TYPE]
-            }
-            if (mKYCProductType == KYC_PRODUCT_TYPE.DOCUMENT_VERIFICATION) {
-                mSelectedCountryName = it.getStringExtra(DOC_COUNTRY_PARAM)
-                mSelectedIdCard = it.getStringExtra(DOC_ID_TYPE_PARAM)
-            } else if (mKYCProductType == KYC_PRODUCT_TYPE.SMART_SELFIE_AUTH) {
-                smartAuthType =
-                    it.getSerializableExtra(SMART_AUTH_PARAM) as HashMap<String, String>
-            }
+        mEnrolledUser = intent.getBooleanExtra(USER_SELFIE_PARAM, false)
+        mCurrentTag =
+            intent.getStringExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO)
+        mKYCProductType =
+            intent.getSerializableExtra(KYC_PRODUCT_TYPE_PARAM) as KYC_PRODUCT_TYPE?
+        mSIDUserIdInfo =
+            intent.getSerializableExtra(USER_ID_INFO_PARAM) as HashMap<String, String>?
+        mSIDUserIdInfo?.let {
+            mSelectedCountryName = it[SIDUserIdInfo.COUNTRY]
+            mSelectedIdCard = it[SIDUserIdInfo.ID_TYPE]
+        }
+        if (mKYCProductType == KYC_PRODUCT_TYPE.DOCUMENT_VERIFICATION) {
+            mSelectedCountryName = intent.getStringExtra(DOC_COUNTRY_PARAM)
+            mSelectedIdCard = intent.getStringExtra(DOC_ID_TYPE_PARAM)
+        } else if (mKYCProductType == KYC_PRODUCT_TYPE.SMART_SELFIE_AUTH) {
+            smartAuthType =
+                intent.getSerializableExtra(SMART_AUTH_PARAM) as HashMap<String, String>
         }
         mSharedPreferences =
             getSharedPreferences(packageName, Context.MODE_PRIVATE)
