@@ -27,9 +27,6 @@ import com.smileidentity.libsmileid.model.SIDNetData
 import com.smileidentity.libsmileid.model.SIDUserIdInfo
 import com.smileidentity.libsmileid.net.model.idValidation.IDValidationResponse
 import com.smileidentity.libsmileid.utils.AppData
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class SIDJobResultActivity : BaseSIDActivity(),
     OnCompleteListener, OnErrorListener,
@@ -42,7 +39,7 @@ class SIDJobResultActivity : BaseSIDActivity(),
     private var mSelectedCountryName: String? = ""
     private var mSelectedIdCard: String? = ""
     private var mCurrentTag: String? = null
-    private var mSIDNetworkRequest: SIDNetworkRequest? = null
+    private lateinit var mSIDNetworkRequest: SIDNetworkRequest
     private var mSharedPreferences: SharedPreferences? = null
     private var mInternetStateBR: InternetStateBroadCastReceiver? = null
     private var mEnrolledUser = false
@@ -92,7 +89,7 @@ class SIDJobResultActivity : BaseSIDActivity(),
         val text = when (mKYCProductType) {
             KYC_PRODUCT_TYPE.BASIC_KYC, KYC_PRODUCT_TYPE.ENHANCED_KYC -> "ID Info Uploading..."
             KYC_PRODUCT_TYPE.DOCUMENT_VERIFICATION -> "Document Uploading..."
-            default -> "Selfie Uploading..."
+            else -> "Selfie Uploading..."
         }
         mTvConfidenceValue!!.setText(text)
     }
@@ -104,14 +101,13 @@ class SIDJobResultActivity : BaseSIDActivity(),
 
     private fun buildNetRequest() {
         mSIDNetworkRequest = SIDNetworkRequest(this)
-        mSIDNetworkRequest!!.setOnCompleteListener(this)
-        mSIDNetworkRequest!!.set0nErrorListener(this)
-        mSIDNetworkRequest!!.setOnUpdateListener(this)
-        mSIDNetworkRequest!!.setOnEnrolledListener(this)
-        mSIDNetworkRequest!!.setOnAuthenticatedListener(this)
-        mSIDNetworkRequest!!.setOnDocVerificationListener(this)
-        mSIDNetworkRequest!!.setOnIDValidationListener(this)
-        mSIDNetworkRequest!!.initialize()
+        mSIDNetworkRequest.setOnCompleteListener(this)
+        mSIDNetworkRequest.set0nErrorListener(this)
+        mSIDNetworkRequest.setOnUpdateListener(this)
+        mSIDNetworkRequest.setOnEnrolledListener(this)
+        mSIDNetworkRequest.setOnAuthenticatedListener(this)
+        mSIDNetworkRequest.setOnDocVerificationListener(this)
+        mSIDNetworkRequest.setOnIDValidationListener(this)
     }
 
     fun uploadNow(view: View?) {
