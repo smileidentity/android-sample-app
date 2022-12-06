@@ -40,12 +40,12 @@ class SIDJobResultActivity : BaseSIDActivity(),
     private var mSelectedIdCard: String? = ""
     private var mCurrentTag: String? = null
     private lateinit var mSIDNetworkRequest: SIDNetworkRequest
-    private var mSharedPreferences: SharedPreferences? = null
+    private lateinit var mSharedPreferences: SharedPreferences
     private var mInternetStateBR: InternetStateBroadCastReceiver? = null
     private var mEnrolledUser = false
     private var mConfig: SIDConfig? = null
     private var mSIDUserIdInfo: HashMap<String, String>? = null
-    private var smartAuthType: HashMap<*, *>? = null
+    private var smartAuthType: HashMap<String, String> = HashMap()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.sid_activity_result)
@@ -58,24 +58,24 @@ class SIDJobResultActivity : BaseSIDActivity(),
 
     private fun initVars() {
         val intent = intent
-        if (intent != null) {
-            mEnrolledUser = intent.getBooleanExtra(USER_SELFIE_PARAM, false)
+        intent?.let {
+            mEnrolledUser = it.getBooleanExtra(USER_SELFIE_PARAM, false)
             mCurrentTag =
-                intent.getStringExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO)
+                it.getStringExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO)
             mKYCProductType =
-                intent.getSerializableExtra(KYC_PRODUCT_TYPE_PARAM) as KYC_PRODUCT_TYPE?
+                it.getSerializableExtra(KYC_PRODUCT_TYPE_PARAM) as KYC_PRODUCT_TYPE?
             mSIDUserIdInfo =
-                intent.getSerializableExtra(USER_ID_INFO_PARAM) as HashMap<String, String>?
-            if (mSIDUserIdInfo != null) {
-                mSelectedCountryName = mSIDUserIdInfo!![SIDUserIdInfo.COUNTRY]
-                mSelectedIdCard = mSIDUserIdInfo!![SIDUserIdInfo.ID_TYPE]
+                it.getSerializableExtra(USER_ID_INFO_PARAM) as HashMap<String, String>?
+            mSIDUserIdInfo?.let {
+                mSelectedCountryName = it[SIDUserIdInfo.COUNTRY]
+                mSelectedIdCard = it[SIDUserIdInfo.ID_TYPE]
             }
             if (mKYCProductType == KYC_PRODUCT_TYPE.DOCUMENT_VERIFICATION) {
-                mSelectedCountryName = intent.getStringExtra(DOC_COUNTRY_PARAM)
-                mSelectedIdCard = intent.getStringExtra(DOC_ID_TYPE_PARAM)
+                mSelectedCountryName = it.getStringExtra(DOC_COUNTRY_PARAM)
+                mSelectedIdCard = it.getStringExtra(DOC_ID_TYPE_PARAM)
             } else if (mKYCProductType == KYC_PRODUCT_TYPE.SMART_SELFIE_AUTH) {
                 smartAuthType =
-                    intent.getSerializableExtra(SMART_AUTH_PARAM) as HashMap<*, *>?
+                    it.getSerializableExtra(SMART_AUTH_PARAM) as HashMap<String, String>
             }
         }
         mSharedPreferences =
@@ -91,12 +91,12 @@ class SIDJobResultActivity : BaseSIDActivity(),
             KYC_PRODUCT_TYPE.DOCUMENT_VERIFICATION -> "Document Uploading..."
             else -> "Selfie Uploading..."
         }
-        mTvConfidenceValue!!.setText(text)
+        mTvConfidenceValue?.setText(text)
     }
 
     private fun buildNetObserver() {
         mInternetStateBR = InternetStateBroadCastReceiver()
-        mInternetStateBR!!.setOnConnectionReceivedListener(this)
+        mInternetStateBR?.setOnConnectionReceivedListener(this)
     }
 
     private fun buildNetRequest() {
@@ -117,16 +117,18 @@ class SIDJobResultActivity : BaseSIDActivity(),
     private fun setUserIdInfo(metadata: SIDMetadata): SIDMetadata {
         val userIdInfo = metadata.sidUserIdInfo
         userIdInfo.country = mSelectedCountryName
-        if (mSIDUserIdInfo != null) {
-            userIdInfo.firstName = mSIDUserIdInfo!![SIDUserIdInfo.FIRST_NAME]
-            userIdInfo.lastName = mSIDUserIdInfo!![SIDUserIdInfo.LAST_NAME]
-            userIdInfo.idNumber = mSIDUserIdInfo!![SIDUserIdInfo.ID_NUMBER]
+        mSIDUserIdInfo?.let {
+            userIdInfo.firstName = it[SIDUserIdInfo.FIRST_NAME]
+            userIdInfo.lastName = it[SIDUserIdInfo.LAST_NAME]
+            userIdInfo.idNumber = it[SIDUserIdInfo.ID_NUMBER]
             userIdInfo.additionalValue(
                 SIDUserIdInfo.DOB,
-                mSIDUserIdInfo!![SIDUserIdInfo.DOB]
+                it[SIDUserIdInfo.DOB]
             )
         }
-        userIdInfo.idType = mSelectedIdCard!!.replace(" ", "_")
+        mSelectedIdCard?.let {
+            userIdInfo.idType = it.replace(" ", "_")
+        }
         return metadata
     }
 
@@ -135,30 +137,32 @@ class SIDJobResultActivity : BaseSIDActivity(),
         if (mKYCProductType != KYC_PRODUCT_TYPE.SMART_SELFIE_AUTH) {
             setUserIdInfo(metadata)
         }
-        val sidConfig = createConfig(tag, metadata)
+        val sidConfig = createConfig(metadata)
         if (SIDNetworkingUtils.haveNetworkConnection(this)) {
-            mPbLoading!!.visibility = View.VISIBLE
-            mSIDNetworkRequest!!.submit(sidConfig)
+            mPbLoading?.visibility = View.VISIBLE
+            mSIDNetworkRequest.submit(sidConfig)
         } else {
-            SIDTagManager.getInstance(this)
-                .saveConfig(
-                    tag,
-                    sidConfig!!.jobType,
-                    sidConfig.mode,
-                    sidConfig.geoInformation,
-                    sidConfig.sidMetadata,
-                    this
-                )
+            sidConfig?.let {
+                SIDTagManager.getInstance(this)
+                    .saveConfig(
+                        tag,
+                        it.jobType,
+                        it.mode,
+                        it.geoInformation,
+                        it.sidMetadata,
+                        this
+                    )
+            }
             Toast.makeText(this, "No internet connection", Toast.LENGTH_SHORT)
                 .show()
         }
     }
 
-    private fun createConfig(tag: String?, metadata: SIDMetadata?): SIDConfig? {
+    private fun createConfig(metadata: SIDMetadata): SIDConfig? {
         val data = SIDNetData(this, AppData.getInstance(this).sdkEnvir)
         if (!TextUtils.isEmpty(savedUserId)
             && mKYCProductType == KYC_PRODUCT_TYPE.SMART_SELFIE_AUTH
-            && smartAuthType!![SIDSelfieActivity.SMART_AUTH_CAPTURE_TYPE] != "ENROLL"
+            && smartAuthType[SIDSelfieActivity.SMART_AUTH_CAPTURE_TYPE] != "ENROLL"
         ) {
             setPartnerParamsForAuth(metadata)
         }
@@ -169,14 +173,14 @@ class SIDJobResultActivity : BaseSIDActivity(),
                 setGeoInformation(infos)
                 useEnrolledImage(mEnrolledUser)
                 if (mKYCProductType == KYC_PRODUCT_TYPE.SMART_SELFIE_AUTH) {
-                    setJobType(if (smartAuthType!![SIDSelfieActivity.SMART_AUTH_CAPTURE_TYPE] == "ENROLL") 4 else 2)
+                    setJobType(if (smartAuthType[SIDSelfieActivity.SMART_AUTH_CAPTURE_TYPE] == "ENROLL") 4 else 2)
                 } else {
                     setJobType(mKYCProductType.jobType)
                 }
-                setSIDMetadata(metadata ?: SIDMetadata())
+                setSIDMetadata(metadata)
                 val isAuthMode =
                     ((mKYCProductType == KYC_PRODUCT_TYPE.SMART_SELFIE_AUTH
-                            && smartAuthType!![SIDSelfieActivity.SMART_AUTH_CAPTURE_TYPE] != "ENROLL")
+                            && smartAuthType[SIDSelfieActivity.SMART_AUTH_CAPTURE_TYPE] != "ENROLL")
                             || mKYCProductType == KYC_PRODUCT_TYPE.ENHANCED_KYC)
                 setMode(if (isAuthMode) SIDConfig.Mode.AUTHENTICATION else SIDConfig.Mode.ENROLL)
             }
@@ -185,42 +189,42 @@ class SIDJobResultActivity : BaseSIDActivity(),
     }
 
     override fun onComplete() {
-        mPbLoading!!.visibility = View.INVISIBLE
+        mPbLoading?.visibility = View.INVISIBLE
         Toast.makeText(this, "Job Complete", Toast.LENGTH_SHORT).show()
     }
 
     override fun onError(e: SIDException) {
         Log.d("JOB_SUBMISSION", "SIDEXCEPTION: " + e.message)
-        mPbLoading!!.visibility = View.INVISIBLE
-        mTvResult!!.setTextColor(Color.RED)
-        mTvResult!!.text = e.message
+        mPbLoading?.visibility = View.INVISIBLE
+        mTvResult?.setTextColor(Color.RED)
+        mTvResult?.text = e.message
         e.printStackTrace()
         go2Next(false, e.message)
     }
 
     override fun onUpdate(progress: Int) {
-        mTvResult!!.text = "Progress $progress % "
+        mTvResult?.text = "Progress $progress % "
     }
 
     override fun onStart() {
         super.onStart()
-        mInternetStateBR!!.register(this)
+        mInternetStateBR?.register(this)
     }
 
     override fun onStop() {
         super.onStop()
-        mInternetStateBR!!.unregister(this)
+        mInternetStateBR?.unregister(this)
     }
 
-    private fun setPartnerParamsForAuth(metadata: SIDMetadata?) {
-        val params = metadata!!.partnerParams
+    private fun setPartnerParamsForAuth(metadata: SIDMetadata) {
+        val params = metadata.partnerParams
         params.userId = savedUserId
     }
 
     override fun onEnrolled(response: SIDResponse) {
         Log.d("JOB_SUBMISSION", "ONENROLLED: $response")
         saveUserId(response.partnerParams.userId, response.partnerParams.jobId)
-        mPbLoading!!.visibility = View.INVISIBLE
+        mPbLoading?.visibility = View.INVISIBLE
         val message: String
         var approved = false
         when (response.resultCodeState) {
@@ -254,10 +258,10 @@ class SIDJobResultActivity : BaseSIDActivity(),
                 )
             )
         }
-        mTvConfidenceValue!!.text = message
-        mTvResult!!.visibility =
+        mTvConfidenceValue?.text = message
+        mTvResult?.visibility =
             if (TextUtils.isEmpty(stringBuilder)) View.GONE else View.VISIBLE
-        mTvResult!!.text = stringBuilder
+        mTvResult?.text = stringBuilder
         go2Next(approved, message)
     }
 
@@ -303,10 +307,10 @@ class SIDJobResultActivity : BaseSIDActivity(),
                 )
             )
         }
-        mTvConfidenceValue!!.text = message
-        mTvResult!!.visibility =
+        mTvConfidenceValue?.text = message
+        mTvResult?.visibility =
             if (TextUtils.isEmpty(stringBuilder)) View.GONE else View.VISIBLE
-        mTvResult!!.text = stringBuilder
+        mTvResult?.text = stringBuilder
         go2Next(approved, message)
     }
 
@@ -322,8 +326,8 @@ class SIDJobResultActivity : BaseSIDActivity(),
                         putExtra(SIDJobFailedActivity.FAILED_MSG, message)
                         if (result && mKYCProductType == KYC_PRODUCT_TYPE
                                 .SMART_SELFIE_AUTH
-                            && smartAuthType!![SIDSelfieActivity
-                                .SMART_AUTH_CAPTURE_TYPE]!!.toString()
+                            && smartAuthType[SIDSelfieActivity
+                                .SMART_AUTH_CAPTURE_TYPE].toString()
                                 .equals("ENROLL")
                         ) {
                             putExtra(
@@ -338,7 +342,7 @@ class SIDJobResultActivity : BaseSIDActivity(),
     }
 
     private fun saveUserId(userId: String, jobId: String) {
-        val editor = mSharedPreferences!!.edit()
+        val editor = mSharedPreferences.edit()
         editor.putString(SIDStringExtras.SHARED_PREF_USER_ID, userId)
         editor.putString(SIDStringExtras.SHARED_PREF_JOB_ID, jobId)
         editor.apply()
@@ -346,7 +350,7 @@ class SIDJobResultActivity : BaseSIDActivity(),
 
     // Retrieve user id to be saved
     private val savedUserId: String?
-        private get() = mSharedPreferences!!.getString(
+        private get() = mSharedPreferences.getString(
             SIDStringExtras.SHARED_PREF_USER_ID,
             ""
         )
@@ -396,10 +400,10 @@ class SIDJobResultActivity : BaseSIDActivity(),
                 .append(response.resultText)
                 .append(System.getProperty("line.separator"))
         }
-        mTvConfidenceValue!!.text = message
-        mTvResult!!.visibility =
+        mTvConfidenceValue?.text = message
+        mTvResult?.visibility =
             if (TextUtils.isEmpty(stringBuilder)) View.GONE else View.VISIBLE
-        mTvResult!!.text = stringBuilder
+        mTvResult?.text = stringBuilder
         go2Next(approved, message)
     }
 
