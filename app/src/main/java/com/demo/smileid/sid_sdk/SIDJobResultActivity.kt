@@ -33,15 +33,15 @@ class SIDJobResultActivity : BaseSIDActivity(),
     OnUpdateListener, OnEnrolledListener, OnAuthenticatedListener,
     OnDocVerificationListener, OnIDValidationListener,
     OnConnectionReceivedListener {
-    private var mTvResult: TextView? = null
-    private var mTvConfidenceValue: TextView? = null
-    private var mPbLoading: ProgressBar? = null
+    private lateinit var mTvResult: TextView
+    private lateinit var mTvConfidenceValue: TextView
+    private lateinit var mPbLoading: ProgressBar
     private var mSelectedCountryName: String? = ""
     private var mSelectedIdCard: String? = ""
     private var mCurrentTag: String? = null
     private lateinit var mSIDNetworkRequest: SIDNetworkRequest
     private lateinit var mSharedPreferences: SharedPreferences
-    private var mInternetStateBR: InternetStateBroadCastReceiver? = null
+    private lateinit var mInternetStateBR: InternetStateBroadCastReceiver
     private var mEnrolledUser = false
     private var mConfig: SIDConfig? = null
     private var mSIDUserIdInfo: HashMap<String, String>? = null
@@ -88,12 +88,12 @@ class SIDJobResultActivity : BaseSIDActivity(),
             KYC_PRODUCT_TYPE.DOCUMENT_VERIFICATION -> "Document Uploading..."
             else -> "Selfie Uploading..."
         }
-        mTvConfidenceValue?.setText(text)
+        mTvConfidenceValue.setText(text)
     }
 
     private fun buildNetObserver() {
         mInternetStateBR = InternetStateBroadCastReceiver()
-        mInternetStateBR?.setOnConnectionReceivedListener(this)
+        mInternetStateBR.setOnConnectionReceivedListener(this)
     }
 
     private fun buildNetRequest() {
@@ -136,7 +136,7 @@ class SIDJobResultActivity : BaseSIDActivity(),
         }
         val sidConfig = createConfig(metadata)
         if (SIDNetworkingUtils.haveNetworkConnection(this)) {
-            mPbLoading?.visibility = View.VISIBLE
+            mPbLoading.visibility = View.VISIBLE
             mSIDNetworkRequest.submit(sidConfig)
         } else {
             sidConfig?.let {
@@ -186,21 +186,21 @@ class SIDJobResultActivity : BaseSIDActivity(),
     }
 
     override fun onComplete() {
-        mPbLoading?.visibility = View.INVISIBLE
+        mPbLoading.visibility = View.INVISIBLE
         Toast.makeText(this, "Job Complete", Toast.LENGTH_SHORT).show()
     }
 
     override fun onError(e: SIDException) {
         Log.d("JOB_SUBMISSION", "SIDEXCEPTION: " + e.message)
-        mPbLoading?.visibility = View.INVISIBLE
-        mTvResult?.setTextColor(Color.RED)
-        mTvResult?.text = e.message
+        mPbLoading.visibility = View.INVISIBLE
+        mTvResult.setTextColor(Color.RED)
+        mTvResult.text = e.message
         e.printStackTrace()
         go2Next(false, e.message)
     }
 
     override fun onUpdate(progress: Int) {
-        mTvResult?.text = "Progress $progress % "
+        mTvResult.text = "Progress $progress % "
     }
 
     override fun onStart() {
@@ -221,7 +221,7 @@ class SIDJobResultActivity : BaseSIDActivity(),
     override fun onEnrolled(response: SIDResponse) {
         Log.d("JOB_SUBMISSION", "ONENROLLED: $response")
         saveUserId(response.partnerParams.userId, response.partnerParams.jobId)
-        mPbLoading?.visibility = View.INVISIBLE
+        mPbLoading.visibility = View.INVISIBLE
         val message: String
         var approved = false
         when (response.resultCodeState) {
@@ -255,10 +255,10 @@ class SIDJobResultActivity : BaseSIDActivity(),
                 )
             )
         }
-        mTvConfidenceValue?.text = message
-        mTvResult?.visibility =
+        mTvConfidenceValue.text = message
+        mTvResult.visibility =
             if (TextUtils.isEmpty(stringBuilder)) View.GONE else View.VISIBLE
-        mTvResult?.text = stringBuilder
+        mTvResult.text = stringBuilder
         go2Next(approved, message)
     }
 
@@ -304,10 +304,10 @@ class SIDJobResultActivity : BaseSIDActivity(),
                 )
             )
         }
-        mTvConfidenceValue?.text = message
-        mTvResult?.visibility =
+        mTvConfidenceValue.text = message
+        mTvResult.visibility =
             if (TextUtils.isEmpty(stringBuilder)) View.GONE else View.VISIBLE
-        mTvResult?.text = stringBuilder
+        mTvResult.text = stringBuilder
         go2Next(approved, message)
     }
 
@@ -397,10 +397,10 @@ class SIDJobResultActivity : BaseSIDActivity(),
                 .append(response.resultText)
                 .append(System.getProperty("line.separator"))
         }
-        mTvConfidenceValue?.text = message
-        mTvResult?.visibility =
+        mTvConfidenceValue.text = message
+        mTvResult.visibility =
             if (TextUtils.isEmpty(stringBuilder)) View.GONE else View.VISIBLE
-        mTvResult?.text = stringBuilder
+        mTvResult.text = stringBuilder
         go2Next(approved, message)
     }
 
