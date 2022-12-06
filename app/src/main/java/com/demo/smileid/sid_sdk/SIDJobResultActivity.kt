@@ -89,15 +89,10 @@ class SIDJobResultActivity : BaseSIDActivity(),
         mTvResult = findViewById(R.id.tvResult)
         mPbLoading = findViewById(R.id.pbLoading)
         mTvConfidenceValue = findViewById(R.id.tvConfidenceValue)
-        var text = "Selfie Uploading..."
-        when (mKYCProductType) {
-            KYC_PRODUCT_TYPE.BASIC_KYC, KYC_PRODUCT_TYPE.ENHANCED_KYC -> text =
-                "ID Info Uploading..."
-            KYC_PRODUCT_TYPE.DOCUMENT_VERIFICATION -> text =
-                "Document Uploading..."
-            KYC_PRODUCT_TYPE.ENROLL_TEST -> {}
-            KYC_PRODUCT_TYPE.BIOMETRIC_KYC -> {}
-            KYC_PRODUCT_TYPE.SMART_SELFIE_AUTH -> {}
+        val text = when (mKYCProductType) {
+            KYC_PRODUCT_TYPE.BASIC_KYC, KYC_PRODUCT_TYPE.ENHANCED_KYC -> "ID Info Uploading..."
+            KYC_PRODUCT_TYPE.DOCUMENT_VERIFICATION -> "Document Uploading..."
+            default -> "Selfie Uploading..."
         }
         mTvConfidenceValue!!.setText(text)
     }
