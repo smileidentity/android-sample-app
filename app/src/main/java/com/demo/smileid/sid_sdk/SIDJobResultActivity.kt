@@ -216,16 +216,6 @@ class SIDJobResultActivity : BaseSIDActivity(),
         mInternetStateBR!!.unregister(this)
     }
 
-    override fun onResume() {
-        super.onResume()
-        mSIDNetworkRequest!!.registerListeners()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        mSIDNetworkRequest!!.unregisterListeners()
-    }
-
     private fun setPartnerParamsForAuth(metadata: SIDMetadata?) {
         val params = metadata!!.partnerParams
         params.userId = savedUserId
@@ -416,8 +406,6 @@ class SIDJobResultActivity : BaseSIDActivity(),
         mTvResult!!.text = stringBuilder
         go2Next(approved, message)
     }
-
-    override fun onBackPressed() {}
 
     companion object {
         const val USER_ID_INFO_PARAM = "USER_ID_INFO_PARAM"
