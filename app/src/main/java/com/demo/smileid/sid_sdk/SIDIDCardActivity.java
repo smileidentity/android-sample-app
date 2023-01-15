@@ -127,7 +127,7 @@ public class SIDIDCardActivity extends AppCompatActivity implements SmartCardVie
         }
 
         startActivity(
-            new Intent(this, SIDJobResultActivity.class) {
+            new Intent(this, SIDSelfieActivity.class) {
                 {
                     putExtras(mParams);
                 }

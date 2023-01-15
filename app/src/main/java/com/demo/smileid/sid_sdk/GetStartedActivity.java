@@ -48,7 +48,9 @@ public class GetStartedActivity extends BaseSIDActivity {
         //To be replaced by a partner-set values as returned by the backend
         Intent intent = new Intent(this, ConsentActivity.class);
         intent.putExtra(ConsentActivity.TAG, "USER_TAG");
-        intent.putExtra(ConsentActivity.PARTNER_LOGO, BitmapFactory.decodeResource(getResources(), R.drawable.ic_purse));
+        intent.putExtra(ConsentActivity.PARTNER_LOGO,
+                BitmapFactory.decodeResource(getResources(),
+                        R.drawable.ic_purse));
         intent.putExtra(ConsentActivity.PARTNER_NAME, "AM Loans Inc.");
         intent.putExtra(ConsentActivity.PRIVACY_LINK, "www.google.com");
         startActivityForResult(intent, USER_CONSENT_REQUEST_CODE);
@@ -59,7 +61,8 @@ public class GetStartedActivity extends BaseSIDActivity {
             mParams.remove(REQUIRE_CONSENT);
             requestUserConsent();
         } else {
-            KYC_PRODUCT_TYPE productType = (KYC_PRODUCT_TYPE) mParams.get(KYC_PRODUCT_TYPE_PARAM);
+            KYC_PRODUCT_TYPE productType =
+                    (KYC_PRODUCT_TYPE) mParams.get(KYC_PRODUCT_TYPE_PARAM);
 
             switch (productType) {
                 case DOCUMENT_VERIFICATION:
@@ -82,29 +85,60 @@ public class GetStartedActivity extends BaseSIDActivity {
     private void proceedWithDocV() {
         // Default to Non-Enrolled User Selfie+ID
         HashMap<String, String> docVParams = new HashMap<>();
-        docVParams.put(DOC_V_CAPTURE_TYPE, DOC_VER_TYPE.SELFIE_PLUS_ID_CARD.toString());
-        docVParams.put(DOC_V_USER_SELFIE_OPTION, DocVOptionDialog.DOC_VER_OPTION.NON_ENROLLED_USER.toString());
+        docVParams.put(DOC_V_CAPTURE_TYPE,
+                DOC_VER_TYPE.SELFIE_PLUS_ID_CARD.toString());
+        docVParams.put(DOC_V_USER_SELFIE_OPTION,
+                DocVOptionDialog.DOC_VER_OPTION.NON_ENROLLED_USER.toString());
         mParams.putSerializable(DOC_V_PARAM, docVParams);
-        proceedWithSelfie();
+        setCountryAndIDType();
+    }
+
+    private void setCountryAndIDType() {
+        CCAndIdTypeDialog.DlgListener listener =
+                new CCAndIdTypeDialog.DlgListener() {
+            @Override
+            public void submit(String countryCode, String idType) {
+                if (mParams != null) {
+                    mParams.putString(SIDJobResultActivity.DOC_COUNTRY_PARAM,
+                            countryCode);
+                    mParams.putString(SIDJobResultActivity.DOC_ID_TYPE_PARAM,
+                            idType);
+                }
+                proceedWithIDCard();
+            }
+
+            @Override
+            public void cancel() {
+                Toast.makeText(GetStartedActivity.this, "To verify this " +
+                        "document, kindly " +
+                        "select a country and an ID type", Toast.LENGTH_LONG).show();
+                finish();
+            }
+        };
+
+        new CCAndIdTypeDialog(this,
+                true,
+                listener).showDialog();
     }
 
     private void showSmartSelfieDialog() {
-    new SmartAuthOptionDialog(
-            this,
-            (type) -> {
-              if (mParams != null) {
-                HashMap<String, String> docVParams =
-                    new HashMap() {
-                      {
-                        put(SMART_AUTH_CAPTURE_TYPE, type.toString());
-                      }
-                    };
+        new SmartAuthOptionDialog(
+                this,
+                (type) -> {
+                    if (mParams != null) {
+                        HashMap<String, String> docVParams =
+                                new HashMap() {
+                                    {
+                                        put(SMART_AUTH_CAPTURE_TYPE,
+                                                type.toString());
+                                    }
+                                };
 
-                mParams.putSerializable(SMART_AUTH_PARAM, docVParams);
-                proceedWithSelfie();
-              }
-            })
-        .showDialog();
+                        mParams.putSerializable(SMART_AUTH_PARAM, docVParams);
+                        proceedWithSelfie();
+                    }
+                })
+                .showDialog();
     }
 
     private void proceedWithIDCard() {
@@ -128,22 +162,24 @@ public class GetStartedActivity extends BaseSIDActivity {
         finish();
 
         startActivity(
-            new Intent(this, clazz) {
-                {
-                    putExtras(mParams);
+                new Intent(this, clazz) {
+                    {
+                        putExtras(mParams);
+                    }
                 }
-            }
         );
     }
 
     public void useSmileUIScreen() {
-        SIDCaptureManager.Builder sidCaptureManager = new SIDCaptureManager.Builder(this,
-            CaptureType.SELFIE_AND_ID_CAPTURE, SMILE_SELFIE_REQUEST_CODE);
+        SIDCaptureManager.Builder sidCaptureManager =
+                new SIDCaptureManager.Builder(this,
+                CaptureType.SELFIE_AND_ID_CAPTURE, SMILE_SELFIE_REQUEST_CODE);
         sidCaptureManager.build().start();
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable final Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode,
+                                    @Nullable final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == SMILE_SELFIE_REQUEST_CODE) {
@@ -155,24 +191,24 @@ public class GetStartedActivity extends BaseSIDActivity {
                     clazz = SIDJobResultActivity.class;
                 } else if (mKYCProductType == ENHANCED_KYC) {
                     clazz = SIDIDInfoActivity.class;
-                } else if ((mKYCProductType == BIOMETRIC_KYC) ||
-                        (mKYCProductType == DOCUMENT_VERIFICATION)) {
+                } else if ((mKYCProductType == BIOMETRIC_KYC) || (mKYCProductType == DOCUMENT_VERIFICATION)) {
                     clazz = SIDIDCardActivity.class;
                 }
 
                 if (clazz == null) return;
 
                 startActivity(
-                    new Intent(this, clazz) {
-                        {
-                            putExtra(BaseSIDActivity.KYC_PRODUCT_TYPE_PARAM, mKYCProductType);
-                            putExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO,
-                                data.getStringExtra(SMILE_REQUEST_RESULT_TAG));
+                        new Intent(this, clazz) {
+                            {
+                                putExtra(BaseSIDActivity.KYC_PRODUCT_TYPE_PARAM, mKYCProductType);
+                                putExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO,
+                                        data.getStringExtra(SMILE_REQUEST_RESULT_TAG));
+                            }
                         }
-                    }
                 );
             } else {
-                Toast.makeText(this, "Oops Smile ID UI Selfie did not return a success", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Oops Smile ID UI Selfie did not return " +
+                        "a success", Toast.LENGTH_LONG).show();
             }
 
             finish();
@@ -185,7 +221,7 @@ public class GetStartedActivity extends BaseSIDActivity {
             } else {
                 finish();
                 Toast.makeText(this, getString(R.string.consent_screen_consent_declined_error),
-                    Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_LONG).show();
             }
         }
     }

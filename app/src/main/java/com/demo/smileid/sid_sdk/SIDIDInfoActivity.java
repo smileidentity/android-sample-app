@@ -162,7 +162,8 @@ public class SIDIDInfoActivity extends AppCompatActivity implements ItemSelected
 
             mSelectedCountryName = ((CCPCountry) object).getName();
             mSelectedIdCard = "";
-            mIdListAdapter.setIdList(IdTypeUtil.idCards(mSelectedCountryName).getIdCards());
+            mIdListAdapter.setIdList(IdTypeUtil.idCards(mSelectedCountryName,false
+                    ).getIdCards());
             mIdListAdapter.notifyDataSetChanged();
             mTvInputCountry.setText(mSelectedCountryName);
             mTvInputCountry.setTextColor(
@@ -183,9 +184,9 @@ public class SIDIDInfoActivity extends AppCompatActivity implements ItemSelected
             findViewById(R.id.tvLblIdNbr).setVisibility(View.VISIBLE);
             findViewById(R.id.edtIdNbr).setVisibility(View.VISIBLE);
             showExtraFields =
-                    mKYCProductType == BaseSIDActivity.KYC_PRODUCT_TYPE.BASIC_KYC ||
-                            mSelectedCountryName.toLowerCase(Locale.ROOT).equals("nigeria")
-                                    && mSelectedIdCard.toLowerCase(Locale.ROOT).equals("" + "drivers license");
+                    (mKYCProductType == BaseSIDActivity.KYC_PRODUCT_TYPE.BASIC_KYC || mKYCProductType == BaseSIDActivity.KYC_PRODUCT_TYPE.ENHANCED_KYC)
+                            && (mSelectedCountryName.toLowerCase(Locale.ROOT).equals("nigeria")
+                                    && mSelectedIdCard.toLowerCase(Locale.ROOT).equals("drivers_license"));
             findViewById(R.id.tvLblFirstName).setVisibility(showExtraFields ?
                     View.VISIBLE : View.GONE);
             findViewById(R.id.edtFirstName).setVisibility(showExtraFields ?

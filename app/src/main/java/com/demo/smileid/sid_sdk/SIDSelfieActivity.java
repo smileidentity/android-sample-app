@@ -51,7 +51,6 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.sid_activity_selfie);
-
         initVars();
         initViews();
 
@@ -60,6 +59,8 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
 
     private void initVars() {
         mParams = getIntent().getExtras();
+        mCurrentTag = mParams.getString(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO);
+        mCurrentTag = ((mCurrentTag == null) || (mCurrentTag.isEmpty())) ? getTag() : mCurrentTag;
         mKYCProductType = (KYC_PRODUCT_TYPE) mParams.getSerializable(BaseSIDActivity.KYC_PRODUCT_TYPE_PARAM);
     }
 
@@ -108,7 +109,7 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
         mSmartSelfieManager.setOnCompleteListener(this);
         mSmartSelfieManager.setOnFaceStateChangeListener(this);
         setBrightnessToMax(this);
-        mSmartSelfieManager.captureSelfie(getTag());
+        mSmartSelfieManager.captureSelfie(mCurrentTag);
 
         if (resumeCapture) {
             mSmartSelfieManager.resume();
@@ -131,7 +132,7 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
         super.onResume();
 
         if (!selfieTagsSessions.isEmpty() && selfieTagsSessions.containsKey(mCurrentTag) && selfieTagsSessions.get(mCurrentTag)) {
-            mSmartSelfieManager.captureSelfie(getTag());
+            mSmartSelfieManager.captureSelfie(mCurrentTag);
             selfieTagsSessions.put(mCurrentTag, false);
         } else {
             mTagArrayList.remove(mCurrentTag);
@@ -237,47 +238,22 @@ public class SIDSelfieActivity extends AppCompatActivity implements OnFaceStateC
             // For Biometric KYC, Selife is the last step
             clazz = SIDJobResultActivity.class;
         } else if (mKYCProductType == KYC_PRODUCT_TYPE.DOCUMENT_VERIFICATION) {
-            Map<String, String> docVOptions = (Map<String, String>) getIntent().getSerializableExtra(
-                DOC_V_PARAM);
+            Map<String, String> docVOptions = (Map<String, String>) getIntent().getSerializableExtra(DOC_V_PARAM);
 
             if (docVOptions.containsKey(DOC_V_USER_SELFIE_OPTION)) {
-                mEnrolledUser = docVOptions.get(DOC_V_USER_SELFIE_OPTION).equalsIgnoreCase(
-                    DOC_VER_OPTION.ENROLLED_USER.toString());
+                mEnrolledUser = docVOptions.get(DOC_V_USER_SELFIE_OPTION).equalsIgnoreCase(DOC_VER_OPTION.ENROLLED_USER.toString());
             }
 
             if ((mParams != null) && (mParams.containsKey(DOC_V_PARAM))) {
                 mParams.remove(DOC_V_PARAM);
             }
-
-            setCountryAndIDType();
+            go2Next(SIDJobResultActivity.class);
             return;
         } else if (mKYCProductType == KYC_PRODUCT_TYPE.SMART_SELFIE_AUTH) {
             clazz = SIDJobResultActivity.class;
         }
 
         go2Next(clazz);
-    }
-
-    private void setCountryAndIDType() {
-        CCAndIdTypeDialog.DlgListener listener = new CCAndIdTypeDialog.DlgListener() {
-            @Override
-            public void submit(String countryCode, String idType) {
-                if (mParams != null) {
-                    mParams.putString(SIDJobResultActivity.DOC_COUNTRY_PARAM, countryCode);
-                    mParams.putString(SIDJobResultActivity.DOC_ID_TYPE_PARAM, idType);
-                }
-
-                go2Next(SIDIDCardActivity.class);
-            }
-
-            @Override
-            public void cancel() {
-                Toast.makeText(SIDSelfieActivity.this, "To verify this document, kindly select a country and an ID type", Toast.LENGTH_LONG).show();
-                finish();
-            }
-        };
-
-        new CCAndIdTypeDialog(this, mKYCProductType == KYC_PRODUCT_TYPE. DOCUMENT_VERIFICATION, listener).showDialog();
     }
 
     private void go2Next(Class clazz) {
