@@ -1,3 +1,3 @@
 #!/bin/bash
 
-/bin/bash -c "/Users/japhetndhlovu/.rvm/bin/rvm ruby-2.4.1 do /Users/japhetndhlovu/.rvm/rubies/ruby-2.4.1/bin/ruby /Users/japhetndhlovu/RubymineProjects/untitled/DemoCI.rb"
+/bin/bash -c "rvm ruby-3.0.0 do ruby sample_app.rb"
