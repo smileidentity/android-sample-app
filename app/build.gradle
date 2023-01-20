@@ -13,17 +13,17 @@ android {
         sourceCompatibility 1.8
         targetCompatibility 1.8
     }
-    signingConfigs {
+//        signingConfigs {
 //        def propFile = rootProject.file("./secrets.properties")
 //        def properties = new Properties()
 //        properties.load(new FileInputStream(propFile))
-        config {
-            keyAlias System.getenv("SID_keyAlias")
-            storePassword System.getenv("SID_storePassword")
-            keyPassword System.getenv("SID_keyPassword")
-            storeFile file('app_keystore.keystore')
-        }
-    }
+//        config {
+//            keyAlias System.getenv("SID_keyAlias")
+//            storePassword System.getenv("SID_storePassword")
+//            keyPassword System.getenv("SID_keyPassword")
+//            storeFile file('app_keystore.keystore')
+//        }
+//    }
     compileSdkVersion 33
     ndkVersion '21.3.6528147'
     defaultConfig {
@@ -42,13 +42,13 @@ android {
             debuggable false
             jniDebuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.config
+//            signingConfig signingConfigs.config
         }
         debug {
             minifyEnabled false
             debuggable true
             jniDebuggable true
-            signingConfig signingConfigs.config
+//            signingConfig signingConfigs.config
         }
     }
     productFlavors {
