@@ -20,7 +20,7 @@ public class BaseSIDActivity extends AppCompatActivity {
     public enum KYC_PRODUCT_TYPE {
 
         ENROLL_TEST(4), BASIC_KYC(5), ENHANCED_KYC(5), BIOMETRIC_KYC(1),
-        DOCUMENT_VERIFICATION(6), SMART_SELFIE_AUTH(2);
+        DOCUMENT_VERIFICATION(6), SMART_SELFIE_AUTH(2),BVN_CONSENT(-1);
 
         private int mJobType = -1;
 
