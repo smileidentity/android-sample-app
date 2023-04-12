@@ -66,26 +66,6 @@ if target sdk is 30 and above this is not necessary for smile but migrations for
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name="com.smileidentity.libsmileid.core.consent.ConsentActivity"
-            android:exported="false"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity
-            android:name="com.smileidentity.libsmileid.core.consent.bvn.ui.activities.ConsentBVNNumberActivity"
-            android:exported="false"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity
-            android:name="com.smileidentity.libsmileid.core.consent.bvn.ui.activities.ConsentBVNContactMethodActivity"
-            android:exported="false"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity
-            android:name="com.smileidentity.libsmileid.core.consent.bvn.ui.activities.ConsentOTPVerificationActivity"
-            android:exported="false"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity
             android:name=".GetStartedActivity"
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -136,10 +116,6 @@ if target sdk is 30 and above this is not necessary for smile but migrations for
             android:label="@string/lbl_enroll_result_heading"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-
-        <activity android:name="com.smileid.smileidui.SIDIDCaptureActivity" />
-        <activity android:name="com.smileid.smileidui.SIDSelfieCaptureActivity" />
-        <activity android:name="com.smileid.smileidui.SIDReviewActivity" />
 
         <meta-data
             android:name="android.support.VERSION"

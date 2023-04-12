@@ -6,6 +6,6 @@ import com.smileidentity.libsmileid.utils.CrashReporting.enableSmileIdentityCras
 class SmileIDDemoApplication : MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
-//        enableSmileIdentityCrashReporting()
+        enableSmileIdentityCrashReporting()
     }
 }
