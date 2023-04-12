@@ -92,6 +92,14 @@ public class SIDHomeActivity extends BaseSIDActivity implements BaseFragment.Tab
     }
 
     @Override
+    public void doBVNConsent() {
+        resetJob();
+        mConsentRequired = true;
+        mKYCProductType = KYC_PRODUCT_TYPE.BVN_CONSENT;
+        startKYCProcess();
+    }
+
+    @Override
     public void openUrl(String url) {
         if (url == null || url.isEmpty()) {
             Toast.makeText(this, "URL not provided", Toast.LENGTH_LONG).show();
