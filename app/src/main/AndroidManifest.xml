@@ -91,24 +91,9 @@ if target sdk is 30 and above this is not necessary for smile but migrations for
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".SIDSelfieActivity"
-            android:exported="false"
-            android:label="@string/lbl_selfie_heading"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity
-            android:name=".SIDIDCardActivity"
-            android:screenOrientation="portrait" />
-
         <meta-data
             android:name="com.google.android.awareness.API_KEY"
             android:value="@string/google_awareness_api_key" />
-
-        <activity
-            android:name=".SIDIDCardCaptureActivity"
-            android:screenOrientation="landscape"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
 
         <activity
             android:name=".SIDJobResultActivity"

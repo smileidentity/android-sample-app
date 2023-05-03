@@ -244,29 +244,10 @@ public class SIDIDInfoActivity extends AppCompatActivity implements ItemSelected
             return;
         }
 
+        Intent intent = new Intent();
+        intent.putExtra(SIDJobResultActivity.USER_ID_INFO_PARAM, mSidUserIdInfo);
+        setResult(RESULT_OK,intent);
         finish();
-
-        if ((mCurrentTag == null) || (mCurrentTag.isEmpty())) {
-            buildTag();
-        }
-
-        if ((mParams != null) && (!mParams.containsKey(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO))) {
-            mParams.putString(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO,
-                    mCurrentTag);
-        }
-
-        mParams.putSerializable(SIDJobResultActivity.USER_ID_INFO_PARAM,
-                mSidUserIdInfo);
-
-        if (mKYCProductType == BaseSIDActivity.KYC_PRODUCT_TYPE.BIOMETRIC_KYC) {
-            // For Biometric KYC, we ask for ID info before Selfie
-            startActivity(new Intent(this, SIDSelfieActivity.class).putExtras(mParams));
-        } else {
-            startActivity(new Intent(this, SIDJobResultActivity.class) {{
-                putExtras(mParams);
-            }});
-        }
-
     }
 
     private boolean isIdInfoValid() {

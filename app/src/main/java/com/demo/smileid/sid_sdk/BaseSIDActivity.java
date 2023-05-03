@@ -4,18 +4,28 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.motion.utils.ViewSpline;
 import androidx.core.app.ActivityCompat;
 
 import com.demo.smileid.sid_sdk.geoloc.SIDGeoInfos;
+import com.demo.smileid.sid_sdk.sidNet.Misc;
+
+import java.util.Calendar;
 
 public class BaseSIDActivity extends AppCompatActivity {
 
     public static final String KYC_PRODUCT_TYPE_PARAM = "KYC_PRODUCT_TYPE_PARAM";
+    public final static String DOC_V_PARAM = "DOC_V_PARAM";
+    public final static String SMART_AUTH_PARAM = "SMART_AUTH_PARAM";
+    public final static String DOC_V_CAPTURE_TYPE = "DOC_V_CAPTURE_TYPE";
+    public final static String SMART_AUTH_CAPTURE_TYPE = "SMART_AUTH_CAPTURE_TYPE";
+    public final static String DOC_V_USER_SELFIE_OPTION = "DOC_V_USER_SELFIE_OPTION";
 
     public enum KYC_PRODUCT_TYPE {
 
@@ -34,23 +44,13 @@ public class BaseSIDActivity extends AppCompatActivity {
     }
 
     protected KYC_PRODUCT_TYPE mKYCProductType = KYC_PRODUCT_TYPE.ENROLL_TEST;
-    private Intent mCurrentIntent = null;
+    protected Intent mCurrentIntent = null;
     private static final int PERMISSION_ALL = 1;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
-
-    protected void startKYCProcess() {
-        mCurrentIntent = buildIntent();
-        mCurrentIntent.putExtra(KYC_PRODUCT_TYPE_PARAM, mKYCProductType);
-        coreStartKYCProcess();
-    }
-
-    protected Intent buildIntent() {
-        return new Intent(this, SIDSelfieActivity.class);
     }
 
     protected void coreStartKYCProcess() {
@@ -104,5 +104,10 @@ public class BaseSIDActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return null;
+    }
+
+    protected String getTag() {
+        return  String.format(Misc.USER_TAG, DateFormat.format(
+                "MM_dd_hh_mm_ss", Calendar.getInstance().getTime()).toString());
     }
 }

@@ -60,6 +60,7 @@ class SIDJobResultActivity : BaseSIDActivity(),
         mEnrolledUser = intent.getBooleanExtra(USER_SELFIE_PARAM, false)
         mCurrentTag =
             intent.getStringExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO)
+        Log.v("Japhet","about to submit "+mCurrentTag);
         mKYCProductType =
             intent.getSerializableExtra(KYC_PRODUCT_TYPE_PARAM) as KYC_PRODUCT_TYPE?
         mSIDUserIdInfo =
@@ -159,7 +160,7 @@ class SIDJobResultActivity : BaseSIDActivity(),
         val data = SIDNetData(this, AppData.getInstance(this).sdkEnvir)
         if (!TextUtils.isEmpty(savedUserId)
             && mKYCProductType == KYC_PRODUCT_TYPE.SMART_SELFIE_AUTH
-            && smartAuthType[SIDSelfieActivity.SMART_AUTH_CAPTURE_TYPE] != "ENROLL"
+            && smartAuthType[BaseSIDActivity.SMART_AUTH_CAPTURE_TYPE] != "ENROLL"
         ) {
             setPartnerParamsForAuth(metadata)
         }
@@ -170,14 +171,15 @@ class SIDJobResultActivity : BaseSIDActivity(),
                 setGeoInformation(infos)
                 useEnrolledImage(mEnrolledUser)
                 if (mKYCProductType == KYC_PRODUCT_TYPE.SMART_SELFIE_AUTH) {
-                    setJobType(if (smartAuthType[SIDSelfieActivity.SMART_AUTH_CAPTURE_TYPE] == "ENROLL") 4 else 2)
+                    setJobType(if (smartAuthType[BaseSIDActivity.SMART_AUTH_CAPTURE_TYPE]
+                        == "ENROLL") 4 else 2)
                 } else {
                     setJobType(mKYCProductType.jobType)
                 }
                 setSIDMetadata(metadata)
                 val isAuthMode =
                     ((mKYCProductType == KYC_PRODUCT_TYPE.SMART_SELFIE_AUTH
-                            && smartAuthType[SIDSelfieActivity.SMART_AUTH_CAPTURE_TYPE] != "ENROLL")
+                            && smartAuthType[BaseSIDActivity.SMART_AUTH_CAPTURE_TYPE] != "ENROLL")
                             || mKYCProductType == KYC_PRODUCT_TYPE.ENHANCED_KYC)
                 setMode(if (isAuthMode) SIDConfig.Mode.AUTHENTICATION else SIDConfig.Mode.ENROLL)
             }
@@ -323,7 +325,7 @@ class SIDJobResultActivity : BaseSIDActivity(),
                         putExtra(SIDJobFailedActivity.FAILED_MSG, message)
                         if (result && mKYCProductType == KYC_PRODUCT_TYPE
                                 .SMART_SELFIE_AUTH
-                            && smartAuthType[SIDSelfieActivity
+                            && smartAuthType[BaseSIDActivity
                                 .SMART_AUTH_CAPTURE_TYPE].toString()
                                 .equals("ENROLL")
                         ) {
