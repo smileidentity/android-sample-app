@@ -72,7 +72,8 @@ public class GetStartedActivity extends BaseSIDActivity {
                 if (mParams.getBoolean(REQUIRE_CONSENT)) {
                     mParams.remove(REQUIRE_CONSENT);
                     sidConsentConfig.show("a_test_tag", "Smile Test",
-                            R.drawable.ic_purse, true, "https://www.google.com",
+                            R.drawable.ic_purse, false, "https://www.google" +
+                                    ".com",
                             "NG", "BVN_MFA");
                 }
                 return;
