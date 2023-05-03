@@ -76,6 +76,7 @@ public class GetStartedActivity extends BaseSIDActivity {
                                     ".com",
                             "NG", "BVN_MFA");
                 }
+                finish();
                 return;
             }
 
