@@ -60,7 +60,6 @@ class SIDJobResultActivity : BaseSIDActivity(),
         mEnrolledUser = intent.getBooleanExtra(USER_SELFIE_PARAM, false)
         mCurrentTag =
             intent.getStringExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO)
-        Log.v("Japhet","about to submit "+mCurrentTag);
         mKYCProductType =
             intent.getSerializableExtra(KYC_PRODUCT_TYPE_PARAM) as KYC_PRODUCT_TYPE?
         mSIDUserIdInfo =

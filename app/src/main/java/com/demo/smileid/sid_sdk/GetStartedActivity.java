@@ -37,7 +37,6 @@ public class GetStartedActivity extends BaseSIDActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.v("Japhet", "onCreate GetStartedActivity");
         setContentView(R.layout.activity_get_started);
         findViewById(R.id.ivBackArrow).setOnClickListener(v -> super.onBackPressed());
         mParams = getIntent().getExtras();
@@ -209,11 +208,6 @@ public class GetStartedActivity extends BaseSIDActivity {
     protected void onActivityResult(int requestCode, int resultCode,
                                     @Nullable final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        Log.v("Japhet",
-                "Tag from smile UI " + data.getStringExtra(IntentHelper.SMILE_REQUEST_RESULT_TAG));
-        Log.v("Japhet",
-                "Tag from smile UI" + mParams.getString(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO));
 
         if (requestCode == SMILE_UI_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {

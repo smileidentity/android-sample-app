@@ -126,7 +126,6 @@ public class SIDHomeActivity extends BaseSIDActivity implements BaseFragment.Tab
     }
 
     protected void startKYCProcess() {
-        Log.v("Japhet","homeactivity startKYCProcess");
         mCurrentIntent = buildIntent();
         mCurrentIntent.putExtra(KYC_PRODUCT_TYPE_PARAM, mKYCProductType);
         mCurrentIntent.putExtra(GetStartedActivity.REQUIRE_CONSENT,
