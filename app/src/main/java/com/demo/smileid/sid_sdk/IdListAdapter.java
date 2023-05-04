@@ -10,7 +10,7 @@ public class IdListAdapter extends ItemListAdapter {
 
   @Override
   public void onBindViewHolder(@NonNull ItemViewHolder viewHolder, int i) {
-    viewHolder.populate(mIds.get(i));
+    viewHolder.populate(mIds.get(i).replace("_", " "));
     viewHolder.itemView.setOnClickListener(v -> mListener.applyChoice(mIds.get(i)));
   }
 

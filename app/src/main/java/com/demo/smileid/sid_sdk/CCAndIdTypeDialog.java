@@ -13,8 +13,10 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.demo.smileid.sid_sdk.ItemListAdapter.ItemSelectedInterface;
 import com.demo.smileid.sid_sdk.sidNet.IdTypeUtil;
 import com.hbb20.CCPCountry;
@@ -29,9 +31,17 @@ public class CCAndIdTypeDialog implements ItemSelectedInterface {
     private DlgListener mListener;
     private String mSelectedCountryName = "", mSelectedIdType;
     private static final String SUPPORTED_COUNTRIES = "GH,KE,NG,ZA,UG";
+    private static final String DOC_V_COUNTRIES = "PT, HR, HU, IE, AD, ZA, " +
+            "IS, AL, IT, AO, AT, ZM, RO, ZW, BA, RS, BE, JM, BF, BG, RW, BI, " +
+            "BJ, BM, SC, BS, SD, SE, BW, SI, BY, SK, SL, KE, SM, SN, SO, CA, " +
+            "SS, CD, ST, KM, CG, CH, CI, CM, TD, CV, TG, CZ, TN, LI, DE, DJ, " +
+            "LR, TZ, DK, LS, LT, LU, LV, UA, LY, UG, MA, DZ, MC, MD, ME, MG, " +
+            "MK, US, ML, EE, EG, MT, MU, MW, VA, ER, MZ, ES, ET, NA, NE, NG, " +
+            "NL, NO, FI, FR, GA, GB, GH, GM, GN, GQ, GR, GW, XK, PL";
 
     @Override
-    public void buildItem(TextView textView, Object object, boolean isCountryFlag) {
+    public void buildItem(TextView textView, Object object,
+                          boolean isCountryFlag) {
         int flagId = -1;
         String name = "";
         Drawable left = null;
@@ -49,7 +59,8 @@ public class CCAndIdTypeDialog implements ItemSelectedInterface {
         }
 
         textView.setText(name);
-        textView.setCompoundDrawablesWithIntrinsicBounds(left, null, null, null);
+        textView.setCompoundDrawablesWithIntrinsicBounds(left, null, null,
+                null);
     }
 
     @Override
@@ -58,7 +69,8 @@ public class CCAndIdTypeDialog implements ItemSelectedInterface {
             mCountryDialog.dismissDialog();
 
             mSelectedCountryName = ((CCPCountry) object).getName();
-            mIdListAdapter.setIdList(IdTypeUtil.idCards(mSelectedCountryName).getIdCards());
+            mIdListAdapter.setIdList(IdTypeUtil.idCards(mSelectedCountryName,true
+                    ).getIdCards());
             mIdListAdapter.notifyDataSetChanged();
             mTvInputCountry.setText(mSelectedCountryName);
             mTvInputCountry.setTextColor(mDialog.getContext().getResources().getColor(R.color.darkerGray));
@@ -77,6 +89,7 @@ public class CCAndIdTypeDialog implements ItemSelectedInterface {
 
     public interface DlgListener {
         void submit(String countryCode, String idType);
+
         void cancel();
     }
 
@@ -84,9 +97,10 @@ public class CCAndIdTypeDialog implements ItemSelectedInterface {
         mDialog = new Dialog(context);
         mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         mDialog.setContentView(root);
-        mDialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        mDialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT
+                , WindowManager.LayoutParams.WRAP_CONTENT);
         mDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        mDialog.setCancelable(false);
+        mDialog.setCancelable(true);
 
         mDialog.findViewById(R.id.tvSubmit).setOnClickListener(v -> {
             mDialog.cancel();
@@ -94,10 +108,12 @@ public class CCAndIdTypeDialog implements ItemSelectedInterface {
             mListener.cancel();
         });
 
-        mCountryDialog = new BottomDialogHelper(mDialog.getContext(), R.layout.layout_country_list);
+        mCountryDialog = new BottomDialogHelper(mDialog.getContext(),
+                R.layout.layout_country_list);
         setCountryDialog();
 
-        mIdDialog = new BottomDialogHelper(mDialog.getContext(), R.layout.layout_id_list);
+        mIdDialog = new BottomDialogHelper(mDialog.getContext(),
+                R.layout.layout_id_list);
         setIdDialog();
     }
 
@@ -127,7 +143,8 @@ public class CCAndIdTypeDialog implements ItemSelectedInterface {
     }
 
     private void setCountryDialog() {
-        RecyclerView rv = mCountryDialog.getContentView().findViewById(R.id.rvCountries);
+        RecyclerView rv =
+                mCountryDialog.getContentView().findViewById(R.id.rvCountries);
         rv.setLayoutManager(new LinearLayoutManager(mDialog.getContext()));
         mAdapter.setListener(this);
         rv.setAdapter(mAdapter);
@@ -135,12 +152,14 @@ public class CCAndIdTypeDialog implements ItemSelectedInterface {
 
         TextWatcher textWatcher = new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
 
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            public void onTextChanged(CharSequence s, int start, int before,
+                                      int count) {
 
             }
 
@@ -150,11 +169,12 @@ public class CCAndIdTypeDialog implements ItemSelectedInterface {
             }
         };
 
-        EditText edtSearch = mCountryDialog.getContentView().findViewById(R.id.edtCountry);
+        EditText edtSearch =
+                mCountryDialog.getContentView().findViewById(R.id.edtCountry);
         edtSearch.addTextChangedListener(textWatcher);
 
         mCountryDialog.getContentView().findViewById(R.id.ivBtnCancel).setOnClickListener(
-            v -> mCountryDialog.dismissDialog());
+                v -> mCountryDialog.dismissDialog());
 
         mCountryDialog.setDismissListener(dialog -> edtSearch.setText(""));
     }
@@ -171,14 +191,17 @@ public class CCAndIdTypeDialog implements ItemSelectedInterface {
         rv.setAdapter(mIdListAdapter);
 
         mIdDialog.getContentView().findViewById(R.id.ivBtnCancel).setOnClickListener(
-            v -> mIdDialog.dismissDialog());
+                v -> mIdDialog.dismissDialog());
     }
 
-    public CCAndIdTypeDialog(Context context, boolean allCountries, DlgListener listener) {
-        View root = LayoutInflater.from(context).inflate(R.layout.layout_cc_id_type_dlg, null);
+    public CCAndIdTypeDialog(Context context, boolean allCountries,
+                             DlgListener listener) {
+        View root =
+                LayoutInflater.from(context).inflate(R.layout.layout_cc_id_type_dlg, null);
         root.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
-        mAdapter = new CountryListAdapter(allCountries? "" : SUPPORTED_COUNTRIES);
+        mAdapter = new CountryListAdapter(allCountries ? DOC_V_COUNTRIES :
+                SUPPORTED_COUNTRIES);
         mListener = listener;
         buildIdTypeDialog(context, root);
         setupViews();

@@ -87,4 +87,5 @@
     <string name="lbl_smile_ui">SMILE UI</string>
     <string name="lbl_smile_ui_enroll_id_card">Smile UI ID Card Register (Enroll)</string>
     <string name="lbl_smile_ui_enroll">Smile UI Register (Enroll)</string>
+    <string name="enroll_success_messsage">Congratulations! Your user has been successfully enrolled. They can now authenticate seamlessly.</string>
 </resources>

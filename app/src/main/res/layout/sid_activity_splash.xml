@@ -58,11 +58,6 @@
           android:onClick="move2HomeScreen"
           tools:ignore="MissingConstraints" />
 
-        <TextView
-          android:id="@+id/tvVersion"
-          style="@style/splash_screen_about_demo_txt"
-          app:layout_constraintTop_toBottomOf="@id/tvStartBtn"
-          tools:ignore="MissingConstraints" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

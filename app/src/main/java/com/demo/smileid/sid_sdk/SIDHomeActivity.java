@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,6 +16,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
+import com.smileidentity.libsmileid.BuildConfig;
+
 import java.util.ArrayList;
 
 public class SIDHomeActivity extends BaseSIDActivity implements BaseFragment.TabActionListener {
@@ -92,6 +95,14 @@ public class SIDHomeActivity extends BaseSIDActivity implements BaseFragment.Tab
     }
 
     @Override
+    public void doBVNConsent() {
+        resetJob();
+        mConsentRequired = true;
+        mKYCProductType = KYC_PRODUCT_TYPE.BVN_CONSENT;
+        startKYCProcess();
+    }
+
+    @Override
     public void openUrl(String url) {
         if (url == null || url.isEmpty()) {
             Toast.makeText(this, "URL not provided", Toast.LENGTH_LONG).show();
@@ -111,11 +122,16 @@ public class SIDHomeActivity extends BaseSIDActivity implements BaseFragment.Tab
     }
 
     protected Intent buildIntent() {
-        return new Intent(this, GetStartedActivity.class) {
-            {
-                putExtra(GetStartedActivity.REQUIRE_CONSENT, mConsentRequired);
-            }
-        };
+        return new Intent(this, GetStartedActivity.class);
+    }
+
+    protected void startKYCProcess() {
+        mCurrentIntent = buildIntent();
+        mCurrentIntent.putExtra(KYC_PRODUCT_TYPE_PARAM, mKYCProductType);
+        mCurrentIntent.putExtra(GetStartedActivity.REQUIRE_CONSENT,
+                mConsentRequired);
+        mCurrentIntent.putExtra(SIDStringExtras.EXTRA_TAG_FOR_ADD_ID_INFO, getTag());
+        coreStartKYCProcess();
     }
 
     public void onBackPressed() {

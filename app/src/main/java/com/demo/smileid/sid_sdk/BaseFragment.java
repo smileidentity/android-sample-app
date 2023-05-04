@@ -50,6 +50,7 @@ public abstract class BaseFragment extends Fragment {
         void doBiometricKYC();
         void performDocV();
         void doSmartSelfieAuth();
+        void doBVNConsent();
         void openUrl(String url);
         void move2Tab(int position);
         void move2Screen(Class classObject);

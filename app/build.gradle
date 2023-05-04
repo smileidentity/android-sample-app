@@ -13,7 +13,7 @@ android {
         sourceCompatibility 1.8
         targetCompatibility 1.8
     }
-//    signingConfigs {
+//        signingConfigs {
 //        def propFile = rootProject.file("./secrets.properties")
 //        def properties = new Properties()
 //        properties.load(new FileInputStream(propFile))
@@ -54,32 +54,16 @@ android {
     productFlavors {
     }
     packagingOptions {
-        exclude 'META-INF/androidx.*'
-        exclude 'androidx.*'
-        exclude 'META-INF/DEPENDENCIES'
-        exclude 'META-INF/versions/**/*.class'
-
-        pickFirst 'lib/armeabi-v7a/libopencv_coresid.so'
-        pickFirst 'lib/armeabi-v7a/libopencv_imgprocsid.so'
-
-        pickFirst 'lib/arm64-v8a/libopencv_coresid.so'
-        pickFirst 'lib/arm64-v8a/libopencv_imgprocsid.so'
-
-        pickFirst 'lib/x86/libopencv_coresid.so'
-        pickFirst 'lib/x86/libopencv_imgprocsid.so'
-
-        pickFirst 'lib/x86_64/libopencv_coresid.so'
-        pickFirst 'lib/x86_64/libopencv_imgprocsid.so'
-
-        pickFirst 'lib/armeabi-v7a/libsid-vision-lib.so'
-
-        pickFirst 'lib/arm64-v8a/libsid-vision-lib.so'
-
-        pickFirst 'lib/x86/libsid-vision-lib.so'
-
-        pickFirst 'lib/x86_64/libsid-vision-lib.so'
+        jniLibs {
+            excludes += ['META-INF/androidx.*', 'androidx.*']
+            pickFirsts += ['lib/armeabi-v7a/libopencv_coresid.so', 'lib/armeabi-v7a/libopencv_imgprocsid.so', 'lib/arm64-v8a/libopencv_coresid.so', 'lib/arm64-v8a/libopencv_imgprocsid.so', 'lib/x86/libopencv_coresid.so', 'lib/x86/libopencv_imgprocsid.so', 'lib/x86_64/libopencv_coresid.so', 'lib/x86_64/libopencv_imgprocsid.so', 'lib/armeabi-v7a/libsid-vision-lib.so', 'lib/arm64-v8a/libsid-vision-lib.so', 'lib/x86/libsid-vision-lib.so', 'lib/x86_64/libsid-vision-lib.so']
+        }
+        resources {
+            excludes += ['META-INF/androidx.*', 'androidx.*', 'META-INF/DEPENDENCIES', 'META-INF/versions/**/*.class']
+        }
     }
-    lintOptions {
+    namespace 'com.demo.smileid.sid_sdk'
+    lint {
         abortOnError false
     }
     applicationVariants.all { variant ->
@@ -110,19 +94,17 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.hbb20:ccp:2.6.1'
-    implementation "androidx.multidex:multidex:2.0.1"
+    implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'com.google.guava:guava:24.1-jre'
-
-//    PRODUCTION DEPENDENCIES
-    implementation 'com.smileidentity:smile-id-sdk:7.3.16'
-    implementation 'com.smileidentity:netjava:0.0.9'
-    implementation 'com.smileidentity:smile-id-ui:0.2.10'
+    
+    // PRODUCTION DEPENDENCIES
+     implementation 'com.smileidentity:smile-id-sdk:7.3.27'
+     implementation 'com.smileidentity:netjava:1.0.4'
+     implementation 'com.smileidentity:smile-id-ui:1.0.10'
+//
 
     // DEV DEPENDENCIES
 //    implementation project(':android_lib')
 //    implementation project(':smile-id-ui')
 //    implementation project(':netjava')
-//    implementation platform('com.google.firebase:firebase-bom:25.12.0')
-//    implementation 'com.google.firebase:firebase-analytics'
-//    implementation 'com.google.firebase:firebase-crashlytics'
 }

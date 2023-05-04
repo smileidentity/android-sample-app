@@ -12,5 +12,6 @@
     <string name="home_fragment_cpb_biometric_kyc" translatable="false">Biometric KYC</string>
     <string name="home_fragment_cpb_doc_v" translatable="false">Document Verification</string>
     <string name="home_fragment_cpb_smart_selfie_auth" translatable="false">SmartSelfie™\nAuthentication</string>
+    <string name="home_fragment_cpb_smart_bvn_consent" translatable="false">BVN Consent</string>
 
 </resources>

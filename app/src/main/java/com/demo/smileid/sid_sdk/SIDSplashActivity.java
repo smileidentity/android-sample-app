@@ -24,13 +24,7 @@ public class SIDSplashActivity extends AppCompatActivity {
 
         setContentView(R.layout.sid_activity_splash);
 
-        setBottomLink();
         populateLangs();
-    }
-
-    private void setBottomLink() {
-        ((TextView) findViewById(R.id.tvVersion)).setText(String.format(getString(
-                R.string.lbl_version_number), Version.name(), BuildConfig.VERSION_NAME));
     }
 
     private void populateLangs() {
