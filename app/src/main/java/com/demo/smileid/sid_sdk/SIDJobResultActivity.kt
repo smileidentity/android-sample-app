@@ -105,6 +105,7 @@ class SIDJobResultActivity : BaseSIDActivity(),
         mSIDNetworkRequest.setOnAuthenticatedListener(this)
         mSIDNetworkRequest.setOnDocVerificationListener(this)
         mSIDNetworkRequest.setOnIDValidationListener(this)
+        mSIDNetworkRequest.setJobStatusPollingTimeoutMillis(120_000)
     }
 
     fun uploadNow(view: View?) {
