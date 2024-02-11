@@ -4,7 +4,7 @@ on:
   push:
     branches: [ "*" ]
   pull_request:
-    branches: [ "master" , "develop" ]
+    branches: [ "master", "develop" ]
 
 permissions:
   contents: read
@@ -25,24 +25,23 @@ jobs:
     - name: initialize gradle
       run: gradle init
     - name: Create secret-file.txt from B64_SECRET1
-      id: secret-file1
       run: |
         $secretFile = Join-Path -Path $env:GITHUB_WORKSPACE -ChildPath "app/smile_config.json";
         $encodedBytes = [System.Convert]::FromBase64String($env:SECRET_DATA1);
         Set-Content $secretFile -Value $encodedBytes -AsByteStream;
         $secretFileHash = Get-FileHash $secretFile;
-        Write-Output "::set-output name=SECRET_FILE::$secretFile";
-        Write-Output "::set-output name=SECRET_FILE_HASH::$($secretFileHash.Hash)";
+        echo "SECRET_FILE=$secretFile" >> $GITHUB_ENV;
+        echo "SECRET_FILE_HASH=$($secretFileHash.Hash)" >> $GITHUB_ENV;
       shell: pwsh
       env:
         SECRET_DATA1: ${{ secrets.B64_SECRET1 }}
     - name: "Get branch name and save to env"
-      if: ${{ github.EVENT_NAME == 'pull_request' }}
+      if: ${{ github.event_name == 'pull_request' }}
       run: |
           BRANCH_NAME="${GITHUB_HEAD_REF}"
           echo "BRANCH_NAME=${BRANCH_NAME}" >> $GITHUB_ENV
     - name: "Get branch name and save to env"
-      if: ${{ github.EVENT_NAME == 'push' }}
+      if: ${{ github.event_name == 'push' }}
       run: |
           BRANCH_NAME="${GITHUB_REF##*/}"
           echo "BRANCH_NAME=${BRANCH_NAME}" >> $GITHUB_ENV
@@ -59,5 +58,4 @@ jobs:
       shell: pwsh
       if: always()
       env:
-        SECRET_FILE: ${{ steps.secret-file1.outputs.SECRET_FILE }}
-    
+        SECRET_FILE: ${{ env.SECRET_FILE }}
