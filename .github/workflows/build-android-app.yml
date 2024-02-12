@@ -52,9 +52,18 @@ jobs:
         SID_AWS_BUCKET: ${{ secrets.SID_AWS_BUCKET }}
         SID_AWS_REGION: ${{ secrets.SID_AWS_REGION }}
         SLACK_URL: ${{ secrets.SLACK_URL }}
+    - name: Debug secret file path
+      run: |
+        Write-Host "SECRET_FILE is: $env:SECRET_FILE"
+      shell: pwsh
+      if: always()
     - name: Delete secret file
       run: |
-        Remove-Item -Path $env:SECRET_FILE;
+        if (Test-Path -Path $env:SECRET_FILE) {
+          Remove-Item -Path $env:SECRET_FILE;
+        } else {
+          Write-Host "SECRET_FILE environment variable is not set or points to a non-existent file.";
+        }
       shell: pwsh
       if: always()
       env:
