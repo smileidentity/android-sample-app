@@ -8,4 +8,4 @@ Please use the version 10 Android SDK, available at https://github.com/smileiden
 
 The sample app for version 10 is located in the same repository, under the `sample` directory: https://github.com/smileidentity/android/tree/main/sample.
 
-Additional information is available in the docs: https://docs.usesmileid.com/integration-options/mobile/android-v10
+Additional information is available in the documentation: https://docs.usesmileid.com/integration-options/mobile/android-v10.
