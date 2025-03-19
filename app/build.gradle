@@ -5,14 +5,23 @@ apply plugin: 'kotlin-android'
 //apply plugin: 'com.google.gms.google-services'
 //apply plugin: 'com.google.firebase.crashlytics'
 
+
 android {
+    namespace = "com.demo.smileid.sid_sdk"
+
     testOptions {
         unitTests.includeAndroidResources = true
     }
+
     compileOptions {
-        sourceCompatibility 1.8
-        targetCompatibility 1.8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
+
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+
 //        signingConfigs {
 //        def propFile = rootProject.file("./secrets.properties")
 //        def properties = new Properties()
@@ -24,18 +33,23 @@ android {
 //            storeFile file('app_keystore.keystore')
 //        }
 //    }
-    compileSdkVersion 33
+    compileSdk 35
     ndkVersion '21.3.6528147'
     defaultConfig {
         applicationId "com.demo.smileid.sid_sdk_3_0"
-        minSdkVersion 19
-        targetSdkVersion 33
+        minSdkVersion 21
+        targetSdkVersion 35
         versionCode 1
         versionName "0.0.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 //        signingConfig signingConfigs.config
         multiDexEnabled true
     }
+
+    buildFeatures {
+        buildConfig true
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -53,6 +67,9 @@ android {
     }
     productFlavors {
     }
+//    dexOptions {
+//        javaMaxHeapSize "4g"
+//    }
     packagingOptions {
         jniLibs {
             excludes += ['META-INF/androidx.*', 'androidx.*']
@@ -62,10 +79,11 @@ android {
             excludes += ['META-INF/androidx.*', 'androidx.*', 'META-INF/DEPENDENCIES', 'META-INF/versions/**/*.class']
         }
     }
-    namespace 'com.demo.smileid.sid_sdk'
+
     lint {
         abortOnError false
     }
+
     applicationVariants.all { variant ->
         variant.outputs.all {
             def flavor = variant.name
@@ -86,25 +104,25 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
+    implementation 'com.google.android.material:material:1.12.0'
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-    implementation 'com.google.code.gson:gson:2.9.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
+    implementation 'com.google.code.gson:gson:2.12.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'com.hbb20:ccp:2.6.1'
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation 'com.google.guava:guava:24.1-jre'
+    implementation 'com.google.guava:guava:33.3.1-jre'
     
     // PRODUCTION DEPENDENCIES
-//     implementation 'com.smileidentity:smile-id-sdk:7.3.27'
-//     implementation 'com.smileidentity:netjava:1.0.4'
-//     implementation 'com.smileidentity:smile-id-ui:1.0.10'
+     implementation 'com.smileidentity:smile-id-sdk:7.3.35'
+     implementation 'com.smileidentity:netjava:1.0.5'
+     implementation 'com.smileidentity:smile-id-ui:1.0.10'
 //
 
     // DEV DEPENDENCIES
-    implementation project(':android_lib')
-    implementation project(':smile-id-ui')
-    implementation project(':netjava')
+//    implementation project(':android_lib')
+//    implementation project(':smile-id-ui')
+//    implementation project(':netjava')
 }
