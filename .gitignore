@@ -1,0 +1,45 @@
+# Gradle
+.gradle/
+build/
+local.properties
+
+# Kotlin 2.0
+.kotlin/
+
+# Build artifacts
+*.apk
+*.aab
+*.aar
+*.class
+*.dex
+.externalNativeBuild
+.cxx
+
+# Generated files
+gen/
+javadoc/
+captures/
+
+# IntelliJ
+*.iml
+.idea/
+
+# Keystore files
+*.jks
+*.keystore
+
+# macOS
+.DS_Store
+
+# Google Services (e.g. APIs or Firebase)
+google-services.json
+
+# Android Profiling
+*.hprof
+
+# Smile Config
+smile_config.json
+
+play_console_github_actions_service_account_credentials.json
+
+sample/release/*
