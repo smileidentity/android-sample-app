@@ -1,0 +1,47 @@
+# Fails because of this issue below (add comma's back when we get a fix for this)
+# https://github.com/gradle/gradle-build-action/issues/758
+name: Lint Build and Test
+on:
+  pull_request:
+  merge_group:
+  push:
+    branches: [ main ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+# Lints code, builds all modules, runs tests, assembles AAR and APK, and publishes Snapshot
+jobs:
+  build:
+    runs-on: ubuntu-latest-larger
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v5
+
+      - name: Lint and Build
+        # NB! The "lint" gradle action here is different than ktLint
+        run: ./gradlew ktlintCheck lint build
+        env:
+          ORG_GRADLE_PROJECT_VERSION_NAME: ${{ steps.version.outputs.version }}
+
+      - name: Assemble Debug Build
+        run: ./gradlew assembleDebug
+        env:
+          ORG_GRADLE_PROJECT_VERSION_NAME: ${{ steps.version.outputs.version }}
+
+      - name: Run Tests and Collect Coverage
+        run: ./gradlew test
+
+      - name: Archive Sample App
+        uses: actions/upload-artifact@v4
+        with:
+          name: Sample App APK
+          path: sample/build/outputs/apk/debug/sample-debug.apk
