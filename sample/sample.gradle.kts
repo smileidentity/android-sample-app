@@ -108,6 +108,7 @@ tasks.named("assemble") {
 }
 
 dependencies {
+    implementation(libs.smile.android.sdk)
     implementation(libs.kotlin.immutable.collections)
     implementation(libs.androidx.core)
     implementation(libs.datastore)

@@ -1,5 +1,6 @@
 [versions]
 android-gradle-plugin = "8.13.0"
+smile-android-sdk = "11.1.2"
 androidx-activity = "1.11.0"
 androidx-core = "1.17.0"
 kotlin = "2.2.20"
@@ -24,6 +25,7 @@ mlkit-code-scanner = "16.1.0"
 coroutines = "1.10.2"
 
 [libraries]
+smile-android-sdk = { module = "com.smileidentity:android-sdk", version.ref = "smile-android-sdk" }
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
 androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidx-lifecycle" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
