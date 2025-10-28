@@ -135,6 +135,7 @@ dependencies {
 
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.material.icons)
     implementation(libs.androidx.compose.ui.tooling.preview) // Android Studio Preview support
     debugImplementation(libs.androidx.compose.ui.tooling) // Android Studio Preview support
     debugImplementation(libs.androidx.compose.ui.test.manifest) // UI Tests
