@@ -41,7 +41,7 @@ jobs:
         run: ./gradlew test
 
       - name: Archive Sample App
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: Sample App APK
           path: sample/build/outputs/apk/debug/sample-debug.apk
