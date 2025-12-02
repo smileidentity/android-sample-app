@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest-larger
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         # Fetch all history so that we can calculate the version code
         with:
           fetch-depth: 0
