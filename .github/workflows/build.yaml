@@ -33,7 +33,14 @@ jobs:
           ORG_GRADLE_PROJECT_VERSION_NAME: ${{ steps.version.outputs.version }}
 
       - name: Assemble Debug Build
-        run: ./gradlew assembleDebug
+        run: |
+          ./gradlew assembleDebug
+          MERGED_MANIFEST="app/build/intermediates/merged_manifests/release/AndroidManifest.xml"
+          MIN_SDK=$(grep -oP 'android:minSdkVersion="\K[0-9]+' "$MERGED_MANIFEST")
+          if [ "$MIN_SDK" -gt 21 ]; then
+            echo "❌ minSdk was bumped to $MIN_SDK! Check your dependencies."
+            exit 1
+          fi
         env:
           ORG_GRADLE_PROJECT_VERSION_NAME: ${{ steps.version.outputs.version }}
 
