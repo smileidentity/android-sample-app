@@ -66,6 +66,7 @@ import com.smileidentity.compose.SmartSelfieEnrollmentEnhanced
 import com.smileidentity.models.ConsentInformation
 import com.smileidentity.models.IdInfo
 import com.smileidentity.models.JobType
+import com.smileidentity.models.SmileSensitivity
 import com.smileidentity.results.SmileIDResult
 import com.smileidentity.sample.BottomNavigationScreen
 import com.smileidentity.sample.ProductScreen
@@ -184,6 +185,7 @@ fun MainScreen(
                         jobId = jobId,
                         allowAgentMode = true,
                         showInstructions = true,
+                        smileSensitivity = SmileSensitivity.NORMAL
                     ) { result ->
                         viewModel.onSmartSelfieEnrollmentResult(userId, jobId, result)
                         navController.popBackStack()
@@ -211,6 +213,7 @@ fun MainScreen(
                         userId = userId,
                         jobId = jobId,
                         allowAgentMode = true,
+                        smileSensitivity = SmileSensitivity.NORMAL
                     ) { result ->
                         viewModel.onSmartSelfieAuthenticationResult(userId, jobId, result)
                         navController.popBackStack()
@@ -327,6 +330,7 @@ fun MainScreen(
                         captureBothSides = it.arguments?.getString("captureBothSides").toBoolean(),
                         showInstructions = true,
                         allowGalleryUpload = true,
+                        smileSensitivity = SmileSensitivity.NORMAL
                     ) { result ->
                         viewModel.onDocumentVerificationResult(userId, jobId, result)
                         if (result is SmileIDResult.Success) {
