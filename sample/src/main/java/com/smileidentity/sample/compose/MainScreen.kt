@@ -185,7 +185,7 @@ fun MainScreen(
                         jobId = jobId,
                         allowAgentMode = true,
                         showInstructions = true,
-                        smileSensitivity = SmileSensitivity.NORMAL
+                        smileSensitivity = SmileSensitivity.NORMAL,
                     ) { result ->
                         viewModel.onSmartSelfieEnrollmentResult(userId, jobId, result)
                         navController.popBackStack()
@@ -213,7 +213,7 @@ fun MainScreen(
                         userId = userId,
                         jobId = jobId,
                         allowAgentMode = true,
-                        smileSensitivity = SmileSensitivity.NORMAL
+                        smileSensitivity = SmileSensitivity.NORMAL,
                     ) { result ->
                         viewModel.onSmartSelfieAuthenticationResult(userId, jobId, result)
                         navController.popBackStack()
@@ -330,7 +330,7 @@ fun MainScreen(
                         captureBothSides = it.arguments?.getString("captureBothSides").toBoolean(),
                         showInstructions = true,
                         allowGalleryUpload = true,
-                        smileSensitivity = SmileSensitivity.NORMAL
+                        smileSensitivity = SmileSensitivity.NORMAL,
                     ) { result ->
                         viewModel.onDocumentVerificationResult(userId, jobId, result)
                         if (result is SmileIDResult.Success) {
