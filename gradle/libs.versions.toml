@@ -1,5 +1,5 @@
 [versions]
-android-gradle-plugin = "8.13.2"
+android-gradle-plugin = "9.0.0"
 smile-android-sdk = "11.1.7"
 androidx-activity = "1.11.0"
 androidx-core = "1.17.0"
