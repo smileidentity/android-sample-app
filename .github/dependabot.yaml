@@ -22,24 +22,8 @@ updates:
       - dependency-name: "gradle"
     groups:
       # https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file#groups
-      # Group updates together, so that they are all applied in a single PR.
-      kotlin:
-        # KSP and Kotlin updates need to be applied simultaneously
-        patterns:
-          - "com.google.devtools.ksp"
-          - "org.jetbrains.kotlin.*"
-          - "dev.zacsweers.moshix"
-      agp:
-        # We often want to hold off on AGP updates, so bump this separately
-        patterns:
-          - "com.android.*"
-      androidx:
-        # AndroidX updates often include behavioral changes that need to be tested
-        patterns:
-          - "androidx.*"
+      # Group all patch and minor updates together
       all:
-        # Group all patch and minor updates together. Kotlin/KSP/AGP updates belong to earlier
-        # groups so they will not be updated as part of this group
         update-types:
           - "patch"
           - "minor"
