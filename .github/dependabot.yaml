@@ -20,6 +20,8 @@ updates:
       - dependency-name: "dev.zacsweers.moshix"
       # Ignore Gradle wrapper updates
       - dependency-name: "gradle"
+      # Ignore Chucker updates as v4.3.1+ bumps the minSDK requirement
+      - dependency-name: "com.github.chuckerteam.chucker"
     groups:
       # https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file#groups
       # Group all patch and minor updates together
