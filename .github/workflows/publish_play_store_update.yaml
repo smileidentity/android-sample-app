@@ -23,7 +23,7 @@ jobs:
           java-version: 17
       - name: Decode Keystore
         id: decode_keystore
-        uses: timheuer/base64-to-file@v1
+        uses: timheuer/base64-to-file@v2
         with:
           fileName: 'upload.jks'
           fileDir: './sample'
